@@ -1,35 +1,22 @@
-*.py[cod]
+# backup, log files and compiled sources
+*.*~
+*.bak
+*.log
+*.ogg
+*.ogv
+*.pyc
+*.swp
+*.wav
+*.avi
 
-# C extensions
-*.so
+# sqlite database files and web2py table structs
+*.sqlite
+*.table
 
-# Packages
-*.egg
-*.egg-info
-dist
-build
-eggs
-parts
-bin
-var
-sdist
-develop-eggs
-.installed.cfg
-lib
-lib64
+# web2py cache, errors and sessions files
+cache/*
+errors/*
+sessions/*
 
-# Installer logs
-pip-log.txt
+# project ignored files
 
-# Unit test / coverage reports
-.coverage
-.tox
-nosetests.xml
-
-# Translations
-*.mo
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
