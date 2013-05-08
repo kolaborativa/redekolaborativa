@@ -43,8 +43,7 @@ from gluon.tools import Auth, Crud, Service, PluginManager, prettydate
 auth = Auth(db)
 crud, service, plugins = Crud(db), Service(), PluginManager()
 
-## create all tables needed by auth if not custom tables
-auth.define_tables(username=False, signature=False)
+
 
 ## configure email
 mail = auth.settings.mailer
@@ -61,6 +60,24 @@ auth.settings.reset_password_requires_verification = True
 ## register with janrain.com, write your domain:api_key in private/janrain.key
 from gluon.contrib.login_methods.rpx_account import use_janrain
 use_janrain(auth, filename='private/janrain.key')
+
+#addctional auth settings
+auth.settings.formstyle = "divs"
+auth.messages.register_button = "Kolaborar!"
+
+
+#auth user extra fields
+auth.settings.extra_fields["auth_user"] = [
+     Field("idade","integer"),
+     Field("localidade",label="Localidade (bairro/cidade/estado/país)"),
+     Field("bio", "text", default="Fale sobre você"),
+     Field("avatar", "upload"),
+     Field("redes_sociais", "list:string", label="Contatos de redes sociais"),
+     Field("profissao",label="Profissão")
+]
+
+## create all tables needed by auth if not custom tables
+auth.define_tables(username=False, signature=False)
 
 #########################################################################
 ## Define your tables below (or better in another model file) for example

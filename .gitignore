@@ -17,6 +17,8 @@
 cache/*
 errors/*
 sessions/*
+uploads/*
+databases/*
 
 # project ignored files
 
