@@ -1,0 +1,179 @@
+html, body {
+    height: 100%;
+    background-color: #ff6600;
+    color: #fff;
+    font-family: 'Lato';
+}
+
+#container {
+    min-height: 100%;
+}
+
+* html #container {
+    height: 100%;
+}
+
+h1 {
+    margin: 0 auto;
+    margin-top: 13%;
+}
+
+h2 {
+    margin-top: 10%;
+    font-family: 'Expletus Sans';
+    font-size: 30px;
+    padding: 5px 40px;
+}
+
+p {
+    padding: 5px 40px;
+    font-size: 18px;
+}
+
+input[type="email"] {
+    width: 60%;
+    margin: 5px 0px 5px 40px;
+    padding: 18px 20px;
+    border: none;
+    font-size: 20px;
+}
+
+input[type="submit"] {
+    padding: 18px 45px;
+    background-color: #00aa00;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+}
+
+input[type="submit"]:hover {
+    background-color: green;
+}
+
+input[type="submit"]:active {
+    background-color: #00aa00;
+}
+
+.fleft {
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+.column-left {
+    width: 40%;
+}
+
+.column-right {
+    width: 60%;
+    background-color: #552200;
+}
+
+#footer p {
+    font-size: 14px;
+}
+
+#footer-left {
+    padding-top: 70px;
+}
+
+#footer-left .logo {
+    margin: 0 auto;
+}
+
+#footer-right {
+    background-color: #aa4400;
+}
+
+#content-footer-right {
+    width: 75%;
+}
+
+#logo-footer-right {
+    width: 25%;
+    background-color: #ff6600;
+    display: table;
+}
+
+#mini-logo {
+   display: table-cell;
+   vertical-align: middle;
+}
+
+#mini-logo .logo {
+    margin: 0 auto;
+}
+
+#social {
+    width: 60%;
+    padding-right: 0px;
+    padding-top: 0px;
+}
+
+#social a {
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#social a:hover {
+    color: #ccc;
+}
+
+#follow {
+    width: 30%;
+    padding-left: 0px;
+    padding: 5px;
+    border-left: 2px solid #552200;
+}
+
+#follow li {
+    list-style: none;
+    float: left;
+    margin-left: 8px;
+    font-size: 13px;
+}
+
+.icon-facebook, .icon-gplus, .icon-twitter, .kolaborativa-icones-variados, .kolaborativa-logo-pequeno, .kolaborativa-rede-logotipo{
+    background: url(../images/home_sprite.png) no-repeat;
+}
+
+.icon-facebook{
+    background-position: -268px -59px ;
+    width: 23px;
+    height: 23px;
+}
+
+.icon-gplus{
+    background-position: -310px -61px ;
+    width: 23px;
+    height: 23px;
+}
+
+.icon-twitter{
+    background-position: -229px -58px ;
+    width: 23px;
+    height: 23px;
+}
+
+.kolaborativa-icones-variados{
+    background-position: -16px 0;
+    width: 390px;
+    height: 33px;
+}
+
+.kolaborativa-logo-pequeno{
+    background-position: -49px -52px ;
+    width: 149px;
+    height: 68px;
+}
+
+.kolaborativa-rede-logotipo{
+    background-position: 0 -131px ;
+    width: 423px;
+    height: 202px;
+}
+
