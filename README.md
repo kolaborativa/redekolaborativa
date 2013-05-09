@@ -1,14 +1,14 @@
 Kolaborativa
 ============
 
-**Kolaborativa** is a social network of community of professionals current web: if you is designer, developer, media analyst social, SEO manager, works with online advertising, makes games for the web, it develops apps for Mobile, is waging in the digital medium or makes anything that involves the web, etc.. it's for you!
+**Kolaborativa** is a social network of professionals of the current web. If you are a Designer, Developer, Social Media Analyst, SEO Manager, works with online advertising, makes games for the web, develops apps for mobile, is waging in the digital medium or makes anything that involves the web, that's the place for you!
 
 ---------------------------------------
 
 Dependencies
 --------------
 
-The Kolaborativa is a web2py application and run it you will need:
+The Kolaborativa social network is a web2py application and in order for you to run it, you will need:
 
 - Python 2.7.x
 - Web2Py 2.4.6
