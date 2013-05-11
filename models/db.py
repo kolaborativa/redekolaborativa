@@ -63,27 +63,32 @@ use_janrain(auth, filename='private/janrain.key')
 
 # addctional auth settings
 auth.settings.formstyle = "divs"
-auth.messages.register_button = "Kolaborar!"
+auth.messages.register_button = T("Kollaborate!")
 
 
 # auth user extra fields
 auth.settings.extra_fields["auth_user"] = [
-    Field("username"),
-    Field("idade", "integer", label='Idade(opcional)'),
-    Field("localidade", label="Localidade (bairro/cidade/estado/país)"),
-    Field("bio", "text", default="Fale sobre você"),
+    Field("age", "integer", label='Age (optional)'),
+    Field("localization", label='Localization (district/city/state/country)'),
+    Field("bio", "text"),
     Field("avatar", "upload"),
-    Field("redes_sociais", "list:string", label="Contatos de redes sociais"),
-    Field("profissao", label="Profissão")
+    Field("social_networking", "list:string"),
+    Field("profession"),
+    Field("competencies", "list:string")
 ]
 
-# create all tables needed by auth if not custom tables
-auth.define_tables(username=True, signature=False)
-
 # costumize login form
-auth.settings.register_fields = ['avatar', 'username', 'idade', 'localidade',
-                                 'profissao', 'redes_sociais', 'bio', 'email',
-                                 'password']
+auth.settings.register_fields = [
+    'avatar', 'first_name', 'last_name', 'age', 'localization',
+    'profession', 'competencies', 'social_networking', 'bio', 'email',
+    'password']
+
+# create all tables needed by auth if not custom tables
+auth.define_tables(username=False, signature=False)
+
+# auth default attributes rename
+db.auth_user.first_name.label = "Name"
+db.auth_user.last_name.label = "Nickname"
 
 #
 # Define your tables below (or better in another model file) for example
