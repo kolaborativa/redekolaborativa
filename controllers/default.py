@@ -13,6 +13,8 @@
 def index():
     return dict(form=auth.login())
 
+def principal():
+    return dict()
 
 def user():
     """
