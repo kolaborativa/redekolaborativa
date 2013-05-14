@@ -36,8 +36,12 @@
   <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables
-       HTML5 elements & feature detects -->
+       HTML5 elements & feature detects and UserVoice wich enables
+       open the pop-up feedback -->
   <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>
+  <!-- UserVoice JavaScript SDK (only needed once on a page) -->
+<script>(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/UDNbo04kVRMcwFIutkqhxw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()</script>
+  
 
   <!-- include stylesheets -->
   {{  
@@ -166,4 +170,3 @@
   <script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script>
 </body>
 </html>
-
