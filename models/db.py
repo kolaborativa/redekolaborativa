@@ -74,17 +74,18 @@ auth.settings.extra_fields["auth_user"] = [
     Field("avatar", "upload"),
     Field("social_networking", "list:string"),
     Field("profession"),
-    Field("competencies", "list:string")
+    Field("competencies", "list:string"),
+    Field("availability", "list:string", widget=SQLFORM.widgets.checkboxes.widget, requires=IS_IN_SET( [ ('OpenSource', T('OpenSource')), ('Enterprising', T('Enterprising')) ], multiple=True))
 ]
 
 # costumize login form
 auth.settings.register_fields = [
-    'avatar', 'first_name', 'last_name', 'age', 'localization',
-    'profession', 'competencies', 'social_networking', 'bio', 'email',
+    'avatar', 'first_name', 'last_name', 'username', 'age', 'localization',
+    'profession', 'competencies', 'social_networking', 'availability', 'bio', 'email',
     'password']
 
 # create all tables needed by auth if not custom tables
-auth.define_tables(username=False, signature=False)
+auth.define_tables(username=True, signature=False)
 
 # auth default attributes rename
 db.auth_user.first_name.label = "Name"

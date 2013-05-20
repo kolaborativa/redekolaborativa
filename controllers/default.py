@@ -32,6 +32,12 @@ def user():
     """
     return dict(form=auth())
 
+def user_info():
+    message = T("User doesn't exist.")
+    user = db.auth_user(username=request.args(0)) or message
+    return dict(user=user, message=message)
+
+
 
 def download():
     """
