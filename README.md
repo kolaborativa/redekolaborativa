@@ -33,6 +33,8 @@ Installation
 
     http://localhost:8000/kolaborativa
 
+**Obs:** There is a scripts folder that contain all the scripts needed to the application run correctly. Read the README file of the scripts folder to know how to use each of them.
+
 
 Developed by:
 --------------
