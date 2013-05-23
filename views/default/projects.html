@@ -1,0 +1,35 @@
+{{extend 'layout.html'}}
+{{if project != message:}}
+<h1>{{=T("Project Name")}}</h1>
+<table>
+<tr>
+<td width="80%">
+<h3>{{=T("Project Info")}}</h3>
+<b>{{=T("Name")}}:</b> {{=project.name}}<br>
+<b>{{=T("Type")}}:</b> {{=project.project_type}}<br>
+<b>{{=T("Owner")}}:</b> {{=project.project_owner.username}}<br>
+<b>{{=T("Description")}}:</b> {{=project.description}}
+</td>
+<td>
+<img src={{=URL('download', args=project.image)}} width="168px" height="168px">
+</td>
+</tr>
+<tr>
+<td>
+<h3>{{=T("Who is Kolaborating")}}</h3>
+{{for i in project.team:}}
+{{rows = db(db.auth_user.id == i).select()}}
+	{{for row in rows:}}
+		{{if not row.avatar:}}
+		<a href="/{{=row.username}}"><img src="{{=URL('static', 'images/non_avatar.gif')}}" width="50px" height="50px"></a>
+		{{else:}}
+		<a href="/{{=row.username}}"><img src={{=URL('download', args=row.avatar)}} width="50px" height="50px"></a>
+		{{pass}}
+	{{pass}}
+{{pass}}
+</td>
+</tr>
+</table>
+{{else:}}
+{{=project}}
+{{pass}}

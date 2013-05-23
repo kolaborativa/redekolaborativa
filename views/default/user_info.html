@@ -2,15 +2,18 @@
 {{if user != message:}}
 <h1>{{=user.username}}</h1>
 <div id="user_info">
+<table id="profile">
+<tr>
+<td>
 <h3>{{=T("Personal Info")}}</h3>
 <b>{{=T("Name")}}:</b> {{=user.first_name}}{{=' '}}{{=user.last_name}}<br>
 <b>{{=T("Age")}}:</b> {{=user.age}}<br>
 <b>{{=T("Localization")}}:</b> {{=user.localization}}<br>
 <b>{{=T("Biography")}}</b><br>
 {{=user.bio}}
-</div>
+</td>
 
-<div id="user_info">
+<td>
 <h3>{{=T("Professional Info")}}</h3>
 <b>{{=T("Profession")}}:</b> {{=user.profession}}<br>
 <b>{{=T("Competencies")}}:</b>{{x = len(user.competencies)-1}}
@@ -38,11 +41,87 @@
 						{{=i}}, 
 						{{pass}}
 					{{pass}}
-</div>
+</td>
 
-<div id="avatar">
+<td>
+{{if not user.avatar:}}
+<img src={{=URL('static', '/images/non_avatar.gif')}} width="168px" height="168px">
+{{else:}}
 <img src={{=URL(f='download', args=user.avatar)}} width="168px" height="168px">
-</div>
+{{pass}}
+</td>
+</tr>
+<tr>
+<td>
+<h3>{{=T("My Last Project")}}</h3>
+{{if last_project:}}
+<h4>{{=last_project.name}}</h4><br>
+<a href={{=URL('projects', args=last_project.id)}}><img src={{=URL(f='download', args=last_project.image)}} width="100px" height="100px" align="left"></a>
+{{if len(last_project.description) > 255:}}
+{{=last_project.description[0:255]}}... <a href='#'>Leia mais</a>
+{{else:}}
+{{=last_project.description}}
+{{pass}}
+<br>
+<b>{{=T("Type")}}:</b>{{=last_project.project_type}}
+{{else:}}
+{{=None}}
+{{pass}}
+</td>
+<td>
+<h3>{{=T("My Projects")}}</h3>
+{{if my_projects:}}
+<table>
+<tr>
+<th></th>
+<th>{{=T("Name")}}</th>
+<th>{{=T("Type")}}</th>
+<th>{{=T("Date")}}</th>
+</tr>
+{{for l in my_projects:}}
+<tr>
+<td><a href={{=URL('projects', args=l.id)}}><img src={{=URL(f='download', args=l.image)}} width="40px" height="40px"></a></td>
+<td>{{=l.name}}</td>
+<td>{{=l.project_type}}</td>
+<td>{{=l.created_on}}</td>
+</tr>
+{{pass}}
+</table>
+{{if len(my_projects) > 5:}}
+{{=A(T('Read more'), _href="#")}}
+{{pass}}
+{{else:}}
+{{=None}}
+{{pass}}
+</td>
+<td>
+<h3>{{=T("Projects I Colaborate")}}</h3>
+{{if colaborate_projects:}}
+<table>
+<tr>
+<th></th>
+<th>{{=T("Name")}}</th>
+<th>{{=T("Type")}}</th>
+<th>{{=T("Date")}}</th>
+</tr>
+{{for l in colaborate_projects:}}
+<tr>
+<td><a href={{=URL('projects', args=colaborate_projects[l].id)}}><img src={{=URL(f='download', args=colaborate_projects[l].image)}} width="40px" height="40px"></a></td>
+<td>{{=colaborate_projects[l].name}}</td>
+<td>{{=colaborate_projects[l].project_type}}</td>
+<td>{{=colaborate_projects[l].created_on}}</td>
+</tr>
+{{pass}}
+</table>
+{{if len(colaborate_projects) > 5:}}
+{{=A(T('Read more'), _href="#")}}
+{{pass}}
+{{else:}}
+{{=None}}
+{{pass}}
+</td>
+</tr>
+</table>
 {{else:}}
 {{=user}}
 {{pass}}
