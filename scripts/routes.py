@@ -68,7 +68,7 @@ routes_out = (
     (r'/app(?P<any>.*)', r'\g<any>'),
     # restore the BASE prefix
     ('/kolaborativa/default/index', BASE + '/'),
-    ('/kolaborativa/default/principal', BASE + '/'),
+    ('/kolaborativa/default/principal', BASE + '/principal'),
     ('/kolaborativa/default/user/$anything', BASE + '/user/$anything'),
     ('/kolaborativa/default/user_info/$anything', BASE + 'user_info/$anything'),
     ('/kolaborativa/default/projects/$anything', BASE + '/projects/$anything'),
