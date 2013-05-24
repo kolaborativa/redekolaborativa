@@ -35,8 +35,29 @@ def user():
 def user_info():
     message = T("User doesn't exist.")
     user = db.auth_user(username=request.args(0)) or message
-    return dict(user=user, message=message)
+    last_project = db(db.projects.project_owner == user).select(orderby='created_on').last()
+    my_projects = db(db.projects.project_owner == user).select(orderby='created_on', limitby=(0,5))
+    user_id = user.id
+    team = db(db.projects).select(orderby='created_on', limitby=(0,5))
+    colaborate_projects = {}
+    for n,i in enumerate(team):
+        if str(user_id) in i.team:
+            colaborate_projects[n] = i
+    return dict(user=user, message=message, last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
 
+def projects():
+    message = T("Project not found.")
+    project = db.projects(id=request.args(0)) or message
+    return dict(project=project, message=message)
+
+@auth.requires_login()
+def create_project():
+    form = SQLFORM(db.projects)
+    if form.process().accepted:
+        response.flash = T('Project created!')
+    elif form.errors:
+        response.flash = T('Form has errors!')
+    return dict(form=form)
 
 
 def download():
