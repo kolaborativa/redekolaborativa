@@ -40,9 +40,12 @@ def user_info():
     user_id = user.id
     team = db(db.projects).select(orderby=db.projects.created_on, limitby=(0,5)) or None
     colaborate_projects = {}
-    for n,i in enumerate(team):
-        if str(user_id) in i.team:
-            colaborate_projects[n] = i
+    if team != None:
+        for n,i in enumerate(team):
+            if str(user_id) in i.team:
+                colaborate_projects[n] = i
+    else:
+        colaborate_projects = None
     return dict(user=user, message=message, last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
 
 def projects():
