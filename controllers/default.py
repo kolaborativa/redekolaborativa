@@ -35,10 +35,10 @@ def user():
 def user_info():
     message = T("User doesn't exist.")
     user = db.auth_user(username=request.args(0)) or message
-    last_project = db(db.projects.project_owner == user).select(orderby='created_on').last()
-    my_projects = db(db.projects.project_owner == user).select(orderby='created_on', limitby=(0,5))
+    last_project = db(db.projects.project_owner == user.id).select(orderby=db.projects.created_on).last() or None
+    my_projects = db(db.projects.project_owner == user.id).select(orderby=db.projects.created_on, limitby=(0,5)) or None
     user_id = user.id
-    team = db(db.projects).select(orderby='created_on', limitby=(0,5))
+    team = db(db.projects).select(orderby=db.projects.created_on, limitby=(0,5)) or None
     colaborate_projects = {}
     for n,i in enumerate(team):
         if str(user_id) in i.team:

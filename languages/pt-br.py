@@ -165,6 +165,7 @@
 'RAM': 'RAM',
 'RAM Cache Keys': 'RAM Cache Keys',
 'Ram Cleared': 'Ram Cleared',
+'Read more': 'Leia mais',
 'Recipes': 'Receitas',
 'Record': 'registro',
 'record does not exist': 'registro não existe',
