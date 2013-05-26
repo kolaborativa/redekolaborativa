@@ -65,7 +65,7 @@
 <br>
 <b>{{=T("Type")}}:</b>{{=last_project.project_type}}
 {{else:}}
-{{=None}}
+{{=T("None")}}
 {{pass}}
 </td>
 <td>
@@ -91,7 +91,7 @@
 {{=A(T('Read more'), _href="#")}}
 {{pass}}
 {{else:}}
-{{=None}}
+{{=T("None")}}
 {{pass}}
 </td>
 <td>
@@ -103,6 +103,7 @@
 <th>{{=T("Name")}}</th>
 <th>{{=T("Type")}}</th>
 <th>{{=T("Date")}}</th>
+<th>{{=T("Function")}}</th>
 </tr>
 {{for l in colaborate_projects:}}
 <tr>
@@ -110,6 +111,15 @@
 <td>{{=colaborate_projects[l].name}}</td>
 <td>{{=colaborate_projects[l].project_type}}</td>
 <td>{{=colaborate_projects[l].created_on}}</td>
+<td>{{user_function = db((db.team_function.user_id == user.id)&(db.team_function.project_id == colaborate_projects[l].id)).select(db.team_function.role).as_list()}}
+      		{{if user_function:}}
+      			{{for x,y in user_function[0].iteritems():}}
+      			{{=y}}
+      			{{pass}}<br>
+      		{{else:}}
+      		{{=T("Undefined")}}<br>
+    		{{pass}}
+</td>
 </tr>
 {{pass}}
 </table>
@@ -117,7 +127,7 @@
 {{=A(T('Read more'), _href="#")}}
 {{pass}}
 {{else:}}
-{{=None}}
+{{=T("None")}}
 {{pass}}
 </td>
 </tr>

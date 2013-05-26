@@ -8,3 +8,8 @@ db.projects.created_on.requires = IS_DATE(format=T('%Y-%m-%d'), error_message='M
 db.projects.created_on.writable = db.projects.created_on.readable = False
 db.projects.project_owner.requires = IS_IN_DB(db, 'auth_user.id', '%(username)s', zero=T('Choose one'))
 db.projects.project_owner.writable = db.projects.project_owner.readable = False
+
+#team_function
+db.team_function.project_id.requires = IS_IN_DB(db, 'projects.id', '%(name)s', zero=T('Defina um projeto existente'))
+db.team_function.project_id.readable = db.team_function.project_id.writable = False
+db.team_function.user_id.requires = db.team_function.role.requires = IS_NOT_EMPTY(error_message='Cannot be empty!')
