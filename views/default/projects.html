@@ -1,6 +1,6 @@
 {{extend 'layout.html'}}
 {{if project != message:}}
-<h1>{{=T("Project Name")}}</h1>
+<h1>{{=project.name}}</h1>
 <table>
 <tr>
 <td width="80%">
@@ -21,12 +21,56 @@
 {{rows = db(db.auth_user.id == i).select()}}
 	{{for row in rows:}}
 		{{if not row.avatar:}}
-		<a href="/{{=row.username}}"><img src="{{=URL('static', 'images/non_avatar.gif')}}" width="50px" height="50px"></a>
+		<div class="media">
+			<a href="/{{=row.username}}" class="pull-left">
+      		<img src="{{=URL('static', 'images/non_avatar.gif')}}" alt="{{=row.username}}" class="media-object" width="50px" height="50px">
+      		</a>
+      		<div class="media-body">
+      		<b>{{=T("Profession")}}:</b> {{=row.profession}}<br>
+      		<b>{{=T("Function")}}:</b> {{user_function = db((db.team_function.user_id == row.id)&(db.team_function.project_id == request.args(0))).select(db.team_function.role).as_list()}}
+      		{{if user_function:}}
+      			{{for x,y in user_function[0].iteritems():}}
+      			{{=y}}
+      			{{pass}}<br>
+      		{{else:}}
+      		{{=T("Undefined")}}<br>
+      		{{now_owner = db(db.projects.id == request.args(0)).select(db.projects.project_owner).as_list()}}
+      		{{for x,y in now_owner[0].iteritems():}}
+      		{{if auth.user_id == y:}}
+			<button class="btn" onClick='window.location="{{=URL('default', 'manage_team', args=request.args(0))}}";'>{{=T("Define function")}}</button>
+			{{pass}}
+			{{pass}}
+      		{{pass}}
+      		</div>
+  		</div>
 		{{else:}}
-		<a href="/{{=row.username}}"><img src={{=URL('download', args=row.avatar)}} width="50px" height="50px"></a>
+		<div class="media">
+			<a href="/{{=row.username}}" class="pull-left">
+			<img src="{{=URL('download', args=row.avatar)}}" alt="{{=row.username}}" class="media-object" width="50px" height="50px">			
+			</a>
+			<div class="media-body">
+      		<b>{{=T("Profession")}}:</b> {{=row.profession}}<br>
+      		<b>{{=T("Function")}}:</b> {{user_function = db((db.team_function.user_id == row.id)&(db.team_function.project_id == request.args(0))).select(db.team_function.role).as_list()}}
+      		{{if user_function:}}
+      			{{for x,y in user_function[0].iteritems():}}
+      			{{=y}}
+      			{{pass}}<br>
+      		{{else:}}
+      		{{=T("Undefined")}}<br>
+      		{{now_owner = db(db.projects.id == request.args(0)).select(db.projects.project_owner).as_list()}}
+      		{{for x,y in now_owner[0].iteritems():}}
+      		{{if auth.user_id == y:}}
+			{{session.selected_user = i}}
+                  <button class="btn" onClick='window.location="{{=URL('default', 'manage_team', args=request.args(0))}}";'>{{=T("Define fuction")}}</button>
+			{{pass}}
+			{{pass}}
+      		{{pass}}
+      		</div>
+		</div>
 		{{pass}}
 	{{pass}}
 {{pass}}
+</ul>
 </td>
 </tr>
 </table>
