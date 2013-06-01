@@ -30,6 +30,15 @@ def user():
         @auth.requires_permission('read','table name',record_id)
     to decorate functions that need access control
     """
+    if 'register' in request.args:
+        fields_to_hide = [
+        'last_name', 'age', 'localization', 'bio', 'social_networking',
+        'profession', 'competencies', 'availability']
+
+        for fieldname in fields_to_hide:
+            field = db.auth_user[fieldname]
+            field.readable = field.writable = False
+
     return dict(form=auth())
 
 def user_info():
@@ -58,7 +67,7 @@ def create_project():
     form = SQLFORM(db.projects)
     if form.process().accepted:
         session.flash = T('Project created!')
-        db.auth_membership.insert() 
+        db.auth_membership.insert()
         project_id = form.vars.id
         redirect(URL('projects', args=project_id))
     elif form.errors:
@@ -70,9 +79,9 @@ def manage_team():
     message = form = ''
     project = db(db.projects.id == request.args(0)).select(db.projects.id)
     if project:
-        form = SQLFORM(db.team_function) 
+        form = SQLFORM(db.team_function)
         if form.process().accepted:
-            response.flash = T("User function defined.")       
+            response.flash = T("User function defined.")
         elif form.errors:
             response.flash = T("Form has errors!")
     else:

@@ -79,17 +79,17 @@ auth.settings.extra_fields["auth_user"] = [
 ]
 
 # costumize login form
-auth.settings.register_fields = [
-    'avatar', 'first_name', 'last_name', 'username', 'age', 'localization',
-    'profession', 'competencies', 'social_networking', 'availability', 'bio', 'email',
-    'password']
+# auth.settings.register_fields = [
+#     'avatar', 'first_name', 'last_name', 'username', 'age', 'localization',
+#     'profession', 'competencies', 'social_networking', 'availability', 'bio', 'email',
+#     'password']
 
 # create all tables needed by auth if not custom tables
 auth.define_tables(username=True, signature=False)
 
 # auth default attributes rename
-db.auth_user.first_name.label = "Name"
-db.auth_user.last_name.label = "Nickname"
+db.auth_user.first_name.label = T("Name")
+db.auth_user.last_name.label = T("Nickname")
 
 #
 # Define your tables below (or better in another model file) for example

@@ -16,31 +16,40 @@
 <td>
 <h3>{{=T("Professional Info")}}</h3>
 <b>{{=T("Profession")}}:</b> {{=user.profession}}<br>
-<b>{{=T("Competencies")}}:</b>{{x = len(user.competencies)-1}}
-					{{for i in user.competencies:}}
-						{{if i == user.competencies[x]:}}
-						{{=i}}<br>
-						{{else:}}
-						{{=i}}, 
-						{{pass}}
-					{{pass}}
-<b>{{=T("Social Networking")}}:</b> {{x = len(user.social_networking)-1}}
-					{{for i in user.social_networking:}}
-						{{if i == user.social_networking[x]:}}
-						{{=i}}<br>
-						{{else:}}
-						{{=i}}, 
-						{{pass}}
-					{{pass}}
+<b>{{=T("Competencies")}}:</b><br>
+{{if user.competencies:}}
+    {{x = len(user.competencies)-1}}
+    {{for i in user.competencies:}}
+        {{if i == user.competencies[x]:}}
+        {{=i}}<br>
+        {{else:}}
+        {{=i}},
+        {{pass}}
+    {{pass}}
+{{pass}}
+<b>{{=T("Social Networking")}}:</b><br>
+{{if user.social_networking:}}
+    {{x = len(user.social_networking)-1}}
+        {{for i in user.social_networking:}}
+            {{if i == user.social_networking[x]:}}
+            {{=i}}<br>
+            {{else:}}
+            {{=i}},
+            {{pass}}
+        {{pass}}
+{{pass}}
 <b>{{=T("Email")}}:</b> {{=user.email}}<br>
-<b>{{=T("Availability")}}:</b> {{x = len(user.availability)-1}}
-					{{for i in user.availability:}}
-						{{if i == user.availability[x]:}}
-						{{=i}}<br>
-						{{else:}}
-						{{=i}}, 
-						{{pass}}
-					{{pass}}
+<b>{{=T("Availability")}}:</b><br>
+{{if user.availability:}}
+{{x = len(user.availability)-1}}
+    {{for i in user.availability:}}
+        {{if i == user.availability[x]:}}
+        {{=i}}<br>
+        {{else:}}
+        {{=i}},
+        {{pass}}
+    {{pass}}
+{{pass}}
 </td>
 
 <td>
