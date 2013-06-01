@@ -43,7 +43,8 @@ def user():
 
 def user_info():
     message = T("User doesn't exist.")
-    user = db.auth_user(username=request.args(0)) or message
+    seach_user = request.args(0) or auth.user.username
+    user = db.auth_user(username=seach_user) or message
     last_project = my_projects = colaborate_projects = None
     if user != message:
         last_project = db(db.projects.project_owner == user).select(orderby='created_on').last()
