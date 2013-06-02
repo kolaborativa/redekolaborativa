@@ -1,6 +1,6 @@
 {{extend 'layout.html'}}
 <h2>{{=T( request.args(0).replace('_',' ').capitalize() )}}</h2>
-<div id="web2py_user_form">
+<div id="web2py_user_form" class="span6">
 {{
 if request.args(0)=='login':
     if not 'register' in auth.settings.actions_disabled:
@@ -13,6 +13,43 @@ pass
 =form
 }}
 </div>
+
+<div class="span5">
+{{if request.args(0)=='profile':}}
+    {{=form_profession}}
+    {{if professions:}}
+        {{for p in professions:}}
+        <ul>
+            <li>{{=T("Profession")}}: {{=p.profession}}
+                <ul>
+                {{if len(competencies) >= 1:}}
+                    {{for c in competencies:}}
+                        {{if c.profession_id ==  p.id:}}
+                        <li>{{=c.competence}}</li>
+                        {{pass}}
+                    {{pass}}
+                    <li>
+                {{pass}}
+                        {{=form_competencies.custom.begin}}
+                        {{ form_competencies.elements('#competencies_profession_id')[0] ['_name'] = "profession_id" }}
+                        {{ form_competencies.elements('#competencies_profession_id')[0] ['_name'] = "profession_id" }}
+                        {{ form_competencies.elements('#competencies_profession_id')[0] ['_value'] = p.id }}
+                        {{ form_competencies.elements('#competencies_profession_id')[0] ['_type'] = "hidden" }}
+                        {{=form_competencies.custom.widget.competence}}
+                        {{=form_competencies.custom.widget.profession_id}}
+                        <input type="submit" value='{{=T("add")}}'>
+                        {{=form_competencies.custom.end}}
+
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        {{pass}}
+    {{pass}}
+{{pass}}
+</div>
+
 <script language="javascript"><!--
 jQuery("#web2py_user_form input:visible:enabled:first").focus();
 {{if request.args(0)=='register':}}
