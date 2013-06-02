@@ -49,7 +49,7 @@ def user():
             request.vars.username = None
             request.post_vars.username = None
 
-        return dict(form=auth.login())
+        return dict(form=auth())
 
     elif 'profile' in request.args:
         form=auth()
