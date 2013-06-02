@@ -52,21 +52,16 @@ def user():
         return dict(form=auth.login())
 
     elif 'profile' in request.args:
-        recordData = db.auth_user(auth.user.id)
+        form=auth()
         professions = db(db.profession.user_id == auth.user.id).select()
 
         competencies = []
         if professions:
             for i in professions:
-                this_competence = db(db.competence.profession_id == i.id).select().first()
+                this_competence = db(db.competence.profession_id == i.id).select()
                 if this_competence:
                     competencies.append(this_competence)
 
-        print competencies
-        form = SQLFORM(
-            db.auth_user,
-            recordData,
-            )
         form_profession = SQLFORM.factory(
             db.profession,
             table_name='professions',
@@ -78,6 +73,13 @@ def user():
             table_name='competencies',
             )
 
+        # auth form
+        if form.process().accepted:
+            redirect(URL("user_info"))
+        elif form.errors:
+            response.session = 'form has errors'
+
+        # professions form
         if form_profession.process().accepted:
             # id_professions = [i.id for i in professions]
             # if not request.vars.profession in id_professions:
@@ -95,6 +97,7 @@ def user():
         elif form_profession.errors:
             response.flash = 'form has errors'
 
+        # competencies form
         if form_competencies.process().accepted:
             db.competence.insert(
                 competence=request.vars.competence,
@@ -117,7 +120,15 @@ def user_info():
     message = T("User doesn't exist.")
     seach_user = request.args(0) or auth.user.username
     user = db.auth_user(username=seach_user) or message
+    professions = db(db.profession.user_id == auth.user.id).select()
+    competencies = []
+    if professions:
+        for i in professions:
+            this_competence = db(db.competence.profession_id == i.id).select()
+            if this_competence:
+                competencies.append(this_competence)
     last_project = my_projects = colaborate_projects = None
+
     if user != message:
         last_project = db(db.projects.project_owner == user).select(orderby='created_on').last()
         my_projects = db(db.projects.project_owner == user).select(orderby='created_on', limitby=(0,5))
@@ -127,7 +138,9 @@ def user_info():
             for n,i in enumerate(team):
                 if str(user.id) in i.team:
                     colaborate_projects[n] = i
-    return dict(user=user, message=message, last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
+    return dict(
+            user=user, message=message, professions=professions, competencies=competencies,
+            last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
 
 def projects():
     message = T("Project not found.")

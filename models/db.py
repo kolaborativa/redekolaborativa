@@ -83,6 +83,7 @@ auth.define_tables(username=True, signature=False)
 db.auth_user.first_name.label = T("Name")
 db.auth_user.last_name.label = T("Nickname")
 
+auth.settings.register_next= URL('user_info')
 auth.settings.login_next = URL('user_info')
 #
 # Define your tables below (or better in another model file) for example

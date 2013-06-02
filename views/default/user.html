@@ -20,16 +20,13 @@ pass
     {{if professions:}}
         {{for p in professions:}}
         <ul>
-            <li>{{=T("Profession")}}: {{=p.profession}}
+            <li><b>{{=T("Profession")}}:</b> {{=p.profession}}
                 <ul>
                 {{if len(competencies) >= 1:}}
-                    {{for c in competencies:}}
-                        {{if c.profession_id ==  p.id:}}
-                        <li>{{=c.competence}}</li>
-                        {{pass}}
-                    {{pass}}
-                    <li>
+                    {{list_competencies=[i.competence for c in competencies for i in c if i.profession_id ==  p.id]}}
+                    <li><b>{{=T("Competencies")}}:</b> {{=', '.join(list_competencies)}}</li>
                 {{pass}}
+                    <li>
                         {{=form_competencies.custom.begin}}
                         {{ form_competencies.elements('#competencies_profession_id')[0] ['_name'] = "profession_id" }}
                         {{ form_competencies.elements('#competencies_profession_id')[0] ['_name'] = "profession_id" }}
@@ -39,7 +36,6 @@ pass
                         {{=form_competencies.custom.widget.profession_id}}
                         <input type="submit" value='{{=T("add")}}'>
                         {{=form_competencies.custom.end}}
-
                     </li>
                 </ul>
             </li>
@@ -47,6 +43,7 @@ pass
 
         {{pass}}
     {{pass}}
+    <a href='{{=URL("user_info")}}' class="btn">{{=T("Back")}}</a>
 {{pass}}
 </div>
 
