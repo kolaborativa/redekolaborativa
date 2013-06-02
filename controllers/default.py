@@ -50,8 +50,16 @@ def user_info():
 def projects():
     message = T("Project not found.")
     project = db.projects(id=request.args(0)) or message
-    team = db(db.projects).select()
-    return dict(project=project, message=message)
+    owner = db(db.projects.id == request.args(0)).select(db.projects.project_owner).as_list()
+    user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
+    if user_role.accepts(request.vars):
+        if not db((db.team_function.username == request.vars.username)&(db.team_function.project_id == request.args(0))).select():
+            db.team_function.insert(project_id = request.args(0), username = request.vars.username, role = request.vars.role) 
+        else:
+            db((db.team_function.username == request.vars.username)&(db.team_function.project_id == request.args(0))).update(role=request.vars.role)
+    elif user_role.errors:
+        response.flash = T("Form has errors!")
+    return dict(project=project, message=message, user_role=user_role, owner=owner)
 
 @auth.requires_login()
 def create_project():
@@ -64,20 +72,6 @@ def create_project():
     elif form.errors:
         response.flash = T('Form has errors!')
     return dict(form=form)
-
-@auth.requires_login()
-def manage_team():
-    message = form = ''
-    project = db(db.projects.id == request.args(0)).select(db.projects.id)
-    if project:
-        form = SQLFORM(db.team_function) 
-        if form.process().accepted:
-            response.flash = T("User function defined.")       
-        elif form.errors:
-            response.flash = T("Form has errors!")
-    else:
-        message = T("This project doesn't exist!")
-    return dict(form=form, message=message)
 
 def download():
     """

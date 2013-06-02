@@ -3,71 +3,118 @@
 <h1>{{=project.name}}</h1>
 <table>
 <tr>
-<td width="80%">
+<td width="40%">
 <h3>{{=T("Project Info")}}</h3>
 <b>{{=T("Name")}}:</b> {{=project.name}}<br>
-<b>{{=T("Type")}}:</b> {{=project.project_type}}<br>
+{{if project.project_type:}}<b>{{=T("Type")}}:</b> {{=project.project_type}}<br>{{pass}}
 <b>{{=T("Owner")}}:</b> {{=project.project_owner.username}}<br>
-<b>{{=T("Description")}}:</b> {{=project.description}}
+{{if project.description:}}<b>{{=T("Description")}}:</b> {{=project.description}}{{pass}}
 </td>
+{{if project.project_links or project.project_mail or project.address or project.phone or wanting_team or wanting_other:}}
+<td width="40%">
+<h3>{{=T("Contact Info")}}</h3>
+{{if project.address:}}<b>{{=T("Address")}}:</b> {{=project.address}} <br>{{pass}}
+{{if project.phone:}}<b>{{=T("Phone")}}:</b> {{=project.phone}} <br>{{pass}}
+{{if project.project_links:}}<b>{{=T("Links")}}:</b> 
+                              {{x = len(project.project_links)-1}}
+                              {{for i in project.project_links:}}
+                                    {{if i == project.project_links[x]:}}
+                                    <a href="{{=i}}">Link {{=project.project_links.index(i) + 1}}</a><br>
+                                    {{else:}}
+                                    <a href="{{=i}}">Link {{=project.project_links.index(i) + 1}}</a> |
+                                    {{pass}}
+                              {{pass}}{{pass}}
+{{if project.project_mail:}}<b>{{=T("Email")}}:</b> {{=project.project_mail}} <br>{{pass}}
+{{if project.wanting_team:}}<b>{{=T("We need some more members...")}}</b> <br>{{pass}}
+{{if project.team_wanted:}} {{x = len(project.team_wanted)-1}}
+                              {{for i in project.team_wanted:}}
+                                    {{if i == project.team_wanted[x]:}}
+                                    {{=i}}<br>
+                                    {{else:}}
+                                    {{=i}},
+                                    {{pass}}
+                              {{pass}}{{pass}}
+{{if project.wanting_other:}}<b>{{=T("We are looking for other kinds of help...")}}</b> <br>{{pass}}
+{{if project.other_wanted:}} {{x = len(project.other_wanted)-1}}
+                              {{for i in project.other_wanted:}}
+                                    {{if i == project.other_wanted[x]:}}
+                                    {{=i}}<br>
+                                    {{else:}}
+                                    {{=i}}, 
+                                    {{pass}}
+                              {{pass}}{{pass}}
+</td>
+{{pass}}
 <td>
-<img src={{=URL('download', args=project.image)}} width="168px" height="168px">
+{{if project.image:}}<img src={{=URL('download', args=project.image)}} width="168px" height="168px">
+{{else:}}
+<img src={{=URL('static', 'images/non_project.png')}} width="168px" height="168px">
+{{pass}}
 </td>
 </tr>
+
 <tr>
 <td>
 <h3>{{=T("Who is Kolaborating")}}</h3>
 {{for i in project.team:}}
 {{rows = db(db.auth_user.id == i).select()}}
-	{{for row in rows:}}
-		{{if not row.avatar:}}
+	
+      {{for row in rows:}}
 		<div class="media">
 			<a href="/{{=row.username}}" class="pull-left">
+                  {{if not row.avatar:}}
       		<img src="{{=URL('static', 'images/non_avatar.gif')}}" alt="{{=row.username}}" class="media-object" width="50px" height="50px">
+                  {{else:}}
+                  <img src="{{=URL('download', args=row.avatar)}}" alt="{{=row.username}}" class="media-object" width="50px" height="50px">
+                  {{pass}}
       		</a>
       		<div class="media-body">
       		<b>{{=T("Profession")}}:</b> {{=row.profession}}<br>
-      		<b>{{=T("Function")}}:</b> {{user_function = db((db.team_function.user_id == row.id)&(db.team_function.project_id == request.args(0))).select(db.team_function.role).as_list()}}
-      		{{if user_function:}}
-      			{{for x,y in user_function[0].iteritems():}}
-      			{{=y}}
-      			{{pass}}<br>
-      		{{else:}}
-      		{{=T("Undefined")}}<br>
-      		{{now_owner = db(db.projects.id == request.args(0)).select(db.projects.project_owner).as_list()}}
-      		{{for x,y in now_owner[0].iteritems():}}
-      		{{if auth.user_id == y:}}
-			<button class="btn" onClick='window.location="{{=URL('default', 'manage_team', args=request.args(0))}}";'>{{=T("Define function")}}</button>
-			{{pass}}
-			{{pass}}
-      		{{pass}}
+      		<b>{{=T("Role")}}:</b>
+                  {{user_function = db((db.team_function.username == row.username)&(db.team_function.project_id == request.args(0))).select(db.team_function.role).as_list()}}
+      	{{if user_function:}}
+      		{{for x,y in user_function[0].iteritems():}}
+      		{{=y}}
+      		{{pass}}<br>
+      	{{else:}}
+      	      {{=T("Undefined")}}<br>
+      	{{pass}}
+
+                  {{for x,y in owner[0].iteritems():}}
+                  {{if auth.user_id == y:}}
+                        {{if not user_function:}}
+                              {{=user_role.custom.begin}}
+                              <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
+                              {{user_role.elements(_type="submit")[0] ['_class']="btn btn_ok"}}
+                              {{=user_role.custom.submit}}
+                              {{user_role.elements("#no_table_username")[0] ['_type']="hidden"}}
+                              {{user_role.elements("#no_table_username")[0] ['_value']=row.username}}
+                              {{=user_role.custom.widget.username}}<br>
+                              {{user_role.elements("#no_table_role")[0] ['_placeholder']=T("Define role")}}
+                              {{user_role.elements("#no_table_role")[0] ['_name']="role"}}
+                              {{user_role.elements("#no_table_role")[0] ['_class']="field_role"}}
+                              {{=user_role.custom.widget.role}}<br>
+                              {{=user_role.custom.end}}
+                        {{else:}}
+                              {{for x,y in user_function[0].iteritems():}}
+                              {{=user_role.custom.begin}}
+                              <a class="btn btn-edit"><i class="icon-edit"></i></a>
+                              {{user_role.elements(_type="submit")[0] ['_class']="btn btn_ok"}}
+                              {{=user_role.custom.submit}}
+                              {{user_role.elements("#no_table_username")[0] ['_type']="hidden"}}
+                              {{user_role.elements("#no_table_username")[0] ['_value']=row.username}}
+                              {{=user_role.custom.widget.username}}<br>
+                              {{user_role.elements("#no_table_role")[0] ['_placeholder']=y}}
+                              {{user_role.elements("#no_table_role")[0] ['_class']="field_role"}}
+                              {{=user_role.custom.widget.role}}
+                              {{=user_role.custom.end}}
+                              {{pass}}
+                        {{pass}}
+                  {{pass}}
+                  {{pass}}
       		</div>
   		</div>
-		{{else:}}
-		<div class="media">
-			<a href="/{{=row.username}}" class="pull-left">
-			<img src="{{=URL('download', args=row.avatar)}}" alt="{{=row.username}}" class="media-object" width="50px" height="50px">			
-			</a>
-			<div class="media-body">
-      		<b>{{=T("Profession")}}:</b> {{=row.profession}}<br>
-      		<b>{{=T("Function")}}:</b> {{user_function = db((db.team_function.user_id == row.id)&(db.team_function.project_id == request.args(0))).select(db.team_function.role).as_list()}}
-      		{{if user_function:}}
-      			{{for x,y in user_function[0].iteritems():}}
-      			{{=y}}
-      			{{pass}}<br>
-      		{{else:}}
-      		{{=T("Undefined")}}<br>
-      		{{now_owner = db(db.projects.id == request.args(0)).select(db.projects.project_owner).as_list()}}
-      		{{for x,y in now_owner[0].iteritems():}}
-      		{{if auth.user_id == y:}}
-			{{session.selected_user = i}}
-                  <button class="btn" onClick='window.location="{{=URL('default', 'manage_team', args=request.args(0))}}";'>{{=T("Define fuction")}}</button>
-			{{pass}}
-			{{pass}}
-      		{{pass}}
-      		</div>
-		</div>
-		{{pass}}
+
 	{{pass}}
 {{pass}}
 </ul>
@@ -77,3 +124,18 @@
 {{else:}}
 {{=project}}
 {{pass}}
+
+<script>
+jQuery(document).ready(function(){
+   $('.field_role').hide();
+   $('.btn_ok').hide();
+   jQuery(".btn_plus").on("click", function(){
+      $('.field_role').show();
+      $('.btn_ok').show();
+      });
+   jQuery(".btn-edit").on("click", function(){
+      $(".field_role").show();
+      $('.btn_ok').show();
+      });
+});
+</script>
