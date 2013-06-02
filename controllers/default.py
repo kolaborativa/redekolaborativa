@@ -120,7 +120,7 @@ def user_info():
     message = T("User doesn't exist.")
     seach_user = request.args(0) or auth.user.username
     user = db.auth_user(username=seach_user) or message
-    professions = db(db.profession.user_id == auth.user.id).select()
+    professions = db(db.profession.user_id == user.id).select()
     competencies = []
     if professions:
         for i in professions:
