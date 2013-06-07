@@ -68,29 +68,23 @@ auth.messages.register_button = T("Kollaborate!")
 
 # auth user extra fields
 auth.settings.extra_fields["auth_user"] = [
-    Field("age", "integer", label='Age (optional)'),
+    Field("age", "integer", label='%s (%s)' %(T("Age"),T("optional")) ),
     Field("localization", label='Localization (district/city/state/country)'),
     Field("bio", "text"),
     Field("avatar", "upload"),
     Field("social_networking", "list:string"),
-    Field("profession"),
-    Field("competencies", "list:string"),
     Field("availability", "list:string", widget=SQLFORM.widgets.checkboxes.widget, requires=IS_IN_SET( [ ('OpenSource', T('OpenSource')), ('Enterprising', T('Enterprising')) ], multiple=True))
 ]
-
-# costumize login form
-auth.settings.register_fields = [
-    'avatar', 'first_name', 'last_name', 'username', 'age', 'localization',
-    'profession', 'competencies', 'social_networking', 'availability', 'bio', 'email',
-    'password']
 
 # create all tables needed by auth if not custom tables
 auth.define_tables(username=True, signature=False)
 
 # auth default attributes rename
-db.auth_user.first_name.label = "Name"
-db.auth_user.last_name.label = "Nickname"
+db.auth_user.first_name.label = T("Name")
+db.auth_user.last_name.label = T("Nickname")
 
+auth.settings.register_next= URL('user_info')
+auth.settings.login_next = URL('user_info')
 #
 # Define your tables below (or better in another model file) for example
 #
