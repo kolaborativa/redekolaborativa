@@ -98,11 +98,9 @@
                   {{=user_role.custom.begin}}
                   {{for this_function in user_function:}}
                         {{if this_function:}}
-                              {{if not this_function.username == collaborator.username:}}
-                                    <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
-                              {{else:}}
-                                    <a class="btn btn-edit"><i class="icon-edit"></i></a>
-                              {{pass}}
+                              <a class="btn btn-edit"><i class="icon-edit"></i></a>
+                        {{else:}}
+                              <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
                         {{pass}}
                   {{pass}}
                   {{user_role.elements(_type="submit")[0] ['_class']="btn btn_ok"}}
