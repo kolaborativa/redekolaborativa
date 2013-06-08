@@ -163,13 +163,14 @@ def projects():
             all_professions = db(db.profession.user_id == i).select().first()
             professions.append(all_professions)
 
-
         user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
         if user_role.accepts(request.vars):
             if not db((db.team_function.username == request.vars.username)&(db.team_function.project_id == request.args(0))).select():
                 db.team_function.insert(project_id = request.args(0), username = request.vars.username, role = request.vars.role)
             else:
                 db((db.team_function.username == request.vars.username)&(db.team_function.project_id == request.args(0))).update(role=request.vars.role)
+
+            redirect(URL(f="projects", args=request.args(0)))
         elif user_role.errors:
             response.flash = T("Form has errors!")
 
