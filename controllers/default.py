@@ -120,16 +120,16 @@ def user_info():
     message = T("User doesn't exist.")
     seach_user = request.args(0) or auth.user.username
     user = db.auth_user(username=seach_user) or message
-    professions = db(db.profession.user_id == user.id).select()
-    competencies = []
-    if professions:
-        for i in professions:
-            this_competence = db(db.competence.profession_id == i.id).select()
-            if this_competence:
-                competencies.append(this_competence)
-    last_project = my_projects = colaborate_projects = None
 
     if user != message:
+        professions = db(db.profession.user_id == user.id).select()
+        competencies = []
+        if professions:
+            for i in professions:
+                this_competence = db(db.competence.profession_id == i.id).select()
+                if this_competence:
+                    competencies.append(this_competence)
+        last_project = my_projects = colaborate_projects = None
         last_project = db(db.projects.project_owner == user).select(orderby='created_on').last()
         my_projects = db(db.projects.project_owner == user).select(orderby='created_on', limitby=(0,5))
         team = db(db.projects).select(orderby='created_on', limitby=(0,5))
@@ -138,9 +138,14 @@ def user_info():
             for n,i in enumerate(team):
                 if str(user.id) in i.team:
                     colaborate_projects[n] = i
-    return dict(
-            user=user, message=message, professions=professions, competencies=competencies,
-            last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
+        return dict(
+                user=user, message=message, professions=professions, competencies=competencies,
+                last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
+
+    else:
+
+        return dict(user=user, message=message)
+
 
 def projects():
     message = T("Project not found.")
