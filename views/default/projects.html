@@ -6,47 +6,44 @@
 <td width="40%">
 <h3>{{=T("Project Info")}}</h3>
 <b>{{=T("Name")}}:</b> {{=project.name}}<br>
-{{if project.project_type:}}<b>{{=T("Type")}}:</b> {{=project.project_type}}<br>{{pass}}
+<b>{{=T("Type")}}:</b> {{=project.project_type}}<br>
 <b>{{=T("Owner")}}:</b> {{=project.project_owner.username}}<br>
-{{if project.description:}}<b>{{=T("Description")}}:</b> {{=project.description}}{{pass}}
+<b>{{=T("Description")}}:</b> {{=project.description}}
 </td>
-{{if project.project_links or project.project_mail or project.address or project.phone or wanting_team or wanting_other:}}
+
 <td width="40%">
 <h3>{{=T("Contact Info")}}</h3>
-{{if project.address:}}<b>{{=T("Address")}}:</b> {{=project.address}} <br>{{pass}}
-{{if project.phone:}}<b>{{=T("Phone")}}:</b> {{=project.phone}} <br>{{pass}}
-{{if project.project_links:}}<b>{{=T("Links")}}:</b> 
-                              {{x = len(project.project_links)-1}}
-                              {{for i in project.project_links:}}
-                                    {{if i == project.project_links[x]:}}
+<b>{{=T("Address")}}:</b> {{=project.address}} <br>
+<b>{{=T("Phone")}}:</b> {{=project.phone}} <br>
+<b>{{=T("Links")}}:</b> 
+                        {{for i in project.project_links:}}
+                              {{if i == project.project_links[-1]:}}
                                     <a href="{{=i}}">Link {{=project.project_links.index(i) + 1}}</a><br>
-                                    {{else:}}
+                              {{else:}}
                                     <a href="{{=i}}">Link {{=project.project_links.index(i) + 1}}</a> |
-                                    {{pass}}
-                              {{pass}}{{pass}}
-{{if project.project_mail:}}<b>{{=T("Email")}}:</b> {{=project.project_mail}} <br>{{pass}}
+                              {{pass}}
+                        {{pass}}
+
+<b>{{=T("Email")}}:</b> {{=project.project_mail}} <br>
+
 {{if project.wanting_team:}}<b>{{=T("We need some more members...")}}</b> <br>{{pass}}
-{{if project.team_wanted:}} {{x = len(project.team_wanted)-1}}
-                              {{for i in project.team_wanted:}}
-                                    {{if i == project.team_wanted[x]:}}
-                                    {{=i}}<br>
-                                    {{else:}}
-                                    {{=i}},
-                                    {{pass}}
-                              {{pass}}{{pass}}
-{{if project.wanting_other:}}<b>{{=T("We are looking for other kinds of help...")}}</b> <br>{{pass}}
-{{if project.other_wanted:}} {{x = len(project.other_wanted)-1}}
-                              {{for i in project.other_wanted:}}
-                                    {{if i == project.other_wanted[x]:}}
-                                    {{=i}}<br>
-                                    {{else:}}
-                                    {{=i}}, 
-                                    {{pass}}
-                              {{pass}}{{pass}}
-</td>
+{{if project.team_wanted:}} 
+                        {{if len(project.team_wanted) >= 1:}}
+                        {{=', '.join(project.team_wanted)}}<br>
+                        {{pass}}
 {{pass}}
+
+{{if project.wanting_other:}}<b>{{=T("We are looking for other kinds of help...")}}</b> <br>{{pass}}
+{{if project.other_wanted:}} 
+                        {{if len(project.other_wanted) >= 1:}}
+                        {{=', '.join(project.other_wanted)}}<br>
+                        {{pass}}
+{{pass}}
+</td>
+
 <td>
-{{if project.image:}}<img src={{=URL('download', args=project.image)}} width="168px" height="168px">
+{{if project.image:}}
+<img src={{=URL('download', args=project.image)}} width="168px" height="168px">
 {{else:}}
 <img src={{=URL('static', 'images/non_project.png')}} width="168px" height="168px">
 {{pass}}
@@ -56,66 +53,61 @@
 <tr>
 <td>
 <h3>{{=T("Who is Kolaborating")}}</h3>
-{{for i in project.team:}}
-{{rows = db(db.auth_user.id == i).select()}}
-	
-      {{for row in rows:}}
-		<div class="media">
-			<a href="/{{=row.username}}" class="pull-left">
-                  {{if not row.avatar:}}
-      		<img src="{{=URL('static', 'images/non_avatar.gif')}}" alt="{{=row.username}}" class="media-object" width="50px" height="50px">
-                  {{else:}}
-                  <img src="{{=URL('download', args=row.avatar)}}" alt="{{=row.username}}" class="media-object" width="50px" height="50px">
-                  {{pass}}
-      		</a>
-      		<div class="media-body">
-      		<b>{{=T("Profession")}}:</b> {{=row.profession}}<br>
-      		<b>{{=T("Role")}}:</b>
-                  {{user_function = db((db.team_function.username == row.username)&(db.team_function.project_id == request.args(0))).select(db.team_function.role).as_list()}}
+{{for collaborator in collaborators:}}
+	<div class="media">
+	     <a href="/{{=collaborator.username}}" class="pull-left">
+           {{if not collaborator.avatar:}}
+      		<img src="{{=URL('static', 'images/non_avatar.gif')}}" alt="{{=collaborator.username}}" class="media-object" width="50px" height="50px">
+            {{else:}}
+                  <img src="{{=URL('download', args=collaborator.avatar)}}" alt="{{=collaborator.username}}" class="media-object" width="50px" height="50px">
+            {{pass}}
+      	</a>
+      <div class="media-body">
+      	<b>{{=T("Profession")}}:</b> 
+                                    {{for job in professions:}}
+                                          {{if job.user_id == collaborator.id:}}
+                                                {{if job == professions[-1]:}}
+                                                      {{=job.profession}}  
+                                                {{else:}}                                      
+                                                      {{=job.profession}}, 
+                                                {{pass}}
+                                          {{pass}}                                               
+                                    {{pass}}<br>
+
+      	<b>{{=T("Role")}}:</b>
       	{{if user_function:}}
-      		{{for x,y in user_function[0].iteritems():}}
-      		{{=y}}
-      		{{pass}}<br>
+                  {{for this_function in user_function:}}
+                        {{if this_function.username == collaborator.username:}}
+                              {{=this_function.role}}
+                        {{pass}}
+           		{{pass}}<br>
       	{{else:}}
       	      {{=T("Undefined")}}<br>
       	{{pass}}
 
-                  {{for x,y in owner[0].iteritems():}}
-                  {{if auth.user_id == y:}}
-                        {{if not user_function:}}
+            {{if auth.user_id == project.project_owner:}}
                               {{=user_role.custom.begin}}
-                              <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
+                              {{for this_function in user_function:}}
+                              {{if not this_function.username == collaborator.username:}}
+                                    <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
+                              {{else:}}
+                                    <a class="btn btn-edit"><i class="icon-edit"></i></a>
+                              {{pass}}
+                              {{pass}}
                               {{user_role.elements(_type="submit")[0] ['_class']="btn btn_ok"}}
                               {{=user_role.custom.submit}}
                               {{user_role.elements("#no_table_username")[0] ['_type']="hidden"}}
-                              {{user_role.elements("#no_table_username")[0] ['_value']=row.username}}
+                              {{user_role.elements("#no_table_username")[0] ['_value']=collaborator.username}}
                               {{=user_role.custom.widget.username}}<br>
                               {{user_role.elements("#no_table_role")[0] ['_placeholder']=T("Define role")}}
                               {{user_role.elements("#no_table_role")[0] ['_name']="role"}}
                               {{user_role.elements("#no_table_role")[0] ['_class']="field_role"}}
                               {{=user_role.custom.widget.role}}<br>
                               {{=user_role.custom.end}}
-                        {{else:}}
-                              {{for x,y in user_function[0].iteritems():}}
-                              {{=user_role.custom.begin}}
-                              <a class="btn btn-edit"><i class="icon-edit"></i></a>
-                              {{user_role.elements(_type="submit")[0] ['_class']="btn btn_ok"}}
-                              {{=user_role.custom.submit}}
-                              {{user_role.elements("#no_table_username")[0] ['_type']="hidden"}}
-                              {{user_role.elements("#no_table_username")[0] ['_value']=row.username}}
-                              {{=user_role.custom.widget.username}}<br>
-                              {{user_role.elements("#no_table_role")[0] ['_placeholder']=y}}
-                              {{user_role.elements("#no_table_role")[0] ['_class']="field_role"}}
-                              {{=user_role.custom.widget.role}}
-                              {{=user_role.custom.end}}
-                              {{pass}}
-                        {{pass}}
-                  {{pass}}
-                  {{pass}}
-      		</div>
-  		</div>
+            {{pass}}
+      </div>
+  	</div>
 
-	{{pass}}
 {{pass}}
 </ul>
 </td>
@@ -130,12 +122,14 @@ jQuery(document).ready(function(){
    $('.field_role').hide();
    $('.btn_ok').hide();
    jQuery(".btn_plus").on("click", function(){
-      $('.field_role').show();
-      $('.btn_ok').show();
+      var form = $(this).closest("#user_role");
+      form.find(".field_role").show();
+      form.find(".btn_ok").show();
       });
    jQuery(".btn-edit").on("click", function(){
-      $(".field_role").show();
-      $('.btn_ok').show();
+      var form = $(this).closest("#user_role");
+      form.find(".field_role").show();
+      form.find(".btn_ok").show();
       });
 });
 </script>
