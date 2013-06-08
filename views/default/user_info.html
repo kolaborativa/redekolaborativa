@@ -41,12 +41,18 @@
 {{pass}}
 </td>
 </tr>
+
 <tr>
 <td>
 <h3>{{=T("My Last Project")}}</h3>
 {{if last_project:}}
 <h4>{{=last_project.name}}</h4><br>
-<a href={{=URL('projects', args=last_project.id)}}><img src={{=URL(f='download', args=last_project.image)}} width="100px" height="100px" align="left"></a>
+<a href={{=URL('projects', args=last_project.id)}}>
+{{if last_project.image:}}	<img src={{=URL(f='download', args=last_project.image)}} width="100px" height="100px" align="left">
+{{else:}}
+<img src={{=URL('static', 'images/non_project.png')}} width="100px" height="100px" align="left">
+ {{pass}}
+</a>
 {{if len(last_project.description) > 255:}}
 {{=last_project.description[0:255]}}... <a href='#'>Leia mais</a>
 {{else:}}
@@ -70,7 +76,13 @@
 </tr>
 {{for l in my_projects:}}
 <tr>
-<td><a href={{=URL('projects', args=l.id)}}><img src={{=URL(f='download', args=l.image)}} width="40px" height="40px"></a></td>
+<td><a href={{=URL('projects', args=l.id)}}>
+{{if l.image:}}
+<img src={{=URL(f='download', args=l.image)}} width="40px" height="40px">
+{{else:}}
+<img src={{=URL('static', 'images/non_project.png')}} width="40px" height="40px">
+{{pass}}
+</a></td>
 <td>{{=l.name}}</td>
 <td>{{=l.project_type}}</td>
 <td>{{=l.created_on}}</td>
@@ -93,15 +105,21 @@
 <th>{{=T("Name")}}</th>
 <th>{{=T("Type")}}</th>
 <th>{{=T("Date")}}</th>
-<th>{{=T("Function")}}</th>
+<th>{{=T("Role")}}</th>
 </tr>
 {{for l in colaborate_projects:}}
 <tr>
-<td><a href={{=URL('projects', args=colaborate_projects[l].id)}}><img src={{=URL(f='download', args=colaborate_projects[l].image)}} width="40px" height="40px"></a></td>
+<td><a href={{=URL('projects', args=colaborate_projects[l].id)}}>
+{{if colaborate_projects[l].image:}}
+	<img src={{=URL(f='download', args=colaborate_projects[l].image)}} width="40px" height="40px">
+{{else:}}
+	<img src={{=URL('static', 'images/non_project.png')}} width="40px" height="40px">
+{{pass}}
+</a></td>
 <td>{{=colaborate_projects[l].name}}</td>
 <td>{{=colaborate_projects[l].project_type}}</td>
 <td>{{=colaborate_projects[l].created_on}}</td>
-<td>{{user_function = db((db.team_function.user_id == user.id)&(db.team_function.project_id == colaborate_projects[l].id)).select(db.team_function.role).as_list()}}
+<td>{{user_function = db((db.team_function.username == user.id)&(db.team_function.project_id == colaborate_projects[l].id)).select(db.team_function.role).as_list()}}
       		{{if user_function:}}
       			{{for x,y in user_function[0].iteritems():}}
       			{{=y}}

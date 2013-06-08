@@ -129,7 +129,7 @@ def user_info():
                 this_competence = db(db.competence.profession_id == i.id).select()
                 if this_competence:
                     competencies.append(this_competence)
-        last_project = my_projects = colaborate_projects = None
+
         last_project = db(db.projects.project_owner == user).select(orderby='created_on').last()
         my_projects = db(db.projects.project_owner == user).select(orderby='created_on', limitby=(0,5))
         team = db(db.projects).select(orderby='created_on', limitby=(0,5))
@@ -148,36 +148,62 @@ def user_info():
 
 
 def projects():
+    import json
     message = T("Project not found.")
     project = db.projects(id=request.args(0)) or message
-    team = db(db.projects).select()
-    return dict(project=project, message=message)
+
+    collaborators = []
+    user_function = []
+    professions = []
+    for i in json.loads(project.team):
+        collaborator = db(db.auth_user.id == i).select().first()
+        collaborators.append(collaborator)
+        user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == request.args(0))).select().first()
+        user_function.append(user_role)
+        all_professions = db(db.profession.user_id == i).select().first()
+        professions.append(all_professions)
+
+    user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
+    if user_role.accepts(request.vars):
+        if not db((db.team_function.username == request.vars.username)&(db.team_function.project_id == request.args(0))).select():
+            db.team_function.insert(project_id = request.args(0), username = request.vars.username, role = request.vars.role)
+        else:
+            db((db.team_function.username == request.vars.username)&(db.team_function.project_id == request.args(0))).update(role=request.vars.role)
+    elif user_role.errors:
+        response.flash = T("Form has errors!")
+
+    return dict(
+            project=project, message=message, user_role=user_role, collaborators=collaborators,
+            professions=professions, user_function=user_function)
 
 @auth.requires_login()
 def create_project():
+    import json
     form = SQLFORM(db.projects)
     if form.process().accepted:
         session.flash = T('Project created!')
-        db.auth_membership.insert()
+        team = form.vars.team.split(",")
+        d = {}
+        for i in team:
+            x = i.split(":")
+            d[x[0]] = x[1]
+        myjson = json.dumps(d)
         project_id = form.vars.id
+        db(db.projects.id  == project_id).update(team=myjson)
         redirect(URL('projects', args=project_id))
     elif form.errors:
         response.flash = T('Form has errors!')
     return dict(form=form)
 
-@auth.requires_login()
-def manage_team():
-    message = form = ''
-    project = db(db.projects.id == request.args(0)).select(db.projects.id)
-    if project:
-        form = SQLFORM(db.team_function)
-        if form.process().accepted:
-            response.flash = T("User function defined.")
-        elif form.errors:
-            response.flash = T("Form has errors!")
-    else:
-        message = T("This project doesn't exist!")
-    return dict(form=form, message=message)
+@service.json
+def get_users():
+    term = request.vars.q
+    rows = db(db.auth_user.username.lower().like(term+'%')).select()
+    users = []
+    for i in rows:
+        users.append({"id": i.id, "title" : i.username})
+    return dict(users=users)
+    # return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
 def download():
     """
