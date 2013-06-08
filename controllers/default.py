@@ -143,7 +143,6 @@ def user_info():
                 last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
 
     else:
-
         return dict(user=user, message=message)
 
 
@@ -152,29 +151,35 @@ def projects():
     message = T("Project not found.")
     project = db.projects(id=request.args(0)) or message
 
-    collaborators = []
-    user_function = []
-    professions = []
-    for i in json.loads(project.team):
-        collaborator = db(db.auth_user.id == i).select().first()
-        collaborators.append(collaborator)
-        user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == request.args(0))).select().first()
-        user_function.append(user_role)
-        all_professions = db(db.profession.user_id == i).select().first()
-        professions.append(all_professions)
+    if project != message:
+        collaborators = []
+        user_function = []
+        professions = []
+        for i in json.loads(project.team):
+            collaborator = db(db.auth_user.id == i).select().first()
+            collaborators.append(collaborator)
+            user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == request.args(0))).select().first()
+            user_function.append(user_role)
+            all_professions = db(db.profession.user_id == i).select().first()
+            professions.append(all_professions)
 
-    user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
-    if user_role.accepts(request.vars):
-        if not db((db.team_function.username == request.vars.username)&(db.team_function.project_id == request.args(0))).select():
-            db.team_function.insert(project_id = request.args(0), username = request.vars.username, role = request.vars.role)
-        else:
-            db((db.team_function.username == request.vars.username)&(db.team_function.project_id == request.args(0))).update(role=request.vars.role)
-    elif user_role.errors:
-        response.flash = T("Form has errors!")
 
-    return dict(
-            project=project, message=message, user_role=user_role, collaborators=collaborators,
-            professions=professions, user_function=user_function)
+        user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
+        if user_role.accepts(request.vars):
+            if not db((db.team_function.username == request.vars.username)&(db.team_function.project_id == request.args(0))).select():
+                db.team_function.insert(project_id = request.args(0), username = request.vars.username, role = request.vars.role)
+            else:
+                db((db.team_function.username == request.vars.username)&(db.team_function.project_id == request.args(0))).update(role=request.vars.role)
+        elif user_role.errors:
+            response.flash = T("Form has errors!")
+
+        return dict(
+                project=project, message=message, user_role=user_role, collaborators=collaborators,
+                professions=professions, user_function=user_function)
+
+    else:
+        return dict(project=project, message=message,)
+
 
 @auth.requires_login()
 def create_project():
