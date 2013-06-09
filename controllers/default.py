@@ -153,22 +153,23 @@ def projects():
 
     if project != message:
         collaborators = []
-        for i in json.loads(project.team):
-            collaborator = db(db.auth_user.id == i).select().first()
-            user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == request.args(0))).select().first()
-            profession = db(db.profession.user_id == i).select(db.profession.profession)
+        if project.team:
+            for i in json.loads(project.team):
+                collaborator = db(db.auth_user.id == i).select().first()
+                user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == request.args(0))).select().first()
+                profession = db(db.profession.user_id == i).select(db.profession.profession)
 
-            if user_role:
-                collaborator.role = user_role.role
-            else:
-                collaborator.role = user_role
+                if user_role:
+                    collaborator.role = user_role.role
+                else:
+                    collaborator.role = user_role
 
-            if profession:
-                collaborator.professions = profession
-            else:
-                collaborator.profession = profession
+                if profession:
+                    collaborator.professions = profession
+                else:
+                    collaborator.profession = profession
 
-            collaborators.append(collaborator)
+                collaborators.append(collaborator)
 
         user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
         if user_role.accepts(request.vars):

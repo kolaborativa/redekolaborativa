@@ -58,7 +58,13 @@
 
 <tr>
 <td>
-<h3>{{=T("Who is Kolaborating")}}</h3>
+
+{{if collaborators:}}
+    <h3>{{=T("Who is Kolaborating")}}</h3>
+{{else:}}
+    <h5>{{=T("Nobody is Kolaborating yet")}}</h5>
+{{pass}}
+
 {{for collaborator in collaborators:}}
 	<div class="media">
 	     <a href="/{{=collaborator.username}}" class="pull-left">

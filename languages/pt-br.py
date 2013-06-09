@@ -150,6 +150,7 @@
 'next 100 rows': 'próximas 100 linhas',
 'Nickname': 'Apelido',
 'No databases in this application': 'Sem bancos de dados nesta aplicação',
+'Nobody is Kolaborating yet': 'Ninguém está Kolaborando ainda',
 'None': 'Nenhum',
 'Não pode estar vazio': 'Não pode estar vazio',
 'Object or table name': 'Nome do objeto ou da tabela',
