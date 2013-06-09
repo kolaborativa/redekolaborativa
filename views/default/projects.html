@@ -25,24 +25,25 @@
                         {{pass}}
             {{pass}}
       {{else:}}
-            {{=T("Undefined")}}
+            {{=T("Undefined")}}<br>
       {{pass}}
-      <br>
 
 <b>{{=T("Email")}}:</b> {{=g_return_if_empty(project.project_mail)}} <br>
 
-{{if project.wanting_team:}}<b>{{=T("We need some more members...")}}</b> <br>{{pass}}
+{{if project.wanting_team:}}<b>{{=T("We need some more members...")}}</b> <br>
 {{if project.team_wanted:}}
                         {{if len(project.team_wanted) >= 1:}}
                         {{=', '.join(project.team_wanted)}}<br>
                         {{pass}}
 {{pass}}
+{{pass}}
 
-{{if project.wanting_other:}}<b>{{=T("We are looking for other kinds of help...")}}</b> <br>{{pass}}
+{{if project.wanting_other:}}<b>{{=T("We are looking for other kinds of help...")}}</b> <br>
 {{if project.other_wanted:}}
                         {{if len(project.other_wanted) >= 1:}}
                         {{=', '.join(project.other_wanted)}}<br>
                         {{pass}}
+{{pass}}
 {{pass}}
 </td>
 
@@ -88,7 +89,7 @@
                   <br>
                   {{=user_role.custom.begin}}
                   {{if collaborator.role:}}
-                        <a class="btn btn-edit"><i class="icon-edit"></i></a>
+                        <a class="btn btn_edit"><i class="icon-edit"></i></a>
                   {{else:}}
                         <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
                   {{pass}}
@@ -109,6 +110,16 @@
 {{pass}}
 </ul>
 </td>
+
+<td>
+</td>
+
+<td>
+{{if auth.user_id == project.project_owner:}}
+      <a class="btn btn_team">{{=T("Searching for members?")}}</a>
+      {{=searching_team}}
+{{pass}}
+</td>
 </tr>
 </table>
 {{else:}}
@@ -119,15 +130,39 @@
 jQuery(document).ready(function(){
    $('.field_role').hide();
    $('.btn_ok').hide();
+   $('#searching_team').hide();
+
    jQuery(".btn_plus").on("click", function(){
       var form = $(this).closest("#user_role");
       form.find(".field_role").toggle();
       form.find(".btn_ok").toggle();
       });
-   jQuery(".btn-edit").on("click", function(){
+   jQuery(".btn_edit").on("click", function(){
       var form = $(this).closest("#user_role");
       form.find(".field_role").toggle();
       form.find(".btn_ok").toggle();
       });
+   jQuery(".btn_team").on("click", function(){
+      $(this).closest('td').find("#searching_team").toggle();
+   })
+
+   jQuery('.btn_team').on("click", function(){
+        if(jQuery('#projects_wanting_team').attr('checked'))
+            jQuery('#projects_team_wanted__row').show();
+        else jQuery('#projects_team_wanted__row').hide();
+
+        if(jQuery('#projects_wanting_other').attr('checked'))
+            jQuery('#projects_other_wanted__row').show();
+        else jQuery('#projects_other_wanted__row').hide();}); 
+
+   jQuery('#projects_wanting_team').change(function(){
+        if(jQuery('#projects_wanting_team').attr('checked'))
+            jQuery('#projects_team_wanted__row').show();
+        else jQuery('#projects_team_wanted__row').hide();});
+   jQuery('#projects_wanting_other').change(function(){
+        if(jQuery('#projects_wanting_other').attr('checked'))
+            jQuery('#projects_other_wanted__row').show();
+        else jQuery('#projects_other_wanted__row').hide();}); 
 });
+
 </script>
