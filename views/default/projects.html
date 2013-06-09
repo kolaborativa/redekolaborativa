@@ -69,39 +69,28 @@
       	</a>
       <div class="media-body">
       	<b>{{=T("Profession")}}:</b>
-                  {{for job in professions:}}
-                        {{if job:}}
-                              {{if job.user_id == collaborator.id:}}
-                                    {{if job == professions[-1]:}}
-                                          {{=job.profession}}
-                                    {{else:}}
-                                          {{=job.profession}},
-                                    {{pass}}
+                  {{if collaborator.professions:}}
+                        {{for job in collaborator.professions:}}
+                              {{if job == collaborator.professions[-1]:}}
+                                    {{=job.profession}}<br>
+                              {{else:}}
+                                    {{=job.profession}},
                               {{pass}}
-                        {{else:}}
-                  	      {{=T("Undefined")}}
-                        {{pass}}<br>
+                        {{pass}}
+                  {{else:}}
+                        {{=T("Undefined")}}<br>
                   {{pass}}
 
             <b>{{=T("Role")}}:</b>
-                  {{for this_function in user_function:}}
-                        {{if this_function:}}
-                              {{if this_function.username == collaborator.username:}}
-                                    {{=this_function.role}}
-                              {{pass}}
-                        {{else:}}
-                              {{=T("Undefined")}}<br>
-                  	{{pass}}
-                  {{pass}}<br>
+                  {{=g_return_if_empty(collaborator.role)}}
 
             {{if auth.user_id == project.project_owner:}}
+                  <br>
                   {{=user_role.custom.begin}}
-                  {{for this_function in user_function:}}
-                        {{if this_function:}}
-                              <a class="btn btn-edit"><i class="icon-edit"></i></a>
-                        {{else:}}
-                              <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
-                        {{pass}}
+                  {{if collaborator.role:}}
+                        <a class="btn btn-edit"><i class="icon-edit"></i></a>
+                  {{else:}}
+                        <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
                   {{pass}}
                   {{user_role.elements(_type="submit")[0] ['_class']="btn btn_ok"}}
                   {{=user_role.custom.submit}}
@@ -132,13 +121,13 @@ jQuery(document).ready(function(){
    $('.btn_ok').hide();
    jQuery(".btn_plus").on("click", function(){
       var form = $(this).closest("#user_role");
-      form.find(".field_role").show();
-      form.find(".btn_ok").show();
+      form.find(".field_role").toggle();
+      form.find(".btn_ok").toggle();
       });
    jQuery(".btn-edit").on("click", function(){
       var form = $(this).closest("#user_role");
-      form.find(".field_role").show();
-      form.find(".btn_ok").show();
+      form.find(".field_role").toggle();
+      form.find(".btn_ok").toggle();
       });
 });
 </script>
