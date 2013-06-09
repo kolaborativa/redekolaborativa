@@ -19,9 +19,9 @@
       {{if project.project_links:}}
             {{for i in project.project_links:}}
                         {{if i == project.project_links[-1]:}}
-                              <a href="{{=i}}">Link {{=project.project_links.index(i) + 1}}</a><br>
+                              <a href="{{=i}}" target="_blank">Link {{=project.project_links.index(i) + 1}}</a><br>
                         {{else:}}
-                              <a href="{{=i}}">Link {{=project.project_links.index(i) + 1}}</a> |
+                              <a href="{{=i}}" target="_blank">Link {{=project.project_links.index(i) + 1}}</a> |
                         {{pass}}
             {{pass}}
       {{else:}}
