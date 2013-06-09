@@ -70,7 +70,7 @@
       	</a>
       <div class="media-body">
       	<b>{{=T("Profession")}}:</b>
-                  {{if collaborator.professions:}}
+                  {{if hasattr(collaborator, 'professions'):}}
                         {{for job in collaborator.professions:}}
                               {{if job == collaborator.professions[-1]:}}
                                     {{=job.profession}}<br>
@@ -153,7 +153,7 @@ jQuery(document).ready(function(){
 
         if(jQuery('#projects_wanting_other').attr('checked'))
             jQuery('#projects_other_wanted__row').show();
-        else jQuery('#projects_other_wanted__row').hide();}); 
+        else jQuery('#projects_other_wanted__row').hide();});
 
    jQuery('#projects_wanting_team').change(function(){
         if(jQuery('#projects_wanting_team').attr('checked'))
@@ -162,7 +162,7 @@ jQuery(document).ready(function(){
    jQuery('#projects_wanting_other').change(function(){
         if(jQuery('#projects_wanting_other').attr('checked'))
             jQuery('#projects_other_wanted__row').show();
-        else jQuery('#projects_other_wanted__row').hide();}); 
+        else jQuery('#projects_other_wanted__row').hide();});
 });
 
 </script>
