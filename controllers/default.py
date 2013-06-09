@@ -183,7 +183,7 @@ def projects():
 
         searching_team = SQLFORM(db.projects, project, fields=["wanting_team", "team_wanted", "wanting_other", "other_wanted"],
                                 labels = {'wanting_team':'Searching for team', 'team_wanted':'Kind of team',
-                                'wanting_other':'Searching for other members', 'other_wanted':'Kind of members'}, 
+                                'wanting_other':'Searching for other members', 'other_wanted':'Kind of members'},
                                 showid=False,
                                 _id="searching_team")
         if searching_team.process().accepted:
@@ -206,15 +206,18 @@ def create_project():
     form = SQLFORM(db.projects)
     if form.process().accepted:
         session.flash = T('Project created!')
-        team = form.vars.team.split(",")
-        d = {}
-        for i in team:
-            x = i.split(":")
-            d[x[0]] = x[1]
-        myjson = json.dumps(d)
-        project_id = form.vars.id
-        db(db.projects.id  == project_id).update(team=myjson)
+        if(form.vars.team) {
+            team = form.vars.team.split(",")
+            d = {}
+            for i in team:
+                x = i.split(":")
+                d[x[0]] = x[1]
+            myjson = json.dumps(d)
+            project_id = form.vars.id
+            db(db.projects.id  == project_id).update(team=myjson)
+        }
         redirect(URL('projects', args=project_id))
+
     elif form.errors:
         response.flash = T('Form has errors!')
     return dict(form=form)
