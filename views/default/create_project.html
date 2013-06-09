@@ -21,9 +21,9 @@ function MultiAjaxAutoComplete(element, url) {
         placeholder: "Search for a user",
         minimumInputLength: 1,
         multiple: true,
-        formatNoMatches: function(){return "nenhum resultado"},
-        formatSearching: function(){return "buscando"},
-        formatInputTooShort: function(){return "muito curto o texto"},
+        formatNoMatches: function(){return "No results"},
+        formatSearching: function(){return "Searching..."},
+        formatInputTooShort: function(){return "Too short"},
 
         id: function(e) { return e.id+":"+e.title; },
         ajax: {
