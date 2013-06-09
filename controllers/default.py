@@ -206,7 +206,7 @@ def create_project():
     form = SQLFORM(db.projects)
     if form.process().accepted:
         session.flash = T('Project created!')
-        if(form.vars.team) {
+        if form.vars.team:
             team = form.vars.team.split(",")
             d = {}
             for i in team:
@@ -215,7 +215,7 @@ def create_project():
             myjson = json.dumps(d)
             project_id = form.vars.id
             db(db.projects.id  == project_id).update(team=myjson)
-        }
+
         redirect(URL('projects', args=project_id))
 
     elif form.errors:
