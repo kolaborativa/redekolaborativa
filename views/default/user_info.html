@@ -6,11 +6,11 @@
 <tr>
 <td>
 <h3>{{=T("Personal Info")}}</h3>
-<b>{{=T("Name")}}:</b> {{=user.first_name}}{{=' '}}{{=user.last_name}}<br>
-<b>{{=T("Age")}}:</b> {{=user.age}}<br>
-<b>{{=T("Localization")}}:</b> {{=user.localization}}<br>
+<b>{{=T("Name")}}:</b> {{=user.first_name}}{{=' '}}{{=user.last_name or ''}}<br>
+<b>{{=T("Age")}}:</b> {{=user.age or ''}}<br>
+<b>{{=T("Localization")}}:</b> {{=user.localization or ''}}<br>
 <b>{{=T("Biography")}}</b><br>
-{{=user.bio}}
+{{=user.bio or ''}}
 </td>
 <td>
     <h3>{{=T("Professional Info")}}</h3>
