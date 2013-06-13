@@ -57,6 +57,33 @@
 </tr>
 
 <tr>
+
+
+<td>
+<!-- {{if project.video_url:}}
+<h2>{{=T("Video")}}</h2>
+<iframe width="360" height="203" src="{{=project.video_url}}" frameborder="0" allowfullscreen></iframe>
+{{pass}} -->
+</td>
+
+<td>
+<!-- {{if project.slideshare_url:}}
+<h2>Slideshare</h2>
+<iframe src="{{=project.slideshare_url}}" width="490px" height="470px" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:none;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+{{pass}} -->
+</td>
+
+<td>
+{{if auth.user_id == project.project_owner:}}
+    <a class="btn" href="{{=URL('edit_project', args=request.args(0))}}">{{=T("Edit project")}}</a><br><br>
+    <a class="btn btn_team">{{=T("Searching for members?")}}</a>
+    {{=searching_team}}
+{{pass}}
+</td>
+
+</tr>
+
+<tr>
 <td>
 
 {{if collaborators:}}
@@ -66,16 +93,16 @@
 {{pass}}
 
 {{for collaborator in collaborators:}}
-	<div class="media">
-	     <a href="/{{=collaborator.username}}" class="pull-left">
+  <div class="media">
+       <a href="/{{=collaborator.username}}" class="pull-left">
            {{if not collaborator.avatar:}}
-      		<img src="{{=URL('static', 'images/non_avatar.gif')}}" alt="{{=collaborator.username}}" class="media-object" width="50px" height="50px">
+          <img src="{{=URL('static', 'images/non_avatar.gif')}}" alt="{{=collaborator.username}}" class="media-object" width="50px" height="50px">
             {{else:}}
                   <img src="{{=URL('download', args=collaborator.avatar)}}" alt="{{=collaborator.username}}" class="media-object" width="50px" height="50px">
             {{pass}}
-      	</a>
+        </a>
       <div class="media-body">
-      	<b>{{=T("Profession")}}:</b>
+        <b>{{=T("Profession")}}:</b>
                   {{if hasattr(collaborator, 'professions'):}}
                         {{for job in collaborator.professions:}}
                               {{if job == collaborator.professions[-1]:}}
@@ -111,21 +138,12 @@
                   {{=user_role.custom.end}}
             {{pass}}
       </div>
-  	</div>
+    </div>
 
 {{pass}}
 </ul>
 </td>
 
-<td>
-</td>
-
-<td>
-{{if auth.user_id == project.project_owner:}}
-      <a class="btn btn_team">{{=T("Searching for members?")}}</a>
-      {{=searching_team}}
-{{pass}}
-</td>
 </tr>
 </table>
 {{else:}}
