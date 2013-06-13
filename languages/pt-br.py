@@ -152,6 +152,7 @@
 'Nickname': 'Apelido',
 'No databases in this application': 'Sem bancos de dados nesta aplicação',
 'No results': 'Sem resultados',
+'Nobody is Kolaborating yet': 'Ninguém está Kolaborando ainda',
 'None': 'Nenhum',
 'Não pode estar vazio': 'Não pode estar vazio',
 'Object or table name': 'Nome do objeto ou da tabela',

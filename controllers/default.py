@@ -153,22 +153,23 @@ def projects():
 
     if project != message:
         collaborators = []
-        for i in json.loads(project.team):
-            collaborator = db(db.auth_user.id == i).select().first()
-            user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == request.args(0))).select().first()
-            profession = db(db.profession.user_id == i).select(db.profession.profession)
+        if project.team:
+            for i in json.loads(project.team):
+                collaborator = db(db.auth_user.id == i).select().first()
+                user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == request.args(0))).select().first()
+                profession = db(db.profession.user_id == i).select(db.profession.profession)
 
-            if user_role:
-                collaborator.role = user_role.role
-            else:
-                collaborator.role = user_role
+                if user_role:
+                    collaborator.role = user_role.role
+                else:
+                    collaborator.role = user_role
 
-            if profession:
-                collaborator.professions = profession
-            else:
-                collaborator.profession = profession
+                if profession:
+                    collaborator.professions = profession
+                else:
+                    collaborator.profession = profession
 
-            collaborators.append(collaborator)
+                collaborators.append(collaborator)
 
         user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
         if user_role.accepts(request.vars):
@@ -205,6 +206,7 @@ def create_project():
     import json
     form = SQLFORM(db.projects)
     if form.process().accepted:
+        project_id = form.vars.id
         session.flash = T('Project created!')
         if form.vars.team:
             team = form.vars.team.split(",")
@@ -213,7 +215,6 @@ def create_project():
                 x = i.split(":")
                 d[x[0]] = x[1]
             myjson = json.dumps(d)
-            project_id = form.vars.id
             db(db.projects.id  == project_id).update(team=myjson)
 
         redirect(URL('projects', args=project_id))
