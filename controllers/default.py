@@ -223,6 +223,46 @@ def create_project():
         response.flash = T('Form has errors!')
     return dict(form=form)
 
+@auth.requires_login()
+def edit_project():
+    import json
+    message = T("Project not found.")
+    project = db.projects(id=request.args(0)) or message
+
+    if project != message:
+        if auth.user_id == project.project_owner:
+            teste = json.loads(project.team)
+            mystring = ""
+            for i in teste:
+                mystring += "%s:%s," % (i,teste[i])
+            project.team = mystring[0:-1]
+
+            form = SQLFORM(db.projects,
+                   project,
+                   showid=False
+                   )
+            if form.process().accepted:
+                team = form.vars.team.split(",")
+                d = {}
+                for i in team:
+                    x = i.split(":")
+                    d[x[0]] = x[1]
+                myjson = json.dumps(d)
+                project_id = form.vars.id
+                db(db.projects.id  == project_id).update(team=myjson)
+                session.flash = T("Project edited!")
+                redirect(URL('projects', args=request.args(0)))
+            elif form.errors:
+                response.flash = T("Form has errors!")
+
+            return dict(project=project, message=message, form=form)
+        else:
+            no_permission = T('You don\'t have permission to change this project!')
+            return dict(project=project, message=message, form=no_permission)
+    else:
+        return dict(project=project, message=message)
+
+
 @service.json
 def get_users():
     term = request.vars.q
@@ -231,7 +271,7 @@ def get_users():
     for i in rows:
         users.append({"id": i.id, "title" : i.username})
     return dict(users=users)
-    # return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
 
 def download():
     """

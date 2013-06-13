@@ -82,7 +82,7 @@ auth.define_tables(username=True, signature=False)
 # auth default attributes rename
 db.auth_user.first_name.label = T("Name")
 db.auth_user.last_name.label = T("Nickname")
-db.auth_user.last_name.requires = IS_EMPTY_OR(IS_ALPHANUMERIC(error_message='must be alphanumeric!'))
+db.auth_user.last_name.requires = IS_EMPTY_OR(IS_ALPHANUMERIC(error_message='Must be alphanumeric!'))
 
 auth.settings.register_next= URL('user_info')
 auth.settings.login_next = URL('user_info')
