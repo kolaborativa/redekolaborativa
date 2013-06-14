@@ -31,8 +31,8 @@
     {{else:}}
         {{=T("None")}}<br />
     {{pass}}
-    <b>{{=T("Social Network")}}:</b> {{=', '.join(user.social_networking)}}<br />
-    <b>{{=T("Availability")}}:</b> {{=', '.join(user.availability)}}<br />
+    <b>{{=T("Social Network")}}:</b> {{=g_return_if_empty(', '.join(user.social_networking))}}<br />
+    <b>{{=T("Availability")}}:</b> {{=g_return_if_empty(', '.join(user.availability))}}<br />
 </td>
 
 <td>
