@@ -39,16 +39,20 @@ response.generic_patterns = ['*'] if request.is_local else []
 # (more options discussed in gluon/tools.py)
 #
 
-from gluon.tools import Auth, Crud, Service, PluginManager
+from gluon.tools import Auth, Crud, Service, PluginManager, Mail
 auth = Auth(db)
 crud, service, plugins = Crud(db), Service(), PluginManager()
 
 
-# configure email
-mail = auth.settings.mailer
-mail.settings.server = 'logging' or 'smtp.gmail.com:587'
-mail.settings.sender = 'you@gmail.com'
-mail.settings.login = 'username:password'
+## imported variables
+from data_config import EMAIL_SERVER, CLIENT_EMAIL, CLIENT_LOGIN
+
+## configure email
+mail = Mail()
+mail.settings.server = EMAIL_SERVER
+mail.settings.sender = CLIENT_EMAIL
+mail.settings.login = CLIENT_LOGIN
+auth.settings.mailer = mail
 
 # configure auth policy
 auth.settings.registration_requires_verification = False
