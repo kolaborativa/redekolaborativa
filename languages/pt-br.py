@@ -44,7 +44,7 @@
 'Contact Info': 'Informações de Contato',
 'Controller': 'Controlador',
 'Copyright': 'Copyright',
-'Create a project!': 'Crie um projeto!',
+'Create a new project!': 'Crie um novo projeto!',
 'Created By': 'Criado por',
 'Created On': 'Criado em',
 'Current request': 'Requisição atual',
