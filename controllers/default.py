@@ -231,11 +231,12 @@ def edit_project():
 
     if project != message:
         if auth.user_id == project.project_owner:
-            teste = json.loads(project.team)
-            mystring = ""
-            for i in teste:
-                mystring += "%s:%s," % (i,teste[i])
-            project.team = mystring[0:-1]
+            if project.team:
+                myteam = json.loads(project.team)
+                mystring = ""
+                for i in myteam:
+                    mystring += "%s:%s," % (i,myteam[i])
+                project.team = mystring[0:-1]
 
             form = SQLFORM(db.projects,
                    project,
