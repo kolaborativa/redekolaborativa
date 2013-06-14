@@ -7,7 +7,7 @@
 <h3>{{=T("Project Info")}}</h3>
 <b>{{=T("Name")}}:</b> {{=project.name}}<br>
 <b>{{=T("Type")}}:</b> {{=g_return_if_empty(project.project_type)}}<br>
-<b>{{=T("Owner")}}:</b> {{=project.project_owner.username}}<br>
+<b>{{=T("Owner")}}:</b> <a href="/{{=project.project_owner.username}}">{{=project.project_owner.username}}</a><br>
 <b>{{=T("Description")}}:</b> {{=g_return_if_empty(project.description)}}
 </td>
 
