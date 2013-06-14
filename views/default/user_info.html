@@ -29,8 +29,10 @@
 
         {{pass}}
     {{else:}}
-        {{=T("None")}}
+        {{=T("None")}}<br />
     {{pass}}
+    <b>{{=T("Social Network")}}:</b> {{=', '.join(user.social_networking)}}<br />
+    <b>{{=T("Availability")}}:</b> {{=', '.join(user.availability)}}<br />
 </td>
 
 <td>
@@ -38,7 +40,8 @@
 <img src={{=URL('static', '/images/non_avatar.gif')}} width="168px" height="168px">
 {{else:}}
 <img src={{=URL(f='download', args=user.avatar)}} width="168px" height="168px">
-{{pass}}
+{{pass}}<br /><br />
+<a class="btn" href="{{=URL('create_project')}}">{{=T("Create a project!")}}</a>
 </td>
 </tr>
 
