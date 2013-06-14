@@ -31,8 +31,9 @@
     {{else:}}
         {{=T("None")}}<br />
     {{pass}}
-    <b>{{=T("Social Network")}}:</b> {{=g_return_if_empty(', '.join(user.social_networking))}}<br />
-    <b>{{=T("Availability")}}:</b> {{=g_return_if_empty(', '.join(user.availability))}}<br />
+    <b>{{=T("E-mail")}}:</b> {{=g_return_if_empty(user.email)}}<br />
+    <b>{{=T("Social Network")}}:</b> {{=', '.join(user.social_networking) or T("Undefined")}}<br />
+    <b>{{=T("Availability")}}:</b> {{=', '.join(user.availability) or T("Undefined")}}<br />
 </td>
 
 <td>
@@ -41,7 +42,9 @@
 {{else:}}
 <img src={{=URL(f='download', args=user.avatar)}} width="168px" height="168px">
 {{pass}}<br /><br />
+{{if auth.user_id == user.id:}}
 <a class="btn" href="{{=URL('create_project')}}">{{=T("Create a project!")}}</a>
+{{pass}}
 </td>
 </tr>
 
