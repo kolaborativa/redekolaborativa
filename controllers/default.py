@@ -143,8 +143,8 @@ def user_info():
                 last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
 
     else:
-        if db.projects(name=request.args(0)):
-            redirect(URL('projects', args=request.args(0)))
+        if db.projects(name=request.args(0).replace('_', ' ')):
+            redirect(URL('projects', args=request.args(0).replace(' ', '_')))
         else:
             return dict(user=user, message=message)
 
@@ -152,14 +152,14 @@ def user_info():
 def projects():
     import json
     message = T("Project not found.")
-    project = db.projects(name=request.args(0)) or message
+    project = db.projects(name = request.args(0).replace('_', ' ')) or message
 
     if project != message:
         collaborators = []
         if project.team:
             for i in json.loads(project.team):
                 collaborator = db(db.auth_user.id == i).select().first()
-                user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == request.args(0))).select().first()
+                user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == project.id)).select().first()
                 profession = db(db.profession.user_id == i).select(db.profession.profession)
 
                 if user_role:
@@ -176,12 +176,12 @@ def projects():
 
         user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
         if user_role.accepts(request.vars):
-            if not db((db.team_function.username == request.vars.username)&(db.team_function.project_id == request.args(0))).select():
-                db.team_function.insert(project_id = request.args(0), username = request.vars.username, role = request.vars.role)
+            if not db((db.team_function.username == request.vars.username)&(db.team_function.project_id == project.id)).select():
+                db.team_function.insert(project_id = project.id, username = request.vars.username, role = request.vars.role)
             else:
-                db((db.team_function.username == request.vars.username)&(db.team_function.project_id == request.args(0))).update(role=request.vars.role)
+                db((db.team_function.username == request.vars.username)&(db.team_function.project_id == project.id)).update(role=request.vars.role)
 
-            redirect(URL(f="projects", args=request.args(0)))
+            redirect(URL(f="projects", args=request.args(0).replace(' ', '_')))
         elif user_role.errors:
             response.flash = T("Form has errors!")
 
@@ -192,7 +192,7 @@ def projects():
                                 _id="searching_team")
         if searching_team.process().accepted:
             response.flash = T('Form accepted!')
-            redirect(URL(f='projects', args=request.args(0)))
+            redirect(URL(f='projects', args=request.args(0).replace(' ', '_')))
         elif searching_team.errors:
             response.flash = T('Form has errors!')
 
@@ -220,7 +220,7 @@ def create_project():
             myjson = json.dumps(d)
             db(db.projects.id  == project_id).update(team=myjson)
 
-        redirect(URL('projects', args=project_id))
+        redirect(URL('projects', args=form.vars.name.replace(' ', '_')))
 
     elif form.errors:
         response.flash = T('Form has errors!')
@@ -230,7 +230,7 @@ def create_project():
 def edit_project():
     import json
     message = T("Project not found.")
-    project = db.projects(id=request.args(0)) or message
+    project = db.projects(name=request.args(0).replace('_', ' ')) or message
 
     if project != message:
         if auth.user_id == project.project_owner:
@@ -255,7 +255,7 @@ def edit_project():
                 project_id = form.vars.id
                 db(db.projects.id  == project_id).update(team=myjson)
                 session.flash = T("Project edited!")
-                redirect(URL('projects', args=request.args(0)))
+                redirect(URL('projects', args=request.args(0).replace(' ', '_')))
             elif form.errors:
                 response.flash = T("Form has errors!")
 

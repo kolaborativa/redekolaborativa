@@ -247,6 +247,7 @@
 'The Views': 'The Views',
 'This App': 'Essa App',
 'This is a copy of the scaffolding application': 'Essa é uma cópia da aplicação principal',
+'This project already exists!': 'Esse projeto já existe!',
 "This project doesn't exist!": 'Esse projeto não existe!',
 'Time in Cache (h:m:s)': 'Tempo em cache (h:m:s)',
 'Timestamp': 'Timestamp',

@@ -1,5 +1,5 @@
 #projects
-db.projects.name.requires = IS_NOT_EMPTY(error_message='Cannot be empty!')
+db.projects.name.requires = [IS_NOT_EMPTY(error_message='Cannot be empty!'), IS_NOT_IN_DB(db, 'projects.name', error_message="This project already exists!")]
 db.projects.image.requires = IS_EMPTY_OR(IS_IMAGE(extensions=('jpeg', 'png', 'jpg', 'gif')))
 db.projects.project_type.requires = IS_EMPTY_OR(IS_IN_SET(['OpenSource', T('Enterprising'), T('Social'), T('Other')]))
 db.projects.video_url.requires = IS_EMPTY_OR(IS_URL(error_message='Must be a valid URL!'))
