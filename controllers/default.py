@@ -143,13 +143,16 @@ def user_info():
                 last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
 
     else:
-        return dict(user=user, message=message)
+        if db.projects(name=request.args(0)):
+            redirect(URL('projects', args=request.args(0)))
+        else:
+            return dict(user=user, message=message)
 
 
 def projects():
     import json
     message = T("Project not found.")
-    project = db.projects(id=request.args(0)) or message
+    project = db.projects(name=request.args(0)) or message
 
     if project != message:
         collaborators = []
