@@ -53,7 +53,7 @@
 <h3>{{=T("My Last Project")}}</h3>
 {{if last_project:}}
 <h4>{{=last_project.name}}</h4><br>
-<a href={{=URL('projects', args=url_get_project(last_project.name).replace(' ', '_'))}}>
+<a href={{=URL('projects', args=url_get_project(last_project.name).replace(' ', '-'))}}>
 {{if last_project.image:}}	<img src={{=URL(f='download', args=last_project.image)}} width="100px" height="100px" align="left">
 {{else:}}
 <img src={{=URL('static', 'images/non_project.png')}} width="100px" height="100px" align="left">
@@ -82,7 +82,7 @@
 </tr>
 {{for l in my_projects:}}
 <tr>
-<td><a href={{=URL('projects', args=url_get_project(l.name).replace(' ', '_'))}}>
+<td><a href={{=URL('projects', args=url_get_project(l.name).replace(' ', '-'))}}>
 {{if l.image:}}
 <img src={{=URL(f='download', args=l.image)}} width="40px" height="40px">
 {{else:}}
@@ -115,7 +115,7 @@
 </tr>
 {{for l in colaborate_projects:}}
 <tr>
-<td><a href={{=URL('projects', args=url_get_project(colaborate_projects[l].name).replace(' ', '_'))}}>
+<td><a href={{=URL('projects', args=url_get_project(colaborate_projects[l].name).replace(' ', '-'))}}>
 {{if colaborate_projects[l].image:}}
 	<img src={{=URL(f='download', args=colaborate_projects[l].image)}} width="40px" height="40px">
 {{else:}}

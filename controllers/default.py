@@ -152,7 +152,7 @@ def user_info():
 def projects():
     import json
     message = T("Project not found.")
-    project = db.projects(name = request.args(0).replace('_', ' ')) or db.projects(name = url_get_project(request.args(0)).replace('_', ' ')) or message
+    project = db.projects(name = request.args(0).replace('-', ' ')) or db.projects(name = url_get_project(request.args(0)).replace('-', ' ')) or message
 
     if project != message:
         collaborators = []
@@ -230,7 +230,7 @@ def create_project():
 def edit_project():
     import json
     message = T("Project not found.")
-    project = db.projects(name=request.args(0).replace('_', ' ')) or db.projects(name = url_get_project(request.args(0)).replace('_', ' ')) or message
+    project = db.projects(name=request.args(0).replace('-', ' ')) or db.projects(name = url_get_project(request.args(0)).replace('-', ' ')) or message
 
     if project != message:
         if auth.user_id == project.project_owner:

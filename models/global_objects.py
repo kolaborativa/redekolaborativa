@@ -11,11 +11,11 @@ def url_get_project(url):
 		for project in db(db.projects).select(db.projects.name):
 			if project.name.lower() == url:
 				return project.name
-			elif '_' in url:
-				new_url = url.replace('_', ' ')
+			elif '-' in url:
+				new_url = url.replace('-', ' ')
 				if new_url == project.name:
 					return url
 				elif new_url == project.name.lower():
-					return project.name.replace(' ', '_')
+					return project.name.replace(' ', '-')
 
 
