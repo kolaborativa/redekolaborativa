@@ -33,7 +33,10 @@
     {{pass}}
     <b>{{=T("E-mail")}}:</b> {{=g_return_if_empty(user.email)}}<br />
 {{if user.social_networking:}}<b>{{=T("Social Network")}}:</b> {{=', '.join(user.social_networking)}}<br />{{pass}}
-{{if user.availability:}}<b>{{=T("Availability")}}:</b> {{=', '.join(user.availability)}}<br />{{pass}}
+<b>{{=T("Available")}}:</b> {{=T(user.user_available)}}<br />
+{{if user.user_available == 'Yes':}}
+  {{if user.availability:}}<b>{{=T("Availability")}}:</b> {{=', '.join(user.availability)}}<br />{{pass}}
+{{pass}}
 </td>
 
 <td>
@@ -53,7 +56,7 @@
 <h3>{{=T("My Last Project")}}</h3>
 {{if last_project:}}
 <h4>{{=last_project.name}}</h4><br>
-<a href={{=URL('projects', args=url_get_project(last_project.name).replace(' ', '-'))}}>
+<a href={{=URL('projects', args=url_get_project(last_project.name).replace(' ', '_'))}}>
 {{if last_project.image:}}	<img src={{=URL(f='download', args=last_project.image)}} width="100px" height="100px" align="left">
 {{else:}}
 <img src={{=URL('static', 'images/non_project.png')}} width="100px" height="100px" align="left">
@@ -82,7 +85,7 @@
 </tr>
 {{for l in my_projects:}}
 <tr>
-<td><a href={{=URL('projects', args=url_get_project(l.name).replace(' ', '-'))}}>
+<td><a href={{=URL('projects', args=url_get_project(l.name).replace(' ', '_'))}}>
 {{if l.image:}}
 <img src={{=URL(f='download', args=l.image)}} width="40px" height="40px">
 {{else:}}
@@ -115,7 +118,7 @@
 </tr>
 {{for l in colaborate_projects:}}
 <tr>
-<td><a href={{=URL('projects', args=url_get_project(colaborate_projects[l].name).replace(' ', '-'))}}>
+<td><a href={{=URL('projects', args=url_get_project(colaborate_projects[l].name).replace(' ', '_'))}}>
 {{if colaborate_projects[l].image:}}
 	<img src={{=URL(f='download', args=colaborate_projects[l].image)}} width="40px" height="40px">
 {{else:}}

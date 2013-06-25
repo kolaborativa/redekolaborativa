@@ -43,7 +43,7 @@ function web2py_event_handlers() {
   doc.on('keyup', 'input.integer', function(){this.value=this.value.reverse().replace(/[^0-9\-]|\-(?=.)/g,'').reverse();});
   doc.on('keyup', 'input.double, input.decimal', function(){this.value=this.value.reverse().replace(/[^0-9\-\.,]|[\-](?=.)|[\.,](?=[0-9]*[\.,])/g,'').reverse();});
   var confirm_message = (typeof w2p_ajax_confirm_message != 'undefined') ? w2p_ajax_confirm_message : "Are you sure you want to delete this object?";
-  doc.on('click', "input[type='checkbox'].delete", function(){if(this.checked) if(!confirm(confirm_message)) this.checked=false;});
+  doc.on('click', ".delete", function(){if(!confirm(confirm_message));});
 
   doc.ajaxSuccess(function(e, xhr) {
     var redirect=xhr.getResponseHeader('web2py-redirect-location');

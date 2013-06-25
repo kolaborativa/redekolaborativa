@@ -20,7 +20,11 @@ pass
     {{if professions:}}
         {{for p in professions:}}
         <ul>
-            <li><b>{{=T("Profession")}}:</b> {{=p.profession}}
+            <li><b>{{=T("Profession")}}:</b> {{=p.profession}} 
+                <div class="btn-group" style="float: right;">
+                    <a href="{{=URL('delete_profession', vars={'id':p.id})}}" class="btn btn-mini delete"><i class="icon-remove"></i> {{=T('Remove')}}</a>
+                    <a href="{{=URL('edit_profession', vars={'id':p.id})}}" class="btn btn-mini"><i class="icon-edit"></i> {{=T('Edit')}}</a>
+                </div>
                 <ul>
                 {{if len(competencies) >= 1:}}
                     {{list_competencies=[i.competence for c in competencies for i in c if i.profession_id ==  p.id]}}
@@ -55,3 +59,15 @@ jQuery("#web2py_user_form input:visible:enabled:first").focus();
     web2py_validate_entropy(jQuery('#no_table_new_password'),100);
 {{pass}}
 //--></script>
+
+<script>
+jQuery(document).ready(function(){
+   jQuery('#auth_user_availability__row').hide();
+   jQuery('#auth_user_user_available__row').change(function(){
+        if(jQuery('#user_availableYes').attr('checked'))
+            jQuery('#auth_user_availability__row').show();
+        else if(jQuery('#user_availableNo').attr('checked'))
+            jQuery('#auth_user_availability__row').hide();
+        else jQuery('#auth_user_availability__row').hide();});
+});
+</script>

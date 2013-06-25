@@ -77,6 +77,7 @@ auth.settings.extra_fields["auth_user"] = [
     Field("bio", "text"),
     Field("avatar", "upload"),
     Field("social_networking", "list:string"),
+    Field("user_available", widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET({'Yes': T('Yes'), 'No': T('No')})),
     Field("availability", "list:string", widget=SQLFORM.widgets.checkboxes.widget, requires=IS_IN_SET( [ (T('OpenSource'), T('OpenSource')), (T('Enterprising'), T('Enterprising')) ], multiple=True))
 ]
 

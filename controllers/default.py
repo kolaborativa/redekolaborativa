@@ -115,6 +115,24 @@ def user():
 
     return dict(form=auth())
 
+@auth.requires_login()
+def edit_profession():
+    profession = db.profession(request.vars.id)
+    form = SQLFORM.factory(Field('profession'))
+    form.vars.profession = profession.profession
+    if form.accepts(request.vars):
+        db(db.profession.id == profession.id).update(profession=request.vars.profession)
+        redirect(URL('user_info', args=auth.user.username))
+    return dict(form=form)
+
+@auth.requires_login()
+def delete_profession():
+    profession_id = request.vars.id
+    if db(db.profession.id == profession_id).select():
+        db(db.profession.id == profession_id).delete()
+        redirect(URL('user_info', args=request.args(0)))
+    else:
+        redirect(URL('user_info', args=request.args(0)))
 
 def user_info():
     message = T("User doesn't exist.")
@@ -152,7 +170,7 @@ def user_info():
 def projects():
     import json
     message = T("Project not found.")
-    project = db.projects(name = request.args(0).replace('-', ' ')) or db.projects(name = url_get_project(request.args(0)).replace('-', ' ')) or message
+    project = db.projects(name = request.args(0).replace('_', ' ')) or db.projects(name = url_get_project(request.args(0)).replace('_', ' ')) or message
 
     if project != message:
         collaborators = []
@@ -230,7 +248,7 @@ def create_project():
 def edit_project():
     import json
     message = T("Project not found.")
-    project = db.projects(name=request.args(0).replace('-', ' ')) or db.projects(name = url_get_project(request.args(0)).replace('-', ' ')) or message
+    project = db.projects(name=request.args(0).replace('_', ' ')) or db.projects(name = url_get_project(request.args(0)).replace('_', ' ')) or message
 
     if project != message:
         if auth.user_id == project.project_owner:
