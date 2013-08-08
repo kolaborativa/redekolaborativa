@@ -18,3 +18,7 @@ db.team_function.project_id.requires = IS_IN_DB(db, 'projects.id', '%(name)s', z
 db.team_function.username.requires = IS_IN_DB(db, 'auth_user.username', '%(username)s', zero=T('Define a user that already exists.'))
 db.team_function.project_id.readable = db.team_function.project_id.writable = False
 db.team_function.username.requires = db.team_function.role.requires = IS_NOT_EMPTY(error_message='Cannot be empty!')
+
+#network_type
+db.network_type.user_id.requires = IS_IN_DB(db, 'auth_user.id')
+db.network_type.network_type.requires = IS_EMPTY_OR(IS_IN_SET(['Skype', 'Facebook', 'Google+', 'LinkedIn', 'Twitter', 'E-mail']))

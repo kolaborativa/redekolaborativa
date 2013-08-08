@@ -11,6 +11,7 @@
 'About': 'Sobre',
 'Access Control': 'Controle de Acesso',
 'add': 'adicionar',
+'add more': 'add more',
 'Address': 'Endereço',
 'Administrative Interface': 'Interface Administrativa',
 'Administrative interface': 'Interface administrativa',

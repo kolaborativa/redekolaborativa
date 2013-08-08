@@ -28,7 +28,8 @@ pass
                 <ul>
                 {{if len(competencies) >= 1:}}
                     {{list_competencies=[i.competence for c in competencies for i in c if i.profession_id ==  p.id]}}
-                    <li><b>{{=T("Competencies")}}:</b> {{=', '.join(list_competencies)}}</li>
+                    <li><b>{{=T("Competencies")}}:</b> {{=', '.join(list_competencies)}}
+                    </li>
                 {{pass}}
                     <li>
                         {{=form_competencies.custom.begin}}
@@ -47,6 +48,19 @@ pass
 
         {{pass}}
     {{pass}}
+    {{=form_networking}}
+    {{if networking:}}
+    	<ul>
+            <li><b>{{=T("Social Networking")}}:</b></li>
+            {{for n in networking:}}
+            <li>{{=n.network}} | {{=n.network_type}} <div class="btn-group" style="float: right;">
+                    <a href="{{=URL('delete_network', vars={'id':n.id})}}" class="btn btn-mini delete"><i class="icon-remove"></i> {{=T('Remove')}}</a>
+                    <a href="{{=URL('edit_network', vars={'id':n.id})}}" class="btn btn-mini"><i class="icon-edit"></i> {{=T('Edit')}}</a>
+                </div></li>
+            {{pass}}
+    	</ul>
+    {{pass}}            
+            
     <a href='{{=URL("user_info")}}' class="btn">{{=T("Back")}}</a>
 {{pass}}
 </div>

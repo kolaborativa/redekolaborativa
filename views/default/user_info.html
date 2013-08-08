@@ -32,7 +32,28 @@
         {{=T("None")}}<br />
     {{pass}}
     <b>{{=T("E-mail")}}:</b> {{=g_return_if_empty(user.email)}}<br />
-{{if user.social_networking:}}<b>{{=T("Social Network")}}:</b> {{=', '.join(user.social_networking)}}<br />{{pass}}
+    {{if networking:}}
+    	<b>{{=T("Social Networking")}}</b><br />
+    	{{for s in networking:}}
+    	<ul>
+            {{if s.network_type == 'Twitter':}}
+            <li><a href="http://twitter.com/{{=s.network}}">{{=s.network}}</a></li>
+            {{elif s.network_type == 'Facebook':}}
+            <li><a href="http://facebook.com/{{=s.network}}">{{=s.network}}</a></li>
+            {{elif s.network_type == 'Google+':}}
+            <li><a href="https://plus.google.com/s/{{=s.network}}">{{=s.network}}</a></li>
+            {{elif s.network_type == 'LinkedIn':}}
+            <li><a href="http://linkedin.com/in/{{=s.network}}">{{=s.network}}</a></li>
+            {{elif s.network_type == 'Skype':}}
+            <li><a href="skype:{{=s.network}}?userinfo">{{=s.network}}</a></li>
+            {{else:}}
+            <li>{{=s.network}}</li>
+            {{pass}}
+    	</ul>
+    	{{pass}}
+    {{pass}}
+            
+
 <b>{{=T("Available")}}:</b> {{=T(user.user_available)}}<br />
 {{if user.user_available == 'Yes':}}
   {{if user.availability:}}<b>{{=T("Availability")}}:</b> {{=', '.join(user.availability)}}<br />{{pass}}

@@ -35,3 +35,9 @@ db.define_table("competence",
 	Field("competence", length=128, requires=IS_NOT_EMPTY(error_message=field_empty)),
 	Field("profession_id", db.profession, readable=False, writable=False)
 	)
+	
+db.define_table("network_type",
+Field("user_id"),
+Field("network"),
+Field("network_type")
+)

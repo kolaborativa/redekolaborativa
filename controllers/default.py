@@ -52,8 +52,15 @@ def user():
         return dict(form=auth())
 
     elif 'profile' in request.args:
-        form=auth()
+        form=auth()           
         professions = db(db.profession.user_id == auth.user.id).select()
+        networking = db(db.network_type.user_id == auth.user.id).select()
+        
+        form_networking = SQLFORM.factory(
+            db.network_type,
+            fields = ['network', 'network_type'],
+            submit_button=T('add')
+            )                
 
         competencies = []
         if professions:
@@ -108,10 +115,23 @@ def user():
             redirect(URL("user",args=["profile"]))
         elif form_competencies.errors:
             response.flash = 'form has errors'
+            
+        #networking form
+        if form_networking.process().accepted:
+            db.network_type.insert(
+                user_id = auth.user.id,
+                network = request.vars.network,
+                network_type = request.vars.network_type
+                )
+            response.flash = 'fom accepted'
+            redirect(URL("user",args=["profile"]))
+        elif form_networking.errors:
+            response.flash = 'form has errors'
+        
 
         return dict(
-            form=form,form_profession=form_profession,form_competencies=form_competencies,
-            professions=professions,competencies=competencies)
+            form=form,form_profession=form_profession,form_competencies=form_competencies,form_networking=form_networking,
+            professions=professions,competencies=competencies,networking=networking)
 
     return dict(form=auth())
 
@@ -122,7 +142,7 @@ def edit_profession():
     form.vars.profession = profession.profession
     if form.accepts(request.vars):
         db(db.profession.id == profession.id).update(profession=request.vars.profession)
-        redirect(URL('user_info', args=auth.user.username))
+        redirect(URL("user",args=["profile"]))
     return dict(form=form)
 
 @auth.requires_login()
@@ -130,9 +150,29 @@ def delete_profession():
     profession_id = request.vars.id
     if db(db.profession.id == profession_id).select():
         db(db.profession.id == profession_id).delete()
-        redirect(URL('user_info', args=request.args(0)))
+        redirect(URL("user",args=["profile"]))
     else:
-        redirect(URL('user_info', args=request.args(0)))
+        redirect(URL("user",args=["profile"]))
+        
+@auth.requires_login()
+def edit_network():
+    network = db.network_type(request.vars.id)
+    form = SQLFORM.factory(Field('network'), Field('network_type', requires=IS_EMPTY_OR(IS_IN_SET(['Skype', 'Facebook', 'Google+', 'LinkedIn', 'Twitter', 'E-mail']))))
+    form.vars.network = network.network
+    form.vars.network_type = network.network_type
+    if form.accepts(request.vars):
+        db(db.network_type.id == network.id).update(network=request.vars.network, network_type=request.vars.network_type)
+        redirect(URL("user",args=["profile"]))
+    return dict(form=form)
+
+@auth.requires_login()
+def delete_network():
+    network_id = request.vars.id
+    if db(db.network_type.id == network_id).select():
+        db(db.network_type.id == network_id).delete()
+        redirect(URL("user",args=["profile"]))
+    else:
+        redirect(URL("user",args=["profile"]))
 
 def user_info():
     message = T("User doesn't exist.")
@@ -140,6 +180,7 @@ def user_info():
     user = db.auth_user(username=seach_user) or message
 
     if user != message:
+        networking = db(db.network_type.user_id == user.id).select()
         professions = db(db.profession.user_id == user.id).select()
         competencies = []
         if professions:
@@ -157,7 +198,7 @@ def user_info():
                 if str(user.id) in i.team:
                     colaborate_projects[n] = i
         return dict(
-                user=user, message=message, professions=professions, competencies=competencies,
+                user=user, message=message, professions=professions, competencies=competencies, networking=networking,
                 last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
 
     else:
