@@ -33,7 +33,7 @@ def user():
 
     if 'register' in request.args:
         fields_to_hide = [
-        'last_name', 'age', 'localization', 'bio', 'social_networking','availability']
+        'last_name', 'age', 'localization', 'bio', 'user_available', 'availability']
 
         for fieldname in fields_to_hide:
             field = db.auth_user[fieldname]
