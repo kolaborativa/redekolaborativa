@@ -22,3 +22,10 @@ db.team_function.username.requires = db.team_function.role.requires = IS_NOT_EMP
 #network_type
 db.network_type.user_id.requires = IS_IN_DB(db, 'auth_user.id')
 db.network_type.network_type.requires = IS_EMPTY_OR(IS_IN_SET(['Skype', 'Facebook', 'Google+', 'LinkedIn', 'Twitter', 'E-mail']))
+
+#comment_project
+db.comment_project.body.requires = IS_NOT_EMPTY(error_message='Cannot be empty!')
+db.comment_project.created_on.requires = IS_DATE(format=T('%Y-%m-%d'), error_message='Must be YYYY-MM-DD!')
+db.comment_project.modified_on.requires = IS_DATE(format=T('%Y-%m-%d'), error_message='Must be YYYY-MM-DD!')
+db.comment_project.created_by.requires = IS_IN_DB(db, 'auth_user.id', '%(username)s', zero=T('Choose one'))
+db.comment_project.modified_by.requires = IS_IN_DB(db, 'auth_user.id', '%(username)s', zero=T('Choose one'))

@@ -145,6 +145,12 @@
 </td>
 
 </tr>
+<tr>
+<td>
+<h3>{{=T('Comments')}}</h3>
+{{=LOAD('default','comments.load',ajax=True)}}
+<td>
+</tr>
 </table>
 {{else:}}
 {{=project}}

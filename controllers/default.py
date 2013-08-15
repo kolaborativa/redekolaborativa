@@ -212,6 +212,7 @@ def projects():
     import json
     message = T("Project not found.")
     project = db.projects(name = request.args(0).replace('_', ' ')) or db.projects(name = url_get_project(request.args(0)).replace('_', ' ')) or message
+    session.project_id = project
 
     if project != message:
         collaborators = []
@@ -324,8 +325,39 @@ def edit_project():
             return dict(project=project, message=message, form=no_permission)
     else:
         return dict(project=project, message=message)
+        
+def comments():
+    message = T("Be the first to make a comment!")
+    project = session.project_id
+    comments = db(db.comment_project.project_id == project.id).select()
+    form=SQLFORM.factory(db.comment_project, fields=['title', 'body'])
+    if form.accepts(request.vars):
+        db.comment_project.insert(title=request.vars.title, body=request.vars.body, project_id=project.id)
+        redirect(URL('default', 'comments.load'))
+    return dict(message=message, project=project, comments=comments, form=form)
 
+@auth.requires_login()
+def edit_comment():
+    comment = db.comment_project(request.vars.id)
+    project = session.project_id
+    form = SQLFORM.factory(Field('title'), Field('body'))
+    form.vars.title = comment.title
+    form.vars.body = comment.body
+    if form.accepts(request.vars):
+        db(db.comment_project.id == comment.id).update(title=request.vars.title, body=request.vars.body)
+        redirect(URL('projects', args=project.name, extension=False))
+    return dict(form=form)
 
+@auth.requires_login()
+def delete_comment():
+    comment = db.comment_project(request.vars.id)
+    project = session.project_id
+    if db(db.comment_project.id == comment.id).select():
+        db(db.comment_project.id == comment.id).delete()
+        redirect(URL('projects', args=project.name, extension=False))
+    else:
+        redirect(URL('projects', args=project.name, extension=False))
+            
 @service.json
 def get_users():
     term = request.vars.q

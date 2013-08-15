@@ -41,3 +41,9 @@ Field("user_id"),
 Field("network"),
 Field("network_type")
 )
+
+db.define_table('comment_project',
+   Field('title'),
+   Field('body','text'),
+   Field('project_id'),
+   auth.signature)
