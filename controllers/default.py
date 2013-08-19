@@ -334,13 +334,20 @@ def comments():
     if form.accepts(request.vars):
         db.comment_project.insert(title=request.vars.title, body=request.vars.body, project_id=project.id)
         redirect(URL('default', 'comments.load'))
-    return dict(message=message, project=project, comments=comments, form=form)
+        
+    replied = []
+    if comments:
+        for comment in comments:
+            if comment.is_reply:
+                replied += db(db.comment_project.id == comment.replied_id).select()
+                
+    return dict(message=message, project=project, comments=comments, replied=replied, form=form)
 
 @auth.requires_login()
 def edit_comment():
     comment = db.comment_project(request.vars.id)
     project = session.project_id
-    form = SQLFORM.factory(Field('title'), Field('body'))
+    form = SQLFORM.factory(Field('title'), Field('body', 'text'))
     form.vars.title = comment.title
     form.vars.body = comment.body
     if form.accepts(request.vars):
@@ -357,6 +364,16 @@ def delete_comment():
         redirect(URL('projects', args=project.name, extension=False))
     else:
         redirect(URL('projects', args=project.name, extension=False))
+            
+@auth.requires_login()
+def reply_comment():
+    comment = db.comment_project(request.vars.id)
+    project = session.project_id
+    form = SQLFORM.factory(db.comment_project, fields=['title', 'body'])
+    if form.accepts(request.vars):
+        db.comment_project.insert(title=request.vars.title, body=request.vars.body, is_reply=True, replied_id=comment.id, project_id=project.id)
+        redirect(URL('projects', args=project.name))
+    return dict(form=form)
             
 @service.json
 def get_users():

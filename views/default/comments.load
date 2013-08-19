@@ -1,33 +1,35 @@
-{{if auth.is_logged_in():}}
-	{{if comments:}}
-		{{for comment in comments:}}
-		<div class="comment">
-            {{=T('On')}} {{=comment.created_on}} <a href={{=URL('user_info', args=comment.created_by.username)}}>{{=comment.created_by.first_name}}</a>            
-            {{=T('says')}} 
+{{if comments:}}
+	{{for comment in comments:}}
+			<div class="comment">
+            {{=T('On')}} {{=comment.created_on}} <a href={{=URL('user_info', args=comment.created_by.username, extension=False)}}>{{=comment.created_by.first_name}}</a>           
+                {{if not comment.is_reply:}}
+                {{=T('says')}}
+                {{else:}}
+                	{{for hole_replied in replied:}}                	
+		                {{if comment.replied_id == str(hole_replied.id):}}                			
+                		{{=T('replied')}} <a href={{=URL('user_info', args=hole_replied.created_by.username, extension=False)}}>{{=hole_replied.created_by.first_name}}</a>
+                		{{pass}}
+                	{{pass}}
+                {{pass}}
             <h6>{{=comment.title}}</h6>
             <blockquote class="comment_body">{{=comment.body}}</blockquote>
+            {{if auth.is_logged_in():}}
             {{if comment.created_by == auth.user.id or auth.user.id == project.project_owner:}}
-            <a href="{{=URL('delete_comment', vars={'id':comment.id})}}" class="btn btn-mini delete"><i class="icon-remove"></i> {{=T('Remove')}}</a>
-            <a href="{{=URL('edit_comment', vars={'id':comment.id})}}" class="btn btn-mini"><i class="icon-edit"></i> {{=T('Edit')}}</a>
+            <a href="{{=URL('delete_comment', vars={'id':comment.id}, extension=False)}}" class="btn btn-mini delete"><i class="icon-remove"></i> {{=T('Remove')}}</a>
+            <a href="{{=URL('edit_comment', vars={'id':comment.id}, extension=False)}}" class="btn btn-mini"><i class="icon-edit"></i> {{=T('Edit')}}</a>
             {{pass}}
-		</div>
-		{{pass}}
-		{{=form}}
-	{{else:}}
-		{{=message}}
-		{{=form}}
+            {{if auth.user.id == project.project_owner:}}
+            <a href="{{=URL('reply_comment', vars={'id':comment.id}, extension=False)}}" class="btn btn-mini"><i class="icon-bullhorn"></i> {{=T('Reply')}}</a>
+            {{pass}}
+            {{pass}}
+			</div>
 	{{pass}}
 {{else:}}
-	{{if comments:}}
-		{{for comment in comments:}}
-		<div class="comment">
-            {{=T('On')}} {{=comment.created_on}} <a href={{=URL('user_info', args=comment.created_by.username)}}>{{=comment.created_by.first_name}}</a>
-            {{=T('says')}} 
-            <h6>{{=comment.title}}</h6>
-            <blockquote class="comment_body">{{=comment.body}}</blockquote>
-		</div>
-		{{pass}}
-	{{else:}}
-		{{=message}} {{=A(T('Login'), _href=URL('user', args='login', extension=False))}} {{=T('or')}} {{=A(T('Register'), _href=URL('user', args='register', extension=False))}}
-	{{pass}}
+{{=message}}
+{{pass}}
+
+{{if auth.is_logged_in():}}
+	{{=form}}
+{{else:}}
+<a href={{=URL('user', args='login', extension=False)}}>{{=T('Login')}}</a> {{=T('or')}} <a href={{=URL('user', args='register', extension=False)}}>{{=T('Register')}}</a> {{=T('to make a comment.')}}
 {{pass}}

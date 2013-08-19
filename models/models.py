@@ -45,5 +45,7 @@ Field("network_type")
 db.define_table('comment_project',
    Field('title'),
    Field('body','text'),
+   Field('is_reply', 'boolean', default=False),
+   Field('replied_id'),
    Field('project_id'),
    auth.signature)
