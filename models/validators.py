@@ -1,5 +1,5 @@
 #projects
-db.projects.name.requires = [IS_NOT_EMPTY(error_message='Cannot be empty!'), IS_NOT_IN_DB(db, 'projects.name', error_message="This project already exists!")]
+db.projects.name.requires = [IS_NOT_EMPTY(error_message=field_empty), IS_NOT_IN_DB(db, 'projects.name', error_message="This project already exists!")]
 db.projects.image.requires = IS_EMPTY_OR(IS_IMAGE(extensions=('jpeg', 'png', 'jpg', 'gif')))
 db.projects.project_type.requires = IS_EMPTY_OR(IS_IN_SET(['OpenSource', T('Enterprising'), T('Social'), T('Other')]))
 db.projects.video_url.requires = IS_EMPTY_OR(IS_URL(error_message='Must be a valid URL!'))
@@ -17,14 +17,14 @@ db.projects.project_owner.writable = db.projects.project_owner.readable = False
 db.team_function.project_id.requires = IS_IN_DB(db, 'projects.id', '%(name)s', zero=T('Define a project that already exists.'))
 db.team_function.username.requires = IS_IN_DB(db, 'auth_user.username', '%(username)s', zero=T('Define a user that already exists.'))
 db.team_function.project_id.readable = db.team_function.project_id.writable = False
-db.team_function.username.requires = db.team_function.role.requires = IS_NOT_EMPTY(error_message='Cannot be empty!')
+db.team_function.username.requires = db.team_function.role.requires = IS_NOT_EMPTY(error_message=field_empty)
 
 #network_type
 db.network_type.user_id.requires = IS_IN_DB(db, 'auth_user.id')
 db.network_type.network_type.requires = IS_EMPTY_OR(IS_IN_SET(['Skype', 'Facebook', 'Google+', 'LinkedIn', 'Twitter', 'E-mail']))
 
 #comment_project
-db.comment_project.body.requires = IS_NOT_EMPTY(error_message='Cannot be empty!')
+db.comment_project.body.requires = IS_NOT_EMPTY(error_message=field_empty)
 db.comment_project.created_on.requires = IS_DATE(format=T('%Y-%m-%d'), error_message='Must be YYYY-MM-DD!')
 db.comment_project.modified_on.requires = IS_DATE(format=T('%Y-%m-%d'), error_message='Must be YYYY-MM-DD!')
 db.comment_project.created_by.requires = IS_IN_DB(db, 'auth_user.id', '%(username)s', zero=T('Choose one'))

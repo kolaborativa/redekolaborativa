@@ -17,5 +17,13 @@ def url_get_project(url):
 					return url
 				elif new_url == project.name.lower():
 					return project.name.replace(' ', '_')
-
-
+					
+def is_url(url):
+    from urllib2 import urlopen
+    try:
+        valid = urlopen(url)
+    except:
+        response.session = T('Please, enter an username or a valid URL!')
+        return False
+    else:
+        return True

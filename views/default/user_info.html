@@ -37,15 +37,15 @@
     	{{for s in networking:}}
     	<ul>
             {{if s.network_type == 'Twitter':}}
-            <li><a href="http://twitter.com/{{=s.network}}">{{=s.network}}</a></li>
+            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="http://twitter.com/{{=s.network}}" target="_blank">{{=s.network}}</a>{{pass}}</li>
             {{elif s.network_type == 'Facebook':}}
-            <li><a href="http://facebook.com/{{=s.network}}">{{=s.network}}</a></li>
+            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="http://facebook.com/{{=s.network}}" target="_blank">{{=s.network}}</a>{{pass}}</li>
             {{elif s.network_type == 'Google+':}}
-            <li><a href="https://plus.google.com/s/{{=s.network}}">{{=s.network}}</a></li>
+            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="https://plus.google.com/s/{{=s.network}}" target="_blank">{{=s.network}}</a>{{pass}}</li>
             {{elif s.network_type == 'LinkedIn':}}
-            <li><a href="http://linkedin.com/in/{{=s.network}}">{{=s.network}}</a></li>
+            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="http://linkedin.com/in/{{=s.network}}" target="_blank">{{=s.network}}</a>{{pass}}</li>
             {{elif s.network_type == 'Skype':}}
-            <li><a href="skype:{{=s.network}}?userinfo">{{=s.network}}</a></li>
+            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="skype:{{=s.network}}?userinfo">{{=s.network}}</a>{{pass}}</li>
             {{else:}}
             <li>{{=s.network}}</li>
             {{pass}}

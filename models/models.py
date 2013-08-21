@@ -38,8 +38,8 @@ db.define_table("competence",
 	
 db.define_table("network_type",
 Field("user_id"),
-Field("network"),
-Field("network_type")
+Field("network", label='Username'),
+Field("network_type", label='Network')
 )
 
 db.define_table('comment_project',
