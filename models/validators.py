@@ -12,6 +12,8 @@ db.projects.created_on.requires = IS_DATE(format=T('%Y-%m-%d'), error_message='M
 db.projects.created_on.writable = db.projects.created_on.readable = False
 db.projects.project_owner.requires = IS_IN_DB(db, 'auth_user.id', '%(username)s', zero=T('Choose one'))
 db.projects.project_owner.writable = db.projects.project_owner.readable = False
+db.projects.project_slug.compute = lambda row: IS_SLUG()(row.name)[0]
+db.projects.project_slug.requires = IS_NOT_IN_DB(db, 'projects.project_slug')
 
 #team_function
 db.team_function.project_id.requires = IS_IN_DB(db, 'projects.id', '%(name)s', zero=T('Define a project that already exists.'))

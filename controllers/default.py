@@ -202,8 +202,8 @@ def user_info():
                 last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
 
     else:
-        if url_get_project(request.args(0)):
-            redirect(URL('projects', args=url_get_project(request.args(0))))
+        if db.projects(project_slug = request.args(0)):
+            redirect(URL('projects', args=request.args(0)))
         else:
             return dict(user=user, message=message)
 
@@ -211,7 +211,7 @@ def user_info():
 def projects():
     import json
     message = T("Project not found.")
-    project = db.projects(name = request.args(0).replace('_', ' ')) or db.projects(name = url_get_project(request.args(0)).replace('_', ' ')) or message
+    project = db.projects(project_slug = request.args(0)) or message
     session.project_id = project
 
     if project != message:
@@ -241,7 +241,7 @@ def projects():
             else:
                 db((db.team_function.username == request.vars.username)&(db.team_function.project_id == project.id)).update(role=request.vars.role)
 
-            redirect(URL(f="projects", args=url_get_project(request.args(0))))
+            redirect(URL(f="projects", args=request.args(0)))
         elif user_role.errors:
             response.flash = T("Form has errors!")
 
@@ -252,7 +252,7 @@ def projects():
                                 _id="searching_team")
         if searching_team.process().accepted:
             response.flash = T('Form accepted!')
-            redirect(URL(f='projects', args=url_get_project(request.args(0))))
+            redirect(URL(f='projects', args=request.args(0)))
         elif searching_team.errors:
             response.flash = T('Form has errors!')
 
@@ -280,7 +280,7 @@ def create_project():
             myjson = json.dumps(d)
             db(db.projects.id  == project_id).update(team=myjson)
 
-        redirect(URL('projects', args=url_get_project(form.vars.name)))
+        redirect(URL('projects', args=form.vars.project_slug))
 
     elif form.errors:
         response.flash = T('Form has errors!')
@@ -290,7 +290,7 @@ def create_project():
 def edit_project():
     import json
     message = T("Project not found.")
-    project = db.projects(name=request.args(0).replace('_', ' ')) or db.projects(name = url_get_project(request.args(0)).replace('_', ' ')) or message
+    project = db.projects(project_slug=request.args(0)) or message
 
     if project != message:
         if auth.user_id == project.project_owner:
@@ -315,7 +315,7 @@ def edit_project():
                 project_id = form.vars.id
                 db(db.projects.id  == project_id).update(team=myjson)
                 session.flash = T("Project edited!")
-                redirect(URL('projects', args=url_get_project(request.args(0))))
+                redirect(URL('projects', args=request.args(0)))
             elif form.errors:
                 response.flash = T("Form has errors!")
 

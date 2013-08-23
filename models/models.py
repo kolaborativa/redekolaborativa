@@ -17,7 +17,8 @@ db.define_table("projects",
 	Field("wanting_other", "boolean"),
 	Field("other_wanted", "list:string"),
 	Field("created_on", "date", default=request.now),
-	Field("project_owner", db.auth_user, default=auth.user_id)
+	Field("project_owner", db.auth_user, default=auth.user_id),
+	Field("project_slug")
 	)
 
 db.define_table("team_function",
