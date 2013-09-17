@@ -1,10 +1,4 @@
-"""
-Arquivo de abstração do model para consulas de buscas.
-Seguindo o principio do MVC onde consultas ao banco devem ficar no Model, não no Controller.
-Seguindo o principio DRY.
-Informações uteis:
-[colocar o link do lugar onde aprendi isso. ahsuahsuhasu]
-"""
+
 def search_user(user, conditions=[],fields=[], filters={}):
     """
     Example of usage.
