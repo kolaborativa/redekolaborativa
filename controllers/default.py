@@ -174,6 +174,22 @@ def delete_network():
     else:
         redirect(URL("user",args=["profile"]))
 
+def search():
+    search_base = request.args(0)
+    if "user" in search_base:
+        q = request.args(1)
+        user = search_user(q,filters = {'orderby':db.auth_user.id})
+        return dict(user = user)
+    elif "projects" in search_base:
+        q = request.args(1)
+        projects = search_projects(q,filters = {'orderby':db.projects.id})
+        return dict(projects = projects)
+    else:
+        q = request.vars
+        users = seach_user(q,filters = {'orderby':db.projects.id})
+        projects = search_projects(q,filters = {'orderby':db.projects.id})
+        return dict(projects = projects, users = users)
+    
 def user_info():
     message = T("User doesn't exist.")
     seach_user = request.args(0) or auth.user.username
@@ -267,16 +283,23 @@ def projects():
 def create_project():
     import json
     form = SQLFORM(db.projects)
+    # faz o insert do carinha no time
     if form.process().accepted:
         project_id = form.vars.id
         session.flash = T('Project created!')
+        #pegar os colaboradores do projeto.
+        # code
+        # pegando os funcionarios a SEREM ADICIONADOS.
+        # {'id','id'}
         if form.vars.team:
             team = form.vars.team.split(",")
             d = {}
             for i in team:
                 x = i.split(":")
-                d[x[0]] = x[1]
+                d[x[0]] = x[1]  #d[x[tamanhoDoDicionadio]
             myjson = json.dumps(d)
+            # juntar o MYJSON(funcionarios a serem adicionados) com o json dos colaboradores já existentes.
+            #fazendo o update.
             db(db.projects.id  == project_id).update(team=myjson)
 
         redirect(URL('projects', args=url_get_project(form.vars.name)))
