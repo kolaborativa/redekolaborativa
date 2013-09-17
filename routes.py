@@ -14,6 +14,9 @@ routes_in = (
     (BASE + '/call/json/$anything', BASE + '/kolaborativa/default/call/json/$anything'),
     (BASE + '/data/$anything', BASE + '/kolaborativa/default/data/$anything'),
     (BASE + '/$username', BASE + '/kolaborativa/default/user_info/$username'),
+    (BASE + '/search/user/$anything', BASE + '/kolaborativa/default/search/user/$user'),
+    (BASE + '/search/projcts/$anything', BASE + '/kolaborativa/default/search/projects/$project'),
+    (BASE + '/search/$anything', BASE + '/kolaborativa/default/search/$q'),
 )
 
 routes_out = [(x, y) for (y, x) in routes_in]
