@@ -173,22 +173,6 @@ def delete_network():
         redirect(URL("user",args=["profile"]))
     else:
         redirect(URL("user",args=["profile"]))
-
-def search():
-    search_base = request.args(0)
-    if "user" in search_base:
-        q = request.args(1)
-        user = search_user(q,filters = {'orderby':db.auth_user.id})
-        return dict(user = user)
-    elif "projects" in search_base:
-        q = request.args(1)
-        projects = search_projects(q,filters = {'orderby':db.projects.id})
-        return dict(projects = projects)
-    else:
-        q = request.vars
-        users = seach_user(q,filters = {'orderby':db.projects.id})
-        projects = search_projects(q,filters = {'orderby':db.projects.id})
-        return dict(projects = projects, users = users)
     
 def user_info():
     message = T("User doesn't exist.")
@@ -397,6 +381,20 @@ def reply_comment():
         db.comment_project.insert(title=request.vars.title, body=request.vars.body, is_reply=True, replied_id=comment.id, project_id=project.id)
         redirect(URL('projects', args=project.name))
     return dict(form=form)
+
+def search():
+    search = SQLFORM.factory(Field('search'), submit_button="Search")
+    if search.process().accepted:
+        query = request.vars.search
+        redirect(URL('results', vars={'q':query}, extension=False), client_side=True)
+    return dict(search=search)
+
+def results():
+    query = request.vars.q
+    message = T('Your search returned no results.')
+    projects = db(db.projects.name.like('%'+query+'%')).select()
+    users = db(db.auth_user.username.like('%'+query+'%')).select()
+    return dict(users=users, projects=projects, message=message)  
             
 @service.json
 def get_users():
@@ -406,7 +404,6 @@ def get_users():
     for i in rows:
         users.append({"id": i.id, "title" : i.username})
     return dict(users=users)
-
 
 def download():
     """
