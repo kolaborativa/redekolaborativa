@@ -94,6 +94,8 @@
 'Errors in form, please check it out.': 'O formulário contém erros, por favor verifique.',
 'export as csv file': 'exportar como um arquivo csv',
 'FAQ': 'FAQ',
+'Feedback & Support': 'Feedback & Support',
+'Feedback | Support': 'Feedback | Support',
 'file': 'arquivo',
 'First name': 'Primeiro Nome',
 'Forgot username?': 'Esqueceu o usuário?',
