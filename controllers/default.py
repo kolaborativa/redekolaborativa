@@ -195,7 +195,7 @@ def user_info():
         colaborate_projects = {}
         if team != None:
             for n,i in enumerate(team):
-                if str(user.id) in i.team:
+                if i.team.count(str(user.id)):
                     colaborate_projects[n] = i
         return dict(
                 user=user, message=message, professions=professions, competencies=competencies, networking=networking,

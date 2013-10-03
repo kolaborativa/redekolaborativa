@@ -3,5 +3,7 @@
 <ul class="nav nav-list">
   <li class="nav-header">Navegue</li>
   <li class="active"><a href="#">Home</a></li>
+  <li><a href="{{=URL('user_info', args=[auth.user.username])}}">{{=T('Profile')}}</a></li>
+  <li><a href="{{=URL('create_project')}}">{{=T('Create Project')}}</a></li>
 </ul>
 </div>
