@@ -22,7 +22,7 @@
                               <a href="{{=i}}" target="_blank">Link {{=project.project_links.index(i) + 1}}</a><br>
                         {{else:}}
                               <a href="{{=i}}" target="_blank">Link {{=project.project_links.index(i) + 1}}</a> |
-                        {{pass}}
+                            {{pass}}
             {{pass}}
       {{else:}}
             {{=T("Undefined")}}<br>
@@ -102,6 +102,8 @@
             {{pass}}
         </a>
       <div class="media-body">
+        <b>{{=T("Kolaborator")}}:</b>
+        {{=g_return_if_empty(collaborator.username)}}<br>
         <b>{{=T("Profession")}}:</b>
                   {{if hasattr(collaborator, 'professions'):}}
                         {{for job in collaborator.professions:}}

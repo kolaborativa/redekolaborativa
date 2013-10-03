@@ -221,7 +221,8 @@ def projects():
                 collaborator = db(db.auth_user.id == i).select().first()
                 user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == project.id)).select().first()
                 profession = db(db.profession.user_id == i).select(db.profession.profession)
-
+               
+                collaborator.username = collaborator.username
                 if user_role:
                     collaborator.role = user_role.role
                 else:
