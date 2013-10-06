@@ -119,7 +119,7 @@
 </tr>
 {{pass}}
 </table>
-{{if len(db(db.projects.project_owner == user).select()) > 5:}}
+{{if len(my_projects) > 5:}}
 {{=A(T('Read more'), _href="#")}}
 {{pass}}
 {{else:}}

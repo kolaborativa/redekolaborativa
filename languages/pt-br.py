@@ -131,6 +131,7 @@
 'Invalid username': 'Invalid username',
 'Is Active': 'Está Ativo',
 'Key': 'Key',
+'Kolaborator': 'Kolaborator',
 'Kollaborate!': 'Kollabore!',
 'Last name': 'Último nome',
 'Layout': 'Layout',
