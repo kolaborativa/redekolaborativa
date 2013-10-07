@@ -50,3 +50,7 @@ db.define_table('comment_project',
    Field('replied_id'),
    Field('project_id'),
    auth.signature)
+
+emails.define_table('subscription_emails',
+	Field('email', requires=IS_EMAIL())
+	)

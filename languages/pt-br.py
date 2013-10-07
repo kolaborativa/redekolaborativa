@@ -245,6 +245,7 @@
 'Searching for members?': 'Procurando membros?',
 'Searching...': 'Procurando...',
 'Semantic': 'Semântica',
+'Send': 'Send',
 'Services': 'Serviços',
 'Size of cache:': 'Tamanho do cache:',
 'Social': 'Social',
@@ -321,4 +322,5 @@
 "You don't have permission to change this project!": 'Você não tem permissão para alterar esse projeto!',
 'You visited the url %s': 'Você visitou a URL %s',
 'Your search returned no results.': 'Nenhum resultado encontrado.',
+'your@email.com': 'your@email.com',
 }

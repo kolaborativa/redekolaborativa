@@ -1,0 +1,121 @@
+/* New fonts */
+
+@font-face {
+    font-family: 'Hero';
+    src: url('../fonts/hero-webfont.eot');
+    src: url('../fonts/hero-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/hero-webfont.woff') format('woff'),
+         url('../fonts/hero-webfont.ttf') format('truetype'),
+         url('../fonts/hero-webfont.svg#heroregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Museo';
+    src: url('../fonts/museo500-regular-webfont.eot');
+    src: url('../fonts/museo500-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/museo500-regular-webfont.woff') format('woff'),
+         url('../fonts/museo500-regular-webfont.ttf') format('truetype'),
+         url('../fonts/museo500-regular-webfont.svg#museo500') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Socialico';
+    src: url('../fonts/socialico-webfont.eot');
+    src: url('../fonts/socialico-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/socialico-webfont.woff') format('woff'),
+         url('../fonts/socialico-webfont.ttf') format('truetype'),
+         url('../fonts/socialico-webfont.svg#socialicoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* End of font-face */
+
+html,body {
+	background-image: url(../images/bg_kolab.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #e6e7e7; 
+	height: 100%;
+}
+
+header {
+	height: auto;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: 'Hero', Arial, sans-serif;
+	font-size: 25px;
+	color: #5b5b5c;
+	letter-spacing: 2px;
+}
+
+.logo {
+	width: 350px;
+	height: auto;
+	margin: 60px 10px 10px 10px;
+}
+
+article {
+	margin-top: 120px;
+	height: auto;
+	text-align: center;
+	color: #5b5b5c;
+	display: block;
+}
+
+
+p {
+	font-family: 'Museo', Arial, sans-serif;
+	font-size: 20px;
+}
+
+form {
+	display: inline-block;
+}
+
+input[type="email"] {
+	width: 500px;
+	height: 50px;
+    border: none;
+    font-family: 'Museo', Arial, sans-serif;
+    font-size: 20px;
+    color: #5b5b5c;
+    padding-left: 15px;
+    float: left;
+}
+
+input[type="submit"] {
+	width: 100px;
+	height: 52px;
+    background-color: #66cab3;
+    border: none;
+    font-family: 'Hero', Arial, sans-serif;
+    font-size: 20px;
+    color: #fff;
+    text-transform: uppercase;
+    float: left;
+}
+
+input[type="submit"]:hover {
+    background-color: #258771;
+}
+
+footer {
+	margin-top: 70px;
+	text-align: center;
+}
+
+footer a {
+	text-decoration: none;
+	font-family: "Socialico";
+	font-size: 70px;
+	color: #929291;
+}
+
+footer a:hover {
+	color: #858585;
+}

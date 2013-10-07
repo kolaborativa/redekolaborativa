@@ -11,6 +11,9 @@
 
 
 def index():
+    if request.vars:
+        emails.subscription_emails.insert(email=request.vars.email)
+        redirect(URL('default', 'index'))
     return dict(form=auth.login())
 
 def principal():
