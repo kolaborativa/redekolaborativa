@@ -35,16 +35,19 @@
 
 /* End of font-face */
 
-html,body {
+body {
 	background-image: url(../images/bg_kolab.png);
-	background-position: center;
+    background-position: center;
 	background-repeat: no-repeat;
 	background-color: #e6e7e7; 
 	height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 header {
 	height: auto;
+    margin-top: 10%;
 	text-align: center;
 	text-transform: uppercase;
 	font-family: 'Hero', Arial, sans-serif;
@@ -53,14 +56,16 @@ header {
 	letter-spacing: 2px;
 }
 
-.logo {
-	width: 350px;
-	height: auto;
-	margin: 60px 10px 10px 10px;
+header p {
+    font-family: 'Hero', Arial, sans-serif;
+    font-size: 25px;
+    color: #5b5b5c;
+    letter-spacing: 2px;
+    margin-top: 10px;
 }
 
 article {
-	margin-top: 120px;
+	margin-top: 10%;
 	height: auto;
 	text-align: center;
 	color: #5b5b5c;
@@ -68,29 +73,34 @@ article {
 }
 
 
-p {
+article p {
 	font-family: 'Museo', Arial, sans-serif;
 	font-size: 20px;
 }
 
+.ajust {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
 form {
-	display: inline-block;
+    margin: 0 auto;
 }
 
 input[type="email"] {
-	width: 500px;
-	height: 50px;
-    border: none;
+	height: 45px;
     font-family: 'Museo', Arial, sans-serif;
     font-size: 20px;
     color: #5b5b5c;
     padding-left: 15px;
     float: left;
+    border: none;
+    border-radius: 0;
+    margin: 0;
 }
 
 input[type="submit"] {
-	width: 100px;
-	height: 52px;
+	height: 45px;
     background-color: #66cab3;
     border: none;
     font-family: 'Hero', Arial, sans-serif;
@@ -98,6 +108,7 @@ input[type="submit"] {
     color: #fff;
     text-transform: uppercase;
     float: left;
+    margin: 0;
 }
 
 input[type="submit"]:hover {
@@ -105,11 +116,12 @@ input[type="submit"]:hover {
 }
 
 footer {
-	margin-top: 70px;
+	margin-top: 10%;
+    margin-bottom: 10px;
 	text-align: center;
 }
 
-footer a {
+footer .row-fluid a {
 	text-decoration: none;
 	font-family: "Socialico";
 	font-size: 70px;
