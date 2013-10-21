@@ -59,10 +59,10 @@ header {
 
 header p {
     font-family: 'Hero', Arial, sans-serif;
-    font-size: 25px;
+    font-size: 22px;
     color: #5b5b5c;
     letter-spacing: 2px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 article {
