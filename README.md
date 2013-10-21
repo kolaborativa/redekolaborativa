@@ -33,7 +33,9 @@ Installation
 
     http://localhost:8000/kolaborativa
 
-**Obs:** There is a scripts folder that contain all the scripts needed to the application run correctly. Read the README file of the scripts folder to know how to use each of them.
+**P.S.:** There is a scripts folder that contain all the scripts needed to the application run correctly. Read the README file of the scripts folder to know how to use each of them.
+**P.S.2:** Do not forget to change the email settings. Update the email, username and password in db model file.
+
 
 
 Developed by:

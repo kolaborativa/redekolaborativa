@@ -44,16 +44,11 @@ from gluon.tools import Auth, Crud, Service, PluginManager, Mail
 auth = Auth(db)
 crud, service, plugins = Crud(db), Service(), PluginManager()
 
-
-## imported variables
-from data_config import EMAIL_SERVER, CLIENT_EMAIL, CLIENT_LOGIN
-
-## configure email
+# configure mail
 mail = Mail()
-mail.settings.server = EMAIL_SERVER
-mail.settings.sender = CLIENT_EMAIL
-mail.settings.login = CLIENT_LOGIN
-auth.settings.mailer = mail
+mail.settings.server = 'smtp.gmail.com:587'
+mail.settings.sender = 'you@gmail.com'
+mail.settings.login = 'username:password'
 
 # configure auth policy
 auth.settings.registration_requires_verification = False

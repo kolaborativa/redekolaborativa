@@ -9,12 +9,18 @@
 ## - call exposes all registered services (none by default)
 #########################################################################
 
-
 def index():
-    if request.vars:
-        emails.subscription_emails.insert(email=request.vars.email)
+    form = SQLFORM(emails.subscription_emails, name='email')
+    if form.process().accepted:
+        message = response.render('email.html')
+        mail.send(to=request.vars.email,
+            subject=T('Welcome to Kolaborativa!'),
+            message=message)
+        session.flash = T("Thank you and welcome to Kolaborativa!")
         redirect(URL('default', 'index'))
-    return dict(form=auth.login())
+    elif form.errors:
+        response.flash = T("Form has errors!")
+    return dict(form=form)
 
 def principal():
     return dict()
