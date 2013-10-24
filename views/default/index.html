@@ -80,7 +80,7 @@
         <input type="submit" value="{{=T('Send')}}" class="span2">
         {{if form.errors:}}
         <div class='btn btn-large btn-primary disabled btn-danger'>
-        {{=BEAUTIFY(form.errors)}}
+        {{=BEAUTIFY(form.errors.email)}}
         </div>
         {{pass}}
   {{=form.custom.end}}

@@ -14,7 +14,7 @@ def index():
     if form.process().accepted:
         message = response.render('email.html')
         mail.send(to=request.vars.email,
-            subject=T('Welcome to Kolaborativa!'),
+            subject=str(T('Welcome to Kolaborativa!')),
             message=message)
         session.flash = T("Thank you and welcome to Kolaborativa!")
         redirect(URL('default', 'index'))

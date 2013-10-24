@@ -16,6 +16,7 @@ if not request.env.web2py_runtime_gae:
 else:
     # connect to Google BigTable (optional 'google:datastore://namespace')
     db = DAL('google:datastore')
+    emails = DAL('google:datastore')
     # store sessions and tickets there
     session.connect(request, response, db=db)
     # or store session in Memcache, Redis, etc.
@@ -46,8 +47,9 @@ crud, service, plugins = Crud(db), Service(), PluginManager()
 
 # configure mail
 mail = Mail()
-mail.settings.server = 'smtp.gmail.com:587'
-mail.settings.sender = 'you@gmail.com'
+mail.settings.server = 'gae' #or 'smtp.gmail.com:587'
+#the sender has to be an admin of the app on GAE
+mail.settings.sender = 'your@email.com'
 mail.settings.login = 'username:password'
 
 # configure auth policy
