@@ -139,10 +139,14 @@
                   {{=user_role.custom.widget.role}}<br>
                   {{=user_role.custom.end}}
             {{pass}}
+            <!-- """
+            Se for o dono do projeto, adicionar campo para adicionar uma pessoa no projeto.
+            """ -->
       </div>
     </div>
 
 {{pass}}
+{{=new_colaborator}}
 </ul>
 </td>
 
@@ -157,6 +161,8 @@
 {{else:}}
 {{=project}}
 {{pass}}
+<script src={{=URL('static', 'js/select2.min.js')}}></script>
+<link href={{=URL('static', 'css/select2.css')}} rel="stylesheet">
 
 <script>
 jQuery(document).ready(function(){
@@ -196,5 +202,60 @@ jQuery(document).ready(function(){
             jQuery('#projects_other_wanted__row').show();
         else jQuery('#projects_other_wanted__row').hide();});
 });
+
+
+function MultiAjaxAutoComplete(element, url) {
+    $(element).select2({
+        placeholder: "{{=T('Search for a user')}}",
+        minimumInputLength: 1,
+        multiple: true,
+        formatNoMatches: function(){return "{{=T('No results')}}"},
+        formatSearching: function(){return "{{=T('Searching...')}}"},
+        formatInputTooShort: function(){return "{{=T('Too short')}}"},
+
+        id: function(e) { return e.id+":"+e.title; },
+        ajax: {
+            url: url,
+            dataType: 'json',
+            data: function(term, page) {
+
+                return {
+                    q: term,
+                    page_limit: 10,
+                };
+            },
+            results: function(data, page) {
+                return {
+                    results: data.users
+                };
+            }
+        },
+        formatResult: formatResult,
+        formatSelection: formatSelection,
+        initSelection: function(element, callback) {
+            var data = [];
+            $(element.val().split(",")).each(function(i) {
+                var item = this.split(':');
+                data.push({
+                    id: item[0],
+                    title: item[1]
+                });
+            });
+            callback(data);
+        }
+    });
+};
+
+var url = "{{=URL(r=request,f='call',args=['json','get_user_name'])}}";
+
+MultiAjaxAutoComplete('#no_table_team', url);
+
+function formatResult(user) {
+    return '<div>' + user.title + '</div>';
+};
+
+function formatSelection(data) {
+    return data.title;
+};
 
 </script>

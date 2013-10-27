@@ -243,8 +243,32 @@ def projects():
                     collaborator.profession = profession
 
                 collaborators.append(collaborator)
+                user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role') 
+                myteam = json.loads(project.team) 
+                mystring = "" 
+        for i in myteam:
+            mystring += "%s:%s," % (i,myteam[i])
+            project.team = mystring[0:-1]
+        
+        new_colaborator = SQLFORM.factory(db.projects.team)
+        
+        if new_colaborator.process().accepted:
+            project = db(db.projects.id == session.project_id).select().first()
+            team = json.loads(project.team)
+            new_team = new_colaborator.vars.team.split(",")
+            d = {}
+            for i in new_team:
+                x = i.split(":")
+                d[x[0]] = x[1]
+            team.update(d)
+            myjson = json.dumps(team)
+            project_id = session.project_id
+            db(db.projects.id  == project_id).update(team=myjson)
+            session.flash = T("Project edited!")
+            redirect(URL('projects', args=request.args(0)))
+        elif new_colaborator.errors:
+            response.flash = T("Form has errors!")
 
-        user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
         if user_role.accepts(request.vars):
             if not db((db.team_function.username == request.vars.username)&(db.team_function.project_id == project.id)).select():
                 db.team_function.insert(project_id = project.id, username = request.vars.username, role = request.vars.role)
@@ -268,7 +292,7 @@ def projects():
 
         return dict(
                 project=project, message=message, user_role=user_role, collaborators=collaborators,
-                searching_team=searching_team)
+                searching_team=searching_team, new_colaborator = new_colaborator)
 
     else:
         return dict(project=project, message=message)
@@ -414,6 +438,16 @@ def get_users():
     for i in rows:
         users.append({"id": i.id, "title" : i.username})
     return dict(users=users)
+
+@service.json
+def get_user_name():
+    # This functions gets the first name of user.
+    term = request.vars.q
+    rows = db(db.auth_user.first_name.like(term+'%')).select()
+    users = []
+    for i in rows:
+        users.append({"id":i.id,"title":i.first_name})
+    return dict(users = users)
 
 def download():
     """
