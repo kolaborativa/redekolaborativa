@@ -50,11 +50,8 @@ from data_config import EMAIL_SERVER, CLIENT_EMAIL, CLIENT_LOGIN
 
 # configure mail
 mail = Mail()
-#mail.settings.server = 'gae' or 'smtp.gmail.com:587'
 mail.settings.server = EMAIL_SERVER
 #the sender has to be an admin of the app on GAE
-#mail.settings.sender = 'your@email.com'
-#mail.settings.login = 'username:password'
 mail.settings.sender = CLIENT_EMAIL
 mail.settings.login = CLIENT_LOGIN
 
