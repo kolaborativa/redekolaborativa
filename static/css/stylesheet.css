@@ -1,0 +1,776 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+.cinza1 {
+  background: #e6e7e7;
+}
+.cinza2 {
+  background: #c8c8c8;
+}
+.cinza3 {
+  background: #a0a0a0;
+}
+.cinza4 {
+  background: #828181;
+}
+.cinza5 {
+  background: #4d4d4d;
+}
+.verdeAgua {
+  background: #66cab3;
+}
+.verdeAgua2 {
+  background: #468879;
+}
+.verdeAgua3 {
+  background: #175749;
+}
+.azul1 {
+  background: #2693b1;
+}
+.branco {
+  background: #ffffff;
+}
+.preto {
+  background: #000000;
+}
+@font-face {
+  font-family: 'Hero';
+  src: url('../fonts/hero-webfont.eot');
+  src: url('../fonts/hero-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/hero-webfont.woff') format('woff'), url('../fonts/hero-webfont.ttf') format('truetype'), url('../fonts/hero-webfont.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Museo';
+  src: url('../fonts/museo500-regular-webfont.eot');
+  src: url('../fonts/museo500-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/museo500-regular-webfont.woff') format('woff'), url('../fonts/museo500-regular-webfont.ttf') format('truetype'), url('../fonts/museo500-regular-webfont.svg#museo500') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Socialico';
+  src: url('../fonts/socialico-webfont.eot');
+  src: url('../fonts/socialico-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/socialico-webfont.woff') format('woff'), url('../fonts/socialico-webfont.ttf') format('truetype'), url('../fonts/socialico-webfont.svg#socialicoregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.font-hero {
+  font-family: Hero;
+}
+.font-museo {
+  font-family: Museo;
+}
+.font-icon {
+  font-family: 'Socialico';
+  font-size: 5rem;
+  color: #828181;
+}
+* {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 0.4979232333264em;
+}
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 0.4979232333264em;
+}
+h1,
+.h1 {
+  font-size: 2em;
+}
+h2,
+.h2 {
+  font-size: 1.5em;
+}
+h3,
+.h3 {
+  font-size: 1.17em;
+}
+h4,
+.h4 {
+  font-size: 1em;
+}
+h5,
+.h5 {
+  font-size: 0.83em;
+}
+h6,
+.h6 {
+  font-size: 0.67em;
+}
+a {
+  color: #468879;
+}
+a,
+.link {
+  font-family: Lato;
+  font-size: 12px;
+}
+.t-center {
+  text-align: center;
+}
+.t-justify {
+  text-align: justify;
+}
+.t-right {
+  text-align: right;
+}
+.t-left {
+  text-align: left;
+}
+.va-middle {
+  vertical-align: middle;
+}
+.va-text-bottom {
+  vertical-align: text-bottom;
+}
+.va-bottom {
+  vertical-align: bottom;
+}
+.italic {
+  font-style: italic;
+}
+.bold {
+  font-weight: bold;
+}
+.underline {
+  text-decoration: underline;
+}
+.paragrafo1 {
+  font-size: 18px;
+}
+.paragrafo2 {
+  font-size: 16px;
+}
+.citacao:before {
+  content: open-quote;
+}
+.citacao {
+  color: #b2b2b2;
+  font-weight: 16px;
+  font-style: italic;
+  font-weight: bold;
+}
+.citacao:after {
+  content: close-quote;
+}
+/**
+ * Gridpak Beta LESS
+ *
+ * Generator - http://gridpak.com/
+ * Created by @erskinedesign
+ */
+/* Reusable column setup */
+.mixin-col {
+  border: 0px solid rgba(0, 0, 0, 0);
+  float: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-background-clip: padding-box !important;
+  -webkit-background-clip: padding-box !important;
+  background-clip: padding-box !important;
+}
+.col {
+  border: 0px solid rgba(0, 0, 0, 0);
+  float: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-background-clip: padding-box !important;
+  -webkit-background-clip: padding-box !important;
+  background-clip: padding-box !important;
+}
+.mixin-span_first {
+  margin-left: 0;
+}
+/* 1. 12 Column Grid 0px - 318px 
+    ----------------------------------------------------------------------------- 
+    
+    Span 1:    7.41666666667%
+    Span 2:    15.8333333333%
+    Span 3:    24.25%
+    Span 4:    32.6666666667%
+    Span 5:    41.0833333333%
+    Span 6:    49.5%
+    Span 7:    57.9166666667%
+    Span 8:    66.3333333333%
+    Span 9:    74.75%
+    Span 10:    83.1666666667%
+    Span 11:    91.5833333333%
+    Span 12:    100%
+    
+    ----------------------------------------------------------------------------- */
+@media screen and (min-width: 0px) and (max-width: 318px) {
+  .col {
+    margin-left: 1%;
+    padding: 0 0.5%;
+  }
+  /* --- Gridpak variables ---*/
+  .row .col:first-child {
+    margin-left: 0;
+  }
+  /*
+        Add your semantic classnames in alongside their corresponding spans here. e.g.
+        
+        .span_3,
+        .my_semantic_class_name {
+            ...
+        }
+        
+        */
+  .span_1 {
+    width: 7.41666667%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_2 {
+    width: 15.83333333%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_3 {
+    width: 24.25%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_4 {
+    width: 32.66666667%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_5 {
+    width: 41.08333333%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_6 {
+    width: 49.5%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_7 {
+    width: 57.91666667%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_8 {
+    width: 66.33333333%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_9 {
+    width: 74.75%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_10 {
+    width: 83.16666667%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_11 {
+    width: 91.58333333%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_12 {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+/* 2. 12 Column Grid 319px - 759px 
+    ----------------------------------------------------------------------------- 
+    
+    Span 1:    6.5%
+    Span 2:    15.0%
+    Span 3:    23.5%
+    Span 4:    32.0%
+    Span 5:    40.5%
+    Span 6:    49.0%
+    Span 7:    57.5%
+    Span 8:    66.0%
+    Span 9:    74.5%
+    Span 10:    83.0%
+    Span 11:    91.5%
+    Span 12:    100%
+    
+    ----------------------------------------------------------------------------- */
+@media screen and (min-width: 319px) and (max-width: 759px) {
+  .col {
+    margin-left: 2%;
+    padding: 0 0.5%;
+  }
+  /* --- Gridpak variables ---*/
+  .row .col:first-child {
+    margin-left: 0;
+  }
+  .span_1 {
+    width: 6.5%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 2%;
+  }
+  .span_2 {
+    width: 15%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 2%;
+  }
+  .span_3 {
+    width: 23.5%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 2%;
+  }
+  .span_4 {
+    width: 32%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 2%;
+  }
+  .span_5 {
+    width: 40.5%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 2%;
+  }
+  .span_6 {
+    width: 49%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 2%;
+  }
+  .span_7 {
+    width: 57.5%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 2%;
+  }
+  .span_8 {
+    width: 66%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 2%;
+  }
+  .span_9 {
+    width: 74.5%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 2%;
+  }
+  .span_10 {
+    width: 83%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 2%;
+  }
+  .span_11 {
+    width: 91.5%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 2%;
+  }
+  .span_12 {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+/* 3. 12 Column Grid 760px - 1199px 
+    ----------------------------------------------------------------------------- 
+    
+    Span 1:    7.41666666667%
+    Span 2:    15.8333333333%
+    Span 3:    24.25%
+    Span 4:    32.6666666667%
+    Span 5:    41.0833333333%
+    Span 6:    49.5%
+    Span 7:    57.9166666667%
+    Span 8:    66.3333333333%
+    Span 9:    74.75%
+    Span 10:    83.1666666667%
+    Span 11:    91.5833333333%
+    Span 12:    100%
+    
+    ----------------------------------------------------------------------------- */
+@media screen and (min-width: 760px) and (max-width: 1199px) {
+  .col {
+    margin-left: 1%;
+    padding: 0 0.5%;
+  }
+  /* --- Gridpak variables ---*/
+  .row .col:first-child {
+    margin-left: 0;
+  }
+  .span_1 {
+    width: 7.41666667%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_2 {
+    width: 15.83333333%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_3 {
+    width: 24.25%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_4 {
+    width: 32.66666667%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_5 {
+    width: 41.08333333%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_6 {
+    width: 49.5%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_7 {
+    width: 57.91666667%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_8 {
+    width: 66.33333333%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_9 {
+    width: 74.75%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_10 {
+    width: 83.16666667%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_11 {
+    width: 91.58333333%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_12 {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+/* 4. 12 Column Grid 1200px - Infinity 
+    ----------------------------------------------------------------------------- 
+    
+    Span 1:    7.41666666667%
+    Span 2:    15.8333333333%
+    Span 3:    24.25%
+    Span 4:    32.6666666667%
+    Span 5:    41.0833333333%
+    Span 6:    49.5%
+    Span 7:    57.9166666667%
+    Span 8:    66.3333333333%
+    Span 9:    74.75%
+    Span 10:    83.1666666667%
+    Span 11:    91.5833333333%
+    Span 12:    100%
+    
+    ----------------------------------------------------------------------------- */
+@media screen and (min-width: 1200px) {
+  .col {
+    margin-left: 1%;
+    padding: 0 0.5%;
+  }
+  /* --- Gridpak variables ---*/
+  .row .col:first-child {
+    margin-left: 0;
+  }
+  .span_1 {
+    width: 7.41666667%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_2 {
+    width: 15.83333333%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_3 {
+    width: 24.25%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_4 {
+    width: 32.66666667%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_5 {
+    width: 41.08333333%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_6 {
+    width: 49.5%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_7 {
+    width: 57.91666667%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_8 {
+    width: 66.33333333%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_9 {
+    width: 74.75%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_10 {
+    width: 83.16666667%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_11 {
+    width: 91.58333333%;
+    border-left-width: 0;
+    padding: 0 0.5%;
+    margin-left: 1%;
+  }
+  .span_12 {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+.f-left {
+  float: left;
+}
+.f-right {
+  float: right;
+}
+.f-center {
+  margin: 0 auto;
+}
+.w-full {
+  width: 100%;
+}
+.a-relative {
+  position: relative;
+}
+.a-bottom {
+  position: absolute;
+  bottom: 0px;
+}
+input[type="submit"],
+input[type="button"],
+button {
+  border: none;
+  outline: none;
+  padding: 0px;
+}
+.btn-1 {
+  height: 36px;
+  background: #66cab3;
+  color: #fff;
+  border-bottom: 3px solid #468879;
+  padding: 3px;
+}
+.btn-1:hover {
+  background: #468879;
+  border-bottom: 3px solid #468879;
+}
+.btn-1:active {
+  background: #175749;
+  border-bottom: 3px solid #468879;
+  padding-right: 0px;
+}
+.btn-2 {
+  height: 36px;
+  background: #a0a0a0;
+  color: #fff;
+  border-bottom: 3px solid #828181;
+  padding: 3px;
+}
+.btn-2:hover {
+  background: #828181;
+  border-bottom: 3px solid #828181;
+}
+.btn-2:active {
+  background: #4d4d4d;
+  border-bottom: 3px solid #828181;
+  padding-right: 0px;
+}
+input,
+textarea,
+select,
+.form-input {
+  border: none;
+  outline: none;
+}
+input[type="submit"],
+input[type="button"],
+button {
+  border: none;
+  outline: none;
+  padding: 0px;
+}
+.form-input-comum {
+  padding: 5px 0px 5px 10px;
+  background: #ffffff;
+}
+.input-valido {
+  border: 1px solid green;
+  color: green;
+}
+.input-invalido {
+  border: 1px solid red;
+  color: red;
+}
+.form-select {
+  height: 35px;
+}
+ul {
+  padding-left: 0px;
+}
+li {
+  list-style-type: none;
+}
+.img-grande {
+  width: 300px;
+  height: 215px;
+}
+.thumbnail-pequena {
+  width: 44px;
+  height: 50px;
+}
+body {
+  width: 100%;
+  background: #e6e7e7;
+}
+.header {
+  width: 1200px;
+  margin: 0 auto;
+  height: 60.414px;
+}
+.col_header {
+  height: 60.414px;
+  position: relative;
+}
+.header-navigator {
+  width: 100%;
+}
+.topo {
+  width: 80%;
+  margin-left: 10%;
+  height: 80px;
+  padding-top: 10px;
+}
+.input-search {
+  width: 60%;
+}
+.pesquisa {
+  padding-top: 17px;
+  width: 50%;
+  height: 70px;
+}
+.input-select-topo {
+  width: 100px;
+}
+.login-form {
+  width: 36%;
+  height: 70px;
+}
+.login-form a {
+  color: #ffffff;
+}
+.input-login {
+  width: 37%;
+  vertical-align: bottom;
+}
+.btn-login {
+  height: 28px;
+  width: 72px;
+  font-size: 14px;
+}
+.input-login {
+  padding: 0px;
+  padding-left: 5px;
+  height: 26px;
+  width: 152px;
+}
+.col_header > .a-bottom {
+  margin-bottom: 10px;
+  right: 0;
+}
+.content {
+  width: 1200px;
+  height: 500px;
+}
+.col_content {
+  height: 10px;
+  margin-top: 100px;
+}
+.section-form {
+  margin-bottom: 11px;
+}
+.section-form > input[type="text"],
+.section-form > input[type="email"],
+.section-form > input[type="password"] {
+  height: 36px;
+}
+.footer {
+  width: 1200px;
+  text-align: center;
+}

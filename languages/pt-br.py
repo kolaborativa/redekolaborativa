@@ -1,4 +1,4 @@
-# coding: utf8
+# -*- coding: utf-8 -*-
 {
 '!langcode!': 'pt-br',
 '!langname!': 'Português (do Brasil)',
@@ -92,6 +92,7 @@
 'Email sent': 'Email enviado',
 'Enter': 'Enter',
 'enter a valid email address': 'Insira um e-mail válido',
+'Enter an integer between %(min)g and %(max)g': 'Enter an integer between %(min)g and %(max)g',
 'enter an integer between %(min)g and %(max)g': 'insira um número inteiro entre %(min)g e %(max)g',
 'Enterprising': 'Empreendedor',
 'Error': 'Erro',
