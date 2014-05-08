@@ -7,112 +7,104 @@
 <!--[if IE 9]><html class="ie9 ie-lte9 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{=T.accepted_language or 'en'}}"> <!--<![endif]-->
 <head>
-  <!--[if !HTML5]>
-      <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
-  <![endif]-->
-  <!-- www.phpied.com/conditional-comments-block-downloads/ -->
-  <!-- Always force latest IE rendering engine
-       (even in intranet) & Chrome Frame
-       Remove this if you use the .htaccess -->
+<!--[if !HTML5]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
+<![endif]-->
+<!-- www.phpied.com/conditional-comments-block-downloads/ -->
+<!-- Always force latest IE rendering engine
+(even in intranet) & Chrome Frame
+Remove this if you use the .htaccess -->
 
-  <title>Kolaborativa Network - Rede social de Profissionais da Web.</title>
-  <meta name="description" content="Um movimento pela criação de uma comunidade unida e ativa de Profissionais da Web." />
-  <meta name="keywords" content="kolaborativa, rede social kolaborativa, compartilhar informação, aprender, inovar, empreender, colaboração, grupos de ação, eventos, comunidade." />
+<title>Kolaborativa Network - Rede social de Profissionais da Web.</title>
+<meta name="description" content="Um movimento pela criação de uma comunidade unida e ativa de Profissionais da Web." />
+<meta name="keywords" content="kolaborativa, rede social kolaborativa, compartilhar informação, aprender, inovar, empreender, colaboração, grupos de ação, eventos, comunidade." />
 
-  <meta charset="utf-8" />
+<meta charset="utf-8" />
 
-  <!-- http://dev.w3.org/html5/markup/meta.name.html -->
-  <meta name="application-name" content="{{=request.application}}" />
+<!-- http://dev.w3.org/html5/markup/meta.name.html -->
+<meta name="application-name" content="{{=request.application}}" />
 
-  <!-- Speaking of Google, don't forget to set your site up:
-     http://google.com/webmasters -->
+<!-- Speaking of Google, don't forget to set your site up:
+  http://google.com/webmasters -->
   <meta name="google-site-verification" content="" />
 
-  <!--  Mobile Viewport Fix
-        j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
-        device-width: Occupy full width of the screen in its current orientation
-        initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
-        user-scalable = yes allows the user to zoom in -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--  Mobile Viewport Fix
+j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
+device-width: Occupy full width of the screen in its current orientation
+initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
+user-scalable = yes allows the user to zoom in -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
-  <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+<link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
+<link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
 
-  <!-- All JavaScript at the bottom, except for Modernizr which enables
-       HTML5 elements & feature detects -->
+<!-- All JavaScript at the bottom, except for Modernizr which enables
+  HTML5 elements & feature detects -->
   <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>
 
   <link rel="stylesheet" href='{{=URL("static","css/normalize.css")}}' />
-  <link rel="stylesheet" href='{{=URL("static","css/home-syle.css")}}' />
+  <!-- <link rel="stylesheet" href='{{=URL("static","css/bootstrap.min.css")}}' /> -->
+  <!-- <link rel="stylesheet" href='{{=URL("static", "css/web2py_bootstrap.css")}}' /> -->
+  <!-- <link rel="stylesheet" href='{{=URL("static", "css/bootstrap-responsive.min.css")}}' /> -->
+  <link rel="stylesheet" href='{{=URL("static", "css/stylesheet.css")}}' />
+  {{include 'web2py_ajax.html'}}
+
+  <!-- Espaço para Plugins -->
+  <link rel="stylesheet" href='{{=URL("static", "plugins/jquery.selectbox-0.2/css/jquery.selectbox.css")}}' />
+  <script src="{{=URL('static', 'plugins/jquery.selectbox-0.2/js/jquery.selectbox-0.2.min.js')}}"></script>
+  <!--  -->
 
   <!-- Google Web Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
+
+
 </head>
 <body>
+  <div class="container">
 
-<a href="https://github.com/gustavox4ids/kolaborativa" target="_blank" class="navbar-fixed-top"><img style="-webkit-user-select: none; position: absolute; top: 0; left: 0; border: 0; z-index:9999;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" width="127" height="127"></a>
+<header>
 
-  <div id="container">
+<div class="flash">{{=response.flash or ''}}</div>
 
-    <div class="column-left fleft">
-      <a href="{{=URL('index')}}" alt='Rede Kolaborativa' title='Rede Kolaborativa'><h1 class="kolaborativa-rede-logotipo"></h1></a>
-    </div> <!-- end column-right -->
-    <div id="container-right" class="column-right fleft">
-      <h2>REDE SOCIAL PARA PROFISSIONAIS DA WEB</h2>
-      <p>Em breve lançaremos a plataforma social para pessoas que trabalham com internet. Você poderá compartilhar conhecimento, participar de comunidades, trocar contatos e divulgar seu trabalho. Tudo no mesmo lugar.</p>
-      <p>Para saber informações sobre a estréia da rede e entrar na fila de espera para os primeiros usuários, inscreva-se com seu email no formulário abaixo:</p>
-      <form action="">
-        <input type="email" name="email" placeholder="seu@email.com" required>
-        <input type="submit" value="entrar na lista">
-      </form>
-    </div> <!-- end column-right -->
-    <div class="clear"></div>
+<div class="row-fluid">
+  <img src="{{=URL('static', 'images/logo.png')}}"><br />
+  <p>Comunidade de Empreendedores e Profissionais da Web</p>
+</div>
 
-  </div> <!-- end container -->
+</header>
 
-  <div id="footer">
-    <div id="footer-left" class="column-left fleft">
-      <div class="kolaborativa-icones-variados logo" alt='Kolaborativa Comunidade Internacional' title='Kolaborativa Comunidade Internacional'></div>
-    </div> <!-- end column-right -->
-    <div id="footer-right" class="column-right fleft">
-      <div id="content-footer-right" class="fleft">
-        <p>Com a kolaborativa, queremos criar uma comunidade de profissionais da web atual: designers, desenvolvedores, analistas de mídia social, gerentes de SEO, publicitários online, web game developers, mobile app developers, empreendedores digitais ou qualquer profissional que faz coisas para a web.</p>
-        <p id="social" class="fleft">Por enquanto, entre nas comunidades online do <a href="">Google+</a> ou do <a href="">Facebook</a> para interagir com outros usuários.</p>
-        <ul id="follow" class="fleft">
-          <li>Acompanhe:</li>
-          <a href="" alt="Facebook" title="Facebook"><li class="icon-facebook"></li></a>
-          <a href="" alt="Google Plus" title="Google Plus"><li class="icon-gplus"></li></a>
-          <a href="" alt="Twitter" title="Twitter"><li class="icon-twitter"></li></a>
-        </ul>
-      </div>
-      <div id="logo-footer-right" class="fleft">
-        <div id="mini-logo">
-          <div alt='Rede Kolaborativa' title='Rede Kolaborativa' class="kolaborativa-logo-pequeno logo"></div>
-        </div>
-      </div> <!-- end column-right -->
-    </div> <!-- end footer-right -->
-    <div class="clear"></div>
-  </div> <!-- end footer -->
+<article>
+  
+<div class="row-fluid">
+  <p>Entre na fila de espera para saber mais informações sobre a estréia da rede.</p>
+  
+<div class="ajust">
+  {{=form.custom.begin}}
+        <input type="email" name="email" placeholder="{{=T('your@email.com')}}" class="span10" required>
+        <input type="submit" value="{{=T('Send')}}" class="span2">
+        {{if form.errors:}}
+        <div class='btn btn-large btn-primary disabled btn-danger'>
+        {{=BEAUTIFY(form.errors.email)}}
+         </div>
+        {{pass}}
+  {{=form.custom.end}}
+<a href="http://kolaborativa.com" class="back">Visite o site da comunidade</a>
+</div>
+</div>
 
-<script type="text/javascript">
-  var footerHeight = document.getElementById("footer").offsetHeight;
-  document.getElementById("content-footer-right").style.minHeight = footerHeight + "px";
-  document.getElementById("logo-footer-right").style.minHeight = footerHeight + "px";
+</article>
 
-  var resize = (function() {
-    document.getElementById("container").style.minHeight = ( document.getElementsByTagName("body")[0].offsetHeight - footerHeight ) + "px";
-    document.getElementById("container-right").style.minHeight = ( document.getElementsByTagName("body")[0].offsetHeight - footerHeight ) + "px";
-  });
+<footer>
 
-  resize();
+<div class="row-fluid">
+  <a href="http://www.facebook.com/groups/kolaborativa/" target="_blank">f</a><a href="https://twitter.com/kolaborativa" target="_blank">l</a><a href="https://plus.google.com/communities/101487760441194668968" target="_blank">g</a>
+</div>
 
-  window.onresize = function() {
-    resize();
-  }
 
-</script>
+</footer>
+
+</div>
 </body>
 </html>
-
