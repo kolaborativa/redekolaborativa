@@ -48,3 +48,56 @@ input[type="submit"],input[type="button"],button{
 .form-select{
 	height: 35px;
 }
+
+//
+.select {
+	position: relative;
+	display: inline-block;
+	// vertical-align: middle;
+}
+
+.select select {
+	background-color: #FFF; /*Cor do select default*/
+	color: #000;
+	/*font-size: inherit;*/
+	padding: .2em;
+	padding-right: 2.5em;	/*Define a distancia entre a seta e o texto */
+	border: 0;
+	margin: 0;
+	/*border-radius: 3px;*/
+	text-indent: 0.01px;
+	text-overflow: '';
+	-webkit-appearance: button; /* hide default arrow in chrome OSX */
+}
+
+.select::before,.select::after {
+	content: "";
+	position: absolute;
+	pointer-events: none;
+}
+
+.select::after { 
+	/*  Personalizando a seta */
+	content: "\25BC"; /*Seta*/
+	height: 1em;
+	font-size: .625em;
+	line-height: 1;
+	right: 1.2em;
+	top: 50%;
+	margin-top: -.5em;
+}
+
+.select::before { /*  Custom dropdown arrow cover */
+	width: 2em;
+	right: 0;
+	top: 0;
+	bottom: 0;		 
+}
+
+.select::before {
+	background-color: rgb(160, 160, 160);
+}
+
+.select::after {
+	color: @branco+02;
+}

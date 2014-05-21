@@ -26,8 +26,12 @@ body{
 }
 .input-search{
   // width: 125px;
-  width: 60%;
+  width: 58%;
 }
+.input-select{
+  height: 29px;
+}
+
 .pesquisa{
   padding-top: 17px;
   width: 50%;
@@ -92,4 +96,12 @@ body{
 .footer{
   width: @larguraTela;
   text-align: center;
+}
+
+@media screen and (min-width:760px) and (max-width: 1200px) {
+    @larguraTela:760px;
+    .header,.content,.footer{
+      width: @larguraTela;
+    }
+    
 }
