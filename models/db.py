@@ -10,24 +10,18 @@
 # request.requires_https()
 
 if not request.is_local :
-    #OPENSHIFT AND/OR GETUP
+    # OPENSHIFT AND/OR GETUP
     import os
-    #GETUP
-    user_db = 'adminKeTTycj'
-    pass_db = 'NhPiK7DJD_Cq'
-
-    #OPENSHIFT
-    #user_db = 'admin941gdp5'
-    #pass_db = 'lERc_GjnyzC_'
-
+    # ENV VARIABLES SETS IN OPENSHIFT AND GETUP
+    user_db = os.environ['KOLABORATIVA_MYSQL_LOGIN']
+    pass_db = os.environ['KOLABORATIVA_MYSQL_PASS']
     host_db = '{host}:{port}'.format(host=os.environ['OPENSHIFT_MYSQL_DB_HOST'], port = os.environ['OPENSHIFT_MYSQL_DB_PORT'])
     name_db = 'rede'
 
     db = DAL('mysql://{user}:{pas}@{host}/{name}'.format(user=user_db, pas=pass_db, host=host_db, name=name_db))
-    #db = DAL('mysql://username:password@localhost/test')
 else:
+    # LOCAL
     db = DAL('sqlite://storage.sqlite', pool_size=1, check_reserved=['all'])
-    #emails = DAL('sqlite://emails.sqlite', pool_size=1, check_reserved=['all'])
 
 # store sessions and tickets there
 session.connect(request, response, db=db)
