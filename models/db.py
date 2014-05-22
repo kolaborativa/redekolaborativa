@@ -12,10 +12,14 @@
 if not request.is_local :
     #OPENSHIFT AND/OR GETUP
     import os
-    #user_db = 'adminKeTTycj'
-    #pass_db = 'NhPiK7DJD_Cq'
-    user_db = 'admin941gdp5'
-    pass_db = 'lERc_GjnyzC_'
+    #GETUP
+    user_db = 'adminKeTTycj'
+    pass_db = 'NhPiK7DJD_Cq'
+
+    #OPENSHIFT
+    #user_db = 'admin941gdp5'
+    #pass_db = 'lERc_GjnyzC_'
+
     host_db = '{host}:{port}'.format(host=os.environ['OPENSHIFT_MYSQL_DB_HOST'], port = os.environ['OPENSHIFT_MYSQL_DB_PORT'])
     name_db = 'rede'
 
