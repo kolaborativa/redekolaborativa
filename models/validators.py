@@ -33,6 +33,6 @@ db.comment_project.created_by.requires = IS_IN_DB(db, 'auth_user.id', '%(usernam
 db.comment_project.modified_by.requires = IS_IN_DB(db, 'auth_user.id', '%(username)s', zero=T('Choose one'))
 
 #emails
-emails.subscription_emails.email.requires = [IS_NOT_EMPTY(error_message=field_empty),
-												IS_NOT_IN_DB(emails, 'subscription_emails.email'),
+db.subscription_emails.email.requires = [IS_NOT_EMPTY(error_message=field_empty),
+												IS_NOT_IN_DB(db, 'subscription_emails.email'),
 												IS_EMAIL(error_message='Invalid e-mail!')]
