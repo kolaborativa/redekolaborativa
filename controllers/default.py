@@ -25,6 +25,12 @@ def index():
 def principal():
     return dict()
 
+# Feito pelo Jorge Rafael, apenas para criar a pagina de 
+# regitro do usuario 
+def registro_usr():
+    return dict()
+
+
 def user():
     """
     exposes:
