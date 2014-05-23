@@ -23,7 +23,8 @@ def index():
     return dict(form=form)
 
 def principal():
-    return dict()
+    projeto = db(db.projects).select().first()
+    return dict(projeto=projeto)
 
 def user():
     """
