@@ -55,7 +55,11 @@ user-scalable = yes allows the user to zoom in -->
 
 
 </head>
-<body>
+
+<body class="cinza1">
+
+ 
+
   <header class="f-left w-full cinza2">
 
 
@@ -72,13 +76,13 @@ user-scalable = yes allows the user to zoom in -->
         <div class="a-bottom w-full">
           <form class="search">
             <input type="search" class="form-input-comum input-search span_2" placeholder="Buscar por .." >
-          
-          <label class="select">
-            <select class="input-select">
-              <option value="1">Projetos</option>
-              <option value="2">Pessoas</option>
-            </select>
-          </label>
+            
+            <label class="select">
+              <select class="input-select">
+                <option value="1">Projetos</option>
+                <option value="2">Pessoas</option>
+              </select>
+            </label>
 
           </form>
         </div>
@@ -102,29 +106,29 @@ user-scalable = yes allows the user to zoom in -->
 
   <section class="f-left w-full">
     <section class="row content f-center">
-        {{include}}
+      {{include}}
     </section>
   </section>
 
   {{if request.function == "index": }}
-    <section class="f-left w-full">
-      <section class="footer row f-center">
-        <section class="col col_footer span_12" data-device="desktop">
-          <a href="#" class="font-icon">f</a>
-          <a href="#" class="font-icon">t</a>
-          <a href="#" class="font-icon">g</a>
-        </section>
+  <section class="f-left w-full">
+    <section class="footer row f-center">
+      <section class="col col_footer span_12" data-device="desktop">
+        <a href="#" class="font-icon">f</a>
+        <a href="#" class="font-icon">t</a>
+        <a href="#" class="font-icon">g</a>
+      </section>
     </section>
-  {{pass}}
+    {{pass}}
 
-  {{if response.google_analytics_id:}}
-  <script src="{{=URL('static','js/analytics.min.js')}}"></script>
-  <script type="text/javascript">
-  analytics.initialize({
-    'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'} 
-  });</script>
-  {{pass}}
+    {{if response.google_analytics_id:}}
+    <script src="{{=URL('static','js/analytics.min.js')}}"></script>
+    <script type="text/javascript">
+      analytics.initialize({
+        'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'} 
+      });</script>
+      {{pass}}
 
 
-</body>
-</html>
+    </body>
+    </html>

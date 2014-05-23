@@ -747,7 +747,6 @@ li {
 }
 body {
   width: 100%;
-  background: #e6e7e7;
 }
 .header {
   width: 1200px;
@@ -827,10 +826,12 @@ body {
   width: 1200px;
   text-align: center;
 }
-@media screen and (min-width: 760px) and (max-width: 1200px) {
-  .header,
-  .content,
-  .footer {
-    width: 760px;
-  }
+.col_edit_perfil_topo {
+  height: 125px;
+  border-bottom: 1px solid black;
+  background: #ffffff;
+}
+.col_edit_perfil_formulario {
+  min-height: 446px;
+  border-bottom: 1px solid black;
 }
