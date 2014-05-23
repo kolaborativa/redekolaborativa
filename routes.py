@@ -21,6 +21,7 @@ routes_in = (
     (BASE + '/search', BASE + '/redekolaborativa/default/search.load'),
     (BASE + '/results', BASE + '/redekolaborativa/default/results'),
     (BASE + '/$username', BASE + '/redekolaborativa/default/user_info/$username'),
+    (BASE + '/landing', BASE + '/redekolaborativa/default/landing'),
     )
 
 routes_out = [(x, y) for (y, x) in routes_in]
