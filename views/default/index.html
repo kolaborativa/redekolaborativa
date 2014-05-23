@@ -41,14 +41,12 @@ user-scalable = yes allows the user to zoom in -->
 <!-- All JavaScript at the bottom, except for Modernizr which enables
   HTML5 elements & feature detects -->
   <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>
-
+  
   <link rel="stylesheet" href='{{=URL("static","css/normalize.css")}}' />
-  <link rel="stylesheet" href='{{=URL("static","css/bootstrap.min.css")}}' />
-  <link rel="stylesheet" href='{{=URL("static", "css/web2py_bootstrap.css")}}' />
-  <link rel="stylesheet" href='{{=URL("static", "css/bootstrap-responsive.min.css")}}' />
-  <!-- <link rel="stylesheet" href='{{=URL("static", "css/stylesheet.css")}}' /> -->
-  <link rel="stylesheet" href='{{=URL("static", "css/home-style.css")}}' />
-  <!-- <link rel="stylesheet" href='{{=URL("static", "css/home-syle.css")}}' /> -->
+  <!-- <link rel="stylesheet" href='{{=URL("static","css/bootstrap.min.css")}}' /> -->
+  <!-- <link rel="stylesheet" href='{{=URL("static", "css/web2py_bootstrap.css")}}' /> -->
+  <!-- <link rel="stylesheet" href='{{=URL("static", "css/bootstrap-responsive.min.css")}}' /> -->
+  <link rel="stylesheet" href='{{=URL("static", "css/stylesheet.css")}}' />
   {{include 'web2py_ajax.html'}}
 
   <!-- Espaço para Plugins -->
@@ -60,54 +58,112 @@ user-scalable = yes allows the user to zoom in -->
   <link href='http://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
+  <!-- Colocar os JS no fim do arquivo  -->
+  <script src="{{=URL('static','js/rede_javascript.js')}}"></script>
 
 
 </head>
 <body>
-  <div class="container">
+  <header class="f-left w-full cinza2">
+   <section class="header row">
 
-<header>
+      <section class="col col_header span_2 logo-header">
+        <figure class="a-bottom">
+          <img src="{{=URL('static','images/placeholder/171x19.gif')}}" alt="Figura Kolaborativa">
+        </figure>
+      </section>
+      <section class="col col_header span_1"></section>
 
-<div class="flash">{{=response.flash or ''}}</div>
+      <section class="col col_header span_3">
+        <div class="a-bottom w-full">
+          <form class="search">
+            <input type="search" class="form-input-comum input-search span_2" placeholder="Buscar por .." >
+          
+          <label class="select">
+            <select class="input-select">
+              <option value="1">Projetos</option>
+              <option value="2">Pessoas</option>
+            </select>
+          </label>
 
-<div class="row-fluid">
-  <img src="{{=URL('static', 'images/logo.png')}}"><br />
-  <p>Comunidade de Empreendedores e Profissionais da Web</p>
-</div>
+          </form>
+        </div>
+      </section>
 
-</header>
+      <section class="col col_header span_1">
+      </section>
 
-<article>
-  
-<div class="row-fluid">
-  <p>Entre na fila de espera para saber mais informações sobre a estréia da rede.</p>
-  
-<div class="ajust">
-  {{=form.custom.begin}}
-        <input type="email" name="email" placeholder="{{=T('your@email.com')}}" class="span10" required>
-        <input type="submit" value="{{=T('Send')}}" class="span2">
-        {{if form.errors:}}
-        <div class='btn btn-large btn-primary disabled btn-danger'>
-        {{=BEAUTIFY(form.errors.email)}}
-         </div>
-        {{pass}}
-  {{=form.custom.end}}
+      <section class="col col_header span_5 t-right">
+        <div class="a-bottom">
+          <a href="#">Esqueceu a senha?</a>
+          <form action="" class="form-login">
+            <input type="text" class="form-input-comum input-login" placeholder="Nome de Usuário">
+            <input type="password" class="form-input-comum input-login" placeholder="Digite sua senha">
+            <input type="button" value="Entrar" class="btn-2 btn-login">
+          </form>
+        </div>  
+      </section>
+    </section>
+  </header>
 
-<a href="http://kolaborativa.com" class="back">Visite o site da comunidade</a>
-</div>
-</div>
+  <section class="f-left w-full">
+    <section class="row content f-center">
+      <section class="col col_content span_6" data-device="desktop" data-conteudo="descricao">
+        <figure class="logo_home t-center">
+          <img src="{{=URL('static','images/placeholder/272x195.gif')}}" alt="Logo-Descricao-Kolaborativa">
+        </figure>
+        <p class="t-center font-hero h2">
+          COMUNIDADE DE EMPREENDEDORES 
+          <br>
+          E PROFISSIONAIS DA WEB
+        </p>
+        <p class="paragrafo2 font-museo h4">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, laudantium cupiditate voluptas maxime architecto unde pariatur dolores quas assumenda! Accusantium, aspernatur debitis voluptatem molestias dicta quam quibusdam provident ratione libero?
+        </p>
+      </section>
+      <section class="col col_content span_1"></section>
+      <section class="col col_content span_5">
+        <form action="" class="form-register w-full f-right">
+          <span class="font-hero h2 f-left">KOLABORE!</span> 
+          <section class="section-form">
+            <input type="text" class="form-input-comum w-full" placeholder="Nome">
+          </section>
+          <section class="section-form">
+            <input type="email" class="form-input-comum w-full" placeholder="E-mail">
+          </section>
+          <section class="section-form">
+            <input type="text" class="form-input-comum w-full" placeholder="Usuário">
+          </section>
+          <section class="section-form">
+            <input type="password" class="form-input-comum w-full" placeholder="Senha">
+          </section>
+          <section class="section-form link">
+            <input type="checkbox" class="va-bottom"> 
+            <span class="link">
+              Estou de acordo com os 
+              <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a>
+            </span>
+          </section>
+          <section class="section-form">
+            <input type="button" class="btn-1 w-full" value="CRIAR UMA CONTA NA KOLABORATIVA">
 
-</article>
+          </section>
+        </form>
+      </section>
+    </section>
 
-<footer>
+  </section>
 
-<div class="row-fluid">
-  <a href="http://www.facebook.com/groups/kolaborativa/" target="_blank">f</a><a href="https://twitter.com/kolaborativa" target="_blank">l</a><a href="https://plus.google.com/communities/101487760441194668968" target="_blank">g</a>
-</div>
+  <section class="f-left w-full">
+    <section class="footer row f-center">
+      <section class="col col_footer span_12" data-device="desktop">
+        <a href="#" class="font-icon">f</a>
+        <a href="#" class="font-icon">t</a>
+        <a href="#" class="font-icon">g</a>
+      </section>
+  </section>
 
+  </section>
 
-</footer>
-
-</div>
 </body>
 </html>

@@ -10,6 +10,14 @@
 #########################################################################
 
 def index():
+    if request.env.http_host == 'rede.kolaborativa.com':
+        redirect(URL('landing'))
+    return dict()
+
+
+def landing():
+    '''Landing page
+    '''
     form = SQLFORM(db.subscription_emails, name='email')
     if form.process().accepted:
         message = response.render('email.html')
@@ -21,6 +29,7 @@ def index():
     elif form.errors:
         response.flash = T("Form has errors!")
     return dict(form=form)
+
 
 def principal():
     return dict()
