@@ -1,0 +1,113 @@
+<!--[if HTML5]><![endif]-->
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]><html class="ie ie6 ie-lte9 ie-lte8 ie-lte7 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
+<!--[if IE 7]><html class="ie ie7 ie-lte9 ie-lte8 ie-lte7 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
+<!--[if IE 8]><html class="ie ie8 ie-lte9 ie-lte8 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
+<!--[if IE 9]><html class="ie9 ie-lte9 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{=T.accepted_language or 'en'}}"> <!--<![endif]-->
+<head>
+<!--[if !HTML5]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
+<![endif]-->
+<!-- www.phpied.com/conditional-comments-block-downloads/ -->
+<!-- Always force latest IE rendering engine
+(even in intranet) & Chrome Frame
+Remove this if you use the .htaccess -->
+
+<title>Kolaborativa Network - Rede social de Profissionais da Web.</title>
+<meta name="description" content="Um movimento pela criação de uma comunidade unida e ativa de Profissionais da Web." />
+<meta name="keywords" content="kolaborativa, rede social kolaborativa, compartilhar informação, aprender, inovar, empreender, colaboração, grupos de ação, eventos, comunidade." />
+
+<meta charset="utf-8" />
+
+<!-- http://dev.w3.org/html5/markup/meta.name.html -->
+<meta name="application-name" content="{{=request.application}}" />
+
+<!-- Speaking of Google, don't forget to set your site up:
+  http://google.com/webmasters -->
+  <meta name="google-site-verification" content="" />
+
+<!--  Mobile Viewport Fix
+j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
+device-width: Occupy full width of the screen in its current orientation
+initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
+user-scalable = yes allows the user to zoom in -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
+<link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+
+<!-- All JavaScript at the bottom, except for Modernizr which enables
+  HTML5 elements & feature detects -->
+  <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>
+
+  <link rel="stylesheet" href='{{=URL("static","css/normalize.css")}}' />
+  <link rel="stylesheet" href='{{=URL("static","css/bootstrap.min.css")}}' />
+  <link rel="stylesheet" href='{{=URL("static", "css/web2py_bootstrap.css")}}' />
+  <link rel="stylesheet" href='{{=URL("static", "css/bootstrap-responsive.min.css")}}' />
+  <!-- <link rel="stylesheet" href='{{=URL("static", "css/stylesheet.css")}}' /> -->
+  <link rel="stylesheet" href='{{=URL("static", "css/home-style.css")}}' />
+  <!-- <link rel="stylesheet" href='{{=URL("static", "css/home-syle.css")}}' /> -->
+  {{include 'web2py_ajax.html'}}
+
+  <!-- Espaço para Plugins -->
+  <link rel="stylesheet" href='{{=URL("static", "plugins/jquery.selectbox-0.2/css/jquery.selectbox.css")}}' />
+  <script src="{{=URL('static', 'plugins/jquery.selectbox-0.2/js/jquery.selectbox-0.2.min.js')}}"></script>
+  <!--  -->
+
+  <!-- Google Web Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+
+
+</head>
+<body>
+  <div class="container">
+
+<header>
+
+<div class="flash">{{=response.flash or ''}}</div>
+
+<div class="row-fluid">
+  <img src="{{=URL('static', 'images/logo.png')}}"><br />
+  <p>Comunidade de Empreendedores e Profissionais da Web</p>
+</div>
+
+</header>
+
+<article>
+  
+<div class="row-fluid">
+  <p>Entre na fila de espera para saber mais informações sobre a estréia da rede.</p>
+  
+<div class="ajust">
+  {{=form.custom.begin}}
+        <input type="email" name="email" placeholder="{{=T('your@email.com')}}" class="span10" required>
+        <input type="submit" value="{{=T('Send')}}" class="span2">
+        {{if form.errors:}}
+        <div class='btn btn-large btn-primary disabled btn-danger'>
+        {{=BEAUTIFY(form.errors.email)}}
+         </div>
+        {{pass}}
+  {{=form.custom.end}}
+
+<a href="http://kolaborativa.com" class="back">Visite o site da comunidade</a>
+</div>
+</div>
+
+</article>
+
+<footer>
+
+<div class="row-fluid">
+  <a href="http://www.facebook.com/groups/kolaborativa/" target="_blank">f</a><a href="https://twitter.com/kolaborativa" target="_blank">l</a><a href="https://plus.google.com/communities/101487760441194668968" target="_blank">g</a>
+</div>
+
+
+</footer>
+
+</div>
+</body>
+</html>
