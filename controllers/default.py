@@ -10,7 +10,7 @@
 #########################################################################
 
 def index():
-    form = SQLFORM(emails.subscription_emails, name='email')
+    form = SQLFORM(db.subscription_emails, name='email')
     if form.process().accepted:
         message = response.render('email.html')
         mail.send(to=request.vars.email,
@@ -23,7 +23,8 @@ def index():
     return dict(form=form)
 
 def principal():
-    return dict()
+    projeto = db(db.projects).select().first()
+    return dict(projeto=projeto)
 
 def user():
     """

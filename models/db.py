@@ -9,20 +9,22 @@
 # be redirected to HTTPS, uncomment the line below:
 # request.requires_https()
 
-if not request.env.web2py_runtime_gae:
-    # if NOT running on Google App Engine use SQLite or other DB
-    db = DAL('sqlite://storage.sqlite', pool_size=1, check_reserved=['all'])
-    emails = DAL('sqlite://emails.sqlite', pool_size=1, check_reserved=['all'])
+if not request.is_local :
+    # OPENSHIFT AND/OR GETUP
+    import os
+    # ENV VARIABLES SETS IN OPENSHIFT AND GETUP
+    user_db = os.environ['KOLABORATIVA_MYSQL_LOGIN']
+    pass_db = os.environ['KOLABORATIVA_MYSQL_PASS']
+    host_db = '{host}:{port}'.format(host=os.environ['OPENSHIFT_MYSQL_DB_HOST'], port = os.environ['OPENSHIFT_MYSQL_DB_PORT'])
+    name_db = 'rede'
+
+    db = DAL('mysql://{user}:{pas}@{host}/{name}'.format(user=user_db, pas=pass_db, host=host_db, name=name_db))
 else:
-    # connect to Google BigTable (optional 'google:datastore://namespace')
-    db = DAL('google:datastore')
-    emails = DAL('google:datastore')
-    # store sessions and tickets there
-    session.connect(request, response, db=db)
-    # or store session in Memcache, Redis, etc.
-    # from gluon.contrib.memdb import MEMDB
-    # from google.appengine.api.memcache import Client
-    # session.connect(request, response, db = MEMDB(Client()))
+    # LOCAL
+    db = DAL('sqlite://storage.sqlite', pool_size=1, check_reserved=['all'])
+
+# store sessions and tickets there
+session.connect(request, response, db=db)
 
 # by default give a view/generic.extension to all actions from localhost
 # none otherwise. a pattern can be 'controller/function.extension'

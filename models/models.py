@@ -36,7 +36,7 @@ db.define_table("competence",
 	Field("competence", length=128, requires=IS_NOT_EMPTY(error_message=field_empty)),
 	Field("profession_id", db.profession, readable=False, writable=False)
 	)
-	
+
 db.define_table("network_type",
 Field("user_id"),
 Field("network", label='Username'),
@@ -51,6 +51,6 @@ db.define_table('comment_project',
    Field('project_id'),
    auth.signature)
 
-emails.define_table('subscription_emails',
+db.define_table('subscription_emails',
 	Field('email', requires=IS_EMAIL())
 	)
