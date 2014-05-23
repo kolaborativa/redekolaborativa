@@ -3,14 +3,7 @@
 <ul class="nav nav-list">
   <li class="nav-header">Navegue</li>
   <li class="active"><a href="#">Home</a></li>
-  {{if auth.is_logged_in():}}
-    <li><a href="{{=URL('user_info', args=[auth.user.username])}}">{{=T('Profile')}}</a></li>
-  {{else:}}
-    <li><a href="{{=URL('user', args=['register'])}}">Registrar</a></li>
-  {{pass}}
+  {{if auth.is_logged_in():}}<li><a href="{{=URL('user_info', args=[auth.user.username])}}">{{=T('Profile')}}</a></li>{{pass}}
   <li><a href="{{=URL('create_project')}}">{{=T('Create Project')}}</a></li>
-  {{if auth.is_logged_in():}}
-    <li><a href="{{=URL(f='edit_project', args=[projeto.project_slug])}}">Editar projeto</a></li>
-  {{pass}}
 </ul>
 </div>
