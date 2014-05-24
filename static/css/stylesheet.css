@@ -830,8 +830,19 @@ body {
   height: 125px;
   border-bottom: 1px solid black;
   background: #ffffff;
+  border: 1px solid #828181;
+  border-bottom: none;
+}
+.col_edit_perfil_topo::after {
+  content: " url('../../static/images/Edit_perfil/barra_editar_perfil.png')";
+}
+.col_edit_perfil_topo figure {
+  text-align: center;
+  padding-top: 10px;
 }
 .col_edit_perfil_formulario {
   min-height: 446px;
   border-bottom: 1px solid black;
+  border: 1px solid #828181;
+  border-top: none;
 }
