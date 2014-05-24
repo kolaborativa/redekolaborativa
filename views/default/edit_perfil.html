@@ -3,86 +3,146 @@
 <h1>Editar Perfil</h1>
 <section class="col col_edit_perfil_topo span_12 f-left">
 	<figure class="span_3 col">
-		<img src="{{=URL('static','images/Edit_perfil/edit_perfil_pessoal.png')}}" alt="">
+		<img src="{{=URL('static','images/Edit_perfil/pessoal.png')}}" alt="" data-img-fase="1">
+		<img src="{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}" alt="" data-img-fase="2">
+		<img src="{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}" alt="" data-img-fase="3">
+		<img src="{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}" alt="" data-img-fase="4">
 	</figure>
 	<figure class="span_3 col">
-		<img src="{{=URL('static','images/Edit_perfil/edit_perfil_bio.png')}}" alt="">
+		<img src="{{=URL('static','images/Edit_perfil/bio_cinza.png')}}" alt="" data-img-fase="1">
+		<img src="{{=URL('static','images/Edit_perfil/bio.png')}}" alt="" data-img-fase="2">
+		<img src="{{=URL('static','images/Edit_perfil/bio_completa.png')}}" alt="" data-img-fase="3">
+		<img src="{{=URL('static','images/Edit_perfil/bio_completa.png')}}" alt="" data-img-fase="4">
+	</figure>
+
+	<figure class="span_3 col">
+		<img src="{{=URL('static','images/Edit_perfil/prof_cinza.png')}}" alt="" data-img-fase="1" >
+		<img src="{{=URL('static','images/Edit_perfil/prof_cinza.png')}}" alt="" data-img-fase="2" >
+		<img src="{{=URL('static','images/Edit_perfil/prof.png')}}" alt="" data-img-fase="3">
+		<img src="{{=URL('static','images/Edit_perfil/prof_completa.png')}}" alt="" data-img-fase="4">
 	</figure>
 	<figure class="span_3 col">
-		<img src="{{=URL('static','images/Edit_perfil/edit_perfil_profissoes.png')}}" alt="">
+		<img src="{{=URL('static','images/Edit_perfil/cont_cinza.png')}}" alt="" data-img-fase="1">
+		<img src="{{=URL('static','images/Edit_perfil/cont_cinza.png')}}" alt="" data-img-fase="2">
+		<img src="{{=URL('static','images/Edit_perfil/cont_cinza.png')}}" alt="" data-img-fase="3">
+		<img src="{{=URL('static','images/Edit_perfil/contato.png')}}" alt="" data-img-fase="4">
 	</figure>
-	<figure class="span_3 col">
-		<img src="{{=URL('static','images/Edit_perfil/edit_perfil_contato.png')}}" alt="">
-	</figure>
-	<!-- url('../../static/images/Edit_perfil/barra_editar_perfil.png') 15 / 15px round -->
-	
-	
-	
 </section>
 <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" alt="" class="w-full f-left">
 
 <section class="col col_edit_perfil_formulario span_12 f-left">
 	<form action="">
-	
-	<section id="edit_perfil_fase1" data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
-		<section class="span_5 col">
-	          <span class="font-lato h2 f-left">Nome Completo</span> 
-	          <section class="section-form">
-	            <input type="text" class="form-input-comum w-full" placeholder="Nome">
-	          </section>
-	          <span class="font-lato h2 f-left">Nome de Usuário</span> 
-	          <section class="section-form">
-	            <input type="text" class="form-input-comum w-full" placeholder="Nome">
-	          </section>
-	          <span class="font-lato h2 f-left">Email</span> 
-	          <section class="section-form">
-	            <input type="email" class="form-input-comum w-full" placeholder="Nome">
-	          </section>
-		</section>
-		<section class="span_1 col span_vazio"></section>
-		<section class="span_6 col">
-		    <div class="span_6 col">
-			    <span class="font-lato h2 f-left">Data de Nascimento</span> 
-		          <section class="section-form">
-		            <input type="email" class="form-input-comum w-full" placeholder="Nome">
-		          </section>
-		          <span class="font-lato h2 f-left">Estado</span> 
-		          <section class="section-form">
-		            <label class="select">
-		              <select class="input-select">
-		                <option value="1">Rio de Janeiro</option>
-		                <option value="2">Rio de Janeiro</option>
-		              </select>
-		            </label>
-		          </section>
+		<section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
+			<section class="span_5 col">
+				<span class="font-lato h2 f-left">Nome Completo</span> 
+				<section class="section-form">
+					<input type="text" class="form-input-comum w-full" placeholder="Nome">
+				</section>
+				<span class="font-lato h2 f-left">Nome de Usuário</span> 
+				<section class="section-form">
+					<input type="text" class="form-input-comum w-full" placeholder="Nome">
+				</section>
+				<span class="font-lato h2 f-left">Email</span> 
+				<section class="section-form">
+					<input type="email" class="form-input-comum w-full" placeholder="Nome">
+				</section>
+			</section>
+			<section class="span_1 col span_vazio"></section>
+			<section class="span_6 col">
+				<div class="span_6 col f-left">
+					<span class="font-lato h2 f-left">Data de Nascimento</span> 
+					<br>
+					<section class="section-form">
+						<input type="email" class="form-input-comum w-full" placeholder="Nome">
+					</section>
+					<span class="font-lato h2 f-left">Estado</span> 
+					<br>
+					<section class="section-form">
+						<label class="select">
+							<select class="input-select">
+								<option value="1">Rio de Janeiro</option>
+								<option value="2">Rio de Janeiro</option>
+							</select>
+						</label>
+					</section>
 				</div>
-			</div>
-			<div class="span_6 col">
-			<span class="font-lato h2 f-left">Sexo</span> 
-				<section class="section-form">
-					<label class="select">
-		              <select class="input-select">
-		                <option value="1">Masculino</option>
-		                <option value="2">Feminino</option>
-		              </select>
-		            </label>
-				</section>
-				<span class="font-lato h2 f-left">Cidade</span> 
-				<section class="section-form">
-					<label class="select">
-		              <select class="input-select">
-		                <option value="1">Rio de Janeiro</option>
-		                <option value="2">Rio de Janeiro</option>
-		              </select>
-		            </label>
-				</section>
-			</div>
-			</div>
+				<div class="span_6 col f-left">
+					<span class="font-lato h2 f-left">Sexo</span> 
+					<br>
+					<section class="section-form">
+						<label class="select">
+							<select class="input-select">
+								<option value="1">Masculino</option>
+								<option value="2">Feminino</option>
+							</select>
+						</label>
+					</section>
+					<span class="font-lato h2 f-left">Cidade</span> 
+					<br>
+					<section class="section-form">
+						<label class="select">
+							<select class="input-select">
+								<option value="1">Rio de Janeiro</option>
+								<option value="2">Rio de Janeiro</option>
+							</select>
+						</label>
+					</section>
+				</div>
+				<div class="span_12 col f-left">
+					<span class="font-lato h2 f-left">Disponibilidade</span> 
+					<br>
+					<section class="section-form">
+						<label class="select form-input-comum ">
+							<select class="input-select ">
+								<option value="1">Rio de Janeiro</option>
+								<option value="2">Rio de Janeiro</option>
+							</select>
+						</label>
+					</section>
+				</div>
+				<div class="span_12 col f-left">
+					 <input type="button" class="btn-1 f-right" data-irParaFase="2" value="Avançar">
+				</div>
+			</section>
 		</section>
 
-
+		<section  data-fase="2" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
+			<section class="span_5 col"></section>
+			<section class="span_1 col span_vazio"></section>
+			<section class="span_6 col">
+				<div class="span_6 col f-left"></div>
+				<div class="span_6 col f-left"></div>
+				<div class="span_12 col f-left"></div>
+				<div class="span_12 col f-left">
+					 <input type="button" class="btn-1 f-right" data-irParaFase="3" value="Avançar">
+					 <input type="button" class="btn-2 f-right" data-irParaFase="1" value="Voltar">
+				</div>
+			</section>
+		</section>
+		<section  data-fase="3" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
+			<section class="span_5 col"></section>
+			<section class="span_1 col span_vazio"></section>
+			<section class="span_6 col">
+				<div class="span_6 col f-left"></div>
+				<div class="span_6 col f-left"></div>
+				<div class="span_12 col f-left"></div>
+				<div class="span_12 col f-left">
+					 <input type="button" class="btn-1 f-right" data-irParaFase="4" value="Avançar">
+					 <input type="button" class="btn-2 f-right" data-irParaFase="2" value="Voltar">
+				</div>
+			</section>
+		</section>
+		<section  data-fase="4" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
+			<section class="span_5 col"></section>
+			<section class="span_1 col span_vazio"></section>
+			<section class="span_6 col">
+				<div class="span_6 col f-left"></div>
+				<div class="span_6 col f-left"></div>
+				<div class="span_12 col f-left"></div>
+				<div class="span_12 col f-left">
+					 <input type="button" class="btn-1 f-right" data-irParaFase="4" value="Avançar">
+					 <input type="button" class="btn-2 f-right" data-irParaFase="3" value="Voltar">
+				</div>
+			</section>
+		</section>
 	</section>
-	<section id="edit_perfil_fase2" data-fase="2" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases"></section>
-	<section id="edit_perfil_fase3" data-fase="3" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases"></section>
-	<section id="edit_perfil_fase4" data-fase="4" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases"></section>
-</section>
