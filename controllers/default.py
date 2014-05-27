@@ -14,7 +14,6 @@ def index():
     if request.env.http_host == 'rede.kolaborativa.com':
         redirect(URL('landing'))
 
-
     form_login = auth.login()
     form_register = auth.register()
 
