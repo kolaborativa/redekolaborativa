@@ -10,9 +10,14 @@
 #########################################################################
 
 def index():
+    #retirar esse if quando for lancado. Junto com o html da landing page
     if request.env.http_host == 'rede.kolaborativa.com':
         redirect(URL('landing'))
-    return dict()
+
+    form_login = auth.login()
+    form_register = auth.register()
+
+    return dict(form_login=form_login, form_register=form_register)
 
 
 def landing():
