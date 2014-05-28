@@ -3,7 +3,7 @@
 
 // Função para pegar elemento pela ID
 // Retorna o Elemento
-function $(elemento){
+function Id(elemento){
 	var elemento = document.getElementById(elemento)
 	return elemento;
 }
@@ -27,7 +27,30 @@ function main(){
 			mudando_fase_perfil(this.getAttribute("data-irParaFase"));
 		})
 	};
+
+	var label = querySelectAll("data-checkbox-label")
+	for (var i = 0; i < label.length; i++) {
+		label[i].addEventListener("click",function(){
+			mudaStatusCheckbox(this)
+		})
+	}
+
 }
+
+
+
+
+function mudaStatusCheckbox(checkbox){
+	status = checkbox.innerHTML;
+	if (status=="Off") {
+		checkbox.innerHTML = "On"
+	}
+	else{
+		checkbox.innerHTML = "Off"
+	}
+}
+
+
 
 function mudando_fase_perfil(fase){
 
@@ -55,7 +78,7 @@ function mudando_fase_perfil(fase){
 				img_fase[img].style.display = "none";
 			}
 		};
-	
+
 		// Muda o bloco
 		if (status == "false"){
 			fases_edicao[i].style.display = "none";

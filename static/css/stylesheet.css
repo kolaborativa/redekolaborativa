@@ -612,21 +612,27 @@ a,
 .w-full {
   width: 100%;
 }
+.w-90 {
+  width: 90%;
+}
+.w-50 {
+  width: 50%;
+}
+.w-40 {
+  width: 40%;
+}
 .a-relative {
   position: relative;
+}
+.d-none {
+  display: none;
 }
 .a-bottom {
   position: absolute;
   bottom: 0px;
 }
-input[type="submit"],
-input[type="button"],
-button {
-  border: none;
-  outline: none;
-  padding: 0px;
-}
 .btn-1 {
+  margin: 0px 5px;
   height: 36px;
   background: #66cab3;
   color: #fff;
@@ -643,6 +649,7 @@ button {
   padding-right: 0px;
 }
 .btn-2 {
+  margin: 0px 5px;
   height: 36px;
   background: #a0a0a0;
   color: #fff;
@@ -665,13 +672,6 @@ select,
   border: none;
   outline: none;
 }
-input[type="submit"],
-input[type="button"],
-button {
-  border: none;
-  outline: none;
-  padding: 0px;
-}
 .form-input-comum {
   padding: 5px 0px 5px 10px;
   background: #ffffff;
@@ -686,6 +686,11 @@ button {
 }
 .form-select {
   height: 35px;
+}
+.form-select[type="date"] {
+  text-align: center;
+  font-size: 22px;
+  color: #acacac;
 }
 .select {
   position: relative;
@@ -705,7 +710,6 @@ button {
   text-indent: 0.01px;
   text-overflow: '';
   -webkit-appearance: button;
-  /* hide default arrow in chrome OSX */
 }
 .select::before,
 .select::after {
@@ -725,7 +729,6 @@ button {
   margin-top: -0.5em;
 }
 .select::before {
-  /*  Custom dropdown arrow cover */
   width: 2em;
   right: 0;
   top: 0;
@@ -736,6 +739,52 @@ button {
 }
 .select::after {
   color: #ffffff;
+}
+.checkbox {
+  width: 88px;
+  background: #468879;
+  position: relative;
+}
+.checkbox:after {
+  top: 20%;
+  content: url(../images/checkbox/error.png);
+  /*Imagem que define negativo*/
+  position: absolute;
+  right: 10px;
+  z-index: 0;
+}
+.checkbox:before {
+  top: 20%;
+  content: url(../images/checkbox/ok.png);
+  /*Imagem que define o positivo*/
+  position: absolute;
+  left: 10px;
+  z-index: 0;
+}
+.checkbox label {
+  display: block;
+  width: 45%;
+  height: 82%;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 3px;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  z-index: 1;
+  background: #66cab3;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+.checkbox input[type=checkbox] {
+  visibility: hidden;
+}
+.checkbox input[type=checkbox]:checked + label {
+  left: 52%;
 }
 ul {
   padding-left: 0px;
@@ -773,7 +822,7 @@ body {
   padding-top: 10px;
 }
 .input-search {
-  width: 58%;
+  width: 55%;
 }
 .input-select {
   height: 29px;
