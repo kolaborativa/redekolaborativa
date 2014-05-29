@@ -151,13 +151,20 @@ def user():
             redirect(URL("user",args=["profile"]))
         elif form_networking.errors:
             response.flash = 'form has errors'
-        
+
 
         return dict(
             form=form,form_profession=form_profession,form_competencies=form_competencies,form_networking=form_networking,
             professions=professions,competencies=competencies,networking=networking)
 
     return dict(form=auth())
+
+
+def message_register():
+    if auth.is_logged_in():
+        redirect(URL('user_info'))
+    return dict()
+
 
 @auth.requires_login()
 def edit_profession():

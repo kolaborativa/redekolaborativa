@@ -51,14 +51,14 @@ crud, service, plugins = Crud(db), Service(), PluginManager()
 from data_config import EMAIL_SERVER, CLIENT_EMAIL, CLIENT_LOGIN
 
 # configure mail
-mail = Mail()
+mail = auth.settings.mailer
 mail.settings.server = EMAIL_SERVER
 #the sender has to be an admin of the app on GAE
 mail.settings.sender = CLIENT_EMAIL
 mail.settings.login = CLIENT_LOGIN
 
 # configure auth policy
-auth.settings.registration_requires_verification = False
+auth.settings.registration_requires_verification = True
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
 
@@ -91,8 +91,11 @@ db.auth_user.first_name.label = T("Name")
 db.auth_user.last_name.label = T("Nickname")
 db.auth_user.last_name.requires = IS_EMPTY_OR(IS_ALPHANUMERIC(error_message='Must be alphanumeric!'))
 
-auth.settings.register_next= URL('user_info')
+auth.settings.register_next= URL('message_register')
 auth.settings.login_next = URL('user_info')
+auth.settings.logged_url = URL('user_info')
+auth.settings.verify_email_next = URL('index')
+
 #
 # Define your tables below (or better in another model file) for example
 #
