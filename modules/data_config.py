@@ -12,5 +12,5 @@ if not current.request.env.web2py_runtime_gae:
 else:
     EMAIL_SERVER =  'gae'
 
-CLIENT_EMAIL = 'you@email.com'
-CLIENT_LOGIN = 'your_user:your_pass'
+CLIENT_EMAIL = 'contato@kolaborativa.com'
+CLIENT_LOGIN = 'contato@kolaborativa.com:devx4new'
