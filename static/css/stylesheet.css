@@ -615,6 +615,9 @@ a,
 .w-90 {
   width: 90%;
 }
+.w-70 {
+  width: 70%;
+}
 .w-50 {
   width: 50%;
 }
@@ -907,4 +910,13 @@ body {
 .displayNone {
   display: none;
   transition: 1s;
+}
+.colunas {
+  min-height: 283px;
+}
+.bio {
+  min-width: 408px;
+  min-height: 131px;
+  max-width: 408px;
+  max-height: 131px;
 }

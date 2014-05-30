@@ -115,17 +115,17 @@
 				
 			</section>
 			<div class="span_6 col f-right t-right">
-					<input type="button" class="btn-1 f-right w-40" data-irParaFase="2" value="Avançar">
-					<br>
-					<br>
-					<span class="t-right">
-						<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
-					</span>
-				</div>
+				<input type="button" class="btn-1 f-right w-40" data-irParaFase="2" value="Avançar">
+				<br>
+				<br>
+				<span class="t-right">
+					<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
+				</span>
+			</div>
 		</section>
 
 		<section  data-fase="2" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
-		<section class="span_1 col span_vazio"></section>
+			<section class="span_1 col span_vazio"></section>
 			<section class="span_5 col colunas">
 				<span class="font-lato h2 f-left">Avatar</span>
 				<section class="section-form f-left">
@@ -139,22 +139,12 @@
 						resolução máxima de xxxx.
 					</p>
 				</section>
-
 			</section>
 			
 			<section class="span_6 col">
 				<div class="span_12 col colunas">
 					<style>
-					.colunas{
-						min-height: 283px;
-					}
-					.bio{
-						min-width: 408px;
-						min-height: 131px;
-						max-width: 408px;
-						max-height: 131px;
 
-					}
 					</style>
 					<span class="font-lato h2 f-left">Quem é você?</span>
 					
@@ -168,36 +158,103 @@
 
 			<!-- Espaço dos buttons -->
 			<div class="span_6 col f-right t-right">
-			<input type="button" class="btn-1 f-right w-40" data-irParaFase="3" value="Avançar">
-					<input type="button" class="btn-2 f-right w-40" data-irParaFase="1" value="Voltar">
-					
-					<br/>
-					<span class="f-right">
-						<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
-					</span>
-				</div>
+				<input type="button" class="btn-1 f-right w-40" data-irParaFase="3" value="Avançar">
+				<input type="button" class="btn-2 f-right w-40" data-irParaFase="1" value="Voltar">
+
+				<br/>
+				<span class="f-right">
+					<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
+				</span>
+			</div>
 		</section>
+
 		<section  data-fase="3" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
-			<section class="span_5 col">
-				
+			<section class="span_12 col">
+				<div class="t-center f-center w-70">
+					<span class="font-lato h2 f-left">Profissões?</span>
+					<section class="section-form f-left w-full">
+						<select class="w-full form-input-comum" name="" id="">
+								<option value="1">Teste</option>
+								<option value="1">Teste</option>
+								<option value="1">Teste</option>
+								<option value="1">Teste</option>
+								<option value="1">Teste</option>
+							</select>
+						<div>
+							<h1>Designer</h1>
+							<select class="w-full form-input-comum" name="" id="">
+								<option value="1">Teste</option>
+								<option value="1">Teste</option>
+								<option value="1">Teste</option>
+								<option value="1">Teste</option>
+								<option value="1">Teste</option>
+							</select>
+							
+						</div>
+						<div>
+							<ul>
+								<li>
+								<div>UX</div>
+								<a href="">x</a>
+								</li>
+								<li>
+									<div>UX</div>
+									<a href="">x</a>
+								</li>
+							</ul>
+						</div>
+					</section>
+				</div>
 			</section>
-			<div class="span_12 col f-left">
-					<input type="button" class="btn-1 f-right" data-irParaFase="4" value="Avançar">
-					<input type="button" class="btn-2 f-right" data-irParaFase="2" value="Voltar">
+			<div class="span_6 col f-right t-right">
+				<input type="button" class="btn-1 f-right w-40" data-irParaFase="4" value="Avançar">
+				<input type="button" class="btn-2 f-right w-40" data-irParaFase="2" value="Voltar">
 			</div>
 		</section>
 		<section  data-fase="4" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
-			<section class="span_5 col"></section>
-			<section class="span_1 col span_vazio"></section>
-			<section class="span_6 col">
-				<div class="span_6 col f-left"></div>
-				<div class="span_6 col f-left"></div>
-				<div class="span_12 col f-left"></div>
-				<div class="span_12 col f-left">
-					<input type="button" class="btn-1 f-right" data-irParaFase="4" value="Avançar">
-					<input type="button" class="btn-2 f-right" data-irParaFase="3" value="Voltar">
+			<section class="span_12 col">
+				<div class="t-center f-center w-70">
+					<span class="font-lato h2 f-left">Redes Sociais</span>
+					<section class="section-form f-left w-full">
+						<style>
+						.select-edit-perfil{
+							height: 55px;
+							font-size: 25px;
+						}
+						</style>
+						<select class="w-90 form-input-comum f-left select-edit-perfil" name="" id="">
+								<option value="1">Facebook</option>
+								<option value="1">Twitter</option>
+						</select>
+						<style>
+						.btn-submit-select{
+							padding: 0px 12px;
+							border: 0px;
+							background: black;
+							color: white;
+							/*Coisas do botão*/
+							font-size: 38px;
+							height: 55px;
+							width: 52px;
+						}
+						</style>
+						<button class="form-input-comum btn-submit-select f-left" type="button">+</button>
+						<div>
+							
+							
+						</div>
+						
+					</section>
 				</div>
 			</section>
+			<div class="span_6 col f-right t-right">
+				<input type="button" class="btn-1 f-right w-40" data-irParaFase="4" value="Avançar">
+				<input type="button" class="btn-2 f-right w-40" data-irParaFase="3" value="Voltar">
+				<br/>
+				<span class="f-right">
+					<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
+				</span>
+			</div>
 		</section>
 	</section>
 	<script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/resample.js')}}"></script>
