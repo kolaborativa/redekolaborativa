@@ -68,7 +68,7 @@
   color: #828181;
 }
 * {
-  font-family: 'Open Sans', sans-serif;
+  font-family: Lato;
   font-size: 14px;
   text-decoration: none;
 }
@@ -896,12 +896,13 @@ body {
 }
 .col_edit_perfil_formulario {
   padding-top: 25px;
-  height: 446px;
+  min-height: 446px;
   border: 1px solid #828181;
   border-top: none;
+  margin-bottom: 40px;
 }
 .edit_perfil_fases {
-  height: 446px;
+  min-height: 446px;
 }
 .displayBlock {
   display: block;
@@ -919,4 +920,53 @@ body {
   min-height: 131px;
   max-width: 408px;
   max-height: 131px;
+}
+.select-edit-perfil,
+.select-edit-perfil select {
+  height: 50px;
+  font-size: 25px;
+}
+.btn-submit-select {
+  padding: 0px 12px;
+  border: 0px;
+  background: black;
+  color: white;
+  /*Coisas do botão*/
+  font-size: 38px;
+  height: 60px;
+  width: 52px;
+}
+.usr-input-form {
+  height: 40px;
+}
+.usr-btn-form {
+  height: 50px;
+  font-size: 30px;
+  padding: 0px 6px;
+  width: 45px;
+  background: #828181;
+}
+.social-field {
+  margin-top: 20px;
+  background: #66cab3;
+  height: 55px;
+  text-align: left;
+  float: left;
+  /*min-width: 48%;*/
+  margin-left: 5px;
+  box-sizing: border-box;
+}
+.social-field img {
+  vertical-align: middle;
+  padding: 16px 13px;
+  cursor: pointer;
+}
+.social-field a {
+  font-size: 16px;
+  vertical-align: middle;
+}
+.input-editar {
+  background: #FFFFFF;
+  height: 25px;
+  vertical-align: middle;
 }
