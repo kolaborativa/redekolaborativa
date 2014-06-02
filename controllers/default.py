@@ -395,21 +395,18 @@ def remove_person():
     '''
     import json
 
-    user_id = request.vars.user_id
-    project_id = request.vars.project_id
+    user_id = request.vars.user_id or redirect(URL('user_info'))
+    project_id = request.vars.project_id or redirect(URL('user_info'))
+    project = db(db.projects.id==project_id).select().first() or redirect(URL('user_info'))
 
-    project = db(db.projects.id==project_id).select().first()
-
-    if int(user_id) == auth.user.id:
-
-        if project:
-            dic_team = json.loads(project.team)
-            try:
-                del dic_team[user_id]
-            except:
-                pass
-            team = json.dumps(dic_team)
-            db(db.projects.id==project.id).update(team=team)
+    if int(user_id) == auth.user.id or project.project_owner == auth.user.id:
+        dic_team = json.loads(project.team)
+        try:
+            del dic_team[user_id]
+        except:
+            pass
+        team = json.dumps(dic_team)
+        db(db.projects.id==project.id).update(team=team)
 
     redirect(URL('user_info'))
 
