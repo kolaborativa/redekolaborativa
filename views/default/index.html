@@ -77,12 +77,12 @@ user-scalable = yes allows the user to zoom in -->
       <section class="col col_header span_3">
         <div class="a-bottom w-full">
           <form class="search">
-            <input type="search" class="form-input-comum input-search span_2" placeholder="Buscar por .." >
+            <input type="search" class="form-input-comum input-search span_2" placeholder="{{=T('Search for ..')}}" >
           
           <label class="select">
             <select class="input-select">
-              <option value="1">Projetos</option>
-              <option value="2">Pessoas</option>
+              <option value="1">{{=T('Projects')}}</option>
+              <option value="2">{{=T('Persons')}}</option>
             </select>
           </label>
 
@@ -95,13 +95,22 @@ user-scalable = yes allows the user to zoom in -->
 
       <section class="col col_header span_5 t-right">
         <div class="a-bottom">
-          <a href="#">Esqueceu a senha?</a>
-          <form action="" class="form-login">
-            <input type="text" class="form-input-comum input-login" placeholder="Nome de Usuário">
-            <input type="password" class="form-input-comum input-login" placeholder="Digite sua senha">
-            <input type="button" value="Entrar" class="btn-2 btn-login">
-          </form>
-        </div>  
+          <a href="{{=URL(c='default', f='user', args=['request_reset_password'])}}">{{=T('Forgot your password?')}}</a>
+          {{=form_login.custom.begin}}
+            {{form_login.custom.widget.username['_placeholder'] = T('Username')}}
+            {{form_login.custom.widget.username['_class'] = 'form-input-comum input-login'}}
+            
+            {{form_login.custom.widget.password['_placeholder'] = T('Enter your password')}}
+            {{form_login.custom.widget.password['_class'] = 'form-input-comum input-login'}}
+            
+            {{form_login.custom.submit['_value'] = T('Enter')}}
+            {{form_login.custom.submit['_class'] = 'btn-2 btn-login'}}
+
+            {{=form_login.custom.widget.username}}
+            {{=form_login.custom.widget.password}}
+            {{=form_login.custom.submit}}
+          {{=form_login.custom.end}}
+        </div> 
       </section>
     </section>
   </header>
@@ -123,20 +132,48 @@ user-scalable = yes allows the user to zoom in -->
       </section>
       <section class="col col_content span_1"></section>
       <section class="col col_content span_5">
-        <form action="" class="form-register w-full f-right">
-          <span class="font-hero h2 f-left">KOLABORE!</span> 
-          <section class="section-form">
-            <input type="text" class="form-input-comum w-full" placeholder="Nome">
-          </section>
-          <section class="section-form">
-            <input type="email" class="form-input-comum w-full" placeholder="E-mail">
-          </section>
-          <section class="section-form">
-            <input type="text" class="form-input-comum w-full" placeholder="Usuário">
-          </section>
-          <section class="section-form">
-            <input type="password" class="form-input-comum w-full" placeholder="Senha">
-          </section>
+          {{=form_register.custom.begin}}
+            {{form_register.custom.widget.first_name['_placeholder'] = T('Name')}}
+            {{form_register.custom.widget.first_name['_class'] = 'form-input-comum w-full'}}
+
+            {{form_register.custom.widget.email['_placeholder'] = 'E-mail'}}
+            {{form_register.custom.widget.email['_class'] = 'form-input-comum w-full'}}
+
+            {{form_register.custom.widget.username['_placeholder'] = T('User')}}
+            {{form_register.custom.widget.username['_class'] = 'form-input-comum w-full'}}
+
+            {{form_register.custom.widget.password['_placeholder'] = T('Password')}}
+            {{form_register.custom.widget.password['_id'] = 'input-passwd'}}
+            {{form_register.custom.widget.password['_class'] = 'form-input-comum w-full'}}
+            
+            {{form_register.custom.widget.password_two['_placeholder'] = T('Enter your password again')}}
+            {{form_register.custom.widget.password_two['_id'] = 'input-passwd-two'}}
+            {{form_register.custom.widget.password_two['_class'] = 'form-input-comum w-full'}}
+
+            {{form_register.custom.submit['_value'] = T('CREATE AN ACCOUNT ON KOLABORATIVA')}}
+            {{form_register.custom.submit['_class'] = 'btn-1 w-full'}}
+
+
+            <span class="font-hero h2 f-left">{{=T('KOLABORATE')}}!</span> 
+            <section class="section-form">
+                {{=form_register.custom.widget.first_name}}
+            </section>
+            <section class="section-form">
+                {{=form_register.custom.widget.email}}
+            </section>
+            <section class="section-form">
+                {{=form_register.custom.widget.username}}
+            </section>
+            <section class="section-form">
+                {{=form_register.custom.widget.password}}
+            </section>
+            <section class="section-form" style="display:none">
+                {{=form_register.custom.widget.password_two}}
+            </section>
+            <section class="section-form" style="display:none">
+                {{=form_register.custom.widget.user_available}}
+            </section>
+
           <section class="section-form link">
             <input type="checkbox" class="va-bottom"> 
             <span class="link">
@@ -145,9 +182,10 @@ user-scalable = yes allows the user to zoom in -->
             </span>
           </section>
           <section class="section-form">
-            <input type="button" class="btn-1 w-full" value="CRIAR UMA CONTA NA KOLABORATIVA">
+            {{=form_register.custom.submit}}
 
           </section>
+          {{=form_register.custom.end}}
         </form>
       </section>
     </section>
@@ -164,6 +202,16 @@ user-scalable = yes allows the user to zoom in -->
   </section>
 
   </section>
+
+  <script>
+    
+    var pas = document.querySelector('#input-passwd');
+    var pas2 = document.querySelector('#input-passwd-two');
+    pas.onblur = function() {
+        pas2.value = pas.value;
+    }
+
+  </script>
 
 </body>
 </html>
