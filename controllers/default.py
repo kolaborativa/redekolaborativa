@@ -388,7 +388,36 @@ def edit_project():
             return dict(project=project, message=message, form=no_permission)
     else:
         return dict(project=project, message=message)
-        
+
+@auth.requires_login()
+def remove_person():
+    '''Remove user from a project
+    '''
+    import json
+
+    user_id = request.vars.user_id
+    project_id = request.vars.project_id
+
+    project = db(db.projects.id==project_id).select().first()
+    team = ''
+
+    if int(user_id) == auth.user.id:
+
+        if project:
+            dic_team = json.loads(project.team)
+            try:
+                del dic_team[user_id]
+            except:
+                pass
+            team = json.dumps(dic_team)
+            db(db.projects.id==project.id).update(team=team)
+
+    redirect(URL('user_info'))
+
+    return dict(projeto=team)
+
+
+
 def comments():
     message = T("Be the first to make a comment!")
     project = session.project_id
@@ -397,7 +426,7 @@ def comments():
     if form.accepts(request.vars):
         db.comment_project.insert(title=request.vars.title, body=request.vars.body, project_id=project.id)
         redirect(URL('default', 'comments.load'))
-        
+
     replied = []
     if comments:
         for comment in comments:

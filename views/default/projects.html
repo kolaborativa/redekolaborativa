@@ -103,7 +103,7 @@
         </a>
       <div class="media-body">
         <b>{{=T("Kolaborator")}}:</b>
-        {{=g_return_if_empty(collaborator.username)}}<br>
+        {{=g_return_if_empty(collaborator.username)}} {{ if collaborator.id == auth.user.id: }}<a href="{{=URL(c='default', f='remove_person', vars={'user_id':collaborator.id, 'project_id': project.id})}}"><button>Sair</button></a>{{ pass }}<br>
         <b>{{=T("Profession")}}:</b>
                   {{if hasattr(collaborator, 'professions'):}}
                         {{for job in collaborator.professions:}}
