@@ -399,7 +399,6 @@ def remove_person():
     project_id = request.vars.project_id
 
     project = db(db.projects.id==project_id).select().first()
-    team = ''
 
     if int(user_id) == auth.user.id:
 
@@ -413,9 +412,6 @@ def remove_person():
             db(db.projects.id==project.id).update(team=team)
 
     redirect(URL('user_info'))
-
-    return dict(projeto=team)
-
 
 
 def comments():
