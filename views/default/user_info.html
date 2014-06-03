@@ -39,11 +39,11 @@
             {{else:}}
             <li>{{=s.network}}</li>
             {{pass}}
-        </ul>
-        {{pass}}
-        {{pass}}
+            </ul>
+            {{pass}}
+            {{pass}}
+        </section>
     </section>
-</section>
 </section>
 <!-- Informações pessoais -->
 <section class="w-full f-left">
@@ -56,7 +56,7 @@
     </ul>
 </section>
 <!-- Informações profissionais -->
-<section>
+<section class="w-full f-left">
    <h3>{{=T("Professional Info")}}</h3>
    {{if professions:}}
    {{for p in professions:}}
@@ -77,72 +77,45 @@
     {{pass}}
 </section>
 <!-- Meus projetos -->
-<section>
+<section class="w-full f-left">
   
-{{if auth.user_id == user.id:}}
-<a class="btn" href="{{=URL('create_project')}}">{{=T("Create a new project!")}}</a>
-{{pass}}
-<br>
+    {{if auth.user_id == user.id:}}
+    <a class="btn" href="{{=URL('create_project')}}">{{=T("Create a new project!")}}</a>
+    {{pass}}
+    <br>
      <h3>{{=T("My Projects")}}</h3>
                 {{if my_projects:}}
-                <table>
-                    <tr>
-                        <th>{{=T("Name")}}</th>
-                        <th>{{=T("Type")}}</th>
-                        <th>{{=T("Date")}}</th>
-                    </tr>
+                    <ul>
                     {{for l in my_projects:}}
-                    <tr>
-                        <td>
+                        <li>
                             <a href={{=URL('projects', args=l.project_slug)}}>
-                            {{if l.image:}}
-                            <img src={{=URL(f='download', args=l.image)}} width="40px" height="40px">
-                            {{else:}}
-                            <img src={{=URL('static', 'images/non_project.png')}} width="40px" height="40px">
-                            {{pass}}
+                                {{=l.name}}
                             </a>
-                        </td>
-                        <td>{{=l.name}}</td>
-                        <td>{{=l.project_type}}</td>
-                        <td>{{=l.created_on}}</td>
-                    </tr>
+                        </li>
                     {{pass}}
-                </table>
-                {{if len(my_projects) > 5:}}
-                {{=A(T('Read more'), _href="#")}}
-                {{pass}}
+                    </ul>
+                    {{if len(my_projects) > 5:}}
+                        {{=A(T('Read more'), _href="#")}}
+                    {{pass}}
+
                 {{else:}}
-                {{=T("None")}}
+                    {{=T("None")}}
                 {{pass}}
 </section>
-
-<div id="user_info">
-    <table id="profile">
-        <tr>
-            <td>
-                <h3>{{=T("Projects I Colaborate")}}</h3>
+<!-- Projetos que eu colaboro -->
+<section class="w-full f-left">
+         <h3>{{=T("Projects I Colaborate")}}</h3>
                 {{if colaborate_projects:}}
                 <table>
-                    <tr>
-                        <th></th>
-                        <th>{{=T("Name")}}</th>
-                        <th>{{=T("Type")}}</th>
-                        <th>{{=T("Date")}}</th>
-                        <th>{{=T("Role")}}</th>
-                    </tr>
                     {{for l in colaborate_projects:}}
                     <tr>
-                        <td><a href={{=URL('projects', args=colaborate_projects[l].project_slug)}}>
-                            {{if colaborate_projects[l].image:}}
-                            <img src={{=URL(f='download', args=colaborate_projects[l].image)}} width="40px" height="40px">
-                            {{else:}}
-                            <img src={{=URL('static', 'images/non_project.png')}} width="40px" height="40px">
-                            {{pass}}
-                        </a></td>
-                        <td>{{=colaborate_projects[l].name}}</td>
-                        <td>{{=colaborate_projects[l].project_type}}</td>
-                        <td>{{=colaborate_projects[l].created_on}}</td>
-                        <td>{{user_function = db((db.team_function.username == user.id)&(db.team_function.project_id == colaborate_projects[l].id)).select(db.team_function.role).as_list()}}
+                        <td>
+                        <a href={{=URL('projects', args=colaborate_projects[l].project_slug)}}>
+                            {{=colaborate_projects[l].name}}
+                        </a>
+                        </td>                       
+                        <td>
+                        {{user_function = db((db.team_function.username == user.id)&(db.team_function.project_id == colaborate_projects[l].id)).select(db.team_function.role).as_list()}}
                             {{if user_function:}}
                             {{for x,y in user_function[0].iteritems():}}
                             {{=y}}
@@ -160,9 +133,8 @@
                 {{else:}}
                 {{=T("None")}}
                 {{pass}}
-            </td>
-        </tr>
-    </table>
-    {{else:}}
+</section>
+
+{{else:}}
     {{=user}}
-    {{pass}}
+{{pass}}
