@@ -1,6 +1,102 @@
+<meta charset="utf-8" />
 
-{{extend 'layout_rede.html'}}
+<!-- http://dev.w3.org/html5/markup/meta.name.html -->
+<meta name="application-name" content="{{=request.application}}" />
 
+<!-- Speaking of Google, don't forget to set your site up:
+  http://google.com/webmasters -->
+  <meta name="google-site-verification" content="" />
+
+<!--  Mobile Viewport Fix
+j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
+device-width: Occupy full width of the screen in its current orientation
+initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
+user-scalable = yes allows the user to zoom in -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
+<link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+
+<!-- All JavaScript at the bottom, except for Modernizr which enables
+  HTML5 elements & feature detects -->
+  <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>
+  
+  <link rel="stylesheet" href='{{=URL("static","css/normalize.css")}}' />
+  <!-- <link rel="stylesheet" href='{{=URL("static","css/bootstrap.min.css")}}' /> -->
+  <!-- <link rel="stylesheet" href='{{=URL("static", "css/web2py_bootstrap.css")}}' /> -->
+  <!-- <link rel="stylesheet" href='{{=URL("static", "css/bootstrap-responsive.min.css")}}' /> -->
+  <link rel="stylesheet" href='{{=URL("static", "css/stylesheet.css")}}' />
+  {{include 'web2py_ajax.html'}}
+
+  <!-- Espaço para Plugins -->
+  <link rel="stylesheet" href='{{=URL("static", "plugins/jquery.selectbox-0.2/css/jquery.selectbox.css")}}' />
+  <script src="{{=URL('static', 'plugins/jquery.selectbox-0.2/js/jquery.selectbox-0.2.min.js')}}"></script>
+  <!--  -->
+
+  <!-- Google Web Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+  <!-- Colocar os JS no fim do arquivo  -->
+  <script src="{{=URL('static','js/rede_javascript.js')}}"></script>
+
+
+</head>
+<body class="cinza1">
+  <header class="f-left w-full cinza2">
+   <section class="header row">
+
+      <section class="col col_header span_2 logo-header">
+        <figure class="a-bottom">
+          <img src="{{=URL('static','images/placeholder/171x19.gif')}}" alt="Figura Kolaborativa">
+        </figure>
+      </section>
+      <section class="col col_header span_1"></section>
+
+      <section class="col col_header span_3">
+        <div class="a-bottom w-full">
+          <form class="search">
+            <input type="search" class="form-input-comum input-search span_2" placeholder="{{=T('Search for ..')}}" >
+          
+          <label class="select">
+            <select class="input-select">
+              <option value="1">{{=T('Projects')}}</option>
+              <option value="2">{{=T('Persons')}}</option>
+            </select>
+          </label>
+
+          </form>
+        </div>
+      </section>
+
+      <section class="col col_header span_1">
+      </section>
+
+      <section class="col col_header span_5 t-right">
+        <div class="a-bottom">
+          <a href="{{=URL(c='default', f='user', args=['request_reset_password'])}}">{{=T('Forgot your password?')}}</a>
+          {{=form_login.custom.begin}}
+            {{form_login.custom.widget.username['_placeholder'] = T('Username')}}
+            {{form_login.custom.widget.username['_class'] = 'form-input-comum input-login'}}
+            
+            {{form_login.custom.widget.password['_placeholder'] = T('Enter your password')}}
+            {{form_login.custom.widget.password['_class'] = 'form-input-comum input-login'}}
+            
+            {{form_login.custom.submit['_value'] = T('Enter')}}
+            {{form_login.custom.submit['_class'] = 'btn-2 btn-login'}}
+
+            {{=form_login.custom.widget.username}}
+            {{=form_login.custom.widget.password}}
+            {{=form_login.custom.submit}}
+          {{=form_login.custom.end}}
+        </div> 
+      </section>
+    </section>
+  </header>
+
+  <section class="f-left w-full">
+    <section class="row content f-center">
+>>>>>>> nightly
       <section class="col col_content span_6" data-device="desktop" data-conteudo="descricao">
         <figure class="logo_home t-center">
           <img src="{{=URL('static','images/placeholder/272x195.gif')}}" alt="Logo-Descricao-Kolaborativa">
@@ -11,25 +107,53 @@
           E PROFISSIONAIS DA WEB
         </p>
         <p class="paragrafo2 font-museo h4">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, laudantium cupiditate voluptas maxime architecto unde pariatur dolores quas assumenda! Accusantium, aspernatur debitis voluptatem molestias dicta quam quibusdam provident ratione libero?
+          "Conecte-se à empreendedores e profissionais da internet para desenvolver seu projeto ou colaborar com o de outras pessoas. Coopere. Compartilhe. KOLABORE!"
         </p>
       </section>
       <section class="col col_content span_1"></section>
       <section class="col col_content span_5">
-        <form action="" class="form-register w-full f-right">
-          <span class="font-hero h2 f-left">KOLABORE!</span> 
-          <section class="section-form">
-            <input type="text" class="form-input-comum w-full" placeholder="Nome">
-          </section>
-          <section class="section-form">
-            <input type="email" class="form-input-comum w-full" placeholder="E-mail">
-          </section>
-          <section class="section-form">
-            <input type="text" class="form-input-comum w-full" placeholder="Usuário">
-          </section>
-          <section class="section-form">
-            <input type="password" class="form-input-comum w-full" placeholder="Senha">
-          </section>
+          {{=form_register.custom.begin}}
+            {{form_register.custom.widget.first_name['_placeholder'] = T('Name')}}
+            {{form_register.custom.widget.first_name['_class'] = 'form-input-comum w-full'}}
+
+            {{form_register.custom.widget.email['_placeholder'] = 'E-mail'}}
+            {{form_register.custom.widget.email['_class'] = 'form-input-comum w-full'}}
+
+            {{form_register.custom.widget.username['_placeholder'] = T('User')}}
+            {{form_register.custom.widget.username['_class'] = 'form-input-comum w-full'}}
+
+            {{form_register.custom.widget.password['_placeholder'] = T('Password')}}
+            {{form_register.custom.widget.password['_id'] = 'input-passwd'}}
+            {{form_register.custom.widget.password['_class'] = 'form-input-comum w-full'}}
+            
+            {{form_register.custom.widget.password_two['_placeholder'] = T('Enter your password again')}}
+            {{form_register.custom.widget.password_two['_id'] = 'input-passwd-two'}}
+            {{form_register.custom.widget.password_two['_class'] = 'form-input-comum w-full'}}
+
+            {{form_register.custom.submit['_value'] = T('CREATE AN ACCOUNT ON KOLABORATIVA')}}
+            {{form_register.custom.submit['_class'] = 'btn-1 w-full'}}
+
+
+            <span class="font-hero h2 f-left">{{=T('KOLABORATE')}}!</span> 
+            <section class="section-form">
+                {{=form_register.custom.widget.first_name}}
+            </section>
+            <section class="section-form">
+                {{=form_register.custom.widget.email}}
+            </section>
+            <section class="section-form">
+                {{=form_register.custom.widget.username}}
+            </section>
+            <section class="section-form">
+                {{=form_register.custom.widget.password}}
+            </section>
+            <section class="section-form" style="display:none">
+                {{=form_register.custom.widget.password_two}}
+            </section>
+            <section class="section-form" style="display:none">
+                {{=form_register.custom.widget.user_available}}
+            </section>
+
           <section class="section-form link">
             <input type="checkbox" class="va-bottom"> 
             <span class="link">
@@ -38,9 +162,25 @@
             </span>
           </section>
           <section class="section-form">
-            <input type="button" class="btn-1 w-full" value="CRIAR UMA CONTA NA KOLABORATIVA">
+            {{=form_register.custom.submit}}
 
           </section>
+          {{=form_register.custom.end}}
         </form>
       </section>
 
+<<<<<<< HEAD
+=======
+  <script>
+    
+    var pas = document.querySelector('#input-passwd');
+    var pas2 = document.querySelector('#input-passwd-two');
+    pas.onblur = function() {
+        pas2.value = pas.value;
+    }
+
+  </script>
+
+</body>
+</html>
+>>>>>>> nightly
