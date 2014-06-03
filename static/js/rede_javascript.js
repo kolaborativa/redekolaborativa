@@ -35,10 +35,16 @@ function main(){
 		})
 	}
 
+	var editar = document.querySelectorAll("[data-edit-user]");
+	for (var i = 0; i < editar.length; i++) {
+
+		editar[i].addEventListener("click",function(){
+			editarUsuario(this.getAttribute("data-edit-user"));
+		});
+
+	};
+
 }
-
-
-
 
 function mudaStatusCheckbox(checkbox){
 	status = checkbox.innerHTML;
@@ -49,8 +55,6 @@ function mudaStatusCheckbox(checkbox){
 		checkbox.innerHTML = "Off"
 	}
 }
-
-
 
 function mudando_fase_perfil(fase){
 
@@ -89,4 +93,32 @@ function mudando_fase_perfil(fase){
 		}
 		;
 	};
+}
+
+// data-edit-user
+function editarUsuario(usuario){
+	
+	console.log(usuario);
+	var campos =document.querySelectorAll("[data-field]");
+	for (var i = 0; i < campos.length ; i++) {
+		var field = campos[i].getAttribute("data-field");
+		console.log(campos[i]);
+		console.log(field);
+		// if(field == usuario){
+		// 	console.log(campos[i].getElementsByTagName);
+		// 	campos[i].removeChild(campos[i]);
+		// 	campos[i].appendChild(inputEditarUser());
+		// 	console.log(field +" --" + i);
+		// 	console.log("achou");
+		// }
+	};
+
+}
+
+function inputEditarUser(){
+	var input = document.createElement("input")
+	att=document.createAttribute("class");
+	att.value="input-editar";
+	input.setAttributeNode(att);
+	return input
 }
