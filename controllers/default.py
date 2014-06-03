@@ -252,7 +252,7 @@ def projects():
                 collaborator = db(db.auth_user.id == i).select().first()
                 user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == project.id)).select().first()
                 profession = db(db.profession.user_id == i).select(db.profession.profession)
-               
+
                 collaborator.username = collaborator.username
                 if user_role:
                     collaborator.role = user_role.role
@@ -265,15 +265,15 @@ def projects():
                     collaborator.profession = profession
 
                 collaborators.append(collaborator)
-                user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role') 
-                myteam = json.loads(project.team) 
-                mystring = "" 
+                user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
+                myteam = json.loads(project.team)
+                mystring = ""
         for i in myteam:
             mystring += "%s:%s," % (i,myteam[i])
             project.team = mystring[0:-1]
-        
+
         new_colaborator = SQLFORM.factory(db.projects.team)
-        
+
         if new_colaborator.process().accepted:
             project = db(db.projects.id == session.project_id).select().first()
             team = json.loads(project.team)
