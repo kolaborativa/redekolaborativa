@@ -77,12 +77,12 @@ user-scalable = yes allows the user to zoom in -->
           <form class="search">
             <input type="search" class="form-input-comum input-search span_2" placeholder="Buscar por .." >
             
-            <label class="select">
-              <select class="input-select">
-                <option value="1">Projetos</option>
-                <option value="2">Pessoas</option>
-              </select>
-            </label>
+          <label class="select">
+            <select class="input-select">
+              <option value="1">{{=T('Projects')}}</option>
+              <option value="2">{{=T('Persons')}}</option>
+            </select>
+          </label>
 
           </form>
         </div>
@@ -93,13 +93,22 @@ user-scalable = yes allows the user to zoom in -->
 
       <section class="col col_header span_5 t-right">
         <div class="a-bottom">
-          <a href="#">Esqueceu a senha?</a>
-          <form action="" class="form-login">
-            <input type="text" class="form-input-comum input-login" placeholder="Nome de Usuário">
-            <input type="password" class="form-input-comum input-login" placeholder="Digite sua senha">
-            <input type="button" value="Entrar" class="btn-2 btn-login">
-          </form>
-        </div>  
+          <a href="{{=URL(c='default', f='user', args=['request_reset_password'])}}">{{=T('Forgot your password?')}}</a>
+          {{=form_login.custom.begin}}
+            {{form_login.custom.widget.username['_placeholder'] = T('Username')}}
+            {{form_login.custom.widget.username['_class'] = 'form-input-comum input-login'}}
+            
+            {{form_login.custom.widget.password['_placeholder'] = T('Enter your password')}}
+            {{form_login.custom.widget.password['_class'] = 'form-input-comum input-login'}}
+            
+            {{form_login.custom.submit['_value'] = T('Enter')}}
+            {{form_login.custom.submit['_class'] = 'btn-2 btn-login'}}
+
+            {{=form_login.custom.widget.username}}
+            {{=form_login.custom.widget.password}}
+            {{=form_login.custom.submit}}
+          {{=form_login.custom.end}}
+        </div> 
       </section>
     </section>
   </header>
