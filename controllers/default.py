@@ -47,10 +47,18 @@ def edit_perfil():
 def ajax_edit_profile():
     
     # Pegar request.vars field e value
+    print request.vars
     print request.vars.field
     print request.vars.value
     
     return True
+
+def ajax_add_profission():
+    
+    print request.vars
+
+
+    return dict(competencies={'1':'CSS','2':'Python','3':'JS','4':'Outros'})
 
 def user():
     """

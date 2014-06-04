@@ -168,47 +168,15 @@
 		<section  data-fase="3" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
 			<section class="span_12 col">
 				<div class="t-center f-center w-70">
-
 					<span class="font-lato h2 f-left">Profissões?</span>
 					<section class="section-form f-left w-full">
 						<select class="w-full form-input-comum" name="" id="profissoes" 
 						multiple data-placeholder="Selecione uma profissão">
-						<option value="Designer">Designer</option>
-						<option value="Desenvolvedor">Desenvolvedor</option>
-
+						<option value="1">Designer</option>
+						<option value="2">Desenvolvedor</option>
 					</select>
 					<div>
-						<ul class="list-profissao">
-
-							<li class="profissao t-left">
-								<span class="h1">Profissão
-									<!-- <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" data-edit-user="" alt=""> -->
-									<img src="{{=URL('static','images/Edit_perfil/delete.png')}}" class="delete_profissao f-right" alt="">
-								</span>
-<select class="w-full competencias" name="" data-placeholder="Adicione Competencias"multiple>
-									<option value="Ninja">Ninja</option>
-									<option value="asdasda">Ninjasdasa</option>
-									<option value="Niadasdnja">Nasdasinja</option>
-									<option value="outros">Outros</option>
-		</select>
-							</li>
-							<li class="profissao t-left">
-								<span class="h1">Profissão
-									<!-- <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" data-edit-user="" alt=""> -->
-									<img src="{{=URL('static','images/Edit_perfil/delete.png')}}" class="delete_profissao f-right" alt="">
-								</span>
-								<select class="w-full competencias" name="" data-placeholder="Adicione Competencias"multiple>
-									<option value="Ninja">Ninja</option>
-									<option value="asdasda">Ninjasdasa</option>
-									<option value="Niadasdnja">Nasdasinja</option>
-									<option value="outros">Outros</option>
-								</select>
-							</li>
-		
-			
-				
-					
-						</ul>
+						<ul class="list-profissao"></ul>
 					</div>
 				</section>
 			</div>
@@ -295,36 +263,17 @@ o icone de editar vira um icone de confirmar (enter tambem submete)
 
 <script>
 	$("#profissoes").select2({ 
-		maximumSelectionSize: 5
+		maximumSelectionSize: 1
 	});
 	$("#profissoes").on("click",function(){
-		alert(this.value);
-		$("#profissoes").select2("val", "")
+		AdicionaProfissao(this);
 	});
-	$(".competencias").select2({ 
-		maximumSelectionSize: 5
-	});
-	$(".competencias").on("click",function(){
-		if(this.value == "outros"){
-			var teste = prompt("Digite uma sugestão de Competencia");
-			console.log(teste);
-		}
-	});
-	$(".delete_profissao").on("click",function(){
-		console.log("delete isso");
-	});
-
-
 
 
 	var formulario = document.getElementById("formulario_edicao_perfil")
 	var inputs = formulario.getElementsByTagName("input");
 	var selects = formulario.getElementsByTagName("select");
 	var textareas = formulario.getElementsByTagName("textarea");
-
-
-
-
 
 // var campos = inputs.concat(selects,textareas);
 
@@ -342,23 +291,108 @@ o icone de editar vira um icone de confirmar (enter tambem submete)
 // 		console.log(this);
 // 	})
 // };
+// 
+
+function AdicionaProfissao(e){
+	var user = "";
+	var field = e.name;
+	var value = e.value;
+	var profission = e.selectedOptions[0].innerHTML;
+	$("#profissoes").select2("val", "")
+
+	var vars = "field="+field+"&value="+value;
+
+	$.ajax({
+		type: 'POST',
+		url: url.ajax_add_profission+".json",
+		data: vars,
+		success: function(data) {
+			criarCompentecias(profission,data.competencies);
+			
+		},
+		error: function(data){
+			// console.log(data);
+		}
+	});
+}
 
 
-// function gravaAjaxEditProfile(e){
-// 	var field = e.name;
-// 	var value = e.value;
-// 	var vars = "field="+field+"&value"+value;
+function criarCompentecias(profissao,competencias){
 
-// 	$.ajax({
-// 		type: 'POST',
-// 		url: url.edit_profile,
-// 		data: vars,
-// 		success: function(data) {
-// 			console.log(data);
-// 		},
-// 		error: function(data){
-// 			console.log(data);
-// 		}
-// 	});
-// }
+	var select = document.createElement('select');
+	select.setAttribute('data-placeholder','adicione competencias');
+	select.name="competencias";
+	select.setAttribute('data-select',profissao)
+	select.setAttribute('class','w-full competencias');
+	select.setAttribute('multiple','')
+	
+	// Cria um for de opções
+	for( i in competencias ){ 
+		var opcao = document.createElement('option');
+		opcao.innerHTML = competencias[i];
+		opcao.value = i;
+		select.appendChild(opcao);	
+	}
+
+	var linha = document.createElement('li')
+	linha.setAttribute('class','profissao t-left');
+
+	var span = document.createElement('span');
+	span.setAttribute('class','h1');
+	span.innerHTML = profissao;
+
+	var deletar = document.createElement('img');
+	deletar.setAttribute('class','delete_profissao f-right');
+	deletar.src="{{=URL('static','images/Edit_perfil/delete.png')}}"
+
+
+	var listasProfissoes = document.querySelector('.list-profissao')
+	
+	span.appendChild(deletar);
+	linha.appendChild(span);
+	linha.appendChild(select);
+	listasProfissoes.appendChild(linha);
+	
+	// Eventos ================
+	
+
+	$("[data-select="+profissao+"]").select2({ 
+		maximumSelectionSize: 5
+	});
+
+	$("[data-select="+profissao+"]").on("click",function(){
+		
+		if(this.value == "4"){
+			var teste = prompt("Digite uma sugestão de Competencia");
+			console.log(teste);
+		}
+		else{
+			console.log(this.value);
+		}
+	});
+
+	$(".delete_profissao").on("click",function(){
+		console.log("delete isso");
+	});
+
+// =================================
+};
+
+function gravaAjaxEditProfile(e){
+	var field = e.name;
+	var value = e.value;
+	var vars = "field="+field+"&value"+value;
+
+	$.ajax({
+		type: 'POST',
+		url: url.edit_profile,
+		data: vars,
+		success: function(data) {
+			console.log(data);
+		},
+		error: function(data){
+			console.log(data);
+		}
+	});
+}
 </script>
