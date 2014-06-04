@@ -375,5 +375,35 @@
 	$(".delete_profissao").on("click",function(){
 		console.log("delete isso");
 	});
+	var formulario = document.getElementById("formulario_edicao_perfil")
+
+	var inputs = formulario.getElementsByTagName("input");
+	var selects = formulario.getElementsByTagName("select");
+	var textareas = formulario.getElementsByTagName("textarea");
+
+	
+	console.log(inputs);
+	console.log(selects);
+	console.log(textareas);
+	console.log(campos);
+
+	var campos = inputs.concat(selects,textareas);
+
+	// for (var i = 0; i < inputs.length; i++) {
+	// 	inputs[i].addEventListener("change",function(){
+	// 		console.log(this);
+	// 		if(this.checked == true){
+	// 			console.log("checado");
+	// 		}
+	// 	})
+	// };
+
+	// for (var i = 0; i < selects.length; i++) {
+	// 	selects[i].addEventListener("change",function(){
+	// 		console.log(this);
+	// 	})
+	// };
+
+
 
 </script>
