@@ -43,15 +43,15 @@ user-scalable = yes allows the user to zoom in -->
   <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>
   
   <link rel="stylesheet" href='{{=URL("static","css/normalize.css")}}' />
-  <link rel="stylesheet" href='{{=URL("static", "css/stylesheet.css")}}' />
+  
   {{include 'web2py_ajax.html'}}
 
   <!-- Google Web Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
-  <!-- Colocar os JS no fim do arquivo  -->
-  <script src="{{=URL('static','js/rede_javascript.js')}}"></script>
+  <link rel="stylesheet" href='{{=URL("static", "css/stylesheet.css")}}' />
+  
 
 
 </head>
@@ -75,12 +75,12 @@ user-scalable = yes allows the user to zoom in -->
       <section class="col col_header span_3">
         <div class="a-bottom w-full">
           <form class="search">
-            <input type="search" class="form-input-comum input-search span_2" placeholder="Buscar por .." >
+          <input type="search" class="form-input-comum input-search span_2" placeholder="{{=T('Search for ..')}}" >
             
             <label class="select">
               <select class="input-select">
-                <option value="1">Projetos</option>
-                <option value="2">Pessoas</option>
+               <option value="1">{{=T('Projects')}}</option>
+              <option value="2">{{=T('Persons')}}</option>
               </select>
             </label>
 
@@ -93,20 +93,19 @@ user-scalable = yes allows the user to zoom in -->
 
       <section class="col col_header span_5 t-right">
         <div class="a-bottom">
-          <a href="#">Esqueceu a senha?</a>
-          <form action="" class="form-login">
-            <input type="text" class="form-input-comum input-login" placeholder="Nome de Usuário">
-            <input type="password" class="form-input-comum input-login" placeholder="Digite sua senha">
-            <input type="button" value="Entrar" class="btn-2 btn-login">
-          </form>
-        </div>  
+          <a href="{{=URL(c='default', f='user', args=['request_reset_password'])}}">{{=T('Forgot your password?')}}</a>
+        
+        </div>   
       </section>
     </section>
   </header>
 
   <section class="f-left w-full">
     <section class="row content f-center">
+
       {{include}}
+
+
     </section>
   </section>
 
@@ -123,12 +122,16 @@ user-scalable = yes allows the user to zoom in -->
 
     {{if response.google_analytics_id:}}
     <script src="{{=URL('static','js/analytics.min.js')}}"></script>
+
     <script type="text/javascript">
       analytics.initialize({
         'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'} 
-      });</script>
+      });
+    </script>
       {{pass}}
 
+  <!-- Colocar os JS no fim do arquivo  -->
+  <script src="{{=URL('static','js/rede_javascript.js')}}"></script>
 
     </body>
     </html>
