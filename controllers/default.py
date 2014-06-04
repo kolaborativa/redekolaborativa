@@ -45,6 +45,13 @@ def principal():
 def edit_perfil():
     return dict()
 
+def ajax_edit_profile():
+    
+    # Pegar request.vars field e value
+    print request.vars.field
+    print request.vars.value
+
+    return true
 
 def user():
     """

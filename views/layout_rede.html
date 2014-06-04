@@ -51,7 +51,14 @@ user-scalable = yes allows the user to zoom in -->
   <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href='{{=URL("static", "css/stylesheet.css")}}' />
-  
+
+  <script>
+
+   url = {
+        "edit_profile": "{{=URL(c='default', f='ajax_edit_profile')}}"
+   }
+   console.log(url.edit_profile)
+  </script>
 
 
 </head>
