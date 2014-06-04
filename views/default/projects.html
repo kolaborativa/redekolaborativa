@@ -108,8 +108,7 @@
                 <a href="{{=URL(c='default', f='remove_person', vars={'user_id':collaborator.id, 'project_id': project.id})}}">
                     <button class="btn btn-small btn-danger">Sair</button>
                 </a>
-            {{ pass }}
-            {{ if project.project_owner == auth.user.id: }}
+            {{ elif project.project_owner == auth.user.id: }}
                 <a href="{{=URL(c='default', f='remove_person', vars={'user_id':collaborator.id, 'project_id': project.id})}}">
                     <button class="btn btn-small btn-danger">Remover</button>
                 </a>
