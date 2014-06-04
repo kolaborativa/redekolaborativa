@@ -146,7 +146,11 @@
     </div>
 
 {{pass}}
-{{=new_colaborator}}
+
+{{ if auth.user and auth.user.id == project.project_owner:}}
+    {{=new_colaborator}}
+{{ pass }}
+
 </ul>
 </td>
 
