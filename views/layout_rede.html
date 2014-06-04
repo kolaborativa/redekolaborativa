@@ -57,7 +57,7 @@ user-scalable = yes allows the user to zoom in -->
    url = {
         "edit_profile": "{{=URL(c='default', f='ajax_edit_profile')}}"
    }
-   console.log(url.edit_profile)
+   
   </script>
 
 
@@ -83,7 +83,7 @@ user-scalable = yes allows the user to zoom in -->
         <div class="a-bottom w-full">
           <form class="search">
           <input type="search" class="form-input-comum input-search span_2" placeholder="{{=T('Search for ..')}}" >
-
+            
           <label class="select">
             <select class="input-select">
               <option value="1">{{=T('Projects')}}</option>
@@ -98,15 +98,29 @@ user-scalable = yes allows the user to zoom in -->
 
       <section class="col col_header span_1">
       </section>
-
+     
       <section class="col col_header span_5 t-right">
         <div class="a-bottom">
+        {{if request.function == "index":}}
           <a href="{{=URL(c='default', f='user', args=['request_reset_password'])}}">{{=T('Forgot your password?')}}</a>
+          {{=form_login.custom.begin}}
+            {{form_login.custom.widget.username['_placeholder'] = T('Username')}}
+            {{form_login.custom.widget.username['_class'] = 'form-input-comum input-login'}}
+            
+            {{form_login.custom.widget.password['_placeholder'] = T('Enter your password')}}
+            {{form_login.custom.widget.password['_class'] = 'form-input-comum input-login'}}
+            
+            {{form_login.custom.submit['_value'] = T('Enter')}}
+            {{form_login.custom.submit['_class'] = 'btn-2 btn-login'}}
 
-        
-        </div>   
-
+            {{=form_login.custom.widget.username}}
+            {{=form_login.custom.widget.password}}
+            {{=form_login.custom.submit}}
+          {{=form_login.custom.end}}
+        {{pass}}
+        </div> 
       </section>
+      
     </section>
   </header>
 

@@ -14,10 +14,9 @@ def index():
     if request.env.http_host == 'rede.kolaborativa.com':
         redirect(URL('landing'))
 
-    form_login = auth.login()
     form_register = auth.register()
 
-    return dict(form_login=form_login, form_register=form_register)
+    return dict(form_register=form_register)
 
 
 def landing():
@@ -50,8 +49,8 @@ def ajax_edit_profile():
     # Pegar request.vars field e value
     print request.vars.field
     print request.vars.value
-
-    return true
+    
+    return True
 
 def user():
     """

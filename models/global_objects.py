@@ -1,3 +1,5 @@
+form_login = auth.login()
+
 def g_return_if_empty(value):
     if value:
         return value
@@ -12,3 +14,4 @@ def is_url(url):
         return False
     else:
         return True
+
