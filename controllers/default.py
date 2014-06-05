@@ -334,14 +334,17 @@ def create_project():
         # {'id','id'}
         if form.vars.team:
             team = form.vars.team.split(",")
-            d = {}
-            for i in team:
-                x = i.split(":")
-                d[x[0]] = x[1]  #d[x[tamanhoDoDicionadio]
-            myjson = json.dumps(d)
-            # juntar o MYJSON(funcionarios a serem adicionados) com o json dos colaboradores já existentes.
-            #fazendo o update.
-            db(db.projects.id  == project_id).update(team=myjson)
+            team.append('{_id}:{_username}'.format(_id=auth.user.id, _username=auth.user.username))
+        else:
+            team = ['{_id}:{_username}'.format(_id=auth.user.id, _username=auth.user.username)]
+        d = {}
+        for i in team:
+            x = i.split(":")
+            d[x[0]] = x[1]  #d[x[tamanhoDoDicionadio]
+        myjson = json.dumps(d)
+        # juntar o MYJSON(funcionarios a serem adicionados) com o json dos colaboradores já existentes.
+        #fazendo o update.
+        db(db.projects.id  == project_id).update(team=myjson)
 
         redirect(URL('projects', args=form.vars.project_slug))
 
