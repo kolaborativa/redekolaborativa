@@ -272,24 +272,26 @@ def projects():
             mystring += "%s:%s," % (i,myteam[i])
             project.team = mystring[0:-1]
 
-        new_colaborator = SQLFORM.factory(db.projects.team)
-
-        if new_colaborator.process().accepted:
-            project = db(db.projects.id == session.project_id).select().first()
-            team = json.loads(project.team)
-            new_team = new_colaborator.vars.team.split(",")
-            d = {}
-            for i in new_team:
-                x = i.split(":")
-                d[x[0]] = x[1]
-            team.update(d)
-            myjson = json.dumps(team)
-            project_id = session.project_id
-            db(db.projects.id  == project_id).update(team=myjson)
-            session.flash = T("Project edited!")
-            redirect(URL('projects', args=request.args(0)))
-        elif new_colaborator.errors:
-            response.flash = T("Form has errors!")
+        new_colaborator = ''
+        if auth.user and auth.user.id == project.project_owner:
+            new_colaborator = SQLFORM.factory(db.projects.team)
+            
+            if new_colaborator.process().accepted:
+                project = db(db.projects.id == session.project_id).select().first()
+                team = json.loads(project.team)
+                new_team = new_colaborator.vars.team.split(",")
+                d = {}
+                for i in new_team:
+                    x = i.split(":")
+                    d[x[0]] = x[1]
+                team.update(d)
+                myjson = json.dumps(team)
+                project_id = session.project_id
+                db(db.projects.id  == project_id).update(team=myjson)
+                session.flash = T("Project edited!")
+                redirect(URL('projects', args=request.args(0)))
+            elif new_colaborator.errors:
+                response.flash = T("Form has errors!")
 
         if user_role.accepts(request.vars):
             if not db((db.team_function.username == request.vars.username)&(db.team_function.project_id == project.id)).select():
