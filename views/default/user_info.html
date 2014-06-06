@@ -1,7 +1,8 @@
 {{extend 'layout_rede.html'}}
 {{if user != message:}}
 <!-- Espaço apresentação do Usuário -->
-<section class="w-full f-left">
+<section class="f-left span_8 col">
+    <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left">
     <!-- Apresentação do usuário -->
     <section class="f-left">
         <figure>
@@ -47,7 +48,7 @@
     </section>
 </section>
 <!-- Informações pessoais -->
-<section class="w-full f-left">
+<section class="f-left span_4 col">
     <h3>{{=T("Personal Info")}}</h3>
     <ul>
         <li><b>{{=T("Name")}}:</b> {{=user.first_name}}{{=' '}}{{=user.last_name or ''}}</li>
@@ -57,7 +58,7 @@
     </ul>
 </section>
 <!-- Informações profissionais -->
-<section class="w-full f-left">
+<section class="f-left span_4 col">
    <h3>{{=T("Professional Info")}}</h3>
    {{if professions:}}
    {{for p in professions:}}
@@ -78,7 +79,7 @@
     {{pass}}
 </section>
 <!-- Meus projetos -->
-<section class="w-full f-left">
+<section class="f-left span_4 col">
   
     {{if auth.user_id == user.id:}}
     <a class="btn" href="{{=URL('create_project')}}">{{=T("Create a new project!")}}</a>
@@ -104,7 +105,7 @@
                 {{pass}}
 </section>
 <!-- Projetos que eu colaboro -->
-<section class="w-full f-left">
+<section class="f-left span_4 col">
          <h3>{{=T("Projects I Colaborate")}}</h3>
                 {{if colaborate_projects:}}
                 <table>

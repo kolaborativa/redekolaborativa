@@ -1,237 +1,239 @@
 {{extend 'layout_rede.html'}}
 <link rel="stylesheet" href="{{=URL('static','plugins/select2-3.4.8/select2.css')}}">
+
 <h1>Editar Perfil</h1>
 <section class="col col_edit_perfil_topo span_12 f-left">
-	<figure class="span_3 col">
-		<img src="{{=URL('static','images/Edit_perfil/pessoal.png')}}" title="Preencha seus dados pessoais" data-img-fase="1">
-		<img src="{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}" title="Preencha seus dados pessoais" data-img-fase="2">
-		<img src="{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}" title="Preencha seus dados pessoais" data-img-fase="3">
-		<img src="{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}" title="Preencha seus dados pessoais" data-img-fase="4">
-	</figure>
+<figure class="span_3 col">
+<img src="{{=URL('static','images/Edit_perfil/pessoal.png')}}" title="Preencha seus dados pessoais" data-img-fase="1">
+<img src="{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}" title="Preencha seus dados pessoais" data-img-fase="2">
+<img src="{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}" title="Preencha seus dados pessoais" data-img-fase="3">
+<img src="{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}" title="Preencha seus dados pessoais" data-img-fase="4">
+</figure>
 
-	<figure class="span_3 col">
-		<img src="{{=URL('static','images/Edit_perfil/bio_cinza.png')}}" title="Escolha um avatar e fale sobre você" data-img-fase="1">
-		<img src="{{=URL('static','images/Edit_perfil/bio.png')}}" title="Escolha um avatar e fale sobre você" data-img-fase="2">
-		<img src="{{=URL('static','images/Edit_perfil/bio_completa.png')}}" title="Escolha um avatar e fale sobre você" data-img-fase="3">
-		<img src="{{=URL('static','images/Edit_perfil/bio_completa.png')}}" title="Escolha um avatar e fale sobre você" data-img-fase="4">
-	</figure>
+<figure class="span_3 col">
+<img src="{{=URL('static','images/Edit_perfil/bio_cinza.png')}}" title="Escolha um avatar e fale sobre você" data-img-fase="1">
+<img src="{{=URL('static','images/Edit_perfil/bio.png')}}" title="Escolha um avatar e fale sobre você" data-img-fase="2">
+<img src="{{=URL('static','images/Edit_perfil/bio_completa.png')}}" title="Escolha um avatar e fale sobre você" data-img-fase="3">
+<img src="{{=URL('static','images/Edit_perfil/bio_completa.png')}}" title="Escolha um avatar e fale sobre você" data-img-fase="4">
+</figure>
 
-	<figure class="span_3 col">
-		<img src="{{=URL('static','images/Edit_perfil/prof_cinza.png')}}" title="Fale sobre suas habilidades profissionais" data-img-fase="1" >
-		<img src="{{=URL('static','images/Edit_perfil/prof_cinza.png')}}" title="Fale sobre suas habilidades profissionais" data-img-fase="2" >
-		<img src="{{=URL('static','images/Edit_perfil/prof.png')}}" title="Fale sobre suas habilidades profissionais" data-img-fase="3">
-		<img src="{{=URL('static','images/Edit_perfil/prof_completa.png')}}" title="Fale sobre suas habilidades profissionais" data-img-fase="4">
-	</figure>
+<figure class="span_3 col">
+<img src="{{=URL('static','images/Edit_perfil/prof_cinza.png')}}" title="Fale sobre suas habilidades profissionais" data-img-fase="1" >
+<img src="{{=URL('static','images/Edit_perfil/prof_cinza.png')}}" title="Fale sobre suas habilidades profissionais" data-img-fase="2" >
+<img src="{{=URL('static','images/Edit_perfil/prof.png')}}" title="Fale sobre suas habilidades profissionais" data-img-fase="3">
+<img src="{{=URL('static','images/Edit_perfil/prof_completa.png')}}" title="Fale sobre suas habilidades profissionais" data-img-fase="4">
+</figure>
 
-	<figure class="span_3 col">
-		<img src="{{=URL('static','images/Edit_perfil/cont_cinza.png')}}" title="Formas de contato e suas redes sociais
-		" data-img-fase="1">
-		<img src="{{=URL('static','images/Edit_perfil/cont_cinza.png')}}" title="" data-img-fase="2">
-		<img src="{{=URL('static','images/Edit_perfil/cont_cinza.png')}}" title="" data-img-fase="3">
-		<img src="{{=URL('static','images/Edit_perfil/contato.png')}}" title="" data-img-fase="4">
-	</figure>
+<figure class="span_3 col">
+<img src="{{=URL('static','images/Edit_perfil/cont_cinza.png')}}" title="Formas de contato e suas redes sociais
+" data-img-fase="1">
+<img src="{{=URL('static','images/Edit_perfil/cont_cinza.png')}}" title="" data-img-fase="2">
+<img src="{{=URL('static','images/Edit_perfil/cont_cinza.png')}}" title="" data-img-fase="3">
+<img src="{{=URL('static','images/Edit_perfil/contato.png')}}" title="" data-img-fase="4">
+</figure>
 
 </section>
 <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left">
 
 <section class="col col_edit_perfil_formulario span_12 f-left">
-	<!-- Inicio do formulário (tudo aqui dentro forma um unico formulário) -->
-	<form action="" id="formulario_edicao_perfil">
-		<section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
-			<section class="span_5 col colunas">
-				<span class="font-lato h2 f-left">Nome Completo</span>
-				<section class="section-form">
-					<input type="text" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">
-				</section>
-				<span class="font-lato h2 f-left">Nome de Usuário</span>
-				<section class="section-form">
-					<input type="text" class="form-input-comum w-full" placeholder="{{=T('User')}}">
-				</section>
-				<span class="font-lato h2 f-left">Email</span>
-				<section class="section-form">
-					<input type="email" class="form-input-comum w-full" placeholder="email@dominio.com">
-				</section>
-			</section>
-			<section class="span_1 col span_vazio"></section>
-			<section class="span_6 col colunas">
-				<div class="span_6 col f-left">
-					<span class="font-lato h2 f-left">Data de Nascimento</span>
-					<br>
-					<section class="section-form">
-						<input type="date" class="form-input-comum w-90 form-select" placeholder="">
-					</section>
-					<span class="font-lato h2 f-left">Estado</span>
-					<br>
-					<section class="section-form">
-						<label class="select w-90 form-input-comum form-select">
-							<select class="input-select w-full">
-								<option value="1">Rio de Janeiro</option>
-								<option value="2">Rio de Janeiro</option>
-							</select>
-						</label>
-					</section>
-					<span class="font-lato h2 f-left">Nome do Perfil</span>
-					<br>
-					<section class="section-form">
-						<label class="select w-90 form-input-comum form-select">
-							<select class="input-select w-full">
-								<option value="1">Fulano de Tal</option>
-								<option value="2">Ciclano</option>
-							</select>
-						</label>
-					</section>
-				</div>
-				<div class="span_6 col f-left">
-					<span class="font-lato h2 f-left">Sexo</span>
-					<br>
-					<section class="section-form">
-						<label class="select w-90 form-input-comum form-select">
-							<select class="input-select w-full">
-								<option value="1">Masculino</option>
-								<option value="2">Feminino</option>
-							</select>
-						</label>
-					</section>
-					<span class="font-lato h2 f-left">Cidade</span>
-					<br>
-					<section class="section-form">
-						<label class="select w-90 form-input-comum form-select">
-							<select class="input-select w-full">
-								<option value="1">Rio de Janeiro</option>
-								<option value="2">Rio de Janeiro</option>
-							</select>
-						</label>
-					</section>
-					<span class="font-lato h2 f-left">Disponibilidade</span>
-					<br>
-					<br>
-					<section class="section-form">
-						<div class="checkbox form-select">
-							<input type="checkbox" value="None" id="checkbox" name="check" checked />
-							<label for="checkbox" data-checkbox-label checked>On</label>
-						</div>
-					</section>
+<!-- Inicio do formulário (tudo aqui dentro forma um unico formulário) -->
+<form action="" id="formulario_edicao_perfil">
+<section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
+<section class="span_5 col colunas">
+<span class="font-lato h2 f-left">Nome Completo</span>
+<section class="section-form">
+<input type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">
+</section>
+<span class="font-lato h2 f-left">Nome de Usuário</span>
+<section class="section-form">
+<input type="text" name="username" class="form-input-comum w-full" placeholder="{{=T('User')}}">
+</section>
+<span class="font-lato h2 f-left">Email</span>
+<section class="section-form">
+<input type="email" name="email" class="form-input-comum w-full" placeholder="email@dominio.com">
+</section>
+</section>
+<section class="span_1 col span_vazio"></section>
+<section class="span_6 col colunas">
+<div class="span_6 col f-left">
+<span class="font-lato h2 f-left">Data de Nascimento</span>
+<br>
+<section class="section-form">
+<input type="date" name="age" class="form-input-comum w-90 form-select" placeholder="">
+</section>
+<span class="font-lato h2 f-left">Estado</span>
+<br>
+<section class="section-form">
+<label class="select w-90 form-input-comum form-select">
+<select class="input-select w-full">
+<option value="1">Rio de Janeiro</option>
+<option value="2">Rio de Janeiro</option>
+</select>
+</label>
+</section>
+<span class="font-lato h2 f-left">Nome do Perfil</span>
+<br>
+<section class="section-form">
+<label class="select w-90 form-input-comum form-select">
+<select class="input-select w-full">
+<option value="1">Fulano de Tal</option>
+<option value="2">Ciclano</option>
+</select>
+</label>
+</section>
+</div>
+<div class="span_6 col f-left">
+<span class="font-lato h2 f-left">Sexo</span>
+<br>
+<section class="section-form">
+<label class="select w-90 form-input-comum form-select">
+<select class="input-select w-full">
+<option value="1">Masculino</option>
+<option value="2">Feminino</option>
+</select>
+</label>
+</section>
+<span class="font-lato h2 f-left">Cidade</span>
+<br>
+<section class="section-form">
+<label class="select w-90 form-input-comum form-select">
+<select class="input-select w-full">
+<option value="1">Rio de Janeiro</option>
+<option value="2">Rio de Janeiro</option>
+</select>
+</label>
+</section>
+<span class="font-lato h2 f-left">Disponibilidade</span>
+<br>
+<br>
+<section class="section-form">
+<div class="checkbox form-select">
+<input type="checkbox" value="None" id="checkbox" name="check" checked />
+<label for="checkbox" data-checkbox-label checked>On</label>
+</div>
+</section>
 
-				</div>
+</div>
 
-			</section>
-			<div class="span_6 col f-right t-right">
-				<input type="button" class="btn-1 f-right w-40" data-irParaFase="2" value="Avançar">
-				<br>
-				<br>
-				<br>
-				<span class="t-right">
-					<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
-				</span>
-			</div>
-		</section>
+</section>
+<div class="span_6 col f-right t-right">
+<input type="button" class="btn-1 f-right w-40" data-irParaFase="2" value="Avançar">
+<br>
+<br>
+<br>
+<span class="t-right">
+<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
+</span>
+</div>
+</section>
 
-		<section  data-fase="2" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
-			<section class="span_1 col span_vazio"></section>
-			<section class="span_5 col colunas">
-				<span class="font-lato h2 f-left">Avatar</span>
-				<section class="section-form f-left">
-					<label class="profile-avatar-wrap">
-						<img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
-						<input type="file" class="d-none" id="uploader">
-					</label>
-					<p class="paragrafo2">
-						Escolha a foto que será exibida em seu perfil. 
-						A imagem deve ser nos formatos xxxxx e ter a 
-						resolução máxima de xxxx.
-					</p>
-				</section>
-			</section>
+<section  data-fase="2" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
+<section class="span_1 col span_vazio"></section>
+<section class="span_5 col colunas">
+<span class="font-lato h2 f-left">Avatar</span>
+<section class="section-form f-left">
+<label class="profile-avatar-wrap">
+<img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
+<input type="file" name="avatar" class="d-none" id="uploader">
+</label>
+<p class="paragrafo2">
+Escolha a foto que será exibida em seu perfil. 
+A imagem deve ser nos formatos xxxxx e ter a 
+resolução máxima de xxxx.
+</p>
+</section>
+</section>
 
-			<section class="span_6 col">
-				<div class="span_12 col colunas">
-					<span class="font-lato h2 f-left">Quem é você?</span>
-					<section class="section-form f-left w-full">
-						<textarea class="bio form-input-comum" placeholder="Aqui vem uma Bio"></textarea>
-						<p class="paragrafo2 f-left">Limite de <span>xxx</span> Caracteres </p>
-					</section>
-				</div>
-			</section>
+<section class="span_6 col">
+<div class="span_12 col colunas">
+<span class="font-lato h2 f-left">Quem é você?</span>
+<section class="section-form f-left w-full">
+<textarea class="bio form-input-comum" name="bio" placeholder="Aqui vem uma Bio"></textarea>
+<p class="paragrafo2 f-left">Limite de <span>xxx</span> Caracteres </p>
+</section>
+</div>
+</section>
 
-			<!-- Espaço dos buttons -->
-			<div class="span_6 col f-right t-right">
-				<input type="button" class="btn-1 f-right w-40" data-irParaFase="3" value="Avançar">
-				<input type="button" class="btn-2 f-right w-40" data-irParaFase="1" value="Voltar">
+<!-- Espaço dos buttons -->
+<div class="span_6 col f-right t-right">
+<input type="button" class="btn-1 f-right w-40" data-irParaFase="3" value="Avançar">
+<input type="button" class="btn-2 f-right w-40" data-irParaFase="1" value="Voltar">
 
-				<br/>
-				<span class="f-right">
-					<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
-				</span>
-			</div>
-		</section>
+<br/>
+<span class="f-right">
+<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
+</span>
+</div>
+</section>
 
-		<section  data-fase="3" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
-			<section class="span_12 col">
-				<div class="t-center f-center w-70">
-					<span class="font-lato h2 f-left">Profissões?</span>
-					<section class="section-form f-left w-full">
-						<select class="w-full form-input-comum" name="" id="profissoes" 
-						multiple data-placeholder="Selecione uma profissão">
-						<option value="1">Designer</option>
-						<option value="2">Desenvolvedor</option>
-					</select>
-					<div>
-						<ul class="list-profissao"></ul>
-					</div>
-				</section>
-			</div>
-		</section>
-		<div class="span_6 col f-right t-right">
-			<input type="button" class="btn-1 f-right w-40" data-irParaFase="4" value="Avançar">
-			<input type="button" class="btn-2 f-right w-40" data-irParaFase="2" value="Voltar">
-			<span class="f-right">
-				<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
-			</span>
-		</div>
-	</section>
+<section  data-fase="3" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
+<section class="span_12 col">
+<div class="t-center f-center w-70">
+<span class="font-lato h2 f-left">Profissões?</span>
+<section class="section-form f-left w-full">
+<select class="w-full form-input-comum" name="" id="profissoes" 
+multiple data-placeholder="Selecione uma profissão">
+<option value="1">Designer</option>
+<option value="2">Desenvolvedor</option>
+</select>
+<div>
+<ul class="list-profissao"></ul>
+</div>
+</section>
+</div>
+</section>
+<div class="span_6 col f-right t-right">
+<input type="button" class="btn-1 f-right w-40" data-irParaFase="4" value="Avançar">
+<input type="button" class="btn-2 f-right w-40" data-irParaFase="2" value="Voltar">
+<span class="f-right">
+<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
+</span>
+</div>
+</section>
 
-	<section  data-fase="4" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
-		<section class="span_12 col">
-			<div class="t-center f-center w-70">
-				<span class="font-lato h2 f-left">Redes Sociais</span>
-				<section class="section-form f-left w-full">
+<section  data-fase="4" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
+<section class="span_12 col">
+<div class="t-center f-center w-70">
+<span class="font-lato h2 f-left">Redes Sociais</span>
+<section class="section-form f-left w-full">
 
-					<!-- select-edit-perfil -->
-					<label class="select w-90 form-input-comum f-left select-edit-perfil">
-						<select class="input-select w-full" name="" id="">
-							<option value="1">Facebook</option>
-							<option value="1">Twitter</option>
-						</select>
-					</label>
+<!-- select-edit-perfil -->
+<label class="select w-90 form-input-comum f-left select-edit-perfil">
+<select class="input-select w-full" name="network_type" id="">
+<option value="1">Facebook</option>
+<option value="1">Twitter</option>
+</select>
+</label>
 
-					<button class="form-input-comum btn-submit-select f-left" type="button">+</button>
-					<div class="w-full f-left t-left">
-						<h1>Facebook</h1>
-						<h3>Usuário</h3>
-						<input class=" form-input-comum usr-input-form w-70 f-left" type="text"/>
-						<button class="form-input-comum usr-btn-form btn-submit-select f-left" type="button">+</button>
-					</div>
-					<section class="w-full f-left">
-						<style>
-							/*{{=URL('static','images/Edit_perfil/confirm.png')}}*/
+<button class="form-input-comum btn-submit-select f-left" type="button">+</button>
+<div class="w-full f-left t-left">
+<!-- Aqui só troca pra rede que ele escolheu -->
+<h1>Facebook</h1>
+<h3>Usuário</h3>
+<input class=" form-input-comum usr-input-form w-70 f-left" name="network" type="text"/>
+<button class="form-input-comum usr-btn-form btn-submit-select f-left" type="button">+</button>
+</div>
+<section class="w-full f-left">
+<style>
+/*{{=URL('static','images/Edit_perfil/confirm.png')}}*/
 
-						</style>
-						<div class="social-field" >
-							<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
-							<span data-field="jorgekury">
-								<a href="#" data-user="jorgekury" id="a">jorgekury</a>
-							</span>
-							<img src="{{=URL('static','images/Edit_perfil/edit.png')}}" data-edit-user="jorgekury" alt="">
-							<img src="{{=URL('static','images/Edit_perfil/delete.png')}}" id="deletesocial" alt="">
-						</div>
-						<div class="social-field" >
-							<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
-							<span data-field="kury_br">
-								<a href="#" data-user="kury_br" id="">kury_br</a>
-							</span>
-							<img src="{{=URL('static','images/Edit_perfil/edit.png')}}" data-edit-user="kury_br" alt="">
-							<img src="{{=URL('static','images/Edit_perfil/delete.png')}}"  alt="">
-						</div>
+</style>
+<div class="social-field" >
+<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
+<span data-field="jorgekury">
+<a href="#" data-user="jorgekury" id="a">jorgekury</a>
+</span>
+<img src="{{=URL('static','images/Edit_perfil/edit.png')}}" data-edit-user="jorgekury" alt="">
+<img src="{{=URL('static','images/Edit_perfil/delete.png')}}" id="deletesocial" alt="">
+</div>
+<div class="social-field" >
+<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
+<span data-field="kury_br">
+<a href="#" data-user="kury_br" id="">kury_br</a>
+</span>
+<img src="{{=URL('static','images/Edit_perfil/edit.png')}}" data-edit-user="kury_br" alt="">
+<img src="{{=URL('static','images/Edit_perfil/delete.png')}}"  alt="">
+</div>
 <!-- 
 Quando o cara for editar, o link vira um input text
 o icone de editar vira um icone de confirmar (enter tambem submete)
@@ -248,12 +250,12 @@ o icone de editar vira um icone de confirmar (enter tambem submete)
 </div>
 </section>
 <div class="span_6 col f-right t-right">
-	<input type="button" class="btn-1 f-right w-40" data-irParaFase="4" value="Concluir">
-	<input type="button" class="btn-2 f-right w-40" data-irParaFase="3" value="Voltar">
-	<br/>
-	<span class="f-right">
-		<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
-	</span>
+<input type="button" class="btn-1 f-right w-40" data-irParaFase="4" value="Concluir">
+<input type="button" class="btn-2 f-right w-40" data-irParaFase="3" value="Voltar">
+<br/>
+<span class="f-right">
+<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
+</span>
 </div>
 </section>
 </section>
@@ -275,105 +277,103 @@ o icone de editar vira um icone de confirmar (enter tambem submete)
 	var selects = formulario.getElementsByTagName("select");
 	var textareas = formulario.getElementsByTagName("textarea");
 
-// var campos = inputs.concat(selects,textareas);
+	// var campos = inputs.concat(selects,textareas);
 
-// for (var i = 0; i < inputs.length; i++) {
-// 	inputs[i].addEventListener("change",function(){
-// 		console.log(this);
-// 		if(this.checked == true){
-// 			console.log("checado");
-// 		}
-// 	})
-// };
-
-// for (var i = 0; i < selects.length; i++) {
-// 	selects[i].addEventListener("change",function(){
-// 		console.log(this);
-// 	})
-// };
-// 
-
-function AdicionaProfissao(e){
-	var user = "";
-	var field = e.name;
-	var value = e.value;
-	var profission = e.selectedOptions[0].innerHTML;
-	$("#profissoes").select2("val", "")
-
-	var vars = "field="+field+"&value="+value;
-
-	$.ajax({
-		type: 'POST',
-		url: url.ajax_add_profission+".json",
-		data: vars,
-		success: function(data) {
-			criarCompentecias(profission,data.competencies);
+	for (var i = 0; i < inputs.length; i++) {
+		inputs[i].addEventListener("change",function(){
+			gravaAjaxEditProfile(this)
 			
-		},
-		error: function(data){
-			// console.log(data);
-		}
-	});
+		})
+	};
+
+	for (var i = 0; i < selects.length; i++) {
+		selects[i].addEventListener("change",function(){
+			console.log(this);
+		})
+	};
+
+
+	function AdicionaProfissao(e){
+		var user = "";
+		var field = e.name;
+		var value = e.value;
+		var profission = e.selectedOptions[0].innerHTML;
+		$("#profissoes").select2("val", "")
+
+		var vars = "field="+field+"&value="+value;
+
+		$.ajax({
+			type: 'POST',
+			url: url.ajax_add_profission+".json",
+			data: vars,
+			success: function(data) {
+				criarCompentecias(profission,data.competencies);
+
+			},
+			error: function(data){
+// console.log(data);
 }
-
-
-function criarCompentecias(profissao,competencias){
-
-	var select = document.createElement('select');
-	select.setAttribute('data-placeholder','adicione competencias');
-	select.name="competencias";
-	select.setAttribute('data-select',profissao)
-	select.setAttribute('class','w-full competencias');
-	select.setAttribute('multiple','')
-	
-	// Cria um for de opções
-	for( i in competencias ){ 
-		var opcao = document.createElement('option');
-		opcao.innerHTML = competencias[i];
-		opcao.value = i;
-		select.appendChild(opcao);	
+});
 	}
 
-	var linha = document.createElement('li')
-	linha.setAttribute('class','profissao t-left');
 
-	var span = document.createElement('span');
-	span.setAttribute('class','h1');
-	span.innerHTML = profissao;
+	function criarCompentecias(profissao,competencias){
 
-	var deletar = document.createElement('img');
-	deletar.setAttribute('class','delete_profissao f-right');
-	deletar.src="{{=URL('static','images/Edit_perfil/delete.png')}}"
+		var select = document.createElement('select');
+		select.setAttribute('data-placeholder','adicione competencias');
+		select.name="competencias";
+		select.setAttribute('data-select',profissao)
+		select.setAttribute('class','w-full competencias');
+		select.setAttribute('multiple','')
+
+// Cria um for de opções
+for( i in competencias ){ 
+	var opcao = document.createElement('option');
+	opcao.innerHTML = competencias[i];
+	opcao.value = i;
+	select.appendChild(opcao);	
+}
+
+var linha = document.createElement('li')
+linha.setAttribute('class','profissao t-left');
+
+var span = document.createElement('span');
+span.setAttribute('class','h1');
+span.innerHTML = profissao;
+
+var deletar = document.createElement('img');
+deletar.setAttribute('class','delete_profissao f-right');
+deletar.src="{{=URL('static','images/Edit_perfil/delete.png')}}"
 
 
-	var listasProfissoes = document.querySelector('.list-profissao')
-	
-	span.appendChild(deletar);
-	linha.appendChild(span);
-	linha.appendChild(select);
-	listasProfissoes.appendChild(linha);
-	
-	// Eventos ================
-	
+var listasProfissoes = document.querySelector('.list-profissao')
 
-	$("[data-select="+profissao+"]").select2({ 
-		maximumSelectionSize: 5
-	});
+span.appendChild(deletar);
+linha.appendChild(span);
+linha.appendChild(select);
+listasProfissoes.appendChild(linha);
 
-	$("[data-select="+profissao+"]").on("click",function(){
-		
-		if(this.value == "4"){
-			var teste = prompt("Digite uma sugestão de Competencia");
-			console.log(teste);
-		}
-		else{
-			console.log(this.value);
-		}
-	});
+// Eventos ================
 
-	$(".delete_profissao").on("click",function(){
-		console.log("delete isso");
-	});
+
+$("[data-select="+profissao+"]").select2({ 
+	maximumSelectionSize: 5
+});
+
+$("[data-select="+profissao+"]").on("click",function(){
+
+	if(this.value == "4"){
+		var teste = prompt("Digite uma sugestão de Competencia");
+		console.log(teste);
+	}
+	else{
+		console.log(this.value);
+	}
+});
+
+$(".delete_profissao").on("click",function(){
+	console.log("delete isso");
+});
 
 // =================================
 };
@@ -381,7 +381,9 @@ function criarCompentecias(profissao,competencias){
 function gravaAjaxEditProfile(e){
 	var field = e.name;
 	var value = e.value;
-	var vars = "field="+field+"&value"+value;
+	var type = e.type;
+	console.log(type);
+	var vars = "field="+field+"&value="+value;
 
 	$.ajax({
 		type: 'POST',

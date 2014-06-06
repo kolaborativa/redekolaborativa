@@ -983,10 +983,12 @@ body {
   color: #ffffff;
 }
 .profissao > .select2-container-multi .select2-choices .select2-search-choice {
-  background: #7cbae3;
+  background: #2980b9;
   font-style: italic;
   box-shadow: none;
   color: #ffffff;
+  border: none;
+  border-radius: 0px;
 }
 .profissao > .select2-container-multi .select2-choices .select2-search-field input {
   background: #bcd4e4;
