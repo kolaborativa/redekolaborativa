@@ -18,32 +18,7 @@ function querySelectAll(parametro){
 document.addEventListener("DOMContentLoaded",main)
 
 function main(){
-
-	mudando_fase_perfil("1");
-
-	var btnPerfil = querySelectAll("data-irParaFase");
-	for (var i = 0; i < btnPerfil.length; i++) {
-		btnPerfil[i].addEventListener("click",function(){
-			mudando_fase_perfil(this.getAttribute("data-irParaFase"));
-		})
-	};
-
-	var label = querySelectAll("data-checkbox-label")
-	for (var i = 0; i < label.length; i++) {
-		label[i].addEventListener("click",function(){
-			mudaStatusCheckbox(this)
-		})
-	}
-
-	var editar = document.querySelectorAll("[data-edit-user]");
-	for (var i = 0; i < editar.length; i++) {
-
-		editar[i].addEventListener("click",function(){
-			editarUsuario(this.getAttribute("data-edit-user"));
-		});
-
-	};
-
+	DOMEditarPerfil();
 }
 
 function mudaStatusCheckbox(checkbox){
@@ -122,3 +97,193 @@ function inputEditarUser(){
 	input.setAttributeNode(att);
 	return input
 }
+
+
+// Códigos da parte de Editar Perfil 
+
+	function DOMEditarPerfil(){
+		mudando_fase_perfil("1");
+
+			var btnPerfil = querySelectAll("data-irParaFase");
+			for (var i = 0; i < btnPerfil.length; i++) {
+				btnPerfil[i].addEventListener("click",function(){
+					mudando_fase_perfil(this.getAttribute("data-irParaFase"));
+				})
+			};
+
+			var label = querySelectAll("data-checkbox-label")
+			for (var i = 0; i < label.length; i++) {
+				label[i].addEventListener("click",function(){
+					mudaStatusCheckbox(this)
+				})
+			}
+
+			var editar = document.querySelectorAll("[data-edit-user]");
+			for (var i = 0; i < editar.length; i++) {
+
+				editar[i].addEventListener("click",function(){
+					editarUsuario(this.getAttribute("data-edit-user"));
+				});
+
+			};
+
+
+		var formulario = document.getElementById("formulario_edicao_perfil")
+		var inputs = formulario.getElementsByTagName("input");
+		var selects = formulario.getElementsByTagName("select");
+		var textareas = formulario.getElementsByTagName("textarea")[0];
+
+		textareas.addEventListener("keyup",function(){
+			document.querySelector("[data-caracteres]").innerHTML = (350 - this.value.length);
+			if(this.value.length >= 350){
+				this.value = this.value.substr(0,350);
+			}
+		})
+		textareas.addEventListener("change",function(){
+			gravaAjaxEditProfile(this)
+		})
+		
+
+		for (var i = 0; i < inputs.length; i++) {
+
+			if(inputs[i].name == "network"){
+				document.getElementById("network").addEventListener("click",function(){
+					gravaAjaxEditProfile(this);
+
+				})
+			}else{
+				inputs[i].addEventListener("change",function(){
+					gravaAjaxEditProfile(this)
+				})
+			}
+		};
+
+		for (var i = 0; i < selects.length; i++) {
+
+			if(selects[i].name != "profession"){
+				selects[i].addEventListener("change",function(){
+					if(this.name == "network_type"){
+				document.querySelector("[data-redesocial]").innerHTML = document.getElementsByName('network_type')[0].value
+
+					}
+					else{
+						gravaAjaxEditProfile(this)	
+					}
+					
+				})
+			}
+		};
+
+		$("#profissoes").select2({ 
+			maximumSelectionSize: 1
+		});
+		$("#profissoes").on("click",function(){
+			gravaAjaxEditProfile(this);
+		});
+	}
+	
+
+	function criarCompentecias(profissao,competencias){
+
+		var select = document.createElement('select');
+		select.setAttribute('data-placeholder','adicione competencias');
+		select.name="competence";
+		select.setAttribute('data-select',profissao)
+		select.setAttribute('class','w-full competencias');
+		select.setAttribute('multiple','')
+
+		// Cria um for de opções
+		for( i in competencias ){ 
+			var opcao = document.createElement('option');
+			opcao.innerHTML = competencias[i];
+			opcao.value = i;
+			select.appendChild(opcao);	
+		}
+
+		var linha = document.createElement('li')
+		linha.setAttribute('class','profissao t-left');
+
+		var span = document.createElement('span');
+		span.setAttribute('class','h1');
+		span.innerHTML = profissao;
+
+		var deletar = document.createElement('img');
+		deletar.setAttribute('class','delete_profissao f-right');
+		deletar.src="{{=URL('static','images/Edit_perfil/delete.png')}}"
+
+
+		var listasProfissoes = document.querySelector('.list-profissao')
+
+		span.appendChild(deletar);
+		linha.appendChild(span);
+		linha.appendChild(select);
+		listasProfissoes.appendChild(linha);
+
+		// Eventos ================
+
+
+		$("[data-select="+profissao+"]").select2({ 
+			maximumSelectionSize: 5
+		});
+
+		$("[data-select="+profissao+"]").on("click",function(){
+
+			if(this.value == "4"){
+				var teste = prompt("Digite uma sugestão de Competencia");
+				console.log(teste);
+			}
+			else{
+				console.log(this.value);
+			}
+		});
+
+		$(".delete_profissao").on("click",function(){
+			console.log("delete isso");
+		});
+
+	};
+
+	function gravaAjaxEditProfile(e){
+
+		var field;
+		var value;
+		var vars;
+
+		if(e.name == "profession"){
+
+			field = e.name;
+			value = e.value;
+			vars = "field="+field+"&value="+value;
+
+			var profession = e.selectedOptions[0].innerHTML;
+			$("#profissoes").select2("val", "")
+			caminho = url.ajax_add_profission+".json";
+
+		}else if(e.name == "network"){
+				
+				var rede = document.getElementsByName('network_type')[0].value;
+				var perfil = document.getElementsByName('network')[0].value;
+				vars = "";
+				caminho = "";
+		}
+		else{
+			field = e.name;
+			value = e.value;
+			vars = "field="+field+"&value="+value;
+			caminho = url.edit_profile;
+		}
+
+		$.ajax({
+			type: 'POST',
+			url: caminho,
+			data: vars,
+			success: function(data) {
+				if(e.name == "profession"){
+					criarCompentecias(profession,data.competencies);
+				}
+			},
+			error: function(data){
+				console.log(data);
+			}
+		});
+	}

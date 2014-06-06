@@ -1,28 +1,58 @@
 {{extend 'layout_rede.html'}}
 {{if user != message:}}
 <!-- Espaço apresentação do Usuário -->
-<section class="f-left span_8 col">
-    <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left">
+<section class="f-left span_8 col apresenta-user">
+
+    <style>
+        .foto-perfil img{
+            border-radius: 50%;
+        }
+        .apresenta-user{
+            background: white;
+            height:304;
+            margin-top: 20px;
+        }
+        .barra-colorida{
+            height: 2px;
+        }
+    </style>
+
+    <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left barra-colorida">    
     <!-- Apresentação do usuário -->
-    <section class="f-left">
-        <figure>
+    <section class="f-left span_4 col">
+
+        
+        <!-- Foto de perfil -->
+        <figure class="foto-perfil">
             {{if not user.avatar:}}
             <img src={{=URL('static', '/images/non_avatar.gif')}} width="168px" height="168px">
-            {{else:}}
+                 {{else:}}
             <img src={{=URL(f='download', args=user.avatar)}} width="168px" height="168px">
             {{pass}}
         </figure>
-        <b>{{=T("Available")}}:</b> {{=T(user.user_available)}}<br />
-        {{if user.user_available == 'Yes':}}
-        {{if user.availability:}}<b>{{=T("Availability")}}:</b> {{=', '.join(user.availability)}}<br />{{pass}}
-        {{pass}}
     </section>
-    <section>
+    <!-- Bio usuário -->
+    <section class="f-left span_6  col bio-user">
         <p>
             <h1>{{=user.username}}</h1>
             <b>{{=T("Biography")}}</b><br>
             {{=user.bio or ''}}
         </p>
+    </section>
+    <!-- Social - Disponibilidade -->
+    <section class="f-left span_12  col ">
+        <!-- Disponibilidade -->
+        <section>
+            <b>{{=T("Available")}}:</b> {{=T(user.user_available)}}<br />    
+            {{if user.user_available == 'Yes':}}
+                {{if user.availability:}}
+                    <b>{{=T("Availability")}}:</b> 
+                    {{=', '.join(user.availability)}}
+                    <br />
+                {{pass}}
+            {{pass}}
+        </section>
+        <!-- Redes sociais -->
         <section class="redes_sociais">
            {{if networking:}}
            <b>{{=T("Social Networking")}}</b><br />
@@ -46,6 +76,7 @@
             {{pass}}
         </section>
     </section>
+
 </section>
 <!-- Informações pessoais -->
 <section class="f-left span_4 col">
