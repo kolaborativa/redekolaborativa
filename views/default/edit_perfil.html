@@ -37,20 +37,35 @@
 
 <section class="col col_edit_perfil_formulario span_12 f-left">
 	<!-- Inicio do formulário (tudo aqui dentro forma um unico formulário) -->
-	<form action="" id="formulario_edicao_perfil">
+    <form  action="#" id="formulario_edicao_perfil" enctype="multipart/form-data" method="post">
+        {{form.custom.widget.first_name['_placeholder'] = T("Full Name")}}
+        {{form.custom.widget.first_name['_class'] = "form-input-comum w-full"}}
+        {{form.custom.widget.username['_placeholder'] = T("Usuário")}}
+        {{form.custom.widget.username['_class'] = "form-input-comum w-full"}}
+        {{form.custom.widget.email['_type'] = "email"}}
+        {{form.custom.widget.email['_placeholder'] = "email@dominio.com"}}
+        {{form.custom.widget.email['_class'] = "form-input-comum w-full"}}
+        {{form.custom.widget.last_name['_placeholder'] = "Nome do Perfil"}}
+        {{form.custom.widget.last_name['_class'] = "form-input-comum w-full"}}
+        {{form.custom.widget.user_available['_id'] = "checkbox"}}
+        {{form.custom.widget.user_available['_value'] = "None"}}
+
 		<section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
 			<section class="span_5 col colunas">
 				<span class="font-lato h2 f-left">Nome Completo</span>
 				<section class="section-form">
-					<input type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">
+                    {{=form.custom.widget.first_name}}
+					<!--<input type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">-->
 				</section>
 				<span class="font-lato h2 f-left">Nome de Usuário</span>
 				<section class="section-form">
-					<input type="text" name="username" class="form-input-comum w-full" placeholder="{{=T('User')}}">
+                    {{=form.custom.widget.username}}
+					<!--<input type="text" name="username" class="form-input-comum w-full" placeholder="{{=T('User')}}">-->
 				</section>
 				<span class="font-lato h2 f-left">Email</span>
 				<section class="section-form">
-					<input type="email" name="email" class="form-input-comum w-full" placeholder="email@dominio.com">
+                    {{=form.custom.widget.email}}
+					<!--<input type="email" name="email" class="form-input-comum w-full" placeholder="email@dominio.com">-->
 				</section>
 			</section>
 
@@ -77,10 +92,11 @@
 					<br>
 					<section class="section-form">
 						<label class="select w-90 form-input-comum form-select">
-							<select name="Nome_Perfil" class="input-select w-full">
+                            {{=form.custom.widget.last_name}}
+							<!--<select name="Nome_Perfil" class="input-select w-full">
 								<option value="1">Fulano de Tal</option>
 								<option value="2">Ciclano</option>
-							</select>
+							</select>-->
 						</label>
 					</section>
 				</div>
@@ -110,7 +126,8 @@
 					<br>
 					<section class="section-form">
 						<div class="checkbox form-select">
-<input name="user_available" type="checkbox" value="None" id="checkbox" name="check" checked />
+                            {{=form.custom.widget.user_available}}
+                            <!--<input name="user_available" type="checkbox" value="None" id="checkbox" name="check" checked />-->
 							<label for="checkbox" data-checkbox-label checked>On</label>
 						</div>
 					</section>
@@ -237,6 +254,7 @@ o icone de editar vira um icone de confirmar (enter tambem submete)
 </section>
 </div>
 </section>
+    {{=form.custom.end}}
 <div class="span_6 col f-right t-right">
 	<input type="button" class="btn-1 f-right w-40" data-irParaFase="4" value="Concluir">
 	<input type="button" class="btn-2 f-right w-40" data-irParaFase="3" value="Voltar">
@@ -247,6 +265,23 @@ o icone de editar vira um icone de confirmar (enter tambem submete)
 </div>
 </section>
 </section>
+
+<hr>
+
+{{=form}}
+<hr>
+{{=professions}}
+<hr>
+{{=competencies}}
+<hr>
+{{=networking}}
+<hr>
+{{=form_profession}}
+<hr>
+{{=form_competencies}}
+<hr>
+{{=form_networking}}
+<hr>
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/resample.js')}}"></script>
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/avatar.js')}}"></script>
 <script src="{{=URL('static','plugins/select2-3.4.8/select2.js')}}"></script>

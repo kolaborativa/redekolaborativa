@@ -79,7 +79,7 @@ auth.settings.extra_fields["auth_user"] = [
     Field("localization", label='Localization (district/city/state/country)'),
     Field("bio", "text"),
     Field("avatar", "upload"),
-    Field("user_available", widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET({'Yes': T('Yes'), 'No': T('No')}), default='No'),
+    Field("user_available", 'boolean', default=False),
     Field("availability", "list:string", widget=SQLFORM.widgets.checkboxes.widget, requires=IS_IN_SET( [ (T('OpenSource'), T('OpenSource')), (T('Enterprising'), T('Enterprising')) ], multiple=True))
 ]
 

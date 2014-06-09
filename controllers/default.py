@@ -39,22 +39,106 @@ def principal():
     projeto = db(db.projects).select().first()
     return dict(projeto=projeto)
 
-# Feito pelo Jorge Rafael, apenas para criar a pagina de 
-# regitro do usuario 
+
 def edit_perfil():
-    return dict()
+    form=auth.profile()
+    professions = db(db.profession.user_id == auth.user.id).select()
+    networking = db(db.network_type.user_id == auth.user.id).select()
+
+    form_networking = SQLFORM.factory(
+        db.network_type,
+        fields = ['network', 'network_type'],
+        submit_button=T('add')
+        )
+
+    competencies = []
+    if professions:
+        for i in professions:
+            this_competence = db(db.competence.profession_id == i.id).select()
+            if this_competence:
+                competencies.append(this_competence)
+
+    form_profession = SQLFORM.factory(
+        db.profession,
+        table_name='professions',
+        submit_button=T('add')
+        )
+    form_competencies = SQLFORM.factory(
+        Field("profession_id",label="profession_id"),
+        db.competence,
+        table_name='competencies',
+        )
+
+    # auth form
+    if form.process().accepted:
+        redirect(URL("user_info"))
+    elif form.errors:
+        response.session = 'form has errors'
+
+    # professions form
+    if form_profession.process().accepted:
+        # id_professions = [i.id for i in professions]
+        # if not request.vars.profession in id_professions:
+        db.profession.insert(
+            profession=request.vars.profession,
+            user_id=auth.user.id
+            )
+        # else:
+        #     db(db.profession.id == ).update(
+        #         profession=request.vars.profession,
+        #         )
+
+        response.flash = 'form accepted'
+        redirect(URL("user",args=["profile"]))
+    elif form_profession.errors:
+        response.flash = 'form has errors'
+
+    # competencies form
+    if form_competencies.process().accepted:
+        db.competence.insert(
+            competence=request.vars.competence,
+            profession_id=request.vars.profession_id,
+            )
+
+        response.flash = 'form accepted'
+        redirect(URL("user",args=["profile"]))
+    elif form_competencies.errors:
+        response.flash = 'form has errors'
+
+    #networking form
+    if form_networking.process().accepted:
+        db.network_type.insert(
+            user_id = auth.user.id,
+            network = request.vars.network,
+            network_type = request.vars.network_type
+            )
+        response.flash = 'fom accepted'
+        redirect(URL("user",args=["profile"]))
+    elif form_networking.errors:
+        response.flash = 'form has errors'
+
+
+    return dict(
+            form=form,form_profession=form_profession,form_competencies=form_competencies,form_networking=form_networking,
+            professions=professions,competencies=competencies,networking=networking)
 
 def ajax_edit_profile():
-    
     # Pegar request.vars field e value
-    print request.vars
-    print request.vars.field
-    print request.vars.value
-    
+    #TODO: try: except
+
+    field_db =  request.vars.field
+    new_value =  request.vars.value
+    dic_update = {field_db:new_value}
+
+    db.auth_user[auth.user.id] = dic_update
+
+    print 'campo do banco:',field_db
+    print 'novo valor:',new_value
+
     return True
 
 def ajax_add_profission():
-    
+
     print request.vars
 
 

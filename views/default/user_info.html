@@ -43,8 +43,8 @@
     <section class="f-left span_12  col ">
         <!-- Disponibilidade -->
         <section>
-            <b>{{=T("Available")}}:</b> {{=T(user.user_available)}}<br />    
-            {{if user.user_available == 'Yes':}}
+            <b>{{=T("Available")}}:</b> {{ if user.user_available:}} {{=T('Yes')}} {{else:}} {{=T('No')}} {{pass}}<br />    
+            {{if user.user_available:}}
                 {{if user.availability:}}
                     <b>{{=T("Availability")}}:</b> 
                     {{=', '.join(user.availability)}}
