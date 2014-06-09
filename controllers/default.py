@@ -123,23 +123,26 @@ def edit_perfil():
             professions=professions,competencies=competencies,networking=networking)
 
 def ajax_edit_profile():
-    # Pegar request.vars field e value
-    #TODO: try: except
+    try:
+        field_db =  request.vars.field
+        new_value =  request.vars.value
+        dic_update = {field_db:new_value}
 
-    field_db =  request.vars.field
-    new_value =  request.vars.value
-    dic_update = {field_db:new_value}
+        db.auth_user[auth.user.id] = dic_update
 
-    db.auth_user[auth.user.id] = dic_update
-
-    print 'campo do banco:',field_db
-    print 'novo valor:',new_value
+        print 'campo do banco:',field_db
+        print 'novo valor:',new_value
+    except:
+        pass
 
     return True
 
 def ajax_add_profission():
-
+    print "profissoes"
     print request.vars
+    print "profissoes"
+    
+    return True
 
 
     return dict(competencies={'1':'CSS','2':'Python','3':'JS','4':'Outros'})
