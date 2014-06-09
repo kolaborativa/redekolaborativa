@@ -54,8 +54,13 @@
         {{form.custom.widget.last_name['_placeholder'] = "Nome do Perfil"}}
         {{form.custom.widget.last_name['_class'] = "form-input-comum w-90"}}
       
-      {{form.custom.widget.user_available['_id'] = "checkbox"}}
+        {{form.custom.widget.user_available['_id'] = "checkbox"}}
         {{form.custom.widget.user_available['_value'] = "None"}}
+
+
+        {{form.custom.widget.bio['_placeholder'] = "Aqui vem uma Bio"}}
+        {{form.custom.widget.bio['_class'] = "bio form-input-comum"}}
+                        
 
 		<section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
 			<section class="span_5 col colunas">
@@ -158,6 +163,7 @@
 				<section class="section-form f-left">
 					<label class="profile-avatar-wrap">
 						<img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
+                        {{=form.custom.widget.avatar}}
 						<input type="file" name="avatar" class="d-none" id="uploader">
 					</label>
 					<p class="paragrafo2">
@@ -172,7 +178,7 @@
 				<div class="span_12 col colunas">
 					<span class="font-lato h2 f-left">Quem é você?</span>
 					<section class="section-form f-left w-full">
-						<textarea class="bio form-input-comum" name="bio" placeholder="Aqui vem uma Bio"></textarea>
+                        {{=form.custom.widget.bio}}
 						<p class="paragrafo2 f-left">Limite de <span data-caracteres>350</span> Caracteres </p>
 					</section>
 				</div>
