@@ -40,14 +40,21 @@
     <form  action="#" id="formulario_edicao_perfil" enctype="multipart/form-data" method="post">
         {{form.custom.widget.first_name['_placeholder'] = T("Full Name")}}
         {{form.custom.widget.first_name['_class'] = "form-input-comum w-full"}}
+      
         {{form.custom.widget.username['_placeholder'] = T("Usuário")}}
         {{form.custom.widget.username['_class'] = "form-input-comum w-full"}}
+      
         {{form.custom.widget.email['_type'] = "email"}}
         {{form.custom.widget.email['_placeholder'] = "email@dominio.com"}}
         {{form.custom.widget.email['_class'] = "form-input-comum w-full"}}
+        
+        {{#form.custom.widget.born_on['_type'] = "date"}}
+        {{#form.custom.widget.born_on['_class'] = "form-input-comum w-90 form-select"}}
+
         {{form.custom.widget.last_name['_placeholder'] = "Nome do Perfil"}}
-        {{form.custom.widget.last_name['_class'] = "form-input-comum w-full"}}
-        {{form.custom.widget.user_available['_id'] = "checkbox"}}
+        {{form.custom.widget.last_name['_class'] = "form-input-comum w-90"}}
+      
+      {{form.custom.widget.user_available['_id'] = "checkbox"}}
         {{form.custom.widget.user_available['_value'] = "None"}}
 
 		<section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
@@ -76,7 +83,7 @@
 					<span class="font-lato h2 f-left">Data de Nascimento</span>
 					<br>
 					<section class="section-form">
-						<input type="date" name="age" class="form-input-comum w-90 form-select" placeholder="">
+                        {{=form.custom.widget.born_on}}
 					</section>
 					<span class="font-lato h2 f-left">Estado</span>
 					<br>
@@ -91,13 +98,11 @@
 					<span class="font-lato h2 f-left">Nome do Perfil</span>
 					<br>
 					<section class="section-form">
-						<label class="select w-90 form-input-comum form-select">
-                            {{=form.custom.widget.last_name}}
-							<!--<select name="Nome_Perfil" class="input-select w-full">
-								<option value="1">Fulano de Tal</option>
-								<option value="2">Ciclano</option>
-							</select>-->
-						</label>
+                        {{=form.custom.widget.last_name}}
+					    <!--<select name="Nome_Perfil" class="input-select w-full">
+					    	<option value="1">Fulano de Tal</option>
+					    	<option value="2">Ciclano</option>
+					    </select>-->
 					</section>
 				</div>
 				<div class="span_6 col f-left">

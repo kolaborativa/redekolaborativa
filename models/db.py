@@ -75,7 +75,7 @@ auth.messages.register_button = T("Kollaborate!")
 
 # auth user extra fields
 auth.settings.extra_fields["auth_user"] = [
-    Field("age", "integer", label='%s (%s)' %(T("Age"),T("optional")) ),
+    Field("born_on", "date", label='%s (%s)' %(T("Date of birth"),T("optional")) ),
     Field("localization", label='Localization (district/city/state/country)'),
     Field("bio", "text"),
     Field("avatar", "upload"),

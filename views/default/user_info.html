@@ -83,7 +83,7 @@
     <h3>{{=T("Personal Info")}}</h3>
     <ul>
         <li><b>{{=T("Name")}}:</b> {{=user.first_name}}{{=' '}}{{=user.last_name or ''}}</li>
-        <li><b>{{=T("Age")}}:</b> {{=user.age or ''}}</li>
+        {{ if user.born_on: }}<li><b>{{=T("Date of birth")}}:</b> {{=user.born_on}}</li> {{ pass }}
         <li><b>{{=T("Localization")}}:</b> {{=user.localization or ''}}</li>
         <li><b>{{=T("E-mail")}}:</b> {{=g_return_if_empty(user.email)}}</li>
     </ul>
