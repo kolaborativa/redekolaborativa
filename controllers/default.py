@@ -169,6 +169,35 @@ def ajax_add_profission():
     except:
         return False
 
+
+@auth.requires_login()
+def ajax_add_competence():
+    try:
+        profession_id = request.vars.profession
+        competence_id = request.vars.competence
+        user_id = auth.user.id
+
+        row = db( (db.professional_relationship.user_id == user_id) & \
+                (db.professional_relationship.profession_id == profession_id) & \
+                (db.professional_relationship.competence_id == None) \
+            ).select().first()
+
+        if row:
+            #update
+            db.professional_relationship[row.id] = {'competence_id': competence_id}
+        else:
+            #insert
+            db.professional_relationship.insert(
+                profession_id = profession_id,
+                competence_id = competence_id,
+                user_id = user_id,
+                )
+
+        return True
+    except:
+        return False
+
+
 def user():
     """
     exposes:
