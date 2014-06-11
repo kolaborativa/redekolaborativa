@@ -73,19 +73,10 @@ function mudando_fase_perfil(fase){
 // data-edit-user
 function editarUsuario(usuario){
 	
-	console.log(usuario);
+	
 	var campos =document.querySelectorAll("[data-field]");
 	for (var i = 0; i < campos.length ; i++) {
 		var field = campos[i].getAttribute("data-field");
-		console.log(campos[i]);
-		console.log(field);
-		// if(field == usuario){
-		// 	console.log(campos[i].getElementsByTagName);
-		// 	campos[i].removeChild(campos[i]);
-		// 	campos[i].appendChild(inputEditarUser());
-		// 	console.log(field +" --" + i);
-		// 	console.log("achou");
-		// }
 	};
 
 }
@@ -100,8 +91,7 @@ function inputEditarUser(){
 
 
 // Códigos da parte de Editar Perfil 
-
-	function DOMEditarPerfil(){
+function DOMEditarPerfil(){
 		mudando_fase_perfil("1");
 
 			var btnPerfil = querySelectAll("data-irParaFase");
@@ -149,9 +139,10 @@ function inputEditarUser(){
 			if(inputs[i].name == "network"){
 				document.getElementById("network").addEventListener("click",function(){
 					gravaAjaxEditProfile(this);
-
 				})
-			}else{
+			}
+			else
+			{
 				inputs[i].addEventListener("change",function(){
 					gravaAjaxEditProfile(this)
 				})
@@ -180,110 +171,117 @@ function inputEditarUser(){
 		$("#profissoes").on("click",function(){
 			gravaAjaxEditProfile(this);
 		});
+}
+
+
+function criarCompentecias(profissao,competencias){
+
+	var select = document.createElement('select');
+	select.setAttribute('data-placeholder','adicione competencias');
+	select.name="competence";
+	select.setAttribute('data-select',profissao)
+	select.setAttribute('class','w-full competencias');
+	select.setAttribute('multiple','')
+
+// Cria um for de opções
+for( i in competencias ){ 
+	var opcao = document.createElement('option');
+	opcao.innerHTML = competencias[i];
+	opcao.value = i;
+	select.appendChild(opcao);	
+}
+
+var linha = document.createElement('li')
+linha.setAttribute('class','profissao t-left');
+
+var span = document.createElement('span');
+span.setAttribute('class','h1');
+span.innerHTML = profissao;
+
+var deletar = document.createElement('img');
+deletar.setAttribute('class','delete_profissao f-right');
+deletar.src="{{=URL('static','images/Edit_perfil/delete.png')}}"
+
+
+var listasProfissoes = document.querySelector('.list-profissao')
+
+span.appendChild(deletar);
+linha.appendChild(span);
+linha.appendChild(select);
+listasProfissoes.appendChild(linha);
+
+// Eventos ================
+
+
+$("[data-select="+profissao+"]").select2({ 
+	maximumSelectionSize: 5
+});
+
+$("[data-select="+profissao+"]").on("click",function(){
+
+	if(this.value == "4"){
+		var teste = prompt("Digite uma sugestão de Competencia");
+		console.log(teste);
 	}
-	
+	else{
+		console.log(this.value);
+	}
+});
 
-	function criarCompentecias(profissao,competencias){
+$(".delete_profissao").on("click",function(){
+	console.log("delete isso");
+});
 
-		var select = document.createElement('select');
-		select.setAttribute('data-placeholder','adicione competencias');
-		select.name="competence";
-		select.setAttribute('data-select',profissao)
-		select.setAttribute('class','w-full competencias');
-		select.setAttribute('multiple','')
+};
 
-		// Cria um for de opções
-		for( i in competencias ){ 
-			var opcao = document.createElement('option');
-			opcao.innerHTML = competencias[i];
-			opcao.value = i;
-			select.appendChild(opcao);	
-		}
+function gravaAjaxEditProfile(e){
 
-		var linha = document.createElement('li')
-		linha.setAttribute('class','profissao t-left');
+	var field;
+	var value;
+	var vars;
 
-		var span = document.createElement('span');
-		span.setAttribute('class','h1');
-		span.innerHTML = profissao;
+	if(e.name == "profession"){
 
-		var deletar = document.createElement('img');
-		deletar.setAttribute('class','delete_profissao f-right');
-		deletar.src="{{=URL('static','images/Edit_perfil/delete.png')}}"
+		field = e.name;
+		value = e.value;
+		vars = "field="+field+"&value="+value;
 
+		var profession = e.selectedOptions[0].innerHTML;
+		$("#profissoes").select2("val", "")
+		caminho = url.ajax_add_profission+".json";
 
-		var listasProfissoes = document.querySelector('.list-profissao')
+	}else if(e.name == "network"){
 
-		span.appendChild(deletar);
-		linha.appendChild(span);
-		linha.appendChild(select);
-		listasProfissoes.appendChild(linha);
-
-		// Eventos ================
-
-
-		$("[data-select="+profissao+"]").select2({ 
-			maximumSelectionSize: 5
-		});
-
-		$("[data-select="+profissao+"]").on("click",function(){
-
-			if(this.value == "4"){
-				var teste = prompt("Digite uma sugestão de Competencia");
-				console.log(teste);
-			}
-			else{
-				console.log(this.value);
-			}
-		});
-
-		$(".delete_profissao").on("click",function(){
-			console.log("delete isso");
-		});
-
-	};
-
-	function gravaAjaxEditProfile(e){
-
-		var field;
-		var value;
-		var vars;
-
-		if(e.name == "profession"){
-
+		var rede = document.getElementsByName('network_type')[0].value;
+		var perfil = document.getElementsByName('network')[0].value;
+		vars = "";
+		caminho = "";
+	}
+	else if(e.name == "user_available"){
+		
 			field = e.name;
-			value = e.value;
-			vars = "field="+field+"&value="+value;
-
-			var profession = e.selectedOptions[0].innerHTML;
-			$("#profissoes").select2("val", "")
-			caminho = url.ajax_add_profission+".json";
-
-		}else if(e.name == "network"){
-				
-				var rede = document.getElementsByName('network_type')[0].value;
-				var perfil = document.getElementsByName('network')[0].value;
-				vars = "";
-				caminho = "";
-		}
-		else{
-			field = e.name;
-			value = e.value;
+			value = e.checked == true ? value = true : value=false;;
 			vars = "field="+field+"&value="+value;
 			caminho = url.edit_profile;
-		}
-
-		$.ajax({
-			type: 'POST',
-			url: caminho,
-			data: vars,
-			success: function(data) {
-				if(e.name == "profession"){
-					criarCompentecias(profession,data.competencies);
-				}
-			},
-			error: function(data){
-				console.log(data);
-			}
-		});
 	}
+	else{
+		field = e.name;
+		value = e.value;
+		vars = "field="+field+"&value="+value;
+		caminho = url.edit_profile;
+	}
+
+	$.ajax({
+		type: 'POST',
+		url: caminho,
+		data: vars,
+		success: function(data) {
+			if(e.name == "profession"){
+				criarCompentecias(profession,data.competencies);
+			}
+		},
+		error: function(data){
+			console.log(data);
+		}
+	});
+}
