@@ -49,7 +49,7 @@
         {{form.custom.widget.email['_class'] = "form-input-comum w-full"}}
         
         {{#form.custom.widget.born_on['_type'] = "date"}}
-        {{#form.custom.widget.born_on['_class'] = "form-input-comum w-90 form-select"}}
+        {{form.custom.widget.born_on['_class'] = "form-input-comum w-90 form-select"}}
 
         {{form.custom.widget.last_name['_placeholder'] = "Nome do Perfil"}}
         {{form.custom.widget.last_name['_class'] = "form-input-comum w-90"}}
@@ -201,9 +201,10 @@
 				<div class="t-center f-center w-70">
 					<span class="font-lato h2 f-left">Profissões?</span>
 					<section class="section-form f-left w-full">
-<select class="w-full form-input-comum" name="profession" id="profissoes"  multiple data-placeholder="Selecione uma profissão">
-						<option value="1">Designer</option>
-						<option value="2">Desenvolvedor</option>
+                    <select class="w-full form-input-comum" name="profession" id="profissoes"  multiple data-placeholder="Selecione uma profissão">
+                        {{ for profession in list_professions:}}
+						    <option value="{{=profession.id}}">{{=profession.name}}</option>
+                        {{ pass }}
 					</select>
 					<div>
 						<ul class="list-profissao"></ul>

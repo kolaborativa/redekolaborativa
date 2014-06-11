@@ -42,8 +42,13 @@ def principal():
 
 def edit_perfil():
     form=auth.profile()
-    professions = db(db.profession.user_id == auth.user.id).select()
+
+    ## mandar somente os textos
+    professions = db(db.professional_relationship.user_id == auth.user.id).select()
+    ##
+
     networking = db(db.network_type.user_id == auth.user.id).select()
+    list_professions = db(db.profession).select()
 
     form_networking = SQLFORM.factory(
         db.network_type,
@@ -118,10 +123,16 @@ def edit_perfil():
         response.flash = 'form has errors'
 
 
-    return dict(
-            form=form,form_profession=form_profession,form_competencies=form_competencies,form_networking=form_networking,
-            professions=professions,competencies=competencies,networking=networking)
-
+    return dict(form=form,
+                form_profession=form_profession,
+                form_competencies=form_competencies,
+                form_networking=form_networking,
+                professions=professions,
+                competencies=competencies,
+                networking=networking,
+                list_professions=list_professions,
+                )
+@auth.requires_login()
 def ajax_edit_profile():
     try:
         field_db =  request.vars.field
@@ -137,15 +148,26 @@ def ajax_edit_profile():
 
     return True
 
+@auth.requires_login()
 def ajax_add_profission():
-    print "profissoes"
-    print request.vars
-    print "profissoes"
-    
-    return True
+    try:
+        profession_id = request.vars.value
+        # Record profession in the database 
+        dic_insert = {
+            'profession_id': profession_id,
+            'user_id': auth.user.id,
+            }
+        db.professional_relationship[0] = dic_insert
 
+        #Taking competencies related to profession inserted 
+        competencies = db(db.competence.profession_id==profession_id).select()
+        dic_competencies = {}
+        for c in competencies:
+            dic_competencies[str(c.id)] = c.competence
 
-    return dict(competencies={'1':'CSS','2':'Python','3':'JS','4':'Outros'})
+        return dict(competencies=dic_competencies)
+    except:
+        return False
 
 def user():
     """
@@ -319,7 +341,7 @@ def user_info():
 
     if user != message:
         networking = db(db.network_type.user_id == user.id).select()
-        professions = db(db.profession.user_id == user.id).select()
+        professions = db(db.professional_relationship.user_id == auth.user.id).select()
         competencies = []
         if professions:
             for i in professions:
