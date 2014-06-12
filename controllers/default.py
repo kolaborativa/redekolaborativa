@@ -347,8 +347,9 @@ def create_project():
         # juntar o MYJSON(funcionarios a serem adicionados) com o json dos colaboradores já existentes.
         #fazendo o update.
         db(db.projects.id  == project_id).update(team=myjson)
+        project_created = db.projects[project_id]
 
-        redirect(URL('projects', args=form.vars.project_slug))
+        redirect(URL('projects', args=project_created.project_slug))
 
     elif form.errors:
         response.flash = T('Form has errors!')
