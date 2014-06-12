@@ -373,7 +373,11 @@ def delete_network():
 
 def user_info():
     message = T("User doesn't exist.")
-    seach_user = request.args(0) or auth.user.username
+    if auth.is_logged_in():
+        seach_user = auth.user.username
+    else:
+        seach_user = request.args(0) or redirect(URL('index'))
+
     user = db.auth_user(username=seach_user) or message
 
     if user != message:
