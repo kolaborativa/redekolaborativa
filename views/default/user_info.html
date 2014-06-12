@@ -91,22 +91,22 @@
 <!-- Informações profissionais -->
 <section class="f-left span_4 col">
    <h3>{{=T("Professional Info")}}</h3>
-   {{if professions:}}
-   {{for p in professions:}}
-   <ul>
-    <li><b>{{=T("Profession")}}:</b> {{=p.profession}}
-        <ul>
-            {{if len(competencies) >= 1:}}
-            {{list_competencies=[i.competence for c in competencies for i in c if i.profession_id ==  p.id]}}
-            <li><b>{{=T("Competencies")}}:</b> {{=', '.join(list_competencies)}}</li>
-            {{pass}}
+   {{if professional_data:}}
+       {{for p in professional_data:}}
+       <ul>
+        <li><b>{{=T("Profession")}}:</b> {{=p}}
+            <ul>
+                <b>{{=T("Competencies")}}:</b>
+                {{ for c in professional_data[p]: }}
+                    <li>{{=c}}</li>
+                {{ pass }}
+            </ul>
+        </li>
         </ul>
-    </li>
-    </ul>
 
-    {{pass}}
+        {{pass}}
     {{else:}}
-    {{=T("None")}}<br />
+        {{=T("None")}}<br />
     {{pass}}
 </section>
 <!-- Meus projetos -->

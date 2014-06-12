@@ -350,7 +350,7 @@ def delete_network():
         redirect(URL("user",args=["profile"]))
     else:
         redirect(URL("user",args=["profile"]))
-    
+
 def user_info():
     message = T("User doesn't exist.")
     seach_user = request.args(0) or auth.user.username
@@ -358,13 +358,14 @@ def user_info():
 
     if user != message:
         networking = db(db.network_type.user_id == user.id).select()
-        professions = db(db.professional_relationship.user_id == auth.user.id).select()
-        competencies = []
-        if professions:
-            for i in professions:
-                this_competence = db(db.competence.profession_id == i.id).select()
-                if this_competence:
-                    competencies.append(this_competence)
+        professional_relation = db(db.professional_relationship.user_id == auth.user.id).select()
+        if professional_relation:
+            professional_data = {}
+            for i in professional_relation:
+                if i.profession_id.name in professional_data:
+                    professional_data[i.profession_id.name].append(i.competence_id.competence)
+                else:
+                    professional_data[i.profession_id.name] = [i.competence_id.competence]
 
         last_project = db(db.projects.project_owner == user).select(orderby='created_on').last()
         my_projects = db(db.projects.project_owner == user).select(orderby='created_on', limitby=(0,5))
@@ -375,7 +376,7 @@ def user_info():
                 if i.team.count(str(user.id)):
                     colaborate_projects[n] = i
         return dict(
-                user=user, message=message, professions=professions, competencies=competencies, networking=networking,
+                user=user, message=message, professional_data=professional_data, networking=networking,
                 last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
 
     else:
