@@ -148,6 +148,9 @@ def ajax_edit_profile():
 
         db.auth_user[auth.user.id] = dic_update
 
+        if field_db == 'username':
+            auth.logout()
+
         print 'campo do banco:',field_db
         print 'novo valor:',new_value
         return True
