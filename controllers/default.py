@@ -275,7 +275,7 @@ def projects():
         new_colaborator = ''
         if auth.user and auth.user.id == project.project_owner:
             new_colaborator = SQLFORM.factory(db.projects.team)
-            
+
             if new_colaborator.process().accepted:
                 project = db(db.projects.id == session.project_id).select().first()
                 team = json.loads(project.team)
@@ -347,8 +347,9 @@ def create_project():
         # juntar o MYJSON(funcionarios a serem adicionados) com o json dos colaboradores já existentes.
         #fazendo o update.
         db(db.projects.id  == project_id).update(team=myjson)
+        project_created = db.projects[project_id]
 
-        redirect(URL('projects', args=form.vars.project_slug))
+        redirect(URL('projects', args=project_created.project_slug))
 
     elif form.errors:
         response.flash = T('Form has errors!')
