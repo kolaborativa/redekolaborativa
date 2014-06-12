@@ -42,9 +42,10 @@ def principal():
 
 def edit_perfil():
     form=auth.profile()
-    #professional_data = db(db.professional_relationship.user_id == auth.user.id).select()
     networking = db(db.network_type.user_id == auth.user.id).select()
-    list_professions = db(db.profession).select() # soh listar os que ainda nao tem
+    my_professions_id = [i.profession_id for i in db(db.professional_relationship).select()]
+    list_professions = [i for i in db(db.profession).select() if not i.id in my_professions_id ]
+
     professional_relation = db(db.professional_relationship.user_id == auth.user.id).select()
     professional_data = {}
     if professional_relation:
