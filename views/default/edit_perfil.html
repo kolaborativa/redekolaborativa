@@ -208,16 +208,20 @@
 					</select>
 					<div>
                         <ul class="list-profissao">
-                            {{ for i in professional_data: }}
-                                <li class="profissao t-left">
-                                    <span class="h1">{{=i.profession_id.name}}
-                                    <img class="delete_profissao f-right" src="{{=URL('static', 'images/Edit_perfil/delete.png')}}" ></span>
-                                    {{ if i.competence_id: }}
-                                        <select data-placeholder="adicione competencias" name="competence" data-select="{{=i.profession_id.name}}" class="w-full competencias" multiple>
-                                            <option value="{{=i.competence_id}}">{{=i.competence_id.competence}}</option>
+                            {{ if professional_data: }}
+                                {{ for profession in professional_data: }}
+                                    <li class="profissao t-left">
+                                        <span class="h1">{{=profession}}
+                                        <img class="delete_profissao f-right" src="{{=URL('static', 'images/Edit_perfil/delete.png')}}" ></span>
+                                        <select data-placeholder="adicione competencias" name="competence" data-select="{{=profession}}" class="w-full competencias" multiple>
+                                            {{ for i in professional_data[profession]: }}
+                                                {{ for j in i: }}
+                                                    <option value="{{=j}}">{{=i[j]}}</option>
+                                                {{ pass }}
+                                            {{ pass }}
                                         </select>
-                                    {{ pass }}
-                                </li>
+                                    </li>
+                                {{ pass }}
                             {{ pass }}
                         </ul>
 					</div>
