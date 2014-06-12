@@ -150,10 +150,11 @@ def ajax_edit_profile():
 
         print 'campo do banco:',field_db
         print 'novo valor:',new_value
-    except:
-        pass
+        return True
 
-    return True
+    except:
+        return False
+
 
 @auth.requires_login()
 def ajax_add_profission():
