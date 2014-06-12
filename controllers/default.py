@@ -377,13 +377,19 @@ def user_info():
     if user != message:
         networking = db(db.network_type.user_id == user.id).select()
         professional_relation = db(db.professional_relationship.user_id == auth.user.id).select()
+        professional_data = {}
         if professional_relation:
-            professional_data = {}
             for i in professional_relation:
                 if i.profession_id.name in professional_data:
-                    professional_data[i.profession_id.name].append(i.competence_id.competence)
+                    try:
+                        professional_data[i.profession_id.name].append(i.competence_id.competence)
+                    except:
+                        professional_data[i.profession_id.name].append({})
                 else:
-                    professional_data[i.profession_id.name] = [i.competence_id.competence]
+                    try:
+                        professional_data[i.profession_id.name] = [i.competence_id.competence]
+                    except:
+                        professional_data[i.profession_id.name] = {}
 
         last_project = db(db.projects.project_owner == user).select(orderby='created_on').last()
         my_projects = db(db.projects.project_owner == user).select(orderby='created_on', limitby=(0,5))

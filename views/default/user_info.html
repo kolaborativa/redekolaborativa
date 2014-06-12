@@ -95,12 +95,14 @@
        {{for p in professional_data:}}
        <ul>
         <li><b>{{=T("Profession")}}:</b> {{=p}}
-            <ul>
-                <b>{{=T("Competencies")}}:</b>
-                {{ for c in professional_data[p]: }}
-                    <li>{{=c}}</li>
-                {{ pass }}
-            </ul>
+            {{ if professional_data[p]: }}
+                <ul>
+                    <b>{{=T("Competencies")}}:</b>
+                    {{ for c in professional_data[p]: }}
+                        <li>{{=c}}</li>
+                    {{ pass }}
+                </ul>
+            {{ pass }}
         </li>
         </ul>
 
