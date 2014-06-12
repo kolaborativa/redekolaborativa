@@ -382,7 +382,7 @@ def user_info():
 
     if user != message:
         networking = db(db.network_type.user_id == user.id).select()
-        professional_relation = db(db.professional_relationship.user_id == auth.user.id).select()
+        professional_relation = db(db.professional_relationship.user_id == user.id).select()
         professional_data = {}
         if professional_relation:
             for i in professional_relation:
