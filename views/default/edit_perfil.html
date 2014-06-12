@@ -207,7 +207,19 @@
                         {{ pass }}
 					</select>
 					<div>
-						<ul class="list-profissao"></ul>
+                        <ul class="list-profissao">
+                            {{ for i in professional_data: }}
+                                <li class="profissao t-left">
+                                    <span class="h1">{{=i.profession_id.name}}
+                                    <img class="delete_profissao f-right" src="{{=URL('static', 'images/Edit_perfil/delete.png')}}" ></span>
+                                    {{ if i.competence_id: }}
+                                        <select data-placeholder="adicione competencias" name="competence" data-select="{{=i.profession_id.name}}" class="w-full competencias" multiple>
+                                            <option value="{{=i.competence_id}}">{{=i.competence_id.competence}}</option>
+                                        </select>
+                                    {{ pass }}
+                                </li>
+                            {{ pass }}
+                        </ul>
 					</div>
 				</section>
 			</div>
@@ -281,10 +293,6 @@ o icone de editar vira um icone de confirmar (enter tambem submete)
 <hr>
 
 {{=form}}
-<hr>
-{{=professions}}
-<hr>
-{{=competencies}}
 <hr>
 {{=networking}}
 <hr>

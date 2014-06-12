@@ -42,26 +42,15 @@ def principal():
 
 def edit_perfil():
     form=auth.profile()
-
-    ## mandar somente os textos
-    professions = db(db.professional_relationship.user_id == auth.user.id).select()
-    ##
-
+    professional_data = db(db.professional_relationship.user_id == auth.user.id).select()
     networking = db(db.network_type.user_id == auth.user.id).select()
-    list_professions = db(db.profession).select()
+    list_professions = db(db.profession).select() # soh listar os que ainda nao tem
 
     form_networking = SQLFORM.factory(
         db.network_type,
         fields = ['network', 'network_type'],
         submit_button=T('add')
         )
-
-    competencies = []
-    if professions:
-        for i in professions:
-            this_competence = db(db.competence.profession_id == i.id).select()
-            if this_competence:
-                competencies.append(this_competence)
 
     form_profession = SQLFORM.factory(
         db.profession,
@@ -127,10 +116,9 @@ def edit_perfil():
                 form_profession=form_profession,
                 form_competencies=form_competencies,
                 form_networking=form_networking,
-                professions=professions,
-                competencies=competencies,
                 networking=networking,
                 list_professions=list_professions,
+                professional_data=professional_data,
                 )
 @auth.requires_login()
 def ajax_edit_profile():
