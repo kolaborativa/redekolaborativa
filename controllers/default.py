@@ -212,6 +212,7 @@ def ajax_add_competence():
 def getCompetence():
 
     print request.vars.competence
+    print type(request.vars.competence)
 
     return True
 

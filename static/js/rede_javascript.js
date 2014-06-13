@@ -141,6 +141,11 @@ function DOMEditarPerfil(){
 					gravaAjaxEditProfile(this);
 				})
 			}
+			else if(inputs[i].name="avatar"){
+				document.getElementById("auth_user_avatar").addEventListener("change",function(){
+					
+				})	
+			}
 			else
 			{
 				inputs[i].addEventListener("change",function(){
@@ -219,7 +224,7 @@ function adicionandoProfissao(idProfissao, profissao,competencias){
 
 	var deletar = document.createElement('img');
 	deletar.setAttribute('class','delete_profissao f-right');
-	deletar.src="{{=URL('static','images/Edit_perfil/delete.png')}}"
+	deletar.src= image.delete;
 
 
 	var listasProfissoes = document.querySelector('.list-profissao')
@@ -281,15 +286,18 @@ function gravaAjaxEditProfile(e){
 	else if(e.name == "competence"){
 		
 		var idProfession = e.getAttribute("data-idProfissao");
-
 		var vetCompetence = new Array();
+		vetCompetence.length = 0;
+		console.log(vetCompetence);
 		for (var i = 0; i < e.options.length; i++) {
 			if(e.options[i].selected)
 			{
 			 	vetCompetence[i] = e.options.item(i).value;
+			 	console.log(vetCompetence);
+
 			}
 		};
-
+		vetCompetence = "["+vetCompetence+"]";
 		vars = "profession="+idProfession+"&competence="+vetCompetence;
 		// caminho = url.ajax_add_competence;
 		caminho = url.getCompetence;
