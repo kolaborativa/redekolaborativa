@@ -11,6 +11,7 @@ jQuery.event.props.push('dataTransfer');
       bod: $("body"),
       img: $("#profile-avatar"),
       fileInput: $("#uploader")
+      
     },
 
     init: function() {
@@ -109,6 +110,8 @@ jQuery.event.props.push('dataTransfer');
 
     placeImage: function(data) {
       s.img.attr("src", data);
+      document.getElementById("hidden-avatar").value = data; // coloca o base64 da imagem em um input hidden
+      
     }
 
   }

@@ -141,15 +141,18 @@ function DOMEditarPerfil(){
 					gravaAjaxEditProfile(this);
 				})
 			}
-			else if(inputs[i].name="avatar"){
-				document.getElementById("auth_user_avatar").addEventListener("change",function(){
-					
-				})	
+			else if(inputs[i].name == "avatar"){				
+				// Problema do upload é que o evento esta gravando antes de mudar, não to conseguindo fazer ele gravar depois 
+				// ver como resolver isso ! 
+				inputs[i].addEventListener("change",function(){					
+					gravaAjaxEditProfile(this); // joga o input do avatar 
+				});
+				
 			}
 			else
 			{
 				inputs[i].addEventListener("change",function(){
-					gravaAjaxEditProfile(this)
+					gravaAjaxEditProfile(this);
 				})
 			}
 		};
@@ -178,19 +181,9 @@ function DOMEditarPerfil(){
 		});
 
 		// Identifica os data-select e busca no banco as competencias que já existem
-		var profissao = "Dev";
+		
 		$("select[data-select]").select2({ 
-			maximumSelectionSize: 5,
-			// ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
-			 //        url: url.getCompetence,
-			 //        data: profissao,
-			 //        results: function (data) { 
-			 //        	// parse the results into the format expected by Select2.
-			 //            // since we are using custom formatting functions we do not need to alter remote JSON data
-			 //            console.log(data);
-			 //            // return {results: data.movies};
-			 //        }
-			 //    }
+			maximumSelectionSize: 5
 		});
 		
 }
@@ -271,10 +264,10 @@ function gravaAjaxEditProfile(e){
 
 	}else if(e.name == "network"){
 
-		var rede = document.getElementsByName('network_type')[0].value;
-		var perfil = document.getElementsByName('network')[0].value;
-		vars = "";
-		caminho = "";
+			var rede = document.getElementsByName('network_type')[0].value;
+			var perfil = document.getElementsByName('network')[0].value;
+			vars = "";
+			caminho = "";
 	}
 	else if(e.name == "user_available"){
 		
@@ -299,8 +292,15 @@ function gravaAjaxEditProfile(e){
 		};
 		vetCompetence = "["+vetCompetence+"]";
 		vars = "profession="+idProfession+"&competence="+vetCompetence;
-		// caminho = url.ajax_add_competence;
-		caminho = url.getCompetence;
+		caminho = url.ajax_add_competence;
+		// caminho = url.getCompetence;
+	}
+	else if(e.name == "avatar"){
+
+		field = e.name;		
+		value = document.getElementById("hidden-avatar").value;
+		vars = "field="+field+"&value="+value+"";
+		caminho = url.edit_profile;
 	}
 	else{
 		field = e.name;
@@ -323,3 +323,4 @@ function gravaAjaxEditProfile(e){
 		}
 	});
 }
+
