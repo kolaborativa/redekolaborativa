@@ -171,68 +171,82 @@ function DOMEditarPerfil(){
 		$("#profissoes").on("click",function(){
 			gravaAjaxEditProfile(this);
 		});
+
+		// Identifica os data-select e busca no banco as competencias que já existem
+		var profissao = "Dev";
+		$("select[data-select]").select2({ 
+			maximumSelectionSize: 5,
+			// ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+			 //        url: url.getCompetence,
+			 //        data: profissao,
+			 //        results: function (data) { 
+			 //        	// parse the results into the format expected by Select2.
+			 //            // since we are using custom formatting functions we do not need to alter remote JSON data
+			 //            console.log(data);
+			 //            // return {results: data.movies};
+			 //        }
+			 //    }
+		});
+		
 }
 
 
-function criarCompentecias(profissao,competencias){
-
+function adicionandoProfissao(idProfissao, profissao,competencias){
+	console.log(idProfissao);
 	var select = document.createElement('select');
 	select.setAttribute('data-placeholder','adicione competencias');
 	select.name="competence";
 	select.setAttribute('data-select',profissao)
+	select.setAttribute('data-idProfissao',idProfissao);
 	select.setAttribute('class','w-full competencias');
 	select.setAttribute('multiple','')
 
-// Cria um for de opções
-for( i in competencias ){ 
-	var opcao = document.createElement('option');
-	opcao.innerHTML = competencias[i];
-	opcao.value = i;
-	select.appendChild(opcao);	
-}
-
-var linha = document.createElement('li')
-linha.setAttribute('class','profissao t-left');
-
-var span = document.createElement('span');
-span.setAttribute('class','h1');
-span.innerHTML = profissao;
-
-var deletar = document.createElement('img');
-deletar.setAttribute('class','delete_profissao f-right');
-deletar.src="{{=URL('static','images/Edit_perfil/delete.png')}}"
-
-
-var listasProfissoes = document.querySelector('.list-profissao')
-
-span.appendChild(deletar);
-linha.appendChild(span);
-linha.appendChild(select);
-listasProfissoes.appendChild(linha);
-
-// Eventos ================
-
-
-$("[data-select="+profissao+"]").select2({ 
-	maximumSelectionSize: 5
-});
-
-$("[data-select="+profissao+"]").on("click",function(){
-
-	if(this.value == "4"){
-		var teste = prompt("Digite uma sugestão de Competencia");
-		console.log(teste);
+	// Cria um for de opções
+	for( i in competencias ){ 
+		var opcao = document.createElement('option');
+		opcao.innerHTML = competencias[i];
+		opcao.value = i;
+		select.appendChild(opcao);	
 	}
-	else{
-		console.log(this.value);
-	}
-});
 
-$(".delete_profissao").on("click",function(){
-	console.log("delete isso");
-});
+	var linha = document.createElement('li')
+	linha.setAttribute('class','profissao t-left');
+
+	var span = document.createElement('span');
+	span.setAttribute('class','h1');
+	
+	span.innerHTML = profissao;
+
+	var deletar = document.createElement('img');
+	deletar.setAttribute('class','delete_profissao f-right');
+	deletar.src="{{=URL('static','images/Edit_perfil/delete.png')}}"
+
+
+	var listasProfissoes = document.querySelector('.list-profissao')
+
+	span.appendChild(deletar);
+	linha.appendChild(span);
+	linha.appendChild(select);
+	listasProfissoes.appendChild(linha);
+
+	// Eventos ================
+
+
+	$("[data-select="+profissao+"]").select2({ 
+		maximumSelectionSize: 5
+	});
+
+
+	$("[data-select="+profissao+"]").on("change",function(){
+		gravaAjaxEditProfile(this);
+	});
+
+	$(".delete_profissao").on("click",function(){
+		console.log("delete isso");
+	});
 
 };
+
 
 function gravaAjaxEditProfile(e){
 
@@ -264,6 +278,22 @@ function gravaAjaxEditProfile(e){
 			vars = "field="+field+"&value="+value;
 			caminho = url.edit_profile;
 	}
+	else if(e.name == "competence"){
+		
+		var idProfession = e.getAttribute("data-idProfissao");
+
+		var vetCompetence = new Array();
+		for (var i = 0; i < e.options.length; i++) {
+			if(e.options[i].selected)
+			{
+			 	vetCompetence[i] = e.options.item(i).value;
+			}
+		};
+
+		vars = "profession="+idProfession+"&competence="+vetCompetence;
+		// caminho = url.ajax_add_competence;
+		caminho = url.getCompetence;
+	}
 	else{
 		field = e.name;
 		value = e.value;
@@ -277,7 +307,7 @@ function gravaAjaxEditProfile(e){
 		data: vars,
 		success: function(data) {
 			if(e.name == "profession"){
-				criarCompentecias(profession,data.competencies);
+				adicionandoProfissao(value, profession, data.competencies);
 			}
 		},
 		error: function(data){

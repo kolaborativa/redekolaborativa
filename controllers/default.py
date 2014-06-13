@@ -209,6 +209,12 @@ def ajax_add_competence():
         return False
 
 
+def getCompetence():
+
+    print request.vars.competence
+
+    return True
+
 def user():
     """
     exposes:

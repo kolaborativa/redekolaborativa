@@ -210,7 +210,7 @@
                                     <li class="profissao t-left">
                                         <span class="h1">{{=profession}}
                                         <img class="delete_profissao f-right" src="{{=URL('static', 'images/Edit_perfil/delete.png')}}" ></span>
-                                        <select data-placeholder="adicione competencias" name="competence" data-select="{{=profession}}" class="w-full competencias" multiple>
+                                        <select data-placeholder="adicione competencias" name="competence" data-select="{{=profession}}" class="w-full competencias" multiple >
                                             {{ for i in professional_data[profession]: }}
                                                 {{ for j in i: }}
                                                     <option value="{{=j}}">{{=i[j]}}</option>
@@ -221,6 +221,19 @@
                                 {{ pass }}
                             {{ pass }}
                         </ul>
+
+	<ul class="list-profissao">
+		<li class="profissao t-left"><span class="h1"> Ninja
+			<img src="" alt="" class="delete_profissao f-right">
+		</span>
+		<select data-placeholder="adicione competencias" name="competence" data-select="Ninja" class="w-full competencias" multiple
+		data-idProfissao="2">
+			<option value="1" selected>Testes</option>
+			<option value="2" selected>Redondo</option>
+		</select>
+		</li>
+	</ul>
+	
 					</div>
 				</section>
 			</div>
