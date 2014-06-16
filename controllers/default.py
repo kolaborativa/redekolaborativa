@@ -146,10 +146,25 @@ def ajax_edit_profile():
         new_value =  request.vars.value
         dic_update = {field_db:new_value}
 
-        db.auth_user[auth.user.id] = dic_update
+        if field_db == 'availability':
+            dados = db(db.auth_user.id==auth.user.id).select().first()
+            value = dados.availability
+            if new_value in value:
+                value.remove(new_value)
+            else:
+                value.append(new_value)
+            db.auth_user[auth.user.id] = {field_db: value}
 
-        if field_db == 'username':
-            auth.logout()
+        else:
+            db.auth_user[auth.user.id] = dic_update
+
+            if field_db == 'username':
+                auth.logout()
+
+            elif field_db == 'user_available' and new_value == 'true':
+                dados = db(db.auth_user.id==auth.user.id).select().first()
+                if not dados.availability:
+                    db.auth_user[auth.user.id] = {'availability': 'Others'}
 
         print 'campo do banco:',field_db
         print 'novo valor:',new_value
