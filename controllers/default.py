@@ -228,7 +228,11 @@ def ajax_add_location():
 
     print request.vars
     if request.vars.field == "country":
-        return '{"1":"São Paulo"}'
+
+        return {"1":"São Paulo","2":"Rio de Janeiro"}
+
+    elif request.vars.field == "states":
+        return {"1":"Presidente Prudente","2":"Primavera"}
     else:
         return True
 
