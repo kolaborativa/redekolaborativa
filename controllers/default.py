@@ -199,19 +199,13 @@ def ajax_add_profission():
 @auth.requires_login()
 def ajax_add_competence():
     import json
-    #TODO: pegar a lista de competencies e associar a pessoa no banco de dados
-        #profession = 1
-        #competence = [1,2]
-
-    #TODO: varrer e ver se excluir os que nao tem no bagulho
-
     try:
         profession_id = request.vars.profession
         my_competencies_id = json.loads(request.vars.competence)
         list_competencies =[i.id for i in db(db.competence.profession_id==profession_id).select(db.competence.id)]
         user_id = auth.user.id
 
-        # insere as competencias novas
+        # inserts the new competencies
         for competence_id in my_competencies_id:
             row = db( (db.professional_relationship.user_id == user_id) & \
                     (db.professional_relationship.profession_id == profession_id) & \
@@ -234,19 +228,28 @@ def ajax_add_competence():
                         competence_id = competence_id,
                         user_id = user_id,
                     )
-        # exclui as competencias nao mais utilizadas
+        # excludes competencies unused 
+        for competence_id in list_competencies:
+            if not competence_id in my_competencies_id:
+                count = db(db.professional_relationship.user_id == user_id).count()
+                if count == 1:
+                    # updates if there is 1 record 
+                    db( (db.professional_relationship.user_id == user_id) & \
+                            (db.professional_relationship.profession_id == profession_id) & \
+                            (db.professional_relationship.competence_id == competence_id) \
+                        ).update(competence_id=None)
+
+                else:
+                    # delete if more than 1 record 
+                    db( (db.professional_relationship.user_id == user_id) & \
+                            (db.professional_relationship.profession_id == profession_id) & \
+                            (db.professional_relationship.competence_id == competence_id) \
+                        ).delete()
 
         return True
     except:
         return False
 
-
-#def getCompetence():
-#
-#    print request.vars.competence
-#    print type(request.vars.competence)
-#
-#    return True
 
 def user():
     """

@@ -285,7 +285,7 @@ function gravaAjaxEditProfile(e){
 		for (var i = 0; i < e.options.length; i++) {
 			if(e.options[i].selected)
 			{
-			 	vetCompetence[i] = e.options.item(i).value;
+			 	vetCompetence.push(e.options.item(i).value);
 			 	console.log(vetCompetence);
 
 			}
