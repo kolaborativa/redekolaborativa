@@ -94,13 +94,22 @@
 					<br>
 					<section class="section-form">
 						<label class="select w-90 form-input-comum form-select">
-							<select name="state" class="input-select w-full">
+							<select name="states" class="input-select w-full" disabled="">
 								<option value="1">Rio de Janeiro</option>
 								<option value="2">Rio de Janeiro</option>
 							</select>
 						</label>
 					</section>
+					<span class="font-lato h2 f-left">Disponibilidade</span>
 					<br>
+					<br>
+					<section class="section-form">
+						<div class="checkbox form-select">
+                            {{=form.custom.widget.user_available}}
+                            <!--<input name="user_available" type="checkbox" value="None" id="checkbox" name="check" checked />-->
+							<label for="checkbox" data-checkbox-label checked>Disponivel</label>
+						</div>
+					</section>
 				</div>
 				<div class="span_6 col f-left">
 					<span class="font-lato h2 f-left">País</span>
@@ -117,24 +126,15 @@
 					<br>
 					<section class="section-form">
 						<label class="select w-90 form-input-comum form-select">
-							<select name="city" class="input-select w-full">
+							<select name="city" class="input-select w-full" disabled="">
 								<option value="1">Rio de Janeiro</option>
 								<option value="2">Rio de Janeiro</option>
 							</select>
 						</label>
 					</section>
-					<span class="font-lato h2 f-left">Disponibilidade</span>
-					<br>
-					<br>
+					
 					<section class="section-form">
-						<div class="checkbox form-select">
-                            {{=form.custom.widget.user_available}}
-                            <!--<input name="user_available" type="checkbox" value="None" id="checkbox" name="check" checked />-->
-							<label for="checkbox" data-checkbox-label checked>On</label>
-						</div>
-					</section>
-					<section class="section-form">
-						<div class="">
+						<div class="" id="disponibilidades">
                             {{=form.custom.widget.availability}}
 						</div>
 					</section>

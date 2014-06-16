@@ -23,11 +23,11 @@ function main(){
 
 function mudaStatusCheckbox(checkbox){
 	status = checkbox.innerHTML;
-	if (status=="Off") {
-		checkbox.innerHTML = "On"
+	if (status=="Indisponivel") {
+		checkbox.innerHTML = "Disponivel"
 	}
 	else{
-		checkbox.innerHTML = "Off"
+		checkbox.innerHTML = "Indisponivel"
 	}
 }
 
@@ -118,73 +118,68 @@ function DOMEditarPerfil(){
 			};
 
 
-		var formulario = document.getElementById("formulario_edicao_perfil")
-		var inputs = formulario.getElementsByTagName("input");
-		var selects = formulario.getElementsByTagName("select");
-		var textareas = formulario.getElementsByTagName("textarea")[0];
+			var formulario = document.getElementById("formulario_edicao_perfil")
+			var inputs = formulario.getElementsByTagName("input");
+			var selects = formulario.getElementsByTagName("select");
+			var textareas = formulario.getElementsByTagName("textarea")[0];
 
-		textareas.addEventListener("keyup",function(){
-			document.querySelector("[data-caracteres]").innerHTML = (350 - this.value.length);
-			if(this.value.length >= 350){
-				this.value = this.value.substr(0,350);
-			}
-		})
-		textareas.addEventListener("change",function(){
-			gravaAjaxEditProfile(this)
-		})
+			textareas.addEventListener("keyup",function(){
+				document.querySelector("[data-caracteres]").innerHTML = (350 - this.value.length);
+				if(this.value.length >= 350){
+					this.value = this.value.substr(0,350);
+				}
+			})
+			textareas.addEventListener("change",function(){
+				gravaAjaxEditProfile(this)
+			})
 		
 
-		for (var i = 0; i < inputs.length; i++) {
+			for (var i = 0; i < inputs.length; i++) {
 
-			if(inputs[i].name == "network"){
-				document.getElementById("network").addEventListener("click",function(){
-					gravaAjaxEditProfile(this);
-				})
-			}
-			else if(inputs[i].name == "avatar"){				
-				// Problema do upload é que o evento esta gravando antes de mudar, não to conseguindo fazer ele gravar depois 
-				// ver como resolver isso ! 
-				inputs[i].addEventListener("change",function(){					
-					gravaAjaxEditProfile(this); // joga o input do avatar 
-				});
+				if(inputs[i].name == "network"){
+					document.getElementById("network").addEventListener("click",function(){
+						gravaAjaxEditProfile(this);
+					})
+				}				
+				else
+				{
+					inputs[i].addEventListener("change",function(){
+						gravaAjaxEditProfile(this);
+					})
+				}
+			};
+
+			for (var i = 0; i < selects.length; i++) {
+
+				if(selects[i].name != "profession"){
+
+					selects[i].addEventListener("change",function(){
+						if(this.name == "network_type"){
+							document.querySelector("[data-redesocial]").innerHTML = document.getElementsByName('network_type')[0].value
+						}
+						else{
+
+							gravaAjaxEditProfile(this)
+						}
+						
+					});
+
+				}
 				
-			}
-			else
-			{
-				inputs[i].addEventListener("change",function(){
-					gravaAjaxEditProfile(this);
-				})
-			}
-		};
+			};
 
-		for (var i = 0; i < selects.length; i++) {
+			$("#profissoes").select2({ 
+				maximumSelectionSize: 1
+			});
+			$("#profissoes").on("click",function(){
+				gravaAjaxEditProfile(this);
+			});
 
-			if(selects[i].name != "profession"){
-				selects[i].addEventListener("change",function(){
-					if(this.name == "network_type"){
-				document.querySelector("[data-redesocial]").innerHTML = document.getElementsByName('network_type')[0].value
-
-					}
-					else{
-						gravaAjaxEditProfile(this)	
-					}
-					
-				})
-			}
-		};
-
-		$("#profissoes").select2({ 
-			maximumSelectionSize: 1
-		});
-		$("#profissoes").on("click",function(){
-			gravaAjaxEditProfile(this);
-		});
-
-		// Identifica os data-select e busca no banco as competencias que já existem
-		
-		$("select[data-select]").select2({ 
-			maximumSelectionSize: 5
-		});
+			// Identifica os data-select e busca no banco as competencias que já existem
+			
+			$("select[data-select]").select2({ 
+				maximumSelectionSize: 5
+			});
 		
 }
 
@@ -293,14 +288,21 @@ function gravaAjaxEditProfile(e){
 		vetCompetence = "["+vetCompetence+"]";
 		vars = "profession="+idProfession+"&competence="+vetCompetence;
 		caminho = url.ajax_add_competence;
-		// caminho = url.getCompetence;
+		// 
 	}
 	else if(e.name == "avatar"){
 
-		field = e.name;		
-		value = document.getElementById("hidden-avatar").value;
-		vars = "field="+field+"&value="+value+"";
-		caminho = url.edit_profile;
+		var img = document.getElementById("hidden-avatar").value;
+		// Cria um objeto com a img em base64 e o nome do campo
+		vars = {image64: img, field : e.name};
+		caminho = url.getCompetence;
+		// caminho = url.edit_profile;
+	}
+	else if(e.name == "country"){
+		field = e.name;
+		value = e.value;
+		vars = "field="+field+"&value="+value;
+		caminho = url.ajax_add_location;
 	}
 	else{
 		field = e.name;
@@ -313,9 +315,12 @@ function gravaAjaxEditProfile(e){
 		type: 'POST',
 		url: caminho,
 		data: vars,
-		success: function(data) {
+		success: function(data){
 			if(e.name == "profession"){
 				adicionandoProfissao(value, profession, data.competencies);
+			}
+			else if(e.name == "country"){
+				console.log(data);
 			}
 		},
 		error: function(data){

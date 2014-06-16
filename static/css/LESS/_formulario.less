@@ -19,6 +19,7 @@ input[type="submit"],input[type="button"],button{
 	background: @branco;
 }
 
+
 .input-valido{
 	border: 1px solid green;
 	color:green;
@@ -56,7 +57,9 @@ input[type="submit"],input[type="button"],button{
 	text-overflow: '';
 	-webkit-appearance: button;
 }
-
+.select select:disabled{
+	color: @cinza2;
+}
 .select::before,.select::after {
 	content: "";
 	position: absolute;
@@ -91,7 +94,7 @@ input[type="submit"],input[type="button"],button{
 
 // Checkbox para ON e OFF
 .checkbox {
-  width: 88px;
+  width: 93%;
   background: @verdeAgua2;
   // margin: 20px 0px;
   position: relative;
