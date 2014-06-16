@@ -23,11 +23,11 @@ function main(){
 
 function mudaStatusCheckbox(checkbox){
 	status = checkbox.innerHTML;
-	if (status=="Off") {
-		checkbox.innerHTML = "On"
+	if (status=="Indisponivel") {
+		checkbox.innerHTML = "Disponivel"
 	}
 	else{
-		checkbox.innerHTML = "Off"
+		checkbox.innerHTML = "Indisponivel"
 	}
 }
 
@@ -140,18 +140,7 @@ function DOMEditarPerfil(){
 					document.getElementById("network").addEventListener("click",function(){
 						gravaAjaxEditProfile(this);
 					})
-				}
-				else if(inputs[i].name == "avatar"){			
-
-					// Problema do upload é que o evento esta gravando antes de mudar, não to conseguindo fazer ele gravar depois 
-					// ver como resolver isso ! 
-					
-					// inputs[i].addEventListener("change",function(){
-					// 	gravaAjaxEditProfile(this); // joga o input do avatar 
-					// });
-					
-					
-				}
+				}				
 				else
 				{
 					inputs[i].addEventListener("change",function(){
@@ -163,17 +152,20 @@ function DOMEditarPerfil(){
 			for (var i = 0; i < selects.length; i++) {
 
 				if(selects[i].name != "profession"){
+
 					selects[i].addEventListener("change",function(){
 						if(this.name == "network_type"){
-					document.querySelector("[data-redesocial]").innerHTML = document.getElementsByName('network_type')[0].value
-
+							document.querySelector("[data-redesocial]").innerHTML = document.getElementsByName('network_type')[0].value
 						}
 						else{
-							gravaAjaxEditProfile(this)	
+
+							gravaAjaxEditProfile(this)
 						}
 						
-					})
+					});
+
 				}
+				
 			};
 
 			$("#profissoes").select2({ 
@@ -306,6 +298,12 @@ function gravaAjaxEditProfile(e){
 		caminho = url.getCompetence;
 		// caminho = url.edit_profile;
 	}
+	else if(e.name == "country"){
+		field = e.name;
+		value = e.value;
+		vars = "field="+field+"&value="+value;
+		caminho = url.ajax_add_location;
+	}
 	else{
 		field = e.name;
 		value = e.value;
@@ -320,6 +318,9 @@ function gravaAjaxEditProfile(e){
 		success: function(data){
 			if(e.name == "profession"){
 				adicionandoProfissao(value, profession, data.competencies);
+			}
+			else if(e.name == "country"){
+				console.log(data);
 			}
 		},
 		error: function(data){

@@ -223,11 +223,19 @@ def ajax_add_competence():
     except:
         return False
 
+
+def ajax_add_location():
+
+    print request.vars
+    if request.vars.field == "country":
+        return '{"1":"São Paulo"}'
+    else:
+        return True
+
 # Usando essa função para testar os ajax por favor não deletar
 def getCompetence():
 
-    print request.vars
-    
+    print request.vars    
 
     return True
 

@@ -714,6 +714,9 @@ select,
   text-overflow: '';
   -webkit-appearance: button;
 }
+.select select:disabled {
+  color: #c8c8c8;
+}
 .select::before,
 .select::after {
   content: "";
@@ -744,7 +747,7 @@ select,
   color: #ffffff;
 }
 .checkbox {
-  width: 88px;
+  width: 93%;
   background: #468879;
   position: relative;
 }
