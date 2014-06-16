@@ -223,11 +223,11 @@ def ajax_add_competence():
     except:
         return False
 
-
+# Usando essa função para testar os ajax por favor não deletar
 def getCompetence():
 
-    print request.vars.competence
-    print type(request.vars.competence)
+    print request.vars
+    
 
     return True
 
