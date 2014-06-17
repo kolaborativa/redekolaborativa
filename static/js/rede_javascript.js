@@ -4,13 +4,13 @@
 // Função para pegar elemento pela ID
 // Retorna o Elemento
 function Id(elemento){
-	var elemento = document.getElementById(elemento)
+	var elemento = document.getElementById(elemento);
 	return elemento;
 }
 
-// Função para pegar basicamente elementos data-*
-function querySelectAll(parametro){
-	parametro = "["+parametro+"]";
+// Função para pegar vetor de data-* (atributos)
+function SelectAll(parametro){
+	parametro 	  = "["+parametro+"]";
 	var elementos = document.querySelectorAll(parametro);
 	return elementos;
 }
@@ -23,9 +23,8 @@ function main(){
 
 function mudaStatusCheckbox(checkbox){
 
-	status = checkbox.innerHTML;
-	checked = document.getElementsByName("user_available")[0].checked;
-	disponibilidades = document.getElementById("disponibilidades");
+	var checked 		 = document.getElementsByName("user_available")[0].checked;
+	var disponibilidades = Id("disponibilidades");
 	
 	if (!checked) {
 		checkbox.innerHTML = "Disponivel"
@@ -40,14 +39,20 @@ function mudaStatusCheckbox(checkbox){
 
 function mudando_fase_perfil(fase){
 
-	var fases_edicao = querySelectAll("data-fase")
-	var status_fase = querySelectAll("data-fase-atual")
-	var img_fase = querySelectAll("data-img-fase");
+	fase = fase == null? "1": fase; // se o valor vier null ele atribui a fase numero 1 do formulário
 
-	for (var i = 0; i < fases_edicao.length; i++) {
-		var status = fases_edicao[i].getAttribute("data-fase-atual");
+	var fases_edicao = SelectAll("data-fase")
+	var status_fase  = SelectAll("data-fase-atual")
+	var img_fase     = SelectAll("data-img-fase");
+	var status;
+	var iImg         = 0;
+	var iFases       = 0;
+
+	for (; iFases < fases_edicao.length; iFases++) {
+		status = fases_edicao[iFases].getAttribute("data-fase-atual");
+
 		// Identifica qual o bloco que vai
-		if (fases_edicao[i].getAttribute("data-fase") == fase){
+		if (fases_edicao[iFases].getAttribute("data-fase") == fase){
 			status = "true";
 		}
 		else{
@@ -55,198 +60,175 @@ function mudando_fase_perfil(fase){
 		}
 
 		// Identifica quais as imagens da fase
-		for (var img = 0; img < img_fase.length; img++) {
-			if (img_fase[img].getAttribute("data-img-fase") == fase){
-				img_fase[img].style.display = "inline";
+		for (; iImg < img_fase.length; iImg++) {
+			if( img_fase[iImg].getAttribute("data-img-fase") == fase ) {
+				img_fase[iImg].style.display = "inline";
 			}
-			else
-			{
-				img_fase[img].style.display = "none";
+			else {
+				img_fase[iImg].style.display = "none";
 			}
 		};
 
 		// Muda o bloco
-		if (status == "false"){
-			fases_edicao[i].style.display = "none";
+		if (status == "false") {
+			fases_edicao[iFases].style.display = "none";
 		}
-		else
-		{
-			fases_edicao[i].style.display = "block";	
-		}
-		;
+		else{
+			fases_edicao[iFases].style.display = "block";	
+		};
 	};
 }
 
-// data-edit-user
+// Ver o que essas funções fazem
 function editarUsuario(usuario){
-	
-	
-	var campos =document.querySelectorAll("[data-field]");
-	for (var i = 0; i < campos.length ; i++) {
-		var field = campos[i].getAttribute("data-field");
+
+	var campos  = SelectAll("[data-field]");
+	var field;
+	var icampos = 0;
+
+	for (; icampos < campos.length ; icampos++) {
+		 field = campos[icampos].getAttribute("data-field");
 	};
 
 }
 
+// Ver o que essas funções fazem
 function inputEditarUser(){
-	var input = document.createElement("input")
-	att=document.createAttribute("class");
-	att.value="input-editar";
-	input.setAttributeNode(att);
+	 var input 	   = document.createElement("input");
+	 	 att   	   = document.createAttribute("class");
+		 att.value = "input-editar";		
+		 input.setAttributeNode(att);
+
 	return input
 }
 
 
 // Códigos da parte de Editar Perfil 
 function DOMEditarPerfil(){
-		mudando_fase_perfil("1");
-		
+	mudando_fase_perfil();
 
-			var btnPerfil = querySelectAll("data-irParaFase");
-			for (var i = 0; i < btnPerfil.length; i++) {
-				btnPerfil[i].addEventListener("click",function(){
-					mudando_fase_perfil(this.getAttribute("data-irParaFase"));
-				})
-			};
-
-
-
-			var label = querySelectAll("data-checkbox-label")
-			for (var i = 0; i < label.length; i++) {
-				label[i].addEventListener("click",function(){
-					mudaStatusCheckbox(this)
-				})
-			}
-
-			var editar = document.querySelectorAll("[data-edit-user]");
-			for (var i = 0; i < editar.length; i++) {
-
-				editar[i].addEventListener("click",function(){
-					editarUsuario(this.getAttribute("data-edit-user"));
-				});
-
-			};
+	var btnPerfil  = SelectAll("data-irParaFase");	
+	var iBtnPerfil = 0
+	var label      = SelectAll("data-checkbox-label");
+	var iLabel 	   = 0
+	var editar     = SelectAll("data-edit-user");
+	var iEditar    = 0
+	var formulario = Id("formulario_edicao_perfil")
+	var inputs     = formulario.getElementsByTagName("input");
+	var selects    = formulario.getElementsByTagName("select");
+	var textareas  = formulario.getElementsByTagName("textarea")[0];
 
 
-			var formulario = document.getElementById("formulario_edicao_perfil")
-			var inputs = formulario.getElementsByTagName("input");
-			var selects = formulario.getElementsByTagName("select");
-			var textareas = formulario.getElementsByTagName("textarea")[0];
 
-			textareas.addEventListener("keyup",function(){
-				document.querySelector("[data-caracteres]").innerHTML = (350 - this.value.length);
-				if(this.value.length >= 350){
-					this.value = this.value.substr(0,350);
+	for (; iBtnPerfil < btnPerfil.length; iBtnPerfil++) {
+		btnPerfil[iBtnPerfil].addEventListener("click",function(){
+			mudando_fase_perfil(this.getAttribute("data-irParaFase"));
+		});
+	};
+
+
+	for (; iLabel < label.length; iLabel++) {
+		label[iLabel].addEventListener("click",function(){
+			mudaStatusCheckbox(this)
+		})
+	}
+
+
+	for (; iEditar < editar.length; iEditar++) {
+		editar[iEditar].addEventListener("click",function(){
+			editarUsuario(this.getAttribute("data-edit-user"));
+		});
+	};
+
+	MascaraDeData();
+
+	textareas.addEventListener("keyup",function(){
+		document.querySelector("[data-caracteres]").innerHTML = (350 - this.value.length);
+		if(this.value.length >= 350){
+			this.value = this.value.substr(0,350);
+		}
+	})
+
+	textareas.addEventListener("change",function(){	gravaAjaxEditProfile(this) });
+
+
+	for (var i = 0; i < inputs.length; i++) {
+
+		if(inputs[i].name == "network"){
+			Id("network").addEventListener("click",function(){gravaAjaxEditProfile(this);})
+		}				
+		else
+		{
+			inputs[i].addEventListener("change",function(){gravaAjaxEditProfile(this);})
+		}
+	};
+
+
+	for (var i = 0; i < selects.length; i++) {
+		if(selects[i].name != "profession"){
+			selects[i].addEventListener("change",function(){
+				if(this.name == "network_type"){
+					document.querySelector("[data-redesocial]").innerHTML = document.getElementsByName('network_type')[0].value
 				}
-			})
-			textareas.addEventListener("change",function(){
-				gravaAjaxEditProfile(this)
-			})
-		
-
-			for (var i = 0; i < inputs.length; i++) {
-
-				if(inputs[i].name == "network"){
-					document.getElementById("network").addEventListener("click",function(){
-						gravaAjaxEditProfile(this);
-					})
-				}				
-				else
-				{
-					inputs[i].addEventListener("change",function(){
-						gravaAjaxEditProfile(this);
-					})
-				}
-			};
-
-			for (var i = 0; i < selects.length; i++) {
-
-				if(selects[i].name != "profession"){
-
-					selects[i].addEventListener("change",function(){
-						if(this.name == "network_type"){
-							document.querySelector("[data-redesocial]").innerHTML = document.getElementsByName('network_type')[0].value
-						}
-						else{
-
-							gravaAjaxEditProfile(this)
-						}
-						
-					});
-
-				}
-				
-			};
-
-			$("#profissoes").select2({ 
-				maximumSelectionSize: 1
+				else{							
+					gravaAjaxEditProfile(this)
+				}						
 			});
-			$("#profissoes").on("click",function(){
-				gravaAjaxEditProfile(this);
-			});
+		}				
+	};
 
-			// Identifica os data-select e busca no banco as competencias que já existem
-			
-			$("select[data-select]").select2({ 
-				maximumSelectionSize: 5
-			});
+	$("#profissoes").select2({ 	maximumSelectionSize: 1	});
+	$("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
+	// Identifica os data-select e busca no banco as competencias que já existem			
+	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
+	$("select[data-select]").on("click",function(){
+		gravaAjaxEditProfile(this);
+	})
 		
 }
 
 
 function adicionandoProfissao(idProfissao, profissao,competencias){
 	console.log(idProfissao);
-	var select = document.createElement('select');
-	select.setAttribute('data-placeholder','adicione competencias');
-	select.name="competence";
-	select.setAttribute('data-select',profissao)
-	select.setAttribute('data-idProfissao',idProfissao);
-	select.setAttribute('class','w-full competencias');
-	select.setAttribute('multiple','')
+	var select      = document.createElement('select');
+		select.name = "competence";
+		select.setAttribute('data-placeholder','adicione competencias');	
+		select.setAttribute('data-select',profissao)
+		select.setAttribute('data-idProfissao',idProfissao);
+		select.setAttribute('class','w-full competencias');
+		select.setAttribute('multiple','')
 
 	// Cria um for de opções
 	for( i in competencias ){ 
-		var opcao = document.createElement('option');
-		opcao.innerHTML = competencias[i];
-		opcao.value = i;
+		var opcao           = document.createElement('option');
+			opcao.innerHTML = competencias[i];
+			opcao.value     = i;
+
 		select.appendChild(opcao);	
 	}
 
 	var linha = document.createElement('li')
-	linha.setAttribute('class','profissao t-left');
+		linha.setAttribute('class','profissao t-left');
 
 	var span = document.createElement('span');
-	span.setAttribute('class','h1');
-	
-	span.innerHTML = profissao;
+		span.setAttribute('class','h1');	
+		span.innerHTML = profissao;
 
 	var deletar = document.createElement('img');
-	deletar.setAttribute('class','delete_profissao f-right');
-	deletar.src= image.delete;
-
+		deletar.setAttribute('class','delete_profissao f-right');
+		deletar.src= image.delete;
 
 	var listasProfissoes = document.querySelector('.list-profissao')
 
-	span.appendChild(deletar);
-	linha.appendChild(span);
-	linha.appendChild(select);
-	listasProfissoes.appendChild(linha);
+		span.appendChild(deletar);
+		linha.appendChild(span);
+		linha.appendChild(select);
+		listasProfissoes.appendChild(linha);
 
 	// Eventos ================
-
-
-	$("[data-select="+profissao+"]").select2({ 
-		maximumSelectionSize: 5
-	});
-
-
-	$("[data-select="+profissao+"]").on("change",function(){
-		gravaAjaxEditProfile(this);
-	});
-
-	$(".delete_profissao").on("click",function(){
-		console.log("delete isso");
-	});
+	$("[data-select="+profissao+"]").select2({maximumSelectionSize: 5});
+	$("[data-select="+profissao+"]").on("change",function(){gravaAjaxEditProfile(this);});
+	$(".delete_profissao").on("click",function(){console.log("delete isso");});
 
 };
 
@@ -283,26 +265,24 @@ function gravaAjaxEditProfile(e){
 	}
 	else if(e.name == "competence"){
 		
-		var idProfession = e.getAttribute("data-idProfissao");
-		var vetCompetence = new Array();
-		vetCompetence.length = 0;
-		console.log(vetCompetence);
+		var idProfession     = e.getAttribute("data-idProfissao");
+		var vetCompetence    = new Array();
+			vetCompetence.length = 0;
+		
 		for (var i = 0; i < e.options.length; i++) {
-			if(e.options[i].selected)
-			{
-			 	vetCompetence.push(e.options.item(i).value);
-			 	console.log(vetCompetence);
-
+			if(e.options[i].selected){
+				vetCompetence.push(e.options.item(i).value);
 			}
 		};
+
 		vetCompetence = "["+vetCompetence+"]";
 		vars = "profession="+idProfession+"&competence="+vetCompetence;
 		caminho = url.ajax_add_competence;
-		// 
+		
 	}
 	else if(e.name == "avatar"){
 
-		var img = document.getElementById("hidden-avatar").value;
+		var img = Id("hidden-avatar").value;
 		// Cria um objeto com a img em base64 e o nome do campo
 		vars = {image64: img, field : e.name};
 		caminho = url.getCompetence;
@@ -332,12 +312,11 @@ function gravaAjaxEditProfile(e){
 			else if(e.name == "country_id"){
 				var states = document.getElementsByName("states_id")[0];
 				states.disabled = false;
-				// console.log(data[1]);
 				opcoes = data;
 				for( i in opcoes ){ 
-					var opcao = document.createElement('option');
+					var opcao       = document.createElement('option');
 					opcao.innerHTML = opcoes[i];
-					opcao.value = i;
+					opcao.value     = i;
 					states.appendChild(opcao);	
 				}
 			}
@@ -347,11 +326,15 @@ function gravaAjaxEditProfile(e){
 				opcoes = data;
                 city.innerHTML = ""
 				for( i in opcoes ){ 
-					var opcao = document.createElement('option');
+					var opcao       = document.createElement('option');
 					opcao.innerHTML = opcoes[i];
-					opcao.value = i;
+					opcao.value     = i;
 					city.appendChild(opcao);	
-				}
+				};
+
+			}
+			else if(e.name == "username"){
+				location.href= url.index;
 			}
 			else{
 				console.log(data);
@@ -363,3 +346,29 @@ function gravaAjaxEditProfile(e){
 	});
 }
 
+function MascaraDeData(){
+	var nascimentoDta = Id("auth_user_born_on");
+		
+		nascimentoDta.addEventListener("keyup",function(){
+			
+			  var data = this.value;
+              if (data.length == 2){
+                  data = data + '/';
+                  this.value = data;
+      			  return true;              
+              }
+              if (data.length == 5){
+                  data = data + '/';
+                  this.value = data;
+                  return true;
+              }
+
+			if(this.value.length >= 10){
+				this.value = this.value.substr(0,10);
+			}
+		});
+
+		nascimentoDta.value = nascimentoDta.value.replace("-","/");
+		nascimentoDta.value = nascimentoDta.value.replace("-","/");
+	
+}

@@ -73,7 +73,9 @@ def edit_perfil():
                 except:
                     professional_data[i.profession_id.name] = {
                         'profession_id': i.profession_id,
-                        'my_competencies': []
+                        'my_competencies': [],
+                        'others_competencies': []
+
                     }
 
     form_networking = SQLFORM.factory(
