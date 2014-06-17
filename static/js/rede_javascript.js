@@ -105,141 +105,130 @@ function inputEditarUser(){
 
 // Códigos da parte de Editar Perfil 
 function DOMEditarPerfil(){
-			mudando_fase_perfil();
+	mudando_fase_perfil();
 
-			var btnPerfil  = SelectAll("data-irParaFase");	
-			var iBtnPerfil = 0
-			var label      = SelectAll("data-checkbox-label");
-			var iLabel 	   = 0
-			var editar     = SelectAll("data-edit-user");
-			var iEditar    = 0
-			var formulario = Id("formulario_edicao_perfil")
-			var inputs     = formulario.getElementsByTagName("input");
-			var selects    = formulario.getElementsByTagName("select");
-			var textareas  = formulario.getElementsByTagName("textarea")[0];
+	var btnPerfil  = SelectAll("data-irParaFase");	
+	var iBtnPerfil = 0
+	var label      = SelectAll("data-checkbox-label");
+	var iLabel 	   = 0
+	var editar     = SelectAll("data-edit-user");
+	var iEditar    = 0
+	var formulario = Id("formulario_edicao_perfil")
+	var inputs     = formulario.getElementsByTagName("input");
+	var selects    = formulario.getElementsByTagName("select");
+	var textareas  = formulario.getElementsByTagName("textarea")[0];
 
 
 
-			for (; iBtnPerfil < btnPerfil.length; iBtnPerfil++) {
-				btnPerfil[iBtnPerfil].addEventListener("click",function(){
-					mudando_fase_perfil(this.getAttribute("data-irParaFase"));
-				});
-			};
+	for (; iBtnPerfil < btnPerfil.length; iBtnPerfil++) {
+		btnPerfil[iBtnPerfil].addEventListener("click",function(){
+			mudando_fase_perfil(this.getAttribute("data-irParaFase"));
+		});
+	};
 
-			
-			for (; iLabel < label.length; iLabel++) {
-				label[iLabel].addEventListener("click",function(){
-					mudaStatusCheckbox(this)
-				})
-			}
 
-			
-			for (; iEditar < editar.length; iEditar++) {
-				editar[iEditar].addEventListener("click",function(){
-					editarUsuario(this.getAttribute("data-edit-user"));
-				});
-			};
-			
+	for (; iLabel < label.length; iLabel++) {
+		label[iLabel].addEventListener("click",function(){
+			mudaStatusCheckbox(this)
+		})
+	}
 
-			textareas.addEventListener("keyup",function(){
-				document.querySelector("[data-caracteres]").innerHTML = (350 - this.value.length);
-				if(this.value.length >= 350){
-					this.value = this.value.substr(0,350);
+
+	for (; iEditar < editar.length; iEditar++) {
+		editar[iEditar].addEventListener("click",function(){
+			editarUsuario(this.getAttribute("data-edit-user"));
+		});
+	};
+
+	MascaraDeData();
+
+	textareas.addEventListener("keyup",function(){
+		document.querySelector("[data-caracteres]").innerHTML = (350 - this.value.length);
+		if(this.value.length >= 350){
+			this.value = this.value.substr(0,350);
+		}
+	})
+
+	textareas.addEventListener("change",function(){	gravaAjaxEditProfile(this) });
+
+
+	for (var i = 0; i < inputs.length; i++) {
+
+		if(inputs[i].name == "network"){
+			Id("network").addEventListener("click",function(){gravaAjaxEditProfile(this);})
+		}				
+		else
+		{
+			inputs[i].addEventListener("change",function(){gravaAjaxEditProfile(this);})
+		}
+	};
+
+
+	for (var i = 0; i < selects.length; i++) {
+		if(selects[i].name != "profession"){
+			selects[i].addEventListener("change",function(){
+				if(this.name == "network_type"){
+					document.querySelector("[data-redesocial]").innerHTML = document.getElementsByName('network_type')[0].value
 				}
-			})
+				else{							
+					gravaAjaxEditProfile(this)
+				}						
+			});
+		}				
+	};
 
-			textareas.addEventListener("change",function(){	gravaAjaxEditProfile(this) });
-
-
-			for (var i = 0; i < inputs.length; i++) {
-
-				if(inputs[i].name == "network"){
-					Id("network").addEventListener("click",function(){gravaAjaxEditProfile(this);})
-				}				
-				else
-				{
-					inputs[i].addEventListener("change",function(){gravaAjaxEditProfile(this);})
-				}
-			};
-
-
-			for (var i = 0; i < selects.length; i++) {
-				if(selects[i].name != "profession"){
-					selects[i].addEventListener("change",function(){
-						if(this.name == "network_type"){
-							document.querySelector("[data-redesocial]").innerHTML = document.getElementsByName('network_type')[0].value
-						}
-						else{							
-							gravaAjaxEditProfile(this)
-						}						
-					});
-				}				
-			};
-
-			$("#profissoes").select2({ 	maximumSelectionSize: 1	});
-			$("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
-			// Identifica os data-select e busca no banco as competencias que já existem			
-			$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
-			$("select[data-select]").on("click",function(){
-				gravaAjaxEditProfile(this);
-			})
+	$("#profissoes").select2({ 	maximumSelectionSize: 1	});
+	$("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
+	// Identifica os data-select e busca no banco as competencias que já existem			
+	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
+	$("select[data-select]").on("click",function(){
+		gravaAjaxEditProfile(this);
+	})
 		
 }
 
 
 function adicionandoProfissao(idProfissao, profissao,competencias){
 	console.log(idProfissao);
-	var select = document.createElement('select');
-	select.setAttribute('data-placeholder','adicione competencias');
-	select.name="competence";
-	select.setAttribute('data-select',profissao)
-	select.setAttribute('data-idProfissao',idProfissao);
-	select.setAttribute('class','w-full competencias');
-	select.setAttribute('multiple','')
+	var select      = document.createElement('select');
+		select.name = "competence";
+		select.setAttribute('data-placeholder','adicione competencias');	
+		select.setAttribute('data-select',profissao)
+		select.setAttribute('data-idProfissao',idProfissao);
+		select.setAttribute('class','w-full competencias');
+		select.setAttribute('multiple','')
 
 	// Cria um for de opções
 	for( i in competencias ){ 
-		var opcao = document.createElement('option');
-		opcao.innerHTML = competencias[i];
-		opcao.value = i;
+		var opcao           = document.createElement('option');
+			opcao.innerHTML = competencias[i];
+			opcao.value     = i;
+
 		select.appendChild(opcao);	
 	}
 
 	var linha = document.createElement('li')
-	linha.setAttribute('class','profissao t-left');
+		linha.setAttribute('class','profissao t-left');
 
 	var span = document.createElement('span');
-	span.setAttribute('class','h1');
-	
-	span.innerHTML = profissao;
+		span.setAttribute('class','h1');	
+		span.innerHTML = profissao;
 
 	var deletar = document.createElement('img');
-	deletar.setAttribute('class','delete_profissao f-right');
-	deletar.src= image.delete;
-
+		deletar.setAttribute('class','delete_profissao f-right');
+		deletar.src= image.delete;
 
 	var listasProfissoes = document.querySelector('.list-profissao')
 
-	span.appendChild(deletar);
-	linha.appendChild(span);
-	linha.appendChild(select);
-	listasProfissoes.appendChild(linha);
+		span.appendChild(deletar);
+		linha.appendChild(span);
+		linha.appendChild(select);
+		listasProfissoes.appendChild(linha);
 
 	// Eventos ================
-
-
-	$("[data-select="+profissao+"]").select2({ 
-		maximumSelectionSize: 5
-	});
-
-
-	$("[data-select="+profissao+"]").on("change",function(){
-		gravaAjaxEditProfile(this);
-	});
-
-	$(".delete_profissao").on("click",function(){
-		console.log("delete isso");
-	});
+	$("[data-select="+profissao+"]").select2({maximumSelectionSize: 5});
+	$("[data-select="+profissao+"]").on("change",function(){gravaAjaxEditProfile(this);});
+	$(".delete_profissao").on("click",function(){console.log("delete isso");});
 
 };
 
@@ -276,22 +265,20 @@ function gravaAjaxEditProfile(e){
 	}
 	else if(e.name == "competence"){
 		
-		var idProfession = e.getAttribute("data-idProfissao");
-		var vetCompetence = new Array();
-		vetCompetence.length = 0;
-		console.log(vetCompetence);
+		var idProfession     = e.getAttribute("data-idProfissao");
+		var vetCompetence    = new Array();
+			vetCompetence.length = 0;
+		
 		for (var i = 0; i < e.options.length; i++) {
-			if(e.options[i].selected)
-			{
-			 	vetCompetence.push(e.options.item(i).value);
-			 	console.log(vetCompetence);
-
+			if(e.options[i].selected){
+				vetCompetence.push(e.options.item(i).value);
 			}
 		};
+
 		vetCompetence = "["+vetCompetence+"]";
 		vars = "profession="+idProfession+"&competence="+vetCompetence;
 		caminho = url.ajax_add_competence;
-		// 
+		
 	}
 	else if(e.name == "avatar"){
 
@@ -319,32 +306,32 @@ function gravaAjaxEditProfile(e){
 		url: caminho,
 		data: vars,
 		success: function(data){
-			console.log(e.name);
 			if(e.name == "profession"){
 				adicionandoProfissao(value, profession, data.competencies);
 			}
 			else if(e.name == "country") {
-				var states = document.getElementsByName("states")[0];
-				states.disabled = false;
-				// console.log(data[1]);
-				opcoes = data;
+				var states      = document.getElementsByName("states")[0];
+				states.disabled = false;				
+				opcoes          = data;
 				for( i in opcoes ){ 
-					var opcao = document.createElement('option');
+					var opcao       = document.createElement('option');
 					opcao.innerHTML = opcoes[i];
-					opcao.value = i;
+					opcao.value     = i;
 					states.appendChild(opcao);	
 				}
 			}
 			else if(e.name == "states")  {
-				var city = document.getElementsByName("city")[0];
-				city.disabled = false;
-				opcoes = data;
+				var city 	      = document.getElementsByName("city")[0];
+					city.disabled = false;
+					opcoes        = data;
+
 				for( i in opcoes ){ 
-					var opcao = document.createElement('option');
+					var opcao       = document.createElement('option');
 					opcao.innerHTML = opcoes[i];
-					opcao.value = i;
+					opcao.value     = i;
 					city.appendChild(opcao);	
-				}
+				};
+
 			}
 			else if(e.name == "username"){
 				location.href= url.index;
@@ -359,3 +346,29 @@ function gravaAjaxEditProfile(e){
 	});
 }
 
+function MascaraDeData(){
+	var nascimentoDta = Id("auth_user_born_on");
+		
+		nascimentoDta.addEventListener("keyup",function(){
+			
+			  var data = this.value;
+              if (data.length == 2){
+                  data = data + '/';
+                  this.value = data;
+      			  return true;              
+              }
+              if (data.length == 5){
+                  data = data + '/';
+                  this.value = data;
+                  return true;
+              }
+
+			if(this.value.length >= 10){
+				this.value = this.value.substr(0,10);
+			}
+		});
+
+		nascimentoDta.value = nascimentoDta.value.replace("-","/");
+		nascimentoDta.value = nascimentoDta.value.replace("-","/");
+	
+}

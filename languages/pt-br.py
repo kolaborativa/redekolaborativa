@@ -333,6 +333,7 @@
 'Usuário': 'Usuário',
 'value already in database or empty': 'Valor já está no banco de dados ou está vazio',
 'value not allowed': 'Valor não permitido',
+'Value not in database': 'Value not in database',
 'Verify Password': 'Verificar Senha',
 'Video': 'Video',
 'Videos': 'Videos',
