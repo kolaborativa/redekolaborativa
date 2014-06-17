@@ -110,9 +110,9 @@ function DOMEditarPerfil(){
 			var btnPerfil  = SelectAll("data-irParaFase");	
 			var iBtnPerfil = 0
 			var label      = SelectAll("data-checkbox-label");
-			var iLabel = 0
+			var iLabel 	   = 0
 			var editar     = SelectAll("data-edit-user");
-			var iEditar = 0
+			var iEditar    = 0
 			var formulario = Id("formulario_edicao_perfil")
 			var inputs     = formulario.getElementsByTagName("input");
 			var selects    = formulario.getElementsByTagName("select");
@@ -162,13 +162,14 @@ function DOMEditarPerfil(){
 				}
 			};
 
+
 			for (var i = 0; i < selects.length; i++) {
 				if(selects[i].name != "profession"){
 					selects[i].addEventListener("change",function(){
 						if(this.name == "network_type"){
 							document.querySelector("[data-redesocial]").innerHTML = document.getElementsByName('network_type')[0].value
 						}
-						else{
+						else{							
 							gravaAjaxEditProfile(this)
 						}						
 					});
@@ -179,6 +180,9 @@ function DOMEditarPerfil(){
 			$("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
 			// Identifica os data-select e busca no banco as competencias que já existem			
 			$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
+			$("select[data-select]").on("click",function(){
+				gravaAjaxEditProfile(this);
+			})
 		
 }
 
