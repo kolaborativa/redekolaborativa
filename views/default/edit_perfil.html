@@ -219,6 +219,11 @@
                                                     <option value="{{=my_comp[0]}}" selected>{{=my_comp[1]}}</option>
                                                 {{ pass }}
                                             {{ pass }}
+                                            {{ if professional_data[profession]['others_competencies']: }}
+                                                {{ for other_comp in professional_data[profession]['others_competencies']: }}
+                                                    <option value="{{=other_comp[0]}}">{{=other_comp[1]}}</option>
+                                                {{ pass }}
+                                            {{ pass }}
                                         </select>
                                     </li>
                                 {{ pass }}
