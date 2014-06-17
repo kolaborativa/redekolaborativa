@@ -308,7 +308,7 @@ function gravaAjaxEditProfile(e){
 		caminho = url.getCompetence;
 		// caminho = url.edit_profile;
 	}
-	else if(e.name == "country" || e.name == "states" || e.name == "city"){
+	else if(e.name == "country_id" || e.name == "states_id" || e.name == "city_id"){
 		field = e.name;
 		value = e.value;
 		vars = "field="+field+"&value="+value;
@@ -329,8 +329,8 @@ function gravaAjaxEditProfile(e){
 			if(e.name == "profession"){
 				adicionandoProfissao(value, profession, data.competencies);
 			}
-			else if(e.name == "country"){
-				var states = document.getElementsByName("states")[0];
+			else if(e.name == "country_id"){
+				var states = document.getElementsByName("states_id")[0];
 				states.disabled = false;
 				// console.log(data[1]);
 				opcoes = data;
@@ -341,10 +341,11 @@ function gravaAjaxEditProfile(e){
 					states.appendChild(opcao);	
 				}
 			}
-			else if(e.name == "states"){
-				var city = document.getElementsByName("city")[0];
+			else if(e.name == "states_id"){
+				var city = document.getElementsByName("city_id")[0];
 				city.disabled = false;
 				opcoes = data;
+                city.innerHTML = ""
 				for( i in opcoes ){ 
 					var opcao = document.createElement('option');
 					opcao.innerHTML = opcoes[i];

@@ -50,13 +50,13 @@
         
         {{#form.custom.widget.born_on['_type'] = "date"}}
         {{form.custom.widget.born_on['_class'] = "form-input-comum w-90 form-select"}}
+        
+        {{form.custom.widget.country_id['_class'] = 'input-select w-full'}}
+        {{form.custom.widget.states_id['_class'] = 'input-select w-full'}}
+        {{form.custom.widget.city_id['_class'] = 'input-select w-full'}}
 
-        {{form.custom.widget.last_name['_placeholder'] = "Nome do Perfil"}}
-        {{form.custom.widget.last_name['_class'] = "form-input-comum w-90"}}
-      
         {{form.custom.widget.user_available['_id'] = "checkbox"}}
         {{form.custom.widget.user_available['_value'] = "None"}}
-
 
         {{form.custom.widget.bio['_placeholder'] = "Aqui vem uma Bio"}}
         {{form.custom.widget.bio['_class'] = "bio form-input-comum"}}
@@ -94,9 +94,7 @@
 					<br>
 					<section class="section-form">
 						<label class="select w-90 form-input-comum form-select">
-							<select name="states" class="input-select w-full" disabled="">
-								<option value="Defaut">Escolha um Estado</option>
-							</select>
+                            {{=form.custom.widget.states_id}}
 						</label>
 					</section>
 					<span class="font-lato h2 f-left">Disponibilidade</span>
@@ -115,19 +113,14 @@
 					<br>
 					<section class="section-form">
 						<label class="select w-90 form-input-comum form-select">
-							<select name="country" class="input-select w-full">
-								<option value="1">Brasil</option>
-								<option value="2">EUA</option>
-							</select>
+                            {{=form.custom.widget.country_id}}
 						</label>
 					</section>
 					<span class="font-lato h2 f-left">Cidade</span>
 					<br>
 					<section class="section-form">
 						<label class="select w-90 form-input-comum form-select">
-							<select name="city" class="input-select w-full" disabled="">
-								<option value="Default">Escolha uma Cidade</option>
-							</select>
+                            {{=form.custom.widget.city_id}}
 						</label>
 					</section>
 					

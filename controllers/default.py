@@ -261,18 +261,59 @@ def ajax_add_competence():
     except:
         return False
 
-
+@auth.requires_login()
 def ajax_add_location():
+    if request.vars.field == "country_id":
+        try:
+            field_db =  request.vars.field
+            new_value =  request.vars.value
+            user_id = auth.user.id
+            dic_update = {field_db:new_value}
+            db.auth_user[user_id] = dic_update
 
-    print request.vars
-    if request.vars.field == "country":
+            rows = db(db.states.country_id==new_value).select(db.states.id, db.states.name)
+            states = {}
 
-        return {"1":"São Paulo","2":"Rio de Janeiro"}
+            for row in rows:
+                states[str(row.id)] = row.name
 
-    elif request.vars.field == "states":
-        return {"1":"Presidente Prudente","2":"Primavera"}
+            return states
+        except:
+            return False
+
+    elif request.vars.field == "states_id":
+        try:
+            field_db =  request.vars.field
+            new_value =  request.vars.value
+            user_id = auth.user.id
+            dic_update = {field_db:new_value}
+            db.auth_user[user_id] = dic_update
+
+            rows = db(db.city.states_id==new_value).select(db.city.id, db.city.name)
+            citys = {}
+
+            for row in rows:
+                citys[str(row.id)] = row.name
+
+            # first city record for default
+            citys_id = citys.keys()
+            citys_id.sort()
+            db.auth_user[user_id] = {'city_id': citys_id[0]}
+            return citys
+        except:
+            return False
+
     else:
-        return True
+        try:
+            field_db =  request.vars.field
+            new_value =  request.vars.value
+            user_id = auth.user.id
+            dic_update = {field_db:new_value}
+            db.auth_user[user_id] = dic_update
+
+            return True
+        except:
+            return False
 
 # Usando essa função para testar os ajax por favor não deletar
 def getCompetence():

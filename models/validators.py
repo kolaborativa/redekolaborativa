@@ -36,3 +36,8 @@ db.comment_project.modified_by.requires = IS_IN_DB(db, 'auth_user.id', '%(userna
 db.subscription_emails.email.requires = [IS_NOT_EMPTY(error_message=field_empty),
 												IS_NOT_IN_DB(db, 'subscription_emails.email'),
 												IS_EMAIL(error_message='Invalid e-mail!')]
+
+
+db.auth_user.country_id.requires=IS_IN_DB(db, db.country.id, '%(name)s', zero="Escolha um País")
+db.auth_user.states_id.requires=IS_IN_DB(db, db.states.id, '%(name)s', zero="Escolha um Estado")
+db.auth_user.city_id.requires=IS_IN_DB(db, db.city.id, '%(name)s', zero="Escolha uma Cidade")
