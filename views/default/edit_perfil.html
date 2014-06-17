@@ -213,10 +213,10 @@
                                     <li class="profissao t-left">
                                         <span class="h1">{{=profession}}
                                         <img class="delete_profissao f-right" src="{{=URL('static', 'images/Edit_perfil/delete.png')}}" ></span>
-                                        <select data-placeholder="adicione competencias" name="competence" data-select="{{=profession}}" class="w-full competencias" multiple >
-                                            {{ for i in professional_data[profession]: }}
-                                                {{ for j in i: }}
-                                                    <option value="{{=j}}" selected>{{=i[j]}}</option>
+                                        <select data-placeholder="adicione competencias" name="competence" data-select="{{=profession}}" class="w-full competencias" multiple data-idProfissao="{{=professional_data[profession]['profession_id']}}">
+                                            {{ if professional_data[profession]['my_competencies']: }}
+                                                {{ for my_comp in professional_data[profession]['my_competencies']: }}
+                                                    <option value="{{=my_comp[0]}}" selected>{{=my_comp[1]}}</option>
                                                 {{ pass }}
                                             {{ pass }}
                                         </select>
