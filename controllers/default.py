@@ -46,24 +46,35 @@ def edit_perfil():
     my_professions_id = [i.profession_id for i in db(db.professional_relationship).select()]
     list_professions = [i for i in db(db.profession).select() if not i.id in my_professions_id ]
 
-    professional_relation = db(db.professional_relationship.user_id == auth.user.id).select()
+    professional_relation = db(db.professional_relationship.user_id ==  auth.user.id).select()
     professional_data = {}
     if professional_relation:
         for i in professional_relation:
             if i.profession_id.name in professional_data:
-                try:
-                    professional_data[i.profession_id.name].append(
-                            {int(i.competence_id): i.competence_id.competence}
-                        )
-                except:
-                    professional_data[i.profession_id.name].append({})
+                professional_data[i.profession_id.name]['my_competencies'].append((i.competence_id, i.competence_id.competence))
+
+                others_comp = [(i.id, i.competence) for i in db(db.competence.profession_id==i.profession_id).select()]
+                for oc in others_comp:
+                    if not oc in professional_data[i.profession_id.name]['my_competencies']:
+                        professional_data[i.profession_id.name]['others_competencies'].append(oc)
 
             else:
                 try:
-                    professional_data[i.profession_id.name] = [{int(i.competence_id): i.competence_id.competence}]
-                except:
-                    professional_data[i.profession_id.name] = [{}]
+                    professional_data[i.profession_id.name] = {
+                        'profession_id': i.profession_id,
+                    }
+                    professional_data[i.profession_id.name]['my_competencies'] = [(i.competence_id, i.competence_id.competence)]
 
+                    others_comp = [(i.id, i.competence) for i in db(db.competence.profession_id==i.profession_id).select()]
+                    for oc in others_comp:
+                        if not oc in professional_data[i.profession_id.name]['my_competencies']:
+                            professional_data[i.profession_id.name]['others_competencies'] = [oc]
+
+                except:
+                    professional_data[i.profession_id.name] = {
+                        'profession_id': i.profession_id,
+                        'my_competencies': []
+                    }
 
     form_networking = SQLFORM.factory(
         db.network_type,
