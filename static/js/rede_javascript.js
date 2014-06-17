@@ -22,12 +22,19 @@ function main(){
 }
 
 function mudaStatusCheckbox(checkbox){
+
 	status = checkbox.innerHTML;
-	if (status=="Indisponivel") {
+	checked = document.getElementsByName("user_available")[0].checked;
+	disponibilidades = document.getElementById("disponibilidades");
+	
+	if (!checked) {
 		checkbox.innerHTML = "Disponivel"
+		disponibilidades.style.display = "block";
+
 	}
 	else{
 		checkbox.innerHTML = "Indisponivel"
+		disponibilidades.style.display = "none";
 	}
 }
 
@@ -93,6 +100,7 @@ function inputEditarUser(){
 // Códigos da parte de Editar Perfil 
 function DOMEditarPerfil(){
 		mudando_fase_perfil("1");
+		
 
 			var btnPerfil = querySelectAll("data-irParaFase");
 			for (var i = 0; i < btnPerfil.length; i++) {
@@ -100,6 +108,8 @@ function DOMEditarPerfil(){
 					mudando_fase_perfil(this.getAttribute("data-irParaFase"));
 				})
 			};
+
+
 
 			var label = querySelectAll("data-checkbox-label")
 			for (var i = 0; i < label.length; i++) {
@@ -298,11 +308,11 @@ function gravaAjaxEditProfile(e){
 		caminho = url.getCompetence;
 		// caminho = url.edit_profile;
 	}
-	else if(e.name == "country"){
+	else if(e.name == "country" || e.name == "states" || e.name == "city"){
 		field = e.name;
 		value = e.value;
 		vars = "field="+field+"&value="+value;
-		caminho = url.ajax_add_location;
+		caminho = url.ajax_add_location+".json";
 	}
 	else{
 		field = e.name;
@@ -320,6 +330,29 @@ function gravaAjaxEditProfile(e){
 				adicionandoProfissao(value, profession, data.competencies);
 			}
 			else if(e.name == "country"){
+				var states = document.getElementsByName("states")[0];
+				states.disabled = false;
+				// console.log(data[1]);
+				opcoes = data;
+				for( i in opcoes ){ 
+					var opcao = document.createElement('option');
+					opcao.innerHTML = opcoes[i];
+					opcao.value = i;
+					states.appendChild(opcao);	
+				}
+			}
+			else if(e.name == "states"){
+				var city = document.getElementsByName("city")[0];
+				city.disabled = false;
+				opcoes = data;
+				for( i in opcoes ){ 
+					var opcao = document.createElement('option');
+					opcao.innerHTML = opcoes[i];
+					opcao.value = i;
+					city.appendChild(opcao);	
+				}
+			}
+			else{
 				console.log(data);
 			}
 		},
