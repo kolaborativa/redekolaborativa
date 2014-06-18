@@ -53,22 +53,12 @@ def edit_perfil():
             if i.profession_id.name in professional_data:
                 professional_data[i.profession_id.name]['my_competencies'].append((i.competence_id, i.competence_id.competence))
 
-                others_comp = [(i.id, i.competence) for i in db(db.competence.profession_id==i.profession_id).select()]
-                for oc in others_comp:
-                    if not oc in professional_data[i.profession_id.name]['my_competencies']:
-                        professional_data[i.profession_id.name]['others_competencies'].append(oc)
-
             else:
                 try:
                     professional_data[i.profession_id.name] = {
                         'profession_id': i.profession_id,
                     }
                     professional_data[i.profession_id.name]['my_competencies'] = [(i.competence_id, i.competence_id.competence)]
-
-                    others_comp = [(i.id, i.competence) for i in db(db.competence.profession_id==i.profession_id).select()]
-                    for oc in others_comp:
-                        if not oc in professional_data[i.profession_id.name]['my_competencies']:
-                            professional_data[i.profession_id.name]['others_competencies'] = [oc]
 
                 except:
                     professional_data[i.profession_id.name] = {
@@ -77,6 +67,14 @@ def edit_perfil():
                         'others_competencies': []
 
                     }
+
+        for pro in professional_data:
+            professional_data[pro]['others_competencies'] = []
+            others_comp = [(i.id, i.competence) for i in db(db.competence.profession_id==professional_data[pro]['profession_id']).select()]
+            for oc in others_comp:
+                if not oc in professional_data[pro]['my_competencies']:
+                    professional_data[pro]['others_competencies'].append(oc)
+
 
     form_networking = SQLFORM.factory(
         db.network_type,
