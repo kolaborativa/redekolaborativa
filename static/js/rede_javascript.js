@@ -19,20 +19,26 @@ function SelectAll(parametro) {
 document.addEventListener("DOMContentLoaded",main)
 
 function main(){
+	mudaStatusCheckbox();
 	DOMEditarPerfil();
 }
 
 function mudaStatusCheckbox(checkbox){
 
+
+	checkbox = checkbox == null ? document.getElementsByName("user_available")[0] : checkbox
+	// pega o Label que ta com o texto
+	// Verifica se o campo veio nulo, se veio define o campo Default, se não usa o parametro mesmo
+
 	var checked 		 = document.getElementsByName("user_available")[0].checked;
 	var disponibilidades = Id("disponibilidades");
 	
-	if (!checked) {
+	if (checked) {
 		checkbox.innerHTML = "Disponivel"
 		disponibilidades.style.display = "block";
-
 	}
 	else{
+		console.log("desativado");
 		checkbox.innerHTML = "Indisponivel"
 		disponibilidades.style.display = "none";
 	}
@@ -157,7 +163,10 @@ function DOMEditarPerfil(){
 
 		if(inputs[i].name == "network"){
 			Id("network").addEventListener("click",function(){gravaAjaxEditProfile(this);})
-		}				
+		}	
+		else if(inputs[i].name == "avatar"){
+			//Pula o input avatar !
+		}
 		else
 		{
 			inputs[i].addEventListener("change",function(){gravaAjaxEditProfile(this);})
@@ -212,7 +221,7 @@ function adicionandoProfissao(idProfissao, profissao,competencias){
 		linha.setAttribute('class','profissao t-left');
 
 	var span = document.createElement('span');
-		span.setAttribute('class','h1');	
+		span.setAttribute('class','h2');	
 		span.innerHTML = profissao;
 
 	var deletar = document.createElement('img');
@@ -227,8 +236,8 @@ function adicionandoProfissao(idProfissao, profissao,competencias){
 		listasProfissoes.appendChild(linha);
 
 	// Eventos ================
-	$("[data-select="+profissao+"]").select2({maximumSelectionSize: 5});
-	$("[data-select="+profissao+"]").on("change",function(){gravaAjaxEditProfile(this);});
+	$("[data-select='"+profissao+"']").select2({maximumSelectionSize: 5});
+	$("[data-select='"+profissao+"']").on("change",function(){gravaAjaxEditProfile(this);});
 	$(".delete_profissao").on("click",function(){console.log("delete isso");});
 
 };
