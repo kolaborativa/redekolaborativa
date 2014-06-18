@@ -3,13 +3,14 @@
 
 // Função para pegar elemento pela ID
 // Retorna o Elemento
-function Id(elemento){
+function Id(elemento) {
+
 	var elemento = document.getElementById(elemento);
 	return elemento;
 }
 
 // Função para pegar vetor de data-* (atributos)
-function SelectAll(parametro){
+function SelectAll(parametro) {
 	parametro 	  = "["+parametro+"]";
 	var elementos = document.querySelectorAll(parametro);
 	return elementos;
@@ -105,7 +106,7 @@ function inputEditarUser(){
 
 // Códigos da parte de Editar Perfil 
 function DOMEditarPerfil(){
-	mudando_fase_perfil();
+		mudando_fase_perfil();
 
 	var btnPerfil  = SelectAll("data-irParaFase");	
 	var iBtnPerfil = 0
@@ -189,7 +190,7 @@ function DOMEditarPerfil(){
 
 
 function adicionandoProfissao(idProfissao, profissao,competencias){
-	console.log(idProfissao);
+	
 	var select      = document.createElement('select');
 		select.name = "competence";
 		select.setAttribute('data-placeholder','adicione competencias');	
@@ -243,62 +244,62 @@ function gravaAjaxEditProfile(e){
 
 		field = e.name;
 		value = e.value;
-		vars = "field="+field+"&value="+value;
+		vars  = "field="+field+"&value="+value;
 
 		var profession = e.selectedOptions[0].innerHTML;
+			caminho    = url.ajax_add_profission+".json";
 		$("#profissoes").select2("val", "")
-		caminho = url.ajax_add_profission+".json";
+		
 
 	}else if(e.name == "network"){
 
-			var rede = document.getElementsByName('network_type')[0].value;
-			var perfil = document.getElementsByName('network')[0].value;
-			vars = "";
-			caminho = "";
+			var rede    = document.getElementsByName('network_type')[0].value;
+			var perfil  = document.getElementsByName('network')[0].value;
+				vars    = "";
+				caminho = "";
 	}
 	else if(e.name == "user_available"){
 		
-			field = e.name;
-			value = e.checked == true ? value = true : value=false;;
-			vars = "field="+field+"&value="+value;
+			field   = e.name;
+			value   = e.checked == true ? value = true : value=false;;
+			vars    = "field="+field+"&value="+value;
 			caminho = url.edit_profile;
 	}
 	else if(e.name == "competence"){
 		
-		var idProfession     = e.getAttribute("data-idProfissao");
-		var vetCompetence    = new Array();
+		var idProfession         = e.getAttribute("data-idProfissao");
+		var vetCompetence        = new Array();
 			vetCompetence.length = 0;
 		
 		for (var i = 0; i < e.options.length; i++) {
-			if(e.options[i].selected){
+			if(e.options[i].selected) {
 				vetCompetence.push(e.options.item(i).value);
 			}
 		};
 
 		vetCompetence = "["+vetCompetence+"]";
-		vars = "profession="+idProfession+"&competence="+vetCompetence;
-		caminho = url.ajax_add_competence;
+		vars	   	  = "profession="+idProfession+"&competence="+vetCompetence;
+		caminho 	  = url.ajax_add_competence;
 		
 	}
 	else if(e.name == "avatar"){
 
-		var img = Id("hidden-avatar").value;
-		// Cria um objeto com a img em base64 e o nome do campo
-		vars = {image64: img, field : e.name};
-		caminho = url.getCompetence;
-		// caminho = url.edit_profile;
+		var img 	= Id("hidden-avatar").value;		
+			vars    = {image64: img, field : e.name}; // Cria um objeto com a img em base64 e o nome do campo
+			caminho = url.getCompetence;
+			// caminho = url.edit_profile;
 	}
 	else if(e.name == "country_id" || e.name == "states_id" || e.name == "city_id"){
-		field = e.name;
-		value = e.value;
-		vars = "field="+field+"&value="+value;
-		caminho = url.ajax_add_location+".json";
+			field   = e.name;
+			value   = e.value;
+			vars    = "field="+field+"&value="+value;
+			caminho = url.ajax_add_location+".json";
 	}
-	else{
-		field = e.name;
-		value = e.value;
-		vars = "field="+field+"&value="+value;
-		caminho = url.edit_profile;
+	else {
+			field = e.name;
+			value = e.value;
+			vars = "field="+field+"&value="+value;
+			caminho = url.edit_profile;
 	}
 
 	$.ajax({
@@ -310,10 +311,10 @@ function gravaAjaxEditProfile(e){
 				adicionandoProfissao(value, profession, data.competencies);
 			}
 			else if(e.name == "country_id"){
-				var states = document.getElementsByName("states_id")[0];
-				states.disabled = false;
-				opcoes = data;
-				for( i in opcoes ){ 
+				var states  	    = document.getElementsByName("states_id")[0];
+					states.disabled = false;
+					opcoes  	    = data;
+				for( i in opcoes ) { 
 					var opcao       = document.createElement('option');
 					opcao.innerHTML = opcoes[i];
 					opcao.value     = i;
@@ -321,20 +322,21 @@ function gravaAjaxEditProfile(e){
 				}
 			}
 			else if(e.name == "states_id"){
-				var city = document.getElementsByName("city_id")[0];
-				city.disabled = false;
-				opcoes = data;
-                city.innerHTML = ""
-				for( i in opcoes ){ 
-					var opcao       = document.createElement('option');
-					opcao.innerHTML = opcoes[i];
-					opcao.value     = i;
-					city.appendChild(opcao);	
+				var city 	   	   = document.getElementsByName("city_id")[0];
+					city.disabled  = false;
+					opcoes	       = data;
+	                city.innerHTML = ""
+
+				for( i in opcoes ) { 
+					var opcao     	    = document.createElement('option');
+						opcao.innerHTML = opcoes[i];
+						opcao.value     = i;
+						city.appendChild(opcao);	
 				};
 
 			}
-			else if(e.name == "username"){
-				location.href= url.index;
+			else if(e.name == "username") {
+				location.href = url.index;
 			}
 			else{
 				console.log(data);
@@ -347,23 +349,22 @@ function gravaAjaxEditProfile(e){
 }
 
 function MascaraDeData(){
-	var nascimentoDta = Id("auth_user_born_on");
-		
-		nascimentoDta.addEventListener("keyup",function(){
-			
+	var nascimentoDta = Id("auth_user_born_on"); // Pega o campo que recebe a data		
+		nascimentoDta.addEventListener("keyup",function(){			
 			  var data = this.value;
-              if (data.length == 2){
-                  data = data + '/';
-                  this.value = data;
+
+              if (data.length == 2) {
+                  data 		 = data + '/';
+                  this.value = data;                  
       			  return true;              
               }
-              if (data.length == 5){
-                  data = data + '/';
+              if (data.length == 5) {
+                  data 		 = data + '/';
                   this.value = data;
                   return true;
               }
 
-			if(this.value.length >= 10){
+			if(this.value.length >= 10) {
 				this.value = this.value.substr(0,10);
 			}
 		});
