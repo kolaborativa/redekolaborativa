@@ -166,6 +166,21 @@ def ajax_edit_profile():
                 value.append(new_value)
             db.auth_user[auth.user.id] = {field_db: value}
 
+        elif field_db == 'born_on':
+            from datetime import date
+
+            field_db =  request.vars.field
+            new_value =  request.vars.value
+
+            list_date=new_value.split('/')
+            year = int(list_date[2])
+            month = int(list_date[1])
+            day = int(list_date[0])
+            new_value = date(year, month, day)
+
+            dic_update = {field_db: new_value}
+            db.auth_user[auth.user.id] = dic_update
+
         else:
             db.auth_user[auth.user.id] = dic_update
 
