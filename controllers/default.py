@@ -242,7 +242,9 @@ def ajax_add_competence():
         # excludes competencies unused 
         for competence_id in list_competencies:
             if not competence_id in my_competencies_id:
-                count = db(db.professional_relationship.user_id == user_id).count()
+                count = db((db.professional_relationship.user_id == user_id) & \
+                           (db.professional_relationship.profession_id==profession_id) \
+                ).count()
                 if count == 1:
                     # updates if there is 1 record 
                     db( (db.professional_relationship.user_id == user_id) & \
