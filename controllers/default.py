@@ -355,6 +355,19 @@ def ajax_add_location():
         except:
             return False
 
+@auth.requires_login()
+def ajax_add_link():
+    try:
+        link_type_id =  request.vars.link_type_id
+        url =  request.vars.url
+        user_id = auth.user.id
+        dic_update = dict(user_id=user_id, link_type_id=link_type_id, url=url)
+
+        db.links[0] = dic_update
+        return True
+    except:
+        return False
+
 # Usando essa função para testar os ajax por favor não deletar
 def getCompetence():
 
