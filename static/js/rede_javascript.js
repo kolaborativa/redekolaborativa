@@ -217,12 +217,14 @@ function DOMEditarPerfil(){
 	};
 
 	$("#profissoes").select2({ 	maximumSelectionSize: 1	});
-	$("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
+	$("#profissoes").on("click",function(){	
+		gravaAjaxEditProfile(this);			
+	});
 	// Identifica os data-select e busca no banco as competencias que já existem			
 	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
 	$("select[data-select]").on("click",function(){gravaAjaxEditProfile(this)});
 	$(".delete_profissao").on("click",function(){console.log("delete isso")});
-	$("name='delete_link'").on("click",function(){console.log("delete isso")});
+	$(".delete_link").on("click",function(){console.log("delete isso")});
 		
 }
 
@@ -284,17 +286,20 @@ function gravaAjaxEditProfile(e){
 		value = e.value;
 		vars  = "field="+field+"&value="+value;
 
+		console.log(url.ajax_add_profission);
+
 		var profession = e.selectedOptions[0].innerHTML;
 			caminho    = url.ajax_add_profission+".json";
+		e.selectedOptions[0].disabled = true;
 		$("#profissoes").select2("val", "")
 		
 
 	}else if(e.id == "network"){
 			
 			var link_type_id = Id("no_table_link_type_id").value;
-			var url 	 	 = e.value;
-				vars    	 = "link_type_id="+link_type_id+"&url="+url;
-				caminho 	 = url.getCompetence;
+			var link 	 	 = e.value;
+				vars    	 = "link_type_id="+link_type_id+"&url="+link;
+				caminho 	 = url.ajax_add_link;
 
 	}
 	else if(e.name == "user_available"){
