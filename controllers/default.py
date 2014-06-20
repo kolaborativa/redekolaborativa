@@ -39,12 +39,13 @@ def principal():
     projeto = db(db.projects).select().first()
     return dict(projeto=projeto)
 
-
+@auth.requires_login()
 def edit_perfil():
     form=auth.profile()
     networking = db(db.network_type.user_id == auth.user.id).select()
     my_professions_id = [i.profession_id for i in db(db.professional_relationship).select()]
     list_professions = [i for i in db(db.profession).select() if not i.id in my_professions_id ]
+    my_avatar = db.auth_user[auth.user.id].avatar
 
     professional_relation = db(db.professional_relationship.user_id ==  auth.user.id).select()
     professional_data = {}
@@ -149,20 +150,19 @@ def edit_perfil():
                 networking=networking,
                 list_professions=list_professions,
                 professional_data=professional_data,
+                my_avatar=my_avatar,
                 )
 
 
-def _image_converter(img64):
+def _image_converter(img64, upload_folder):
     '''Funcao que converte uma imagem base64 e retorna a imagem convertida
     '''
     import subprocess
     from convertImage import convertBase64String
 
     img_base64 = img64
-    upload_folder = '{}uploads/'.format(request.folder)
+    upload_folder = upload_folder
     img_converted = convertBase64String(img_base64, upload_folder)
-
-    print img_converted
 
     return img_converted
 
@@ -201,22 +201,21 @@ def ajax_edit_profile():
         elif field_db == 'avatar':
             field_db =  request.vars.field
             img64 =  request.vars.image64
-            img_converted = _image_converter(img64)
+            upload_folder = '{}uploads/'.format(request.folder)
+            img_converted = _image_converter(img64, upload_folder)
 
             #grava no banco
-            #if img_name:
-            #    user = db(db.auth_user.id == auth.user.id).select().first()
+            if img_converted:
+                user = db(db.auth_user.id == auth.user.id).select().first()
 
-            #    # Deleta o avatar antigo
-            #    subprocess.call('rm %s/%s' % (upload_folder, user.avatar), shell=True)
+                if user.avatar:
+                    # Deleta o avatar antigo
+                    import subprocess
+                    subprocess.call('rm %s/%s' % (upload_folder, user.avatar), shell=True)
 
-            #    # Salva o avatar novo
-            #    db(db.auth_user.id == user.id).update(avatar=img_name)
-            #    return True
-        else:
-            return False
-
-
+               # Salva o avatar novo
+                db(db.auth_user.id == user.id).update(avatar=img_converted)
+                return True
 
         else:
             db.auth_user[auth.user.id] = dic_update

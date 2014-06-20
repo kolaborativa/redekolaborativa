@@ -139,8 +139,11 @@
 				<section class="section-form f-left">
 					
 					<label class="profile-avatar-wrap">
-						<img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
-                        {{#=form.custom.widget.avatar}}
+                        {{ if my_avatar: }}
+                            <img src="{{=URL(f='download', args=my_avatar)}}" id="profile-avatar" alt="Image for Profile">
+                        {{ else: }}
+						    <img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
+                        {{ pass }}
 						<input type="file" name="avatar" class="d-none" id="uploader">
 						<input type="hidden" value="" id="hidden-avatar">
 					</label>
