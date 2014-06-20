@@ -318,8 +318,7 @@ function gravaAjaxEditProfile(e){
 
 		var img 	= Id("hidden-avatar").value;		
 			vars    = {image64: img, field : e.name}; // Cria um objeto com a img em base64 e o nome do campo
-			caminho = url.getCompetence;
-			// caminho = url.edit_profile;
+			caminho = url.edit_profile;
 	}
 	else if(e.name == "country_id" || e.name == "states_id" || e.name == "city_id"){
 			field   = e.name;

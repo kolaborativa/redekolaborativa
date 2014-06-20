@@ -42,10 +42,16 @@ db.define_table("professional_relationship",
 	Field("user_id", db.auth_user, default=auth.user_id, readable=False, writable=False)
     )
 
-db.define_table("network_type",
-Field("user_id"),
-Field("network", label='Username'),
-Field("network_type", label='Network')
+
+db.define_table('link_type',
+    Field('name', 'string'),
+    format='%(name)s'
+)
+
+db.define_table("links",
+Field("user_id", db.auth_user),
+Field("link_type_id", db.link_type, label=T('Link Type')),
+Field("url", 'string')
 )
 
 db.define_table('comment_project',

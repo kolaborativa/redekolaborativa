@@ -139,8 +139,11 @@
 				<section class="section-form f-left">
 					
 					<label class="profile-avatar-wrap">
-						<img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
-                        {{#=form.custom.widget.avatar}}
+                        {{ if my_avatar: }}
+                            <img src="{{=URL(f='download', args=my_avatar)}}" id="profile-avatar" alt="Image for Profile">
+                        {{ else: }}
+						    <img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
+                        {{ pass }}
 						<input type="file" name="avatar" class="d-none" id="uploader">
 						<input type="hidden" value="" id="hidden-avatar">
 					</label>
@@ -224,38 +227,43 @@
 	<section  data-fase="4" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
 		<section class="span_12 col">
 			<div class="t-center f-center w-70">
-				<span class="font-lato h2 f-left">Redes Sociais</span>
+				<span class="font-lato h2 f-left">Links</span>
 				<section class="section-form f-left w-full">
 					<!-- select-edit-perfil -->
 					<label class="select form-input-comum  w-40 f-left select-edit-perfil">
-						<select class="input-select w-full" name="network_type" id="">
-							<option value="Facebook">Facebook</option>
-							<option value="Twitter">Twitter</option>
-						</select>
+                        {{form_links.custom.widget.link_type_id['_class'] = 'input-select w-full'}}
+                        {{=form_links.custom.widget.link_type_id }}
 					</label>
-				<!-- Aqui só troca pra rede que ele escolheu -->
-			<!-- 	<h3>Usuário</h3> -->
-				<input class="form-input-comum usr-input-form w-50 f-right" name="network" id="network" type="text"/>
-		
+					<!-- 
+					
+						Aqui só troca pra rede que ele escolheu
+						<h1 data-redesocial>Facebook</h1>
+						<h3>Link</h3> -->
+                        {{form_links.custom.widget.url['_class'] = 'form-input-comum usr-input-form w-50 f-right'}}
+                        {{form_links.custom.widget.url['_id'] = 'network'}}
+                        {{form_links.custom.widget.url['_placeholder'] = 'Insira a URL aqui'}}
+                        {{=form_links.custom.widget.url}}
+
 					<section class="w-full f-left">
 						<style>
 							/*{{=URL('static','images/Edit_perfil/confirm.png')}}*/
 						</style>
+                        {{ for link in my_links: }}
+					    	<div class="social-field" >
+					    		<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
+					    		<span data-field="kury_br">
+					    		<a href="{{=link.url}}" data-user="kury_br" id="">{{=link.link_type_id.name}}</a>
+					    		</span>
+					    		<img src="{{=URL('static','images/Edit_perfil/edit.png')}}" data-edit-user="kury_br" alt="">
+					    		<img src="{{=URL('static','images/Edit_perfil/delete.png')}}"  alt="">
+					    	</div>
+                        {{ pass }}
+					<!-- 
+					Quando o cara for editar, o link vira um input text
+					o icone de editar vira um icone de confirmar (enter tambem submete)
 
-						<div class="social-field" >
-							<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
-							<span>
-								<a href="https://www.facebook.com/jorgekuray" id="">https://www.facebook.com/jorgekuray</a>
-							</span>
-							<img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="">
-							<img src="{{=URL('static','images/Edit_perfil/delete.png')}}"  alt="">
-						</div>
-<!-- 
-Quando o cara for editar, o link vira um input text
-o icone de editar vira um icone de confirmar (enter tambem submete)
-
--->
-</section>
+					-->
+					</section>
 
 </section>
 </div>
@@ -272,7 +280,6 @@ o icone de editar vira um icone de confirmar (enter tambem submete)
 </section>
 </section>
 
-{{=form_networking}}
 <hr>
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/resample.js')}}"></script>
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/avatar.js')}}"></script>
