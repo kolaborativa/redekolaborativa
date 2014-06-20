@@ -11,6 +11,7 @@ function Id(elemento) {
 
 // Função para pegar vetor de data-* (atributos)
 function SelectAll(parametro) {
+
 	parametro 	  = "["+parametro+"]";
 	var elementos = document.querySelectorAll(parametro);
 	return elementos;
@@ -19,6 +20,7 @@ function SelectAll(parametro) {
 document.addEventListener("DOMContentLoaded",main)
 
 function main(){
+
 	mudaStatusCheckbox();
 	DOMEditarPerfil();
 }
@@ -32,8 +34,7 @@ function mudaStatusCheckbox(checkbox){
 
 	var checked 		 = document.getElementsByName("user_available")[0].checked;
 	var disponibilidades = Id("disponibilidades");
-	console.log(checkbox.innerHTML);
-	console.log(checked);
+	
 	if (checked) {
 		checkbox.innerHTML = "Disponivel"
 		disponibilidades.style.display = "block";
@@ -65,17 +66,6 @@ function mudando_fase_perfil(fase){
 		else{
 			status = "false";
 		}
-
-		// Identifica quais as imagens da fase
-		for (; iImg < img_fase.length; iImg++) {
-			if( img_fase[iImg].getAttribute("data-img-fase") == fase ) {
-				img_fase[iImg].style.display = "inline";
-			}
-			else {
-				img_fase[iImg].style.display = "none";
-			}
-		};
-
 		// Muda o bloco
 		if (status == "false") {
 			fases_edicao[iFases].style.display = "none";
@@ -83,6 +73,35 @@ function mudando_fase_perfil(fase){
 		else{
 			fases_edicao[iFases].style.display = "block";	
 		};
+	};
+
+	// Identifica quais as imagens da fase atual de edição do perfil e adiciona dinamicamente
+	switch(fase){
+		case "1":
+			 img_fase[0].src = image.editProfilefase1	
+			 img_fase[1].src = image.editProfilefase2_cinza
+			 img_fase[2].src = image.editProfilefase3_cinza
+			 img_fase[3].src = image.editProfilefase4_cinza
+		break;
+		case "2":
+			 img_fase[0].src = image.editProfilefase1_completa
+			 img_fase[1].src = image.editProfilefase2
+			 img_fase[2].src = image.editProfilefase3_cinza
+			 img_fase[3].src = image.editProfilefase4_cinza
+		break;
+		case "3":
+			 img_fase[0].src = image.editProfilefase1_completa
+			 img_fase[1].src = image.editProfilefase2_completa
+			 img_fase[2].src = image.editProfilefase3
+			 img_fase[3].src = image.editProfilefase4_cinza
+		break;
+		case "4":
+			 img_fase[0].src = image.editProfilefase1_completa
+			 img_fase[1].src = image.editProfilefase2_completa		
+			 img_fase[2].src = image.editProfilefase3_completa		
+			 img_fase[3].src = image.editProfilefase4
+		break;
+		
 	};
 }
 
@@ -115,24 +134,32 @@ function DOMEditarPerfil(){
 		mudando_fase_perfil();
 
 	var btnPerfil  = SelectAll("data-irParaFase");	
-	var iBtnPerfil = 0
+	var iBtnPerfil = 0;
+	var img_fase   = SelectAll("data-img-fase");
+	var iImg	   = 0;
 	var label      = SelectAll("data-checkbox-label");
-	var iLabel 	   = 0
+	var iLabel 	   = 0;
 	var editar     = SelectAll("data-edit-user");
-	var iEditar    = 0
+	var iEditar    = 0;
 	var formulario = Id("formulario_edicao_perfil")
 	var inputs     = formulario.getElementsByTagName("input");
 	var selects    = formulario.getElementsByTagName("select");
 	var textareas  = formulario.getElementsByTagName("textarea")[0];
 
 
-
+	// Chama a função para ir para o próximo estágio do editar perfil
 	for (; iBtnPerfil < btnPerfil.length; iBtnPerfil++) {
 		btnPerfil[iBtnPerfil].addEventListener("click",function(){
 			mudando_fase_perfil(this.getAttribute("data-irParaFase"));
 		});
 	};
 
+	// Chama a função para ir para o próximo estágio do editar perfil
+	for (; iImg < img_fase.length; iImg++) {
+		img_fase[iImg].addEventListener("click",function(){
+			mudando_fase_perfil(this.getAttribute("data-img-fase"));
+		});
+	};
 
 	for (; iLabel < label.length; iLabel++) {
 		label[iLabel].addEventListener("click",function(){
@@ -164,11 +191,7 @@ function DOMEditarPerfil(){
 		if(inputs[i].name == "network"){
 			Id("network").addEventListener("click",function(){gravaAjaxEditProfile(this);})
 		}	
-		else if(inputs[i].name == "avatar"){
-			//Pula o input avatar !
-		}
-		else
-		{
+		else if(inputs[i].name != "avatar"){ //Pula o input avatar !			
 			inputs[i].addEventListener("change",function(){gravaAjaxEditProfile(this);})
 		}
 	};
