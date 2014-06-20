@@ -929,8 +929,8 @@ body {
 }
 .select-edit-perfil,
 .select-edit-perfil select {
-  height: 50px;
-  font-size: 25px;
+  height: 37px;
+  font-size: 18px;
 }
 .btn-submit-select {
   padding: 0px 12px;

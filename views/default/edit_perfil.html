@@ -208,9 +208,6 @@
                                 {{ pass }}
                             {{ pass }}
                         </ul>
-
-
-
 					</div>
 				</section>
 			</div>
@@ -229,34 +226,28 @@
 			<div class="t-center f-center w-70">
 				<span class="font-lato h2 f-left">Redes Sociais</span>
 				<section class="section-form f-left w-full">
-
 					<!-- select-edit-perfil -->
-					<label class="select w-90 form-input-comum f-left select-edit-perfil">
+					<label class="select form-input-comum  w-40 f-left select-edit-perfil">
 						<select class="input-select w-full" name="network_type" id="">
 							<option value="Facebook">Facebook</option>
 							<option value="Twitter">Twitter</option>
 						</select>
 					</label>
-
-					<button class="form-input-comum btn-submit-select f-left" type="button">+</button>
-					<div class="w-full f-left t-left">
-						<!-- Aqui só troca pra rede que ele escolheu -->
-						<h1 data-redesocial>Facebook</h1>
-						<h3>Usuário</h3>
-<input class=" form-input-comum usr-input-form w-70 f-left" name="network" type="text"/>
-<input class="form-input-comum usr-btn-form btn-submit-select f-left" id="network" type="button" value="+">
-
-					</div>
+				<!-- Aqui só troca pra rede que ele escolheu -->
+			<!-- 	<h3>Usuário</h3> -->
+				<input class="form-input-comum usr-input-form w-50 f-right" name="network" id="network" type="text"/>
+		
 					<section class="w-full f-left">
 						<style>
 							/*{{=URL('static','images/Edit_perfil/confirm.png')}}*/
 						</style>
+
 						<div class="social-field" >
 							<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
-							<span data-field="kury_br">
-							<a href="#" data-user="kury_br" id="">kury_br</a>
+							<span>
+								<a href="https://www.facebook.com/jorgekuray" id="">https://www.facebook.com/jorgekuray</a>
 							</span>
-							<img src="{{=URL('static','images/Edit_perfil/edit.png')}}" data-edit-user="kury_br" alt="">
+							<img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="">
 							<img src="{{=URL('static','images/Edit_perfil/delete.png')}}"  alt="">
 						</div>
 <!-- 
