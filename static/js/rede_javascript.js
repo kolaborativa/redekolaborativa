@@ -26,19 +26,19 @@ function main(){
 function mudaStatusCheckbox(checkbox){
 
 
-	checkbox = checkbox == null ? document.getElementsByName("user_available")[0] : checkbox
+	checkbox = checkbox == null ? document.querySelector("[data-checkbox-label]") : checkbox
 	// pega o Label que ta com o texto
 	// Verifica se o campo veio nulo, se veio define o campo Default, se não usa o parametro mesmo
 
 	var checked 		 = document.getElementsByName("user_available")[0].checked;
 	var disponibilidades = Id("disponibilidades");
-	
+	console.log(checkbox.innerHTML);
+	console.log(checked);
 	if (checked) {
 		checkbox.innerHTML = "Disponivel"
 		disponibilidades.style.display = "block";
 	}
-	else{
-		console.log("desativado");
+	else{		
 		checkbox.innerHTML = "Indisponivel"
 		disponibilidades.style.display = "none";
 	}
