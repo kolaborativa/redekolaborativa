@@ -21,9 +21,12 @@ db.team_function.username.requires = IS_IN_DB(db, 'auth_user.username', '%(usern
 db.team_function.project_id.readable = db.team_function.project_id.writable = False
 db.team_function.username.requires = db.team_function.role.requires = IS_NOT_EMPTY(error_message=field_empty)
 
-#network_type
-db.network_type.user_id.requires = IS_IN_DB(db, 'auth_user.id')
-db.network_type.network_type.requires = IS_EMPTY_OR(IS_IN_SET(['Skype', 'Facebook', 'Google+', 'LinkedIn', 'Twitter', 'E-mail']))
+#link_type
+db.link_type.name.requires = IS_NOT_EMPTY()
+
+#links
+db.links.url.requires = IS_URL()
+db.links.link_type_id.requires=IS_IN_DB(db, db.link_type.id, '%(name)s', zero="Escolha o tipo de link")
 
 #comment_project
 db.comment_project.body.requires = IS_NOT_EMPTY(error_message=field_empty)

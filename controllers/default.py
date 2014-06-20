@@ -42,7 +42,8 @@ def principal():
 @auth.requires_login()
 def edit_perfil():
     form=auth.profile()
-    networking = db(db.network_type.user_id == auth.user.id).select()
+    my_links = db(db.links.user_id == auth.user.id).select()
+    link_types = db(db.link_type.id>0).select()
     my_professions_id = [i.profession_id for i in db(db.professional_relationship).select()]
     list_professions = [i for i in db(db.profession).select() if not i.id in my_professions_id ]
     my_avatar = db.auth_user[auth.user.id].avatar
@@ -77,10 +78,8 @@ def edit_perfil():
                     professional_data[pro]['others_competencies'].append(oc)
 
 
-    form_networking = SQLFORM.factory(
-        db.network_type,
-        fields = ['network', 'network_type'],
-        submit_button=T('add')
+    form_links = SQLFORM.factory(
+        db.links,
         )
 
     form_profession = SQLFORM.factory(
@@ -131,26 +130,15 @@ def edit_perfil():
         response.flash = 'form has errors'
 
     #networking form
-    if form_networking.process().accepted:
-        db.network_type.insert(
-            user_id = auth.user.id,
-            network = request.vars.network,
-            network_type = request.vars.network_type
-            )
-        response.flash = 'fom accepted'
-        redirect(URL("user",args=["profile"]))
-    elif form_networking.errors:
-        response.flash = 'form has errors'
-
 
     return dict(form=form,
                 form_profession=form_profession,
                 form_competencies=form_competencies,
-                form_networking=form_networking,
-                networking=networking,
+                form_links=form_links,
                 list_professions=list_professions,
                 professional_data=professional_data,
                 my_avatar=my_avatar,
+                my_links=my_links,
                 )
 
 
@@ -550,7 +538,7 @@ def user_info():
     user = db.auth_user(username=seach_user) or message
 
     if user != message:
-        networking = db(db.network_type.user_id == user.id).select()
+        my_links = db(db.links.user_id == auth.user.id).select()
         professional_relation = db(db.professional_relationship.user_id == user.id).select()
         professional_data = {}
         if professional_relation:
@@ -575,8 +563,13 @@ def user_info():
                 if i.team.count(str(user.id)):
                     colaborate_projects[n] = i
         return dict(
-                user=user, message=message, professional_data=professional_data, networking=networking,
-                last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
+                user=user, message=message,
+                professional_data=professional_data,
+                last_project=last_project,
+                my_projects=my_projects,
+                my_links=my_links,
+                colaborate_projects=colaborate_projects,
+                )
 
     else:
         if db.projects(project_slug = request.args(0)):

@@ -159,6 +159,7 @@
 'Layout': 'Layout',
 'Layout Plugins': 'Layout Plugins',
 'Layouts': 'Layouts',
+'Link Type': 'Link Type',
 'Links': 'Links',
 'Live chat': 'Chat ao vivo',
 'Live Chat': 'Chat ao vivo',

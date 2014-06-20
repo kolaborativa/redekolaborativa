@@ -54,26 +54,13 @@
         </section>
         <!-- Redes sociais -->
         <section class="redes_sociais">
-           {{if networking:}}
-           <b>{{=T("Social Networking")}}</b><br />
-           {{for s in networking:}}
-           <ul>
-            {{if s.network_type == 'Twitter':}}
-            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="http://twitter.com/{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{pass}}</li>
-            {{elif s.network_type == 'Facebook':}}
-            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="http://facebook.com/{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{pass}}</li>
-            {{elif s.network_type == 'Google+':}}
-            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="https://plus.google.com/{{=s.network}}/posts" target="_blank">{{=s.network_type}}</a>{{pass}}</li>
-            {{elif s.network_type == 'LinkedIn':}}
-            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="http://linkedin.com/in/{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{pass}}</li>
-            {{elif s.network_type == 'Skype':}}
-            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="skype:{{=s.network}}?userinfo">{{=s.network_type}}</a>{{pass}}</li>
-            {{else:}}
-            <li>{{=s.network}}</li>
-            {{pass}}
+            <p><strong>Links:</strong></p>
+            <ul>
+                {{ for i in my_links: }}
+                    <li><a href="{{=i.url}}">{{=i.link_type_id.name}}</a></li>
+                {{ pass }}
             </ul>
-            {{pass}}
-            {{pass}}
+            <!-- Aqui vai os links -->
         </section>
     </section>
 

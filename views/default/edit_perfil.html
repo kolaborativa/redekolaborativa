@@ -230,38 +230,39 @@
 	<section  data-fase="4" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
 		<section class="span_12 col">
 			<div class="t-center f-center w-70">
-				<span class="font-lato h2 f-left">Redes Sociais</span>
+				<span class="font-lato h2 f-left">Links</span>
 				<section class="section-form f-left w-full">
 
 					<!-- select-edit-perfil -->
 					<label class="select w-90 form-input-comum f-left select-edit-perfil">
-						<select class="input-select w-full" name="network_type" id="">
-							<option value="Facebook">Facebook</option>
-							<option value="Twitter">Twitter</option>
-						</select>
+                        {{form_links.custom.widget.link_type_id['_class'] = 'input-select w-full'}}
+                        {{=form_links.custom.widget.link_type_id }}
 					</label>
 
 					<button class="form-input-comum btn-submit-select f-left" type="button">+</button>
 					<div class="w-full f-left t-left">
 						<!-- Aqui só troca pra rede que ele escolheu -->
 						<h1 data-redesocial>Facebook</h1>
-						<h3>Usuário</h3>
-<input class=" form-input-comum usr-input-form w-70 f-left" name="network" type="text"/>
-<input class="form-input-comum usr-btn-form btn-submit-select f-left" id="network" type="button" value="+">
+						<h3>Link</h3>
+                        {{form_links.custom.widget.url['_class'] = 'form-input-comum usr-input-form w-70 f-left'}}
+                        {{=form_links.custom.widget.url}}
+                        <input class="form-input-comum usr-btn-form btn-submit-select f-left" id="network" type="button" value="+">
 
 					</div>
 					<section class="w-full f-left">
 						<style>
 							/*{{=URL('static','images/Edit_perfil/confirm.png')}}*/
 						</style>
-						<div class="social-field" >
-							<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
-							<span data-field="kury_br">
-							<a href="#" data-user="kury_br" id="">kury_br</a>
-							</span>
-							<img src="{{=URL('static','images/Edit_perfil/edit.png')}}" data-edit-user="kury_br" alt="">
-							<img src="{{=URL('static','images/Edit_perfil/delete.png')}}"  alt="">
-						</div>
+                        {{ for link in my_links: }}
+					    	<div class="social-field" >
+					    		<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
+					    		<span data-field="kury_br">
+					    		<a href="{{=link.url}}" data-user="kury_br" id="">{{=link.link_type_id.name}}</a>
+					    		</span>
+					    		<img src="{{=URL('static','images/Edit_perfil/edit.png')}}" data-edit-user="kury_br" alt="">
+					    		<img src="{{=URL('static','images/Edit_perfil/delete.png')}}"  alt="">
+					    	</div>
+                        {{ pass }}
 <!-- 
 Quando o cara for editar, o link vira um input text
 o icone de editar vira um icone de confirmar (enter tambem submete)
@@ -284,7 +285,6 @@ o icone de editar vira um icone de confirmar (enter tambem submete)
 </section>
 </section>
 
-{{=form_networking}}
 <hr>
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/resample.js')}}"></script>
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/avatar.js')}}"></script>
