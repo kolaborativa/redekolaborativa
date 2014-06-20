@@ -2,6 +2,7 @@
 {
 '!langcode!': 'pt-br',
 '!langname!': 'Português (do Brasil)',
+'"Connect with entrepnerus and internet professionals to develop your project or collaborate with other people. Cooperate. Share. KOLLABORATE!"': '"Conecte-se à empreendedores e profissionais da internet para desenvolver seu projeto ou colaborar com o de outras pessoas. Coopere. Compartilhe. KOLABORE!"',
 '"update" is an optional expression like "field1=\'newvalue\'". You cannot update or delete the results of a JOIN': '"update" é uma expressão opcional como "campo1=\'novovalor\'". Você não pode atualizar ou apagar os resultados de um JOIN',
 '%s %%{row} deleted': '%s linhas apagadas',
 '%s %%{row} updated': '%s linhas atualizadas',
@@ -19,6 +20,7 @@
 'Ajax Recipes': 'Receitas de Ajax',
 'An error occured, please %s the page': 'Ocorreu um erro, por favor %s a página',
 'and': 'e',
+'and Web professionals': 'E PROFISSIONAIS DA WEB',
 'Aplicar mudanças': 'Aplicar mudanças',
 'appadmin is disabled because insecure channel': 'Administração desativada devido ao canal inseguro',
 'Apply changes': 'Aplicar mudanças',
@@ -48,6 +50,7 @@
 'Comments': 'Comentários',
 'Communities on Google+': 'Comunidades no Google+',
 'Community': 'Comunidade',
+'COMMUNITY OF ENTREPRENEURS': 'COMUNIDADE DE EMPREENDEDORES ',
 'Competencies': 'Competências',
 'Components and Plugins': 'Componentes e Plugins',
 'Contact Info': 'Informações de Contato',
