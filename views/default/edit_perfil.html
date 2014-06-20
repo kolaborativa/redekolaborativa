@@ -2,37 +2,22 @@
 <link rel="stylesheet" href="{{=URL('static','plugins/select2-3.4.8/select2.css')}}">
 
 <h1>Editar Perfil</h1>
-<script>
-	
-</script>
+
 <section class="col col_edit_perfil_topo span_12 f-left">
 	<figure class="span_3 col">
-		<img src="{{=URL('static','images/Edit_perfil/pessoal.png')}}" title="Preencha seus dados pessoais" data-img-fase="1">
-		<img src="{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}" title="Preencha seus dados pessoais" data-img-fase="2">
-		<img src="{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}" title="Preencha seus dados pessoais" data-img-fase="3">
-		<img src="{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}" title="Preencha seus dados pessoais" data-img-fase="4">
+		<img src="" class="cursor-hand" title="Preencha seus dados pessoais" data-img-fase="1">		
+	</figure>
+
+	<figure class="span_3 col">		
+		<img src="" class="cursor-hand" title="Escolha um avatar e fale sobre você" data-img-fase="2">		
 	</figure>
 
 	<figure class="span_3 col">
-		<img src="{{=URL('static','images/Edit_perfil/bio_cinza.png')}}" title="Escolha um avatar e fale sobre você" data-img-fase="1">
-		<img src="{{=URL('static','images/Edit_perfil/bio.png')}}" title="Escolha um avatar e fale sobre você" data-img-fase="2">
-		<img src="{{=URL('static','images/Edit_perfil/bio_completa.png')}}" title="Escolha um avatar e fale sobre você" data-img-fase="3">
-		<img src="{{=URL('static','images/Edit_perfil/bio_completa.png')}}" title="Escolha um avatar e fale sobre você" data-img-fase="4">
+		<img src="" class="cursor-hand" title="Fale sobre suas habilidades profissionais" data-img-fase="3">
 	</figure>
 
 	<figure class="span_3 col">
-		<img src="{{=URL('static','images/Edit_perfil/prof_cinza.png')}}" title="Fale sobre suas habilidades profissionais" data-img-fase="1" >
-		<img src="{{=URL('static','images/Edit_perfil/prof_cinza.png')}}" title="Fale sobre suas habilidades profissionais" data-img-fase="2" >
-		<img src="{{=URL('static','images/Edit_perfil/prof.png')}}" title="Fale sobre suas habilidades profissionais" data-img-fase="3">
-		<img src="{{=URL('static','images/Edit_perfil/prof_completa.png')}}" title="Fale sobre suas habilidades profissionais" data-img-fase="4">
-	</figure>
-
-	<figure class="span_3 col">
-		<img src="{{=URL('static','images/Edit_perfil/cont_cinza.png')}}" title="Formas de contato e suas redes sociais
-		" data-img-fase="1">
-		<img src="{{=URL('static','images/Edit_perfil/cont_cinza.png')}}" title="" data-img-fase="2">
-		<img src="{{=URL('static','images/Edit_perfil/cont_cinza.png')}}" title="" data-img-fase="3">
-		<img src="{{=URL('static','images/Edit_perfil/contato.png')}}" title="" data-img-fase="4">
+		<img src="" class="cursor-hand" title="Formas de contato e suas redes sociais" data-img-fase="4">
 	</figure>
 
 </section>
@@ -105,9 +90,9 @@
 					<br>
 					<section class="section-form">
 						<div class="checkbox form-select">
+							
                             {{=form.custom.widget.user_available}}
-                            <!--<input name="user_available" type="checkbox" value="None" id="checkbox" name="check" checked />-->
-							<label for="checkbox" data-checkbox-label checked>Disponivel</label>
+                            <label for="checkbox" data-checkbox-label></label>							
 						</div>
 					</section>
 				</div>
@@ -205,7 +190,7 @@
                             {{ if professional_data: }}
                                 {{ for profession in professional_data: }}
                                     <li class="profissao t-left">
-                                        <span class="h1">{{=profession}}
+                                        <span class="h2">{{=profession}}
                                         <img class="delete_profissao f-right" src="{{=URL('static', 'images/Edit_perfil/delete.png')}}" ></span>
                                         <select data-placeholder="adicione competencias" name="competence" data-select="{{=profession}}" class="w-full competencias" multiple data-idProfissao="{{=professional_data[profession]['profession_id']}}">
                                             {{ if professional_data[profession]['my_competencies']: }}
@@ -224,17 +209,7 @@
                             {{ pass }}
                         </ul>
 
-	<ul class="list-profissao">
-		<li class="profissao t-left"><span class="h1"> Ninja
-			<img src="" alt="" class="delete_profissao f-right">
-		</span>
-		<select data-placeholder="adicione competencias" name="competence" data-select="Ninja" class="w-full competencias" multiple
-		data-idProfissao="2">
-			<option value="1" selected>Testes</option>
-			<option value="2" selected>Redondo</option>
-		</select>
-		</li>
-	</ul>
+
 
 					</div>
 				</section>
@@ -311,8 +286,3 @@ o icone de editar vira um icone de confirmar (enter tambem submete)
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/resample.js')}}"></script>
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/avatar.js')}}"></script>
 <script src="{{=URL('static','plugins/select2-3.4.8/select2.js')}}"></script>
-
-<script>
-
-	
-</script>
