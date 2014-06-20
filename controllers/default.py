@@ -150,6 +150,23 @@ def edit_perfil():
                 list_professions=list_professions,
                 professional_data=professional_data,
                 )
+
+
+def _image_converter(img64):
+    '''Funcao que converte uma imagem base64 e retorna a imagem convertida
+    '''
+    import subprocess
+    from convertImage import convertBase64String
+
+    img_base64 = img64
+    upload_folder = '{}uploads/'.format(request.folder)
+    img_converted = convertBase64String(img_base64, upload_folder)
+
+    print img_converted
+
+    return img_converted
+
+
 @auth.requires_login()
 def ajax_edit_profile():
     try:
@@ -181,6 +198,26 @@ def ajax_edit_profile():
             dic_update = {field_db: new_value}
             db.auth_user[auth.user.id] = dic_update
 
+        elif field_db == 'avatar':
+            field_db =  request.vars.field
+            img64 =  request.vars.image64
+            img_converted = _image_converter(img64)
+
+            #grava no banco
+            #if img_name:
+            #    user = db(db.auth_user.id == auth.user.id).select().first()
+
+            #    # Deleta o avatar antigo
+            #    subprocess.call('rm %s/%s' % (upload_folder, user.avatar), shell=True)
+
+            #    # Salva o avatar novo
+            #    db(db.auth_user.id == user.id).update(avatar=img_name)
+            #    return True
+        else:
+            return False
+
+
+
         else:
             db.auth_user[auth.user.id] = dic_update
 
@@ -192,8 +229,7 @@ def ajax_edit_profile():
                 if not dados.availability:
                     db.auth_user[auth.user.id] = {'availability': 'Others'}
 
-        print 'campo do banco:',field_db
-        print 'novo valor:',new_value
+        #print 'campo do banco:',field_db
         return True
 
     except:
