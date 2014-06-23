@@ -644,7 +644,8 @@ def projects():
             for i in json.loads(project.team):
                 collaborator = db(db.auth_user.id == i).select().first()
                 user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == project.id)).select().first()
-                profession = db(db.profession.user_id == i).select(db.profession.profession)
+                # listar profissoes do colaborador
+                #profession = db(db.professional_relationship.user_id == i).select(db.professional_relationship.profession_id)
 
                 collaborator.username = collaborator.username
                 if user_role:
@@ -652,10 +653,10 @@ def projects():
                 else:
                     collaborator.role = user_role
 
-                if profession:
-                    collaborator.professions = profession
-                else:
-                    collaborator.profession = profession
+                #if profession:
+                #    collaborator.professions = profession
+                #else:
+                #    collaborator.profession = profession
 
                 collaborators.append(collaborator)
                 user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
