@@ -1004,8 +1004,11 @@ body {
   margin: 0px 4px;
   padding-left: 17px;
 }
+.competencias {
+  margin-top: 10px !important;
+}
 .delete_profissao {
   cursor: pointer;
-  margin-right: 21px;
-  margin-top: 12px;
+  margin-right: 16px;
+  margin-top: 4px;
 }

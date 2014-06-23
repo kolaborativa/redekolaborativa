@@ -90,7 +90,6 @@
 					<br>
 					<section class="section-form">
 						<div class="checkbox form-select">
-
                             {{=form.custom.widget.user_available}}
                             <label for="checkbox" data-checkbox-label></label>
 						</div>
@@ -192,7 +191,7 @@
                         <ul class="list-profissao">
                             {{ if professional_data: }}
                                 {{ for profession in professional_data: }}
-                                    <li class="profissao t-left">
+                                    <li class="profissao t-left f-left">
                                         <span class="h2">{{=profession}}
                                         <img class="delete_profissao f-right" data-idProfissao="{{=professional_data[profession]['profession_id']}}" src="{{=URL('static', 'images/Edit_perfil/delete.png')}}" name="delete_profission" ></span>
                                         <select data-placeholder="adicione competencias" name="competence" data-select="{{=profession}}" class="w-full competencias" multiple data-idProfissao="{{=professional_data[profession]['profession_id']}}">

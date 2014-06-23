@@ -27,22 +27,29 @@ function main(){
 
 function mudaStatusCheckbox(checkbox){
 
-
 	checkbox = checkbox == null ? document.querySelector("[data-checkbox-label]") : checkbox
+
 	// pega o Label que ta com o texto
 	// Verifica se o campo veio nulo, se veio define o campo Default, se não usa o parametro mesmo
 
-	var checked 		 = document.getElementsByName("user_available")[0].checked;
 	var disponibilidades = Id("disponibilidades");
 
+
+	var checked 		 = document.getElementsByName("user_available")[0].checked;
+
 	if (checked) {
+
 		checkbox.innerHTML = "Disponivel"
 		disponibilidades.style.display = "block";
+		alert('sim');
 	}
 	else{
+
 		checkbox.innerHTML = "Indisponivel"
 		disponibilidades.style.display = "none";
+		alert("nao");
 	}
+	console.log("checado",checked);
 }
 
 function mudando_fase_perfil(fase){
@@ -166,7 +173,7 @@ function DOMEditarPerfil(){
 
 	for (; iLabel < label.length; iLabel++) {
 		label[iLabel].addEventListener("click",function(){
-			mudaStatusCheckbox(this)
+			// mudaStatusCheckbox(this)
 		})
 	}
 
@@ -198,9 +205,16 @@ function DOMEditarPerfil(){
 				gravaAjaxEditProfile(this);
 			})
 		}
+		else if(inputs[iInputs].name == "user_available"){
+			inputs[iInputs].addEventListener("change",function(){
+				mudaStatusCheckbox();
+				gravaAjaxEditProfile(this)
+			})
+		}
 		else if(inputs[iInputs].name != "avatar"){ //Pula o input avatar !
 			inputs[iInputs].addEventListener("change",function(){gravaAjaxEditProfile(this);})
 		}
+
 	};
 
 
