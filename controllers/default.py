@@ -42,8 +42,21 @@ def principal():
 @auth.requires_login()
 def edit_perfil():
     form=auth.profile()
+
     my_links = db(db.links.user_id == auth.user.id).select()
-    link_types = db(db.link_type.id>0).select()
+    my_links_id = [i.link_type_id for i in my_links]
+    count_type_other = db( (db.links.user_id == auth.user.id) & \
+        (db.links.link_type_id == 10) ).count()
+    list_link_types = db(db.link_type.id>0).select()
+
+    others_links = {}
+
+    for i in list_link_types:
+        if not i.id in my_links_id:
+            others_links[i.id] = i.name
+    if count_type_other < 2 and 10 not in others_links:
+        others_links[10] = 'Outro'
+
     my_professions_id = [i.profession_id for i in db(db.professional_relationship).select()]
     list_professions = [i for i in db(db.profession).select() if not i.id in my_professions_id ]
     my_avatar = db.auth_user[auth.user.id].avatar
@@ -139,6 +152,7 @@ def edit_perfil():
                 professional_data=professional_data,
                 my_avatar=my_avatar,
                 my_links=my_links,
+                others_links=others_links,
                 )
 
 

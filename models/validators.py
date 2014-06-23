@@ -26,7 +26,7 @@ db.link_type.name.requires = IS_NOT_EMPTY()
 
 #links
 db.links.url.requires = IS_URL()
-db.links.link_type_id.requires=IS_IN_DB(db, db.link_type.id, '%(name)s', zero="Escolha o tipo de link")
+db.links.link_type_id.requires=IS_IN_DB(db, db.link_type.id, '%(name)s')
 
 #comment_project
 db.comment_project.body.requires = IS_NOT_EMPTY(error_message=field_empty)

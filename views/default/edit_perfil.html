@@ -235,8 +235,12 @@
 
 					<!-- select-edit-perfil -->
 					<label class="select w-90 form-input-comum f-left select-edit-perfil">
-                        {{form_links.custom.widget.link_type_id['_class'] = 'input-select w-full'}}
-                        {{=form_links.custom.widget.link_type_id }}
+                        <select class="input-select w-full" name="link_type_id">
+                            <option value>Escolha o tipo de link</option>
+                            {{ for type_link in others_links: }}
+                                <option value="{{=type_link}}"> {{=others_links[type_link]}}</option>
+                            {{ pass }}
+                        <select>
 					</label>
 
 					<button class="form-input-comum btn-submit-select f-left" type="button">+</button>
