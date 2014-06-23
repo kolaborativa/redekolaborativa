@@ -367,7 +367,7 @@ function gravaAjaxEditProfile(e){
 		field = e.name;
 		value = e.id;
 		vars = "field="+field+"&id="+value;
-		caminho = url.testaAjax;
+		caminho = url.ajax_remove_link;
 	}
 	else if(e.name == "delete_profission"){
 		field = e.name;

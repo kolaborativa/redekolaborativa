@@ -396,6 +396,19 @@ def ajax_remove_profission():
         return False
 
 
+@auth.requires_login()
+def ajax_remove_link():
+    try:
+        id_link_type =  request.vars.id
+        user_id = auth.user.id
+        db( (db.links.link_type_id==id_link_type) & \
+            (db.links.user_id==user_id)
+        ).delete()
+        return True
+    except:
+        return False
+
+
 # Usando essa função para testar os ajax por favor não deletar
 def testaAjax():
 
