@@ -382,6 +382,20 @@ def ajax_add_link():
     except:
         return False
 
+
+@auth.requires_login()
+def ajax_remove_profission():
+    try:
+        id_profission =  request.vars.id
+        user_id = auth.user.id
+        db( (db.professional_relationship.profession_id==id_profission) & \
+            (db.professional_relationship.user_id==user_id)
+        ).delete()
+        return True
+    except:
+        return False
+
+
 # Usando essa função para testar os ajax por favor não deletar
 def testaAjax():
 

@@ -373,7 +373,7 @@ function gravaAjaxEditProfile(e){
 		field = e.name;
 		value = e.getAttribute("data-idProfissao");
 		vars = "field="+field+"&id="+value;
-		caminho = url.testaAjax;
+		caminho = url.ajax_remove_profission;
 	}
 	else {
 			field = e.name;
