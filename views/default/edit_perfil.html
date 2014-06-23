@@ -211,9 +211,6 @@
                                 {{ pass }}
                             {{ pass }}
                         </ul>
-
-
-
 					</div>
 				</section>
 			</div>
@@ -232,7 +229,6 @@
 			<div class="t-center f-center w-70">
 				<span class="font-lato h2 f-left">Links</span>
 				<section class="section-form f-left w-full">
-
 					<!-- select-edit-perfil -->
 					<label class="select w-90 form-input-comum f-left select-edit-perfil">
                         <select class="input-select w-full" name="link_type_id">
@@ -243,36 +239,29 @@
                         <select>
 					</label>
 
-					<button class="form-input-comum btn-submit-select f-left" type="button">+</button>
-					<div class="w-full f-left t-left">
-						<!-- Aqui só troca pra rede que ele escolheu -->
-						<h1 data-redesocial>Facebook</h1>
-						<h3>Link</h3>
-                        {{form_links.custom.widget.url['_class'] = 'form-input-comum usr-input-form w-70 f-left'}}
+                        {{form_links.custom.widget.url['_class'] = 'form-input-comum usr-input-form w-50 f-right'}}
+                        {{form_links.custom.widget.url['_id'] = 'network'}}
+                        {{form_links.custom.widget.url['_placeholder'] = 'Selecione uma rede para habilitar esse campo'}}
+                        {{form_links.custom.widget.url['_disabled'] = ''}}
                         {{=form_links.custom.widget.url}}
-                        <input class="form-input-comum usr-btn-form btn-submit-select f-left" id="network" type="button" value="+">
 
-					</div>
 					<section class="w-full f-left">
-						<style>
-							/*{{=URL('static','images/Edit_perfil/confirm.png')}}*/
-						</style>
+						
                         {{ for link in my_links: }}
 					    	<div class="social-field" >
 					    		<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
 					    		<span data-field="kury_br">
-					    		<a href="{{=link.url}}" data-user="kury_br" id="">{{=link.link_type_id.name}}</a>
+					    		<a href="{{=link.url}}" target="_blank">{{=link.url}}</a>
 					    		</span>
-					    		<img src="{{=URL('static','images/Edit_perfil/edit.png')}}" data-edit-user="kury_br" alt="">
-					    		<img src="{{=URL('static','images/Edit_perfil/delete.png')}}"  alt="">
+					    		<img src="{{=URL('static','images/Edit_perfil/delete.png')}}" name="delete_link" alt="">
 					    	</div>
                         {{ pass }}
-<!-- 
-Quando o cara for editar, o link vira um input text
-o icone de editar vira um icone de confirmar (enter tambem submete)
+					<!-- 
+					Quando o cara for editar, o link vira um input text
+					o icone de editar vira um icone de confirmar (enter tambem submete)
 
--->
-</section>
+					-->
+					</section>
 
 </section>
 </div>

@@ -717,8 +717,11 @@ select,
   text-overflow: '';
   -webkit-appearance: button;
 }
-.select select:disabled {
+select:disabled,
+input:disabled {
   color: #c8c8c8;
+  background: #e6e7e7;
+  border: 1px solid #c8c8c8;
 }
 .select::before,
 .select::after {
@@ -929,8 +932,8 @@ body {
 }
 .select-edit-perfil,
 .select-edit-perfil select {
-  height: 50px;
-  font-size: 25px;
+  height: 37px;
+  font-size: 18px;
 }
 .btn-submit-select {
   padding: 0px 12px;

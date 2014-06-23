@@ -57,8 +57,10 @@ input[type="submit"],input[type="button"],button{
 	text-overflow: '';
 	-webkit-appearance: button;
 }
-.select select:disabled{
-	color: @cinza2;
+select:disabled, input:disabled{
+	color: @cinza2;	
+	background: @cinza1;
+	border:1px solid @cinza2;
 }
 .select::before,.select::after {
 	content: "";

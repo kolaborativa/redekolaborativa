@@ -188,9 +188,12 @@ function DOMEditarPerfil(){
 
 	for (var i = 0; i < inputs.length; i++) {
 
-		if(inputs[i].name == "network"){
-			Id("network").addEventListener("click",function(){gravaAjaxEditProfile(this);})
-		}	
+		if(inputs[i].id == "network"){
+			Id("network").addEventListener("change",function(){
+				alert('foi');
+				gravaAjaxEditProfile(this);				
+			})
+		}		
 		else if(inputs[i].name != "avatar"){ //Pula o input avatar !			
 			inputs[i].addEventListener("change",function(){gravaAjaxEditProfile(this);})
 		}
@@ -198,25 +201,30 @@ function DOMEditarPerfil(){
 
 
 	for (var i = 0; i < selects.length; i++) {
-		if(selects[i].name != "profession"){
+		if(selects[i].name == "profession"){			
+
+		}	
+		else if(selects[i].name == "link_type_id"){
 			selects[i].addEventListener("change",function(){
-				if(this.name == "network_type"){
-					document.querySelector("[data-redesocial]").innerHTML = document.getElementsByName('network_type')[0].value
-				}
-				else{							
-					gravaAjaxEditProfile(this)
-				}						
+				Id("network").disabled = false;
 			});
-		}				
+		}
+		else{
+			selects[i].addEventListener("change",function(){
+					gravaAjaxEditProfile(this)	
+			});
+		}			
 	};
 
 	$("#profissoes").select2({ 	maximumSelectionSize: 1	});
-	$("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
+	$("#profissoes").on("click",function(){	
+		gravaAjaxEditProfile(this);			
+	});
 	// Identifica os data-select e busca no banco as competencias que já existem			
 	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
-	$("select[data-select]").on("click",function(){
-		gravaAjaxEditProfile(this);
-	})
+	$("select[data-select]").on("click",function(){gravaAjaxEditProfile(this)});
+	$(".delete_profissao").on("click",function(){console.log("delete isso")});
+	$(".delete_link").on("click",function(){console.log("delete isso")});
 		
 }
 
@@ -278,17 +286,21 @@ function gravaAjaxEditProfile(e){
 		value = e.value;
 		vars  = "field="+field+"&value="+value;
 
+		console.log(url.ajax_add_profission);
+
 		var profession = e.selectedOptions[0].innerHTML;
 			caminho    = url.ajax_add_profission+".json";
+		e.selectedOptions[0].disabled = true;
 		$("#profissoes").select2("val", "")
 		
 
-	}else if(e.name == "network"){
+	}else if(e.id == "network"){
+			
+			var link_type_id = Id("no_table_link_type_id").value;
+			var link 	 	 = e.value;
+				vars    	 = "link_type_id="+link_type_id+"&url="+link;
+				caminho 	 = url.ajax_add_link;
 
-			var rede    = document.getElementsByName('network_type')[0].value;
-			var perfil  = document.getElementsByName('network')[0].value;
-				vars    = "";
-				caminho = "";
 	}
 	else if(e.name == "user_available"){
 		
@@ -364,13 +376,17 @@ function gravaAjaxEditProfile(e){
 						opcao.value     = i;
 						city.appendChild(opcao);	
 				};
-
 			}
 			else if(e.name == "username") {
 				location.href = url.index;
 			}
-			else{
+			else if(e.id == "network"){
+				console.log("foi");				
+				Id("no_table_link_type_id").selectedOptions[0].disabled = true;
 				console.log(data);
+			}
+			else{
+				console.log(data);				
 			}
 		},
 		error: function(data){

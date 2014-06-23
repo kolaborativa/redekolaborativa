@@ -618,7 +618,7 @@ def projects():
                 collaborator = db(db.auth_user.id == i).select().first()
                 user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == project.id)).select().first()
                 profession = db(db.profession.user_id == i).select(db.profession.profession)
-               
+
                 collaborator.username = collaborator.username
                 if user_role:
                     collaborator.role = user_role.role
@@ -631,31 +631,33 @@ def projects():
                     collaborator.profession = profession
 
                 collaborators.append(collaborator)
-                user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role') 
-                myteam = json.loads(project.team) 
-                mystring = "" 
+                user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
+                myteam = json.loads(project.team)
+                mystring = ""
         for i in myteam:
             mystring += "%s:%s," % (i,myteam[i])
             project.team = mystring[0:-1]
-        
-        new_colaborator = SQLFORM.factory(db.projects.team)
-        
-        if new_colaborator.process().accepted:
-            project = db(db.projects.id == session.project_id).select().first()
-            team = json.loads(project.team)
-            new_team = new_colaborator.vars.team.split(",")
-            d = {}
-            for i in new_team:
-                x = i.split(":")
-                d[x[0]] = x[1]
-            team.update(d)
-            myjson = json.dumps(team)
-            project_id = session.project_id
-            db(db.projects.id  == project_id).update(team=myjson)
-            session.flash = T("Project edited!")
-            redirect(URL('projects', args=request.args(0)))
-        elif new_colaborator.errors:
-            response.flash = T("Form has errors!")
+
+        new_colaborator = ''
+        if auth.user and auth.user.id == project.project_owner:
+            new_colaborator = SQLFORM.factory(db.projects.team)
+
+            if new_colaborator.process().accepted:
+                project = db(db.projects.id == session.project_id).select().first()
+                team = json.loads(project.team)
+                new_team = new_colaborator.vars.team.split(",")
+                d = {}
+                for i in new_team:
+                    x = i.split(":")
+                    d[x[0]] = x[1]
+                team.update(d)
+                myjson = json.dumps(team)
+                project_id = session.project_id
+                db(db.projects.id  == project_id).update(team=myjson)
+                session.flash = T("Project edited!")
+                redirect(URL('projects', args=request.args(0)))
+            elif new_colaborator.errors:
+                response.flash = T("Form has errors!")
 
         if user_role.accepts(request.vars):
             if not db((db.team_function.username == request.vars.username)&(db.team_function.project_id == project.id)).select():
@@ -700,16 +702,20 @@ def create_project():
         # {'id','id'}
         if form.vars.team:
             team = form.vars.team.split(",")
-            d = {}
-            for i in team:
-                x = i.split(":")
-                d[x[0]] = x[1]  #d[x[tamanhoDoDicionadio]
-            myjson = json.dumps(d)
-            # juntar o MYJSON(funcionarios a serem adicionados) com o json dos colaboradores já existentes.
-            #fazendo o update.
-            db(db.projects.id  == project_id).update(team=myjson)
+            team.append('{_id}:{_username}'.format(_id=auth.user.id, _username=auth.user.username))
+        else:
+            team = ['{_id}:{_username}'.format(_id=auth.user.id, _username=auth.user.username)]
+        d = {}
+        for i in team:
+            x = i.split(":")
+            d[x[0]] = x[1]  #d[x[tamanhoDoDicionadio]
+        myjson = json.dumps(d)
+        # juntar o MYJSON(funcionarios a serem adicionados) com o json dos colaboradores já existentes.
+        #fazendo o update.
+        db(db.projects.id  == project_id).update(team=myjson)
+        project_created = db.projects[project_id]
 
-        redirect(URL('projects', args=form.vars.project_slug))
+        redirect(URL('projects', args=project_created.project_slug))
 
     elif form.errors:
         response.flash = T('Form has errors!')
@@ -754,7 +760,29 @@ def edit_project():
             return dict(project=project, message=message, form=no_permission)
     else:
         return dict(project=project, message=message)
-        
+
+@auth.requires_login()
+def remove_person():
+    '''Remove user from a project
+    '''
+    import json
+
+    user_id = request.vars.user_id or redirect(URL('user_info'))
+    project_id = request.vars.project_id or redirect(URL('user_info'))
+    project = db(db.projects.id==project_id).select().first() or redirect(URL('user_info'))
+
+    if int(user_id) == auth.user.id or project.project_owner == auth.user.id:
+        dic_team = json.loads(project.team)
+        try:
+            del dic_team[user_id]
+        except:
+            pass
+        team = json.dumps(dic_team)
+        db(db.projects.id==project.id).update(team=team)
+
+    redirect(URL('user_info'))
+
+
 def comments():
     message = T("Be the first to make a comment!")
     project = session.project_id
@@ -763,7 +791,7 @@ def comments():
     if form.accepts(request.vars):
         db.comment_project.insert(title=request.vars.title, body=request.vars.body, project_id=project.id)
         redirect(URL('default', 'comments.load'))
-        
+
     replied = []
     if comments:
         for comment in comments:

@@ -33,7 +33,7 @@
 {{if project.wanting_team:}}<b>{{=T("We need some more members...")}}</b> <br>
 {{if project.team_wanted:}}
                         {{if len(project.team_wanted) >= 1:}}
-                        {{=', '.join(project.team_wanted)}}<br>
+                        {{=project.team_wanted}}<br>
                         {{pass}}
 {{pass}}
 {{pass}}
@@ -41,7 +41,7 @@
 {{if project.wanting_other:}}<b>{{=T("We are looking for other kinds of help...")}}</b> <br>
 {{if project.other_wanted:}}
                         {{if len(project.other_wanted) >= 1:}}
-                        {{=', '.join(project.other_wanted)}}<br>
+                        {{=project.other_wanted}}<br>
                         {{pass}}
 {{pass}}
 {{pass}}
@@ -103,7 +103,17 @@
         </a>
       <div class="media-body">
         <b>{{=T("Kolaborator")}}:</b>
-        {{=g_return_if_empty(collaborator.username)}}<br>
+        {{=g_return_if_empty(collaborator.username)}} 
+            {{ if auth.user and collaborator.id == auth.user.id: }}
+                <a href="{{=URL(c='default', f='remove_person', vars={'user_id':collaborator.id, 'project_id': project.id})}}">
+                    <button class="btn btn-small btn-danger">Sair</button>
+                </a>
+            {{ elif auth.user and project.project_owner == auth.user.id: }}
+                <a href="{{=URL(c='default', f='remove_person', vars={'user_id':collaborator.id, 'project_id': project.id})}}">
+                    <button class="btn btn-small btn-danger">Remover</button>
+                </a>
+            {{ pass }}
+            <br>
         <b>{{=T("Profession")}}:</b>
                   {{if hasattr(collaborator, 'professions'):}}
                         {{for job in collaborator.professions:}}
@@ -146,7 +156,11 @@
     </div>
 
 {{pass}}
-{{=new_colaborator}}
+
+{{ if auth.user and auth.user.id == project.project_owner:}}
+    {{=new_colaborator}}
+{{ pass }}
+
 </ul>
 </td>
 
