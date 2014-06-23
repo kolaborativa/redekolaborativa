@@ -242,15 +242,13 @@ function DOMEditarPerfil(){
 		})
 	};
 
+	//
 	$("#profissoes").select2({ 	maximumSelectionSize: 1	});
 	$("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
-
 	// Identifica os data-select e busca no banco as competencias que já existem
 	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
 	$("select[data-select]").on("click",function(){gravaAjaxEditProfile(this)});
-	$(".delete_profissao").on("click",function(){
-		gravaAjaxEditProfile(this);
-	});
+	$(".delete_profissao").on("click",function(){gravaAjaxEditProfile(this);});
 
 
 }
