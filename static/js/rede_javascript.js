@@ -41,13 +41,11 @@ function mudaStatusCheckbox(checkbox){
 
 		checkbox.innerHTML = "Disponivel"
 		disponibilidades.style.display = "block";
-		alert('sim');
 	}
 	else{
 
 		checkbox.innerHTML = "Indisponivel"
 		disponibilidades.style.display = "none";
-		alert("nao");
 	}
 	console.log("checado",checked);
 }
