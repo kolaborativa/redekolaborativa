@@ -5,11 +5,11 @@
 
 <section class="col col_edit_perfil_topo span_12 f-left">
 	<figure class="span_3 col">
-		<img src="" class="cursor-hand" title="Preencha seus dados pessoais" data-img-fase="1">		
+		<img src="" class="cursor-hand" title="Preencha seus dados pessoais" data-img-fase="1">
 	</figure>
 
-	<figure class="span_3 col">		
-		<img src="" class="cursor-hand" title="Escolha um avatar e fale sobre você" data-img-fase="2">		
+	<figure class="span_3 col">
+		<img src="" class="cursor-hand" title="Escolha um avatar e fale sobre você" data-img-fase="2">
 	</figure>
 
 	<figure class="span_3 col">
@@ -28,17 +28,17 @@
     <form  action="#" id="formulario_edicao_perfil" enctype="multipart/form-data" method="post">
         {{form.custom.widget.first_name['_placeholder'] = T("Full Name")}}
         {{form.custom.widget.first_name['_class'] = "form-input-comum w-full"}}
-      
+
         {{form.custom.widget.username['_placeholder'] = T("Usuário")}}
         {{form.custom.widget.username['_class'] = "form-input-comum w-full"}}
-      
+
         {{form.custom.widget.email['_type'] = "email"}}
         {{form.custom.widget.email['_placeholder'] = "email@dominio.com"}}
         {{form.custom.widget.email['_class'] = "form-input-comum w-full"}}
-        
+
         {{#form.custom.widget.born_on['_type'] = "date"}}
         {{form.custom.widget.born_on['_class'] = "form-input-comum w-90 form-select"}}
-        
+
         {{form.custom.widget.country_id['_class'] = 'input-select w-full'}}
         {{form.custom.widget.states_id['_class'] = 'input-select w-full'}}
         {{form.custom.widget.city_id['_class'] = 'input-select w-full'}}
@@ -48,7 +48,7 @@
 
         {{form.custom.widget.bio['_placeholder'] = "Aqui vem uma Bio"}}
         {{form.custom.widget.bio['_class'] = "bio form-input-comum"}}
-                        
+
 
 		<section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
 			<section class="span_5 col colunas">
@@ -90,9 +90,9 @@
 					<br>
 					<section class="section-form">
 						<div class="checkbox form-select">
-							
+
                             {{=form.custom.widget.user_available}}
-                            <label for="checkbox" data-checkbox-label></label>							
+                            <label for="checkbox" data-checkbox-label></label>
 						</div>
 					</section>
 				</div>
@@ -111,7 +111,7 @@
                             {{=form.custom.widget.city_id}}
 						</label>
 					</section>
-					
+
 					<section class="section-form">
 						<div class="" id="disponibilidades">
                             {{=form.custom.widget.availability}}
@@ -137,7 +137,7 @@
 			<section class="span_5 col colunas">
 				<span class="font-lato h2 f-left">Avatar</span>
 				<section class="section-form f-left">
-					
+
 					<label class="profile-avatar-wrap">
                         {{ if my_avatar: }}
                             <img src="{{=URL(f='download', args=my_avatar)}}" id="profile-avatar" alt="Image for Profile">
@@ -147,10 +147,10 @@
 						<input type="file" name="avatar" class="d-none" id="uploader">
 						<input type="hidden" value="" id="hidden-avatar">
 					</label>
-					
+
 					<p class="paragrafo2">
-						Escolha a foto que será exibida em seu perfil. 
-						A imagem deve ser nos formatos xxxxx e ter a 
+						Escolha a foto que será exibida em seu perfil.
+						A imagem deve ser nos formatos xxxxx e ter a
 						resolução máxima de xxxx.
 					</p>
 				</section>
@@ -229,12 +229,12 @@
 			<div class="t-center f-center w-70">
 				<span class="font-lato h2 f-left">Links</span>
 				<section class="section-form f-left w-full">
-				
+
 
 					<label class="select form-input-comum  w-40 f-left select-edit-perfil">
                         {{form_links.custom.widget.link_type_id['_class'] = 'input-select w-full'}}
                         {{=form_links.custom.widget.link_type_id }}
-					</label>						
+					</label>
 
                         {{form_links.custom.widget.url['_class'] = 'form-input-comum usr-input-form w-50 f-right'}}
                         {{form_links.custom.widget.url['_id'] = 'network'}}
@@ -243,17 +243,17 @@
                         {{=form_links.custom.widget.url}}
 
 					<section class="w-full f-left">
-						
+
                         {{ for link in my_links: }}
 					    	<div class="social-field" >
 					    		<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
-					    		<span data-field="kury_br">
+					    		<span>
 					    		<a href="{{=link.url}}" target="_blank">{{=link.url}}</a>
 					    		</span>
 					    		<img src="{{=URL('static','images/Edit_perfil/delete.png')}}" name="delete_link" alt="">
 					    	</div>
                         {{ pass }}
-					<!-- 
+					<!--
 					Quando o cara for editar, o link vira um input text
 					o icone de editar vira um icone de confirmar (enter tambem submete)
 
