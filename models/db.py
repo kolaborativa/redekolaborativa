@@ -122,6 +122,7 @@ auth.settings.register_next= URL('message_register')
 auth.settings.login_next = URL('user_info')
 auth.settings.logged_url = URL('user_info')
 auth.settings.verify_email_next = URL('index')
+auth.settings.login_url = URL('index')
 
 #
 # Define your tables below (or better in another model file) for example
