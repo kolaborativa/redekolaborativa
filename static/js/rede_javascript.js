@@ -1,5 +1,5 @@
 // alert(screen.width)/Tamanho da Tela (do dispositivo)
-// window.innerWidth // Tamanho da Janela do navegador 
+// window.innerWidth // Tamanho da Janela do navegador
 
 // Função para pegar elemento pela ID
 // Retorna o Elemento
@@ -34,12 +34,12 @@ function mudaStatusCheckbox(checkbox){
 
 	var checked 		 = document.getElementsByName("user_available")[0].checked;
 	var disponibilidades = Id("disponibilidades");
-	
+
 	if (checked) {
 		checkbox.innerHTML = "Disponivel"
 		disponibilidades.style.display = "block";
 	}
-	else{		
+	else{
 		checkbox.innerHTML = "Indisponivel"
 		disponibilidades.style.display = "none";
 	}
@@ -71,14 +71,14 @@ function mudando_fase_perfil(fase){
 			fases_edicao[iFases].style.display = "none";
 		}
 		else{
-			fases_edicao[iFases].style.display = "block";	
+			fases_edicao[iFases].style.display = "block";
 		};
 	};
 
 	// Identifica quais as imagens da fase atual de edição do perfil e adiciona dinamicamente
 	switch(fase){
 		case "1":
-			 img_fase[0].src = image.editProfilefase1	
+			 img_fase[0].src = image.editProfilefase1
 			 img_fase[1].src = image.editProfilefase2_cinza
 			 img_fase[2].src = image.editProfilefase3_cinza
 			 img_fase[3].src = image.editProfilefase4_cinza
@@ -97,11 +97,11 @@ function mudando_fase_perfil(fase){
 		break;
 		case "4":
 			 img_fase[0].src = image.editProfilefase1_completa
-			 img_fase[1].src = image.editProfilefase2_completa		
-			 img_fase[2].src = image.editProfilefase3_completa		
+			 img_fase[1].src = image.editProfilefase2_completa
+			 img_fase[2].src = image.editProfilefase3_completa
 			 img_fase[3].src = image.editProfilefase4
 		break;
-		
+
 	};
 }
 
@@ -122,18 +122,18 @@ function editarUsuario(usuario){
 function inputEditarUser(){
 	 var input 	   = document.createElement("input");
 	 	 att   	   = document.createAttribute("class");
-		 att.value = "input-editar";		
+		 att.value = "input-editar";
 		 input.setAttributeNode(att);
 
 	return input
 }
 
 
-// Códigos da parte de Editar Perfil 
+// Códigos da parte de Editar Perfil
 function DOMEditarPerfil(){
 		mudando_fase_perfil();
 
-	var btnPerfil  = SelectAll("data-irParaFase");	
+	var btnPerfil  = SelectAll("data-irParaFase");
 	var iBtnPerfil = 0;
 	var img_fase   = SelectAll("data-img-fase");
 	var iImg	   = 0;
@@ -143,9 +143,12 @@ function DOMEditarPerfil(){
 	var iEditar    = 0;
 	var formulario = Id("formulario_edicao_perfil")
 	var inputs     = formulario.getElementsByTagName("input");
+	var iInputs    = 0;
 	var selects    = formulario.getElementsByTagName("select");
+	var iSelects   = 0
 	var textareas  = formulario.getElementsByTagName("textarea")[0];
-
+	var links      = document.getElementsByName("delete_link");
+	var iLinks     = 0;
 
 	// Chama a função para ir para o próximo estágio do editar perfil
 	for (; iBtnPerfil < btnPerfil.length; iBtnPerfil++) {
@@ -176,6 +179,8 @@ function DOMEditarPerfil(){
 
 	MascaraDeData();
 
+	//Parte da Bio pra ver quantos caracteres tem ainda a ser digitados
+	document.querySelector("[data-caracteres]").innerHTML = (350 - textareas.value.length);
 	textareas.addEventListener("keyup",function(){
 		document.querySelector("[data-caracteres]").innerHTML = (350 - this.value.length);
 		if(this.value.length >= 350){
@@ -183,76 +188,86 @@ function DOMEditarPerfil(){
 		}
 	})
 
+	//
 	textareas.addEventListener("change",function(){	gravaAjaxEditProfile(this) });
 
 
-	for (var i = 0; i < inputs.length; i++) {
-
-		if(inputs[i].id == "network"){
+	for (; iInputs < inputs.length; iInputs++) {
+		if(inputs[iInputs].id == "network"){
 			Id("network").addEventListener("change",function(){
-				alert('foi');
-				gravaAjaxEditProfile(this);				
+				gravaAjaxEditProfile(this);
 			})
-		}		
-		else if(inputs[i].name != "avatar"){ //Pula o input avatar !			
-			inputs[i].addEventListener("change",function(){gravaAjaxEditProfile(this);})
+		}
+		else if(inputs[iInputs].name != "avatar"){ //Pula o input avatar !
+			inputs[iInputs].addEventListener("change",function(){gravaAjaxEditProfile(this);})
 		}
 	};
 
 
-	for (var i = 0; i < selects.length; i++) {
-		if(selects[i].name == "profession"){			
+	for (; iSelects < selects.length; iSelects++) {
+		if(selects[iSelects].name == "profession"){
 
-		}	
-		else if(selects[i].name == "link_type_id"){
-			selects[i].addEventListener("change",function(){
+		}
+		else if(selects[iSelects].name == "link_type_id"){
+			selects[iSelects].addEventListener("change",function(){
 				Id("network").disabled = false;
 			});
 		}
 		else{
-			selects[i].addEventListener("change",function(){
-					gravaAjaxEditProfile(this)	
+			selects[iSelects].addEventListener("change",function(){
+					gravaAjaxEditProfile(this)
 			});
-		}			
+		}
+	};
+
+
+	for (; iLinks < links.length; iLinks++) {
+		links[iLinks].addEventListener("click",function(){
+				gravaAjaxEditProfile(this);
+				// console.log(this);
+		})
 	};
 
 	$("#profissoes").select2({ 	maximumSelectionSize: 1	});
-	$("#profissoes").on("click",function(){	
-		gravaAjaxEditProfile(this);			
-	});
-	// Identifica os data-select e busca no banco as competencias que já existem			
+	$("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
+
+	// Identifica os data-select e busca no banco as competencias que já existem
 	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
 	$("select[data-select]").on("click",function(){gravaAjaxEditProfile(this)});
-	$(".delete_profissao").on("click",function(){console.log("delete isso")});
-	$(".delete_link").on("click",function(){console.log("delete isso")});
-		
+	$(".delete_profissao").on("click",function(){
+		gravaAjaxEditProfile(this);
+	});
+
+
 }
 
 
+
+
 function adicionandoProfissao(idProfissao, profissao,competencias){
-	
+
 	var select      = document.createElement('select');
 		select.name = "competence";
-		select.setAttribute('data-placeholder','adicione competencias');	
+		select.setAttribute('data-placeholder','adicione competencias');
 		select.setAttribute('data-select',profissao)
 		select.setAttribute('data-idProfissao',idProfissao);
 		select.setAttribute('class','w-full competencias');
 		select.setAttribute('multiple','')
 
 	// Cria um for de opções
-	for( i in competencias ){ 
+	for( i in competencias ){
 		var opcao           = document.createElement('option');
 			opcao.innerHTML = competencias[i];
 			opcao.value     = i;
 
-		select.appendChild(opcao);	
+		select.appendChild(opcao);
 	}
 
 	var linha = document.createElement('li')
 		linha.setAttribute('class','profissao t-left');
 
 	var span = document.createElement('span');
-		span.setAttribute('class','h2');	
+		span.setAttribute('class','h2');
 		span.innerHTML = profissao;
 
 	var deletar = document.createElement('img');
@@ -292,10 +307,10 @@ function gravaAjaxEditProfile(e){
 			caminho    = url.ajax_add_profission+".json";
 		e.selectedOptions[0].disabled = true;
 		$("#profissoes").select2("val", "")
-		
+
 
 	}else if(e.id == "network"){
-			
+
 			var link_type_id = Id("no_table_link_type_id").value;
 			var link 	 	 = e.value;
 				vars    	 = "link_type_id="+link_type_id+"&url="+link;
@@ -303,18 +318,18 @@ function gravaAjaxEditProfile(e){
 
 	}
 	else if(e.name == "user_available"){
-		
+
 			field   = e.name;
 			value   = e.checked == true ? value = true : value=false;;
 			vars    = "field="+field+"&value="+value;
 			caminho = url.edit_profile;
 	}
 	else if(e.name == "competence"){
-		
+
 		var idProfession         = e.getAttribute("data-idProfissao");
 		var vetCompetence        = new Array();
 			vetCompetence.length = 0;
-		
+
 		for (var i = 0; i < e.options.length; i++) {
 			if(e.options[i].selected) {
 				vetCompetence.push(e.options.item(i).value);
@@ -324,11 +339,11 @@ function gravaAjaxEditProfile(e){
 		vetCompetence = "["+vetCompetence+"]";
 		vars	   	  = "profession="+idProfession+"&competence="+vetCompetence;
 		caminho 	  = url.ajax_add_competence;
-		
+
 	}
 	else if(e.name == "avatar"){
 
-		var img 	= Id("hidden-avatar").value;		
+		var img 	= Id("hidden-avatar").value;
 			vars    = {image64: img, field : e.name}; // Cria um objeto com a img em base64 e o nome do campo
 			caminho = url.edit_profile;
 	}
@@ -337,6 +352,18 @@ function gravaAjaxEditProfile(e){
 			value   = e.value;
 			vars    = "field="+field+"&value="+value;
 			caminho = url.ajax_add_location+".json";
+	}
+	else if(e.name == "delete_link"){
+		field = e.name;
+		value = e.id;
+		vars = "field="+field+"&id="+value;
+		caminho = url.testaAjax;
+	}
+	else if(e.name == "delete_profission"){
+		field = e.name;
+		value = e.getAttribute("data-idProfissao");
+		vars = "field="+field+"&id="+value;
+		caminho = url.testaAjax;
 	}
 	else {
 			field = e.name;
@@ -357,11 +384,11 @@ function gravaAjaxEditProfile(e){
 				var states  	    = document.getElementsByName("states_id")[0];
 					states.disabled = false;
 					opcoes  	    = data;
-				for( i in opcoes ) { 
+				for( i in opcoes ) {
 					var opcao       = document.createElement('option');
 					opcao.innerHTML = opcoes[i];
 					opcao.value     = i;
-					states.appendChild(opcao);	
+					states.appendChild(opcao);
 				}
 			}
 			else if(e.name == "states_id"){
@@ -370,23 +397,23 @@ function gravaAjaxEditProfile(e){
 					opcoes	       = data;
 	                city.innerHTML = ""
 
-				for( i in opcoes ) { 
+				for( i in opcoes ) {
 					var opcao     	    = document.createElement('option');
 						opcao.innerHTML = opcoes[i];
 						opcao.value     = i;
-						city.appendChild(opcao);	
+						city.appendChild(opcao);
 				};
 			}
 			else if(e.name == "username") {
 				location.href = url.index;
 			}
 			else if(e.id == "network"){
-				console.log("foi");				
+				console.log("foi");
 				Id("no_table_link_type_id").selectedOptions[0].disabled = true;
 				console.log(data);
 			}
 			else{
-				console.log(data);				
+				console.log(data);
 			}
 		},
 		error: function(data){
@@ -396,14 +423,14 @@ function gravaAjaxEditProfile(e){
 }
 
 function MascaraDeData(){
-	var nascimentoDta = Id("auth_user_born_on"); // Pega o campo que recebe a data		
-		nascimentoDta.addEventListener("keyup",function(){			
+	var nascimentoDta = Id("auth_user_born_on"); // Pega o campo que recebe a data
+		nascimentoDta.addEventListener("keyup",function(){
 			  var data = this.value;
 
               if (data.length == 2) {
                   data 		 = data + '/';
-                  this.value = data;                  
-      			  return true;              
+                  this.value = data;
+      			  return true;
               }
               if (data.length == 5) {
                   data 		 = data + '/';
@@ -418,5 +445,5 @@ function MascaraDeData(){
 
 		nascimentoDta.value = nascimentoDta.value.replace("-","/");
 		nascimentoDta.value = nascimentoDta.value.replace("-","/");
-	
+
 }

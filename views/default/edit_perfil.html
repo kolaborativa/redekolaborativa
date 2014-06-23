@@ -194,7 +194,7 @@
                                 {{ for profession in professional_data: }}
                                     <li class="profissao t-left">
                                         <span class="h2">{{=profession}}
-                                        <img class="delete_profissao f-right" src="{{=URL('static', 'images/Edit_perfil/delete.png')}}" ></span>
+                                        <img class="delete_profissao f-right" data-idProfissao="{{=professional_data[profession]['profession_id']}}" src="{{=URL('static', 'images/Edit_perfil/delete.png')}}" name="delete_profission" ></span>
                                         <select data-placeholder="adicione competencias" name="competence" data-select="{{=profession}}" class="w-full competencias" multiple data-idProfissao="{{=professional_data[profession]['profession_id']}}">
                                             {{ if professional_data[profession]['my_competencies']: }}
                                                 {{ for my_comp in professional_data[profession]['my_competencies']: }}
@@ -230,10 +230,15 @@
 				<span class="font-lato h2 f-left">Links</span>
 				<section class="section-form f-left w-full">
 
+					<!-- select-edit-perfil -->
+					<label class="select w-40 form-input-comum f-left select-edit-perfil">
+                        <select class="input-select w-full" name="link_type_id">
+                            <option value>Escolha o tipo de link</option>
+                            {{ for type_link in others_links: }}
+                                <option value="{{=type_link}}"> {{=others_links[type_link]}}</option>
+                            {{ pass }}
+                        <select>
 
-					<label class="select form-input-comum  w-40 f-left select-edit-perfil">
-                        {{form_links.custom.widget.link_type_id['_class'] = 'input-select w-full'}}
-                        {{=form_links.custom.widget.link_type_id }}
 					</label>
 
                         {{form_links.custom.widget.url['_class'] = 'form-input-comum usr-input-form w-50 f-right'}}
@@ -245,12 +250,12 @@
 					<section class="w-full f-left">
 
                         {{ for link in my_links: }}
-					    	<div class="social-field" >
+					    	<div class="social-field">
 					    		<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
 					    		<span>
 					    		<a href="{{=link.url}}" target="_blank">{{=link.url}}</a>
 					    		</span>
-					    		<img src="{{=URL('static','images/Edit_perfil/delete.png')}}" name="delete_link" alt="">
+					    		<img src="{{=URL('static','images/Edit_perfil/delete.png')}}" id="{{=link.link_type_id}}" name="delete_link" alt="">
 					    	</div>
                         {{ pass }}
 					<!--

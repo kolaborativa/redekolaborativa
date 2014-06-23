@@ -42,8 +42,21 @@ def principal():
 @auth.requires_login()
 def edit_perfil():
     form=auth.profile()
+
     my_links = db(db.links.user_id == auth.user.id).select()
-    link_types = db(db.link_type.id>0).select()
+    my_links_id = [i.link_type_id for i in my_links]
+    count_type_other = db( (db.links.user_id == auth.user.id) & \
+        (db.links.link_type_id == 10) ).count()
+    list_link_types = db(db.link_type.id>0).select()
+
+    others_links = {}
+
+    for i in list_link_types:
+        if not i.id in my_links_id:
+            others_links[i.id] = i.name
+    if count_type_other < 2 and 10 not in others_links:
+        others_links[10] = 'Outro'
+
     my_professions_id = [i.profession_id for i in db(db.professional_relationship).select()]
     list_professions = [i for i in db(db.profession).select() if not i.id in my_professions_id ]
     my_avatar = db.auth_user[auth.user.id].avatar
@@ -139,6 +152,7 @@ def edit_perfil():
                 professional_data=professional_data,
                 my_avatar=my_avatar,
                 my_links=my_links,
+                others_links=others_links,
                 )
 
 
@@ -227,14 +241,14 @@ def ajax_edit_profile():
 def ajax_add_profission():
     try:
         profession_id = request.vars.value
-        # Record profession in the database 
+        # Record profession in the database
         dic_insert = {
             'profession_id': profession_id,
             'user_id': auth.user.id,
             }
         db.professional_relationship[0] = dic_insert
 
-        #Taking competencies related to profession inserted 
+        #Taking competencies related to profession inserted
         competencies = db(db.competence.profession_id==profession_id).select()
         dic_competencies = {}
         for c in competencies:
@@ -277,21 +291,21 @@ def ajax_add_competence():
                         competence_id = competence_id,
                         user_id = user_id,
                     )
-        # excludes competencies unused 
+        # excludes competencies unused
         for competence_id in list_competencies:
             if not competence_id in my_competencies_id:
                 count = db((db.professional_relationship.user_id == user_id) & \
                            (db.professional_relationship.profession_id==profession_id) \
                 ).count()
                 if count == 1:
-                    # updates if there is 1 record 
+                    # updates if there is 1 record
                     db( (db.professional_relationship.user_id == user_id) & \
                             (db.professional_relationship.profession_id == profession_id) & \
                             (db.professional_relationship.competence_id == competence_id) \
                         ).update(competence_id=None)
 
                 else:
-                    # delete if more than 1 record 
+                    # delete if more than 1 record
                     db( (db.professional_relationship.user_id == user_id) & \
                             (db.professional_relationship.profession_id == profession_id) & \
                             (db.professional_relationship.competence_id == competence_id) \
@@ -369,7 +383,7 @@ def ajax_add_link():
         return False
 
 # Usando essa função para testar os ajax por favor não deletar
-def getCompetence():
+def testaAjax():
 
     print request.vars
 
@@ -412,15 +426,15 @@ def user():
         return dict(form=auth())
 
     elif 'profile' in request.args:
-        form=auth()           
+        form=auth()
         professions = db(db.profession.user_id == auth.user.id).select()
         networking = db(db.network_type.user_id == auth.user.id).select()
-        
+
         form_networking = SQLFORM.factory(
             db.network_type,
             fields = ['network', 'network_type'],
             submit_button=T('add')
-            )                
+            )
 
         competencies = []
         if professions:
@@ -475,7 +489,7 @@ def user():
             redirect(URL("user",args=["profile"]))
         elif form_competencies.errors:
             response.flash = 'form has errors'
-            
+
         #networking form
         if form_networking.process().accepted:
             db.network_type.insert(
@@ -520,7 +534,7 @@ def delete_profession():
         redirect(URL("user",args=["profile"]))
     else:
         redirect(URL("user",args=["profile"]))
-        
+
 @auth.requires_login()
 def edit_network():
     network = db.network_type(request.vars.id)
@@ -783,7 +797,7 @@ def comments():
         for comment in comments:
             if comment.is_reply:
                 replied += db(db.comment_project.id == comment.replied_id).select()
-                
+
     return dict(message=message, project=project, comments=comments, replied=replied, form=form)
 
 @auth.requires_login()
@@ -807,7 +821,7 @@ def delete_comment():
         redirect(URL('projects', args=project.name, extension=False))
     else:
         redirect(URL('projects', args=project.name, extension=False))
-            
+
 @auth.requires_login()
 def reply_comment():
     comment = db.comment_project(request.vars.id)
@@ -830,8 +844,8 @@ def results():
     message = T('Your search returned no results.')
     projects = db(db.projects.name.like('%'+query+'%')).select()
     users = db(db.auth_user.username.like('%'+query+'%')).select()
-    return dict(users=users, projects=projects, message=message)  
-            
+    return dict(users=users, projects=projects, message=message)
+
 @service.json
 def get_users():
     term = request.vars.q
