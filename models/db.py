@@ -16,7 +16,7 @@ if not request.is_local :
     user_db = os.environ['KOLABORATIVA_MYSQL_LOGIN']
     pass_db = os.environ['KOLABORATIVA_MYSQL_PASS']
     host_db = '{host}:{port}'.format(host=os.environ['OPENSHIFT_MYSQL_DB_HOST'], port = os.environ['OPENSHIFT_MYSQL_DB_PORT'])
-    name_db = 'rede'
+    name_db = 'redekolaborativa'
 
     db = DAL('mysql://{user}:{pas}@{host}/{name}'.format(user=user_db, pas=pass_db, host=host_db, name=name_db))
 else:
