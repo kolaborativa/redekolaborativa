@@ -71,7 +71,11 @@
     <ul>
         <li><b>{{=T("Name")}}:</b> {{=user.first_name}}{{=' '}}{{=user.last_name or ''}}</li>
         {{ if user.born_on: }}<li><b>{{=T("Date of birth")}}:</b> {{=user.born_on}}</li> {{ pass }}
-        <li><b>{{=T("Localization")}}:</b> {{=user.city_id.name or ''}} - {{=user.states_id.name or ''}} - {{=user.country_id.name or ''}}</li>
+        <li><b>{{=T("Localization")}}:</b> 
+            {{ if user.city_id: }} {{=user.city_id.name}} - {{pass}}
+            {{ if user.states_id: }} {{=user.states_id.name}} - {{pass}}
+            {{ if user.country_id: }} {{=user.country_id.name}} {{pass}}
+            </li>
         <li><b>{{=T("E-mail")}}:</b> {{=g_return_if_empty(user.email)}}</li>
     </ul>
 </section>
