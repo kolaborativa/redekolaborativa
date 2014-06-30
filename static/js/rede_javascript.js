@@ -367,7 +367,9 @@ function deletandoProfissao(id){
 	 	if(bloco == id){
 	 		Id("list-profissao").removeChild(campo[iCampo]);
 	 		for (var i = 0; i < Id("profissoes").options.length; i++) {
-	 			Id("profissoes").options[i].disabled = false;
+	 			if(Id("profissoes").options[i].value == id){
+	 				Id("profissoes").options[i].disabled = false;
+	 			}
 	 		};
 	 	}
 
@@ -386,7 +388,9 @@ function deletandoLinks(id){
 	 	if(bloco == id){
 	 		Id("field-links").removeChild(campo[iCampo]);
 	 		for (var i = 0; i < Id("no_table_link_type_id").options.length; i++) {
-	 			Id("no_table_link_type_id").options[i].disabled = false;
+	 			if(Id("no_table_link_type_id").options[i].value == id ){
+	 				Id("no_table_link_type_id").options[i].disabled = false;
+	 			}
 	 		};
 	 	}
 
