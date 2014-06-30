@@ -335,6 +335,7 @@
 'Username or Email': 'Usuário ou Email',
 'Users': 'Usuários',
 'Usuário': 'Usuário',
+'Usuário já existe': 'Usuário já existe',
 'value already in database or empty': 'Valor já está no banco de dados ou está vazio',
 'value not allowed': 'Valor não permitido',
 'Value not in database': 'Value not in database',
