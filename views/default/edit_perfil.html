@@ -245,7 +245,7 @@
 					<section id="field-links" class="w-full f-left">
 
                         {{ for link in my_links: }}
-					    	<div class="social-field">
+					    	<div class="social-field" data-link="{{=link.link_type_id}}">
 					    		<img src="{{=URL('static','images/Edit_perfil/fb.png')}}" alt="">
 					    		<span>
 					    		<a href="{{=link.url}}" target="_blank">{{=link.url}}</a>

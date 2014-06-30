@@ -347,6 +347,26 @@ function adicionandoLinks(linkName,linkId,url){
 	// 				    	</div>
 }
 
+function deletandoLinks(id){
+
+	 var campo  = Id("field-links").querySelectorAll("[data-link]");
+	 var iCampo = 0;
+	 var bloco;
+
+	 for (; iCampo < campo.length; iCampo++) {
+
+	 	bloco = campo[iCampo].getAttribute("data-link");
+
+	 	if(bloco == id){
+	 		Id("field-links").removeChild(campo[iCampo]);
+	 	}
+
+	 };
+	 
+	 
+	 
+
+}
 
 function gravaAjaxEditProfile(e){
 
@@ -416,7 +436,7 @@ function gravaAjaxEditProfile(e){
 	else if(e.name == "delete_link"){
 		field = e.name;
 		value = e.id;
-		vars = "field="+field+"&id="+value;
+		vars = "field="+field+"&id="+value;		
 		caminho = url.ajax_remove_link;
 	}
 	else if(e.name == "delete_profission"){
@@ -470,6 +490,9 @@ function gravaAjaxEditProfile(e){
 			else if(e.id == "network"){				
 				Id("no_table_link_type_id").selectedOptions[0].disabled = true;
 				adicionandoLinks(linkName,link_type_id,link);
+			}
+			else if(e.name == "delete_link"){
+				deletandoLinks(value);
 			}
 			else{
 				console.log(data);
