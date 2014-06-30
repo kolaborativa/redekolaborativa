@@ -7,19 +7,15 @@
 	<figure class="span_3 col">
 		<img src="" class="cursor-hand" title="Preencha seus dados pessoais" data-img-fase="1">
 	</figure>
-
 	<figure class="span_3 col">
 		<img src="" class="cursor-hand" title="Escolha um avatar e fale sobre você" data-img-fase="2">
 	</figure>
-
 	<figure class="span_3 col">
 		<img src="" class="cursor-hand" title="Fale sobre suas habilidades profissionais" data-img-fase="3">
 	</figure>
-
 	<figure class="span_3 col">
 		<img src="" class="cursor-hand" title="Formas de contato e suas redes sociais" data-img-fase="4">
 	</figure>
-
 </section>
 <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left">
 
@@ -231,10 +227,10 @@
 
 					<!-- select-edit-perfil -->
 					<label class="select w-40 form-input-comum f-left select-edit-perfil">
-                        <select class="input-select w-full" name="link_type_id">
+                        <select class="input-select w-full" id="no_table_link_type_id" name="link_type_id">
                             <option value>Escolha o tipo de link</option>
                             {{ for type_link in others_links: }}
-                                <option value="{{=type_link}}"> {{=others_links[type_link]}}</option>
+                                <option value="{{=type_link}}">{{=others_links[type_link]}}</option>
                             {{ pass }}
                         <select>
 
@@ -246,7 +242,7 @@
                         {{form_links.custom.widget.url['_disabled'] = ''}}
                         {{=form_links.custom.widget.url}}
 
-					<section class="w-full f-left">
+					<section id="field-links" class="w-full f-left">
 
                         {{ for link in my_links: }}
 					    	<div class="social-field">

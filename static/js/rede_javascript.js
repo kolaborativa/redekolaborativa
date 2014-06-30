@@ -200,6 +200,7 @@ function DOMEditarPerfil(){
 	for (; iInputs < inputs.length; iInputs++) {
 		if(inputs[iInputs].id == "network"){
 			Id("network").addEventListener("change",function(){
+				alert('teste');
 				gravaAjaxEditProfile(this);
 			})
 		}
@@ -303,6 +304,49 @@ function adicionandoProfissao(idProfissao, profissao,competencias){
 
 };
 
+function adicionandoLinks(linkName,linkId,url){
+
+	var div  = document.createElement("div");
+	var thumbnail = document.createElement("img");
+	var img = document.createElement("img");
+	var a = document.createElement("a");
+	var span = document.createElement("span");
+
+	// thumbnail do link
+	switch(linkName){
+		case "Facebook":
+			 thumbnail.src = ico.facebook
+			 thumbnail.alt = "Facebook"
+			 break;
+
+	}
+	
+
+
+	// Link 
+	a.src 		= url;
+	a.innerHTML = url;
+	a.target    = "_blank";
+
+	// btn Delete
+	img.src     = image.delete;
+	img.id      = linkId;
+	img.name    ="delete_link";
+
+	span.appendChild(a);
+	div.setAttribute("class","social-field");	
+	div.appendChild(thumbnail);
+	div.appendChild(span);
+	div.appendChild(img);
+	document.getElementById("field-links").appendChild(div);
+	// 						<div class="social-field">	
+	// 				    		<span>
+	// 				    		<a href="{{=link.url}}" target="_blank">{{=link.url}}</a>
+	// 				    		</span>
+	// 				    		<img src="{{=URL('static','images/Edit_perfil/delete.png')}}" id="{{=link.link_type_id}}" name="delete_link" alt="">
+	// 				    	</div>
+}
+
 
 function gravaAjaxEditProfile(e){
 
@@ -327,6 +371,7 @@ function gravaAjaxEditProfile(e){
 	}else if(e.id == "network"){
 
 			var link_type_id = Id("no_table_link_type_id").value;
+			var linkName 	 = Id("no_table_link_type_id").selectedOptions.item().innerHTML;
 			var link 	 	 = e.value;
 				vars    	 = "link_type_id="+link_type_id+"&url="+link;
 				caminho 	 = url.ajax_add_link;
@@ -422,10 +467,9 @@ function gravaAjaxEditProfile(e){
 			else if(e.name == "username") {
 				location.href = url.index;
 			}
-			else if(e.id == "network"){
-				console.log("foi");
+			else if(e.id == "network"){				
 				Id("no_table_link_type_id").selectedOptions[0].disabled = true;
-				console.log(data);
+				adicionandoLinks(linkName,link_type_id,link);
 			}
 			else{
 				console.log(data);
