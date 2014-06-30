@@ -331,9 +331,15 @@ function adicionandoLinks(linkName,linkId,url){
 	img.src     = image.delete;
 	img.id      = linkId;
 	img.name    ="delete_link";
+	img.addEventListener("click",function(){
+			if(confirm("Deseja realmente deletar?")){
+				gravaAjaxEditProfile(this);
+			}
+	});
 
 	span.appendChild(a);
 	div.setAttribute("class","social-field");	
+	div.setAttribute("data-link",linkId);
 	div.appendChild(thumbnail);
 	div.appendChild(span);
 	div.appendChild(img);
@@ -498,6 +504,8 @@ function gravaAjaxEditProfile(e){
 			}
 			else if(e.id == "network"){				
 				Id("no_table_link_type_id").selectedOptions[0].disabled = true;
+				Id("no_table_link_type_id").selectedIndex = 0
+				e.value = "";
 				adicionandoLinks(linkName,link_type_id,link);
 			}
 			else if(e.name == "delete_link"){
