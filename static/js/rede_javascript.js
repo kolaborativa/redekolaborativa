@@ -199,8 +199,7 @@ function DOMEditarPerfil(){
 
 	for (; iInputs < inputs.length; iInputs++) {
 		if(inputs[iInputs].id == "network"){
-			Id("network").addEventListener("change",function(){
-				alert('teste');
+			Id("network").addEventListener("change",function(){				
 				gravaAjaxEditProfile(this);
 			})
 		}
@@ -332,21 +331,37 @@ function adicionandoLinks(linkName,linkId,url){
 	img.src     = image.delete;
 	img.id      = linkId;
 	img.name    ="delete_link";
+	img.addEventListener("click",function(){
+			if(confirm("Deseja realmente deletar?")){
+				gravaAjaxEditProfile(this);
+			}
+	});
 
 	span.appendChild(a);
 	div.setAttribute("class","social-field");	
+	div.setAttribute("data-link",linkId);
 	div.appendChild(thumbnail);
 	div.appendChild(span);
 	div.appendChild(img);
 	document.getElementById("field-links").appendChild(div);
-	// 						<div class="social-field">	
-	// 				    		<span>
-	// 				    		<a href="{{=link.url}}" target="_blank">{{=link.url}}</a>
-	// 				    		</span>
-	// 				    		<img src="{{=URL('static','images/Edit_perfil/delete.png')}}" id="{{=link.link_type_id}}" name="delete_link" alt="">
-	// 				    	</div>
+	
 }
 
+function deletandoProfissao(id){
+	 var campo  = Id("list-profissao").querySelectorAll("[data-profissao]");
+	 var iCampo = 0;
+	 var bloco;
+
+	 for (; iCampo < campo.length; iCampo++) {
+
+	 	bloco = campo[iCampo].getAttribute("data-profissao");
+
+	 	if(bloco == id){
+	 		Id("list-profissao").removeChild(campo[iCampo]);
+	 	}
+
+	 };
+}
 function deletandoLinks(id){
 
 	 var campo  = Id("field-links").querySelectorAll("[data-link]");
@@ -489,10 +504,15 @@ function gravaAjaxEditProfile(e){
 			}
 			else if(e.id == "network"){				
 				Id("no_table_link_type_id").selectedOptions[0].disabled = true;
+				Id("no_table_link_type_id").selectedIndex = 0
+				e.value = "";
 				adicionandoLinks(linkName,link_type_id,link);
 			}
 			else if(e.name == "delete_link"){
 				deletandoLinks(value);
+			}
+			else if(e.name == "delete_profission"){
+				deletandoProfissao(value);
 			}
 			else{
 				console.log(data);
