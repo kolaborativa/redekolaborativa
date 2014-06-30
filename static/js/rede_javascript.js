@@ -199,8 +199,7 @@ function DOMEditarPerfil(){
 
 	for (; iInputs < inputs.length; iInputs++) {
 		if(inputs[iInputs].id == "network"){
-			Id("network").addEventListener("change",function(){
-				alert('teste');
+			Id("network").addEventListener("change",function(){				
 				gravaAjaxEditProfile(this);
 			})
 		}
@@ -339,14 +338,24 @@ function adicionandoLinks(linkName,linkId,url){
 	div.appendChild(span);
 	div.appendChild(img);
 	document.getElementById("field-links").appendChild(div);
-	// 						<div class="social-field">	
-	// 				    		<span>
-	// 				    		<a href="{{=link.url}}" target="_blank">{{=link.url}}</a>
-	// 				    		</span>
-	// 				    		<img src="{{=URL('static','images/Edit_perfil/delete.png')}}" id="{{=link.link_type_id}}" name="delete_link" alt="">
-	// 				    	</div>
+	
 }
 
+function deletandoProfissao(id){
+	 var campo  = Id("list-profissao").querySelectorAll("[data-profissao]");
+	 var iCampo = 0;
+	 var bloco;
+
+	 for (; iCampo < campo.length; iCampo++) {
+
+	 	bloco = campo[iCampo].getAttribute("data-profissao");
+
+	 	if(bloco == id){
+	 		Id("list-profissao").removeChild(campo[iCampo]);
+	 	}
+
+	 };
+}
 function deletandoLinks(id){
 
 	 var campo  = Id("field-links").querySelectorAll("[data-link]");
@@ -493,6 +502,9 @@ function gravaAjaxEditProfile(e){
 			}
 			else if(e.name == "delete_link"){
 				deletandoLinks(value);
+			}
+			else if(e.name == "delete_profission"){
+				deletandoProfissao(value);
 			}
 			else{
 				console.log(data);
