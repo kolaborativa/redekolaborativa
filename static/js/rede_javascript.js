@@ -280,6 +280,7 @@ function adicionandoProfissao(idProfissao, profissao,competencias){
 
 	var linha = document.createElement('li')
 		linha.setAttribute('class','profissao t-left');
+		linha.setAttribute("data-profissao",idProfissao);
 
 	var span = document.createElement('span');
 		span.setAttribute('class','h2');
@@ -288,6 +289,13 @@ function adicionandoProfissao(idProfissao, profissao,competencias){
 	var deletar = document.createElement('img');
 		deletar.setAttribute('class','delete_profissao f-right');
 		deletar.src= image.delete;
+		deletar.setAttribute("data-idProfissao",idProfissao)
+		deletar.name="delete_profission";
+		deletar.addEventListener("click",function(){
+			if(confirm("Deseja realmente deletar?")){
+				gravaAjaxEditProfile(this);
+			}
+		});
 
 	var listasProfissoes = document.querySelector('.list-profissao')
 
@@ -299,7 +307,7 @@ function adicionandoProfissao(idProfissao, profissao,competencias){
 	// Eventos ================
 	$("[data-select='"+profissao+"']").select2({maximumSelectionSize: 5});
 	$("[data-select='"+profissao+"']").on("change",function(){gravaAjaxEditProfile(this);});
-	$(".delete_profissao").on("click",function(){console.log("delete isso");});
+	
 
 };
 
@@ -358,6 +366,9 @@ function deletandoProfissao(id){
 
 	 	if(bloco == id){
 	 		Id("list-profissao").removeChild(campo[iCampo]);
+	 		for (var i = 0; i < Id("profissoes").options.length; i++) {
+	 			Id("profissoes").options[i].disabled = false;
+	 		};
 	 	}
 
 	 };
@@ -374,6 +385,9 @@ function deletandoLinks(id){
 
 	 	if(bloco == id){
 	 		Id("field-links").removeChild(campo[iCampo]);
+	 		for (var i = 0; i < Id("no_table_link_type_id").options.length; i++) {
+	 			Id("no_table_link_type_id").options[i].disabled = false;
+	 		};
 	 	}
 
 	 };
