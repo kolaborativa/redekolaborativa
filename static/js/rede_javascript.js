@@ -48,23 +48,27 @@ function DOMHome(){
 	
 	function validaForm(){
 		var campos = [nome,user,senha,email];
+		
+		if(nome.value != "" &&  user.value != "" && senha.value != "" && email.value != "")
+			verificado = true;		
+		else verificado = false;
 
-		for(i in campos){			
-			verificado = i.value != "" ? true : false ;			
-		}
 		
 		if(termos.checked == true && verificado == true){					
-			Id("submit").value = txt.submitHomeEnabled;
-			
+			Id("submit").value = txt.submitHomeEnabled;			
 		}
-		else{
-			
+		else{			
 			Id("submit").value = txt.submitHomeDisabled;			
 		}
 	}
 
 	Id("submit").addEventListener("click",function(){		
-		verificado == true ? document.forms[2].submit() : alert("Preencha todos os campos");
+		if(verificado){
+			document.forms[2].submit()
+		}
+		else{
+			alert("Preencha todos os campos");
+		}
 	});
 
 
