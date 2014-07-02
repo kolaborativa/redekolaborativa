@@ -835,6 +835,7 @@ body {
 }
 .input-search {
   width: 55%;
+  height: 19px;
 }
 .input-select {
   height: 29px;

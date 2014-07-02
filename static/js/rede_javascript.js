@@ -20,9 +20,54 @@ function SelectAll(parametro) {
 document.addEventListener("DOMContentLoaded",main)
 
 function main(){
+	DOMHome();
+	// mudaStatusCheckbox();
+	// DOMEditarPerfil();
+}
 
-	mudaStatusCheckbox();
-	DOMEditarPerfil();
+function DOMHome(){
+
+	var  verificado = false
+	 	,nome       = document.getElementsByName("first_name")[0]
+	 	,email      = document.getElementsByName("email")[0]
+	 	,user       = document.getElementsByName("username")[1]
+	 	,senha      = document.getElementsByName("password")[1]
+	 	,termos     = Id("termosConfirm")
+	 	
+	
+	Id("submit").value    = txt.submitHomeDisabled;	
+
+	nome.addEventListener  ("change",function(){validaForm()});
+	email.addEventListener ("change",function(){validaForm()});
+	user.addEventListener  ("change",function(){validaForm()});
+	senha.addEventListener ("change",function(){validaForm()});
+	termos.addEventListener("click",function(){validaForm()});
+
+	
+
+	
+	function validaForm(){
+		var campos = [nome,user,senha,email];
+
+		for(i in campos){			
+			verificado = i.value != "" ? true : false ;			
+		}
+		
+		if(termos.checked == true && verificado == true){					
+			Id("submit").value = txt.submitHomeEnabled;
+			
+		}
+		else{
+			
+			Id("submit").value = txt.submitHomeDisabled;			
+		}
+	}
+
+	Id("submit").addEventListener("click",function(){		
+		verificado == true ? document.forms[2].submit() : alert("Preencha todos os campos");
+	});
+
+
 }
 
 function mudaStatusCheckbox(checkbox){
@@ -129,12 +174,12 @@ function inputEditarUser(){
 	 	 att   	   = document.createAttribute("class");
 		 att.value = "input-editar";
 		 input.setAttributeNode(att);
-
-	return input
-}
+		return input
+ }
 
 
 // Códigos da parte de Editar Perfil
+
 function DOMEditarPerfil(){
 		mudando_fase_perfil();
 

@@ -34,7 +34,9 @@
             {{form_register.custom.widget.password_two['_id'] = 'input-passwd-two'}}
             {{form_register.custom.widget.password_two['_class'] = 'form-input-comum w-full'}}
 
-            {{form_register.custom.submit['_value'] = T('CREATE AN ACCOUNT ON KOLABORATIVA')}}
+            {{form_register.custom.submit['_value'] = T('Fill out all fields to release registering')}}
+            {{form_register.custom.submit['_id'] = 'submit'}}
+            {{form_register.custom.submit['_type'] = 'button'}}
             {{form_register.custom.submit['_class'] = 'btn-1 w-full'}}
 
 
@@ -59,7 +61,7 @@
             </section>
 
           <section class="section-form link">
-            <input type="checkbox" class="va-bottom"> 
+            <input type="checkbox" id="termosConfirm" class="va-bottom"> 
             <span class="link">
               Estou de acordo com os 
               <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a>
