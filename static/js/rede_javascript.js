@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded",main)
 
 function main(){
 	DOMHome();
-	// mudaStatusCheckbox();
-	// DOMEditarPerfil();
+	mudaStatusCheckbox();
+	DOMEditarPerfil();
 }
 
 function DOMHome(){
@@ -33,9 +33,11 @@ function DOMHome(){
 	 	,user       = document.getElementsByName("username")[1]
 	 	,senha      = document.getElementsByName("password")[1]
 	 	,termos     = Id("termosConfirm")
+
 	 	
 	
 	Id("submit").value    = txt.submitHomeDisabled;	
+	Id("submit").disabled = true;
 
 	nome.addEventListener  ("change",function(){validaForm()});
 	email.addEventListener ("change",function(){validaForm()});
@@ -56,20 +58,16 @@ function DOMHome(){
 		
 		if(termos.checked == true && verificado == true){					
 			Id("submit").value = txt.submitHomeEnabled;			
+			Id("submit").disabled = false;
 		}
 		else{			
+			
+			Id("submit").disabled = true;
 			Id("submit").value = txt.submitHomeDisabled;			
 		}
 	}
 
-	Id("submit").addEventListener("click",function(){		
-		if(verificado){
-			document.forms[2].submit()
-		}
-		else{
-			alert("Preencha todos os campos");
-		}
-	});
+	
 
 
 }
