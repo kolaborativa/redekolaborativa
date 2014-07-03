@@ -45,3 +45,5 @@ db.subscription_emails.email.requires = [IS_NOT_EMPTY(error_message=field_empty)
 db.auth_user.country_id.requires=IS_EMPTY_OR(IS_IN_DB(db, db.country.id, '%(name)s', zero="Escolha um País"))
 db.auth_user.states_id.requires=IS_EMPTY_OR(IS_IN_DB(db, db.states.id, '%(name)s', zero="Escolha um Estado"))
 db.auth_user.city_id.requires=IS_EMPTY_OR(IS_IN_DB(db, db.city.id, '%(name)s', zero="Escolha uma Cidade"))
+
+
