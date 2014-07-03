@@ -69,20 +69,20 @@ perspective effects (not including the modals and the overlay).
 /* Content styles */
 .md-content {
 	color: #020202;
-	background: #D8D8D8;
+	background: #FFFFFF;
 	position: relative;
 	border-radius: 3px;
 	margin: 0 auto;
 }
 
-.md-content h3 {
+.md-content .titulo {
 	margin: 0;
 	padding: 0.4em;
 	text-align: center;
 	font-size: 2.4em;
 	font-weight: 300;
 	opacity: 0.8;
-	background: rgba(0,0,0,0.1);
+	background: rgba(124, 186, 227, 0.99); /* AzulClaroTopoModal */
 	border-radius: 3px 3px 0 0;
 }
 
