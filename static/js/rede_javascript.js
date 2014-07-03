@@ -24,7 +24,7 @@ function main(){
 		DOMHome();
 	} // ativa o JS da home !	
 	
-	if(SelectAll("data-irParaFase") != null) {
+	if(Id("formulario_edicao_perfil") != null) {
 		mudaStatusCheckbox();
 		DOMEditarPerfil();
 	}
@@ -42,8 +42,8 @@ function DOMHome(){
 
 	 	
 	
-	Id("submit").value    = txt.submitHomeDisabled;	
-	Id("submit").disabled = true;
+	Id("submit")
+	
 
 	nome.addEventListener  ("change",function(){validaForm()});
 	email.addEventListener ("change",function(){validaForm()});
@@ -51,6 +51,11 @@ function DOMHome(){
 	senha.addEventListener ("change",function(){validaForm()});
 	termos.addEventListener("click",function(){validaForm()});
 
+	Id("submit").addEventListener("click",function(){
+		if(termos.checked == true && verificado == true){
+			document.forms[2].submit();
+		}
+	});
 	
 
 	
@@ -62,15 +67,7 @@ function DOMHome(){
 		else verificado = false;
 
 		
-		if(termos.checked == true && verificado == true){					
-			Id("submit").value = txt.submitHomeEnabled;			
-			Id("submit").disabled = false;
-		}
-		else{			
-			
-			Id("submit").disabled = true;
-			Id("submit").value = txt.submitHomeDisabled;			
-		}
+		
 	}
 
 	
