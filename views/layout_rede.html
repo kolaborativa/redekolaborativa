@@ -138,7 +138,7 @@ user-scalable = yes allows the user to zoom in -->
         {{if request.function == "index":}}
           <a href="{{=URL(c='default', f='user', args=['request_reset_password'])}}">{{=T('Forgot your password?')}}</a>
           {{=form_login.custom.begin}}
-            {{form_login.custom.widget.username['_placeholder'] = T('Username')}}
+            {{form_login.custom.widget.username['_placeholder'] = T('Username')}}            
             {{form_login.custom.widget.username['_required'] = 'required'}}
             {{form_login.custom.widget.username['_class'] = 'form-input-comum input-login'}}
 
@@ -156,7 +156,7 @@ user-scalable = yes allows the user to zoom in -->
           {{=form_login.custom.end}}
         {{pass}}
 
-        
+
         </div>
       </section>
 
