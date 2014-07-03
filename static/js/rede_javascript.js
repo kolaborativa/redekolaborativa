@@ -20,9 +20,15 @@ function SelectAll(parametro) {
 document.addEventListener("DOMContentLoaded",main)
 
 function main(){
-	DOMHome();
-	mudaStatusCheckbox();
-	DOMEditarPerfil();
+	if(Id("submit") != null ){ 
+		DOMHome();
+	} // ativa o JS da home !	
+	
+	if(SelectAll("data-irParaFase") != null) {
+		mudaStatusCheckbox();
+		DOMEditarPerfil();
+	}
+	
 }
 
 function DOMHome(){
