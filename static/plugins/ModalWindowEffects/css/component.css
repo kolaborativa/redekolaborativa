@@ -75,6 +75,15 @@ perspective effects (not including the modals and the overlay).
 	margin: 0 auto;
 }
 
+ .md-btn{
+    float: right;
+    color: white;
+    cursor: pointer;
+ }
+ .md-title{
+ 	color: white;
+ }
+
 .md-content .titulo {
 	margin: 0;
 	padding: 0.4em;
@@ -83,7 +92,7 @@ perspective effects (not including the modals and the overlay).
 	font-weight: 300;
 	opacity: 0.8;
 	background: rgba(124, 186, 227, 0.99); /* AzulClaroTopoModal */
-	border-radius: 3px 3px 0 0;
+	/*border-radius: 3px 3px 0 0;*/
 }
 
 .md-content > div {
