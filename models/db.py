@@ -17,7 +17,6 @@ if not request.is_local :
     pass_db = os.environ['KOLABORATIVA_MYSQL_PASS']
     host_db = '{host}:{port}'.format(host=os.environ['OPENSHIFT_MYSQL_DB_HOST'], port = os.environ['OPENSHIFT_MYSQL_DB_PORT'])
     name_db = 'rede_kolaborativa'
-
     db = DAL('mysql://{user}:{pas}@{host}/{name}'.format(user=user_db, pas=pass_db, host=host_db, name=name_db))
 else:
     # LOCAL
@@ -119,7 +118,7 @@ db.auth_user.last_name.label = T("Nickname")
 db.auth_user.last_name.requires = IS_EMPTY_OR(IS_ALPHANUMERIC(error_message='Must be alphanumeric!'))
 
 auth.settings.register_next= URL('message_register')
-auth.settings.login_next = URL('user_info')
+auth.settings.login_next = URL('panel')
 auth.settings.logged_url = URL('user_info')
 auth.settings.verify_email_next = URL('index')
 auth.settings.login_url = URL('index')
