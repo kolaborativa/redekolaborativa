@@ -121,7 +121,7 @@ db.auth_user.last_name.requires = IS_EMPTY_OR(IS_ALPHANUMERIC(error_message='Mus
 
 auth.settings.register_next= URL('message_register')
 auth.settings.login_next = URL('panel')
-auth.settings.logged_url = URL('user_info')
+auth.settings.logged_url = URL('panel')
 auth.settings.verify_email_next = URL('index')
 auth.settings.login_url = URL('index')
 
