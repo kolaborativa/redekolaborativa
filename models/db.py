@@ -61,7 +61,8 @@ mail.settings.login = CLIENT_LOGIN
 auth.settings.registration_requires_verification = True
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
-
+auth.messages.verify_email_subject = T("Rede Kolaborativa - Confirmação de cadastro")
+auth.messages.verify_email = 'Olá %(username)s, \n\nVocê está a um clique de desenvolver projetos com os outros membros da Rede Kolaborativa! \nVocê será redirecionado à pagina da home, FAÇA SEU LOGIN normalmente para começar a acessar a Rede Kolaborativa. \n\nClique para confirmar seu cadastro: http://'+request.env.http_host+URL('default','user',args=['verify_email'])+'/%(key)s'
 
 # if you need to use OpenID, Facebook, MySpace, Twitter, Linkedin, etc.
 # register with janrain.com, write your domain:api_key in private/janrain.key
