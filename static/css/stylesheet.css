@@ -270,6 +270,9 @@ a,
 .italic {
   font-style: italic;
 }
+.fw-normal {
+  font-weight: normal;
+}
 .bold {
   font-weight: bold;
 }
