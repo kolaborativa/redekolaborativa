@@ -287,7 +287,7 @@ a,
 }
 .citacao {
   color: #b2b2b2;
-  font-weight: 16px;
+  font-size: 16px;
   font-style: italic;
   font-weight: bold;
 }
@@ -1155,5 +1155,49 @@ body {
 .delete_profissao {
   cursor: pointer;
   margin-right: 16px;
+  margin-top: 4px;
+}
+.content-panel {
+  padding: 0px;
+  border: 1px solid black;
+  margin-top: 20px;
+}
+.header-panel {
+  height: 125px;
+  background: white;
+}
+.header-panel h1 {
+  font-size: 47px;
+  font-weight: normal;
+}
+.list-panel {
+  margin-top: 10px;
+}
+.description-panel {
+  margin-top: 25px;
+  margin-left: 35px;
+}
+.iten-panel {
+  width: 100%;
+  height: 125px;
+}
+.iten-panel a span {
+  color: red;
+}
+.iten-panel a:hover span {
+  color: black;
+}
+.iten-panel a:hover p {
+  color: white;
+}
+.iten-panel:hover {
+  background: #66cab3;
+}
+.arrow-panel {
+  margin-top: 35px;
+  margin-right: 15px;
+}
+.iten-panel-img {
+  margin-left: 10px;
   margin-top: 4px;
 }
