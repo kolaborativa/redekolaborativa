@@ -845,6 +845,7 @@ select,
 .select {
   position: relative;
   display: inline-block;
+  vertical-align: bottom;
 }
 .select select {
   background-color: #FFF;
