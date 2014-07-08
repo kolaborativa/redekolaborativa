@@ -952,6 +952,9 @@ ul {
 li {
   list-style-type: none;
 }
+.list-inline {
+  display: inline;
+}
 .img-grande {
   width: 300px;
   height: 215px;
