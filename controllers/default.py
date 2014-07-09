@@ -23,7 +23,6 @@ def panel():
     
     return dict()
 
-
 def landing():
     '''Landing page
     '''
