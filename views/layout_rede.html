@@ -137,7 +137,7 @@ user-scalable = yes allows the user to zoom in -->
 
       <section class="col col_header span_5 t-right">
         <div class="a-bottom">
-        {{if request.function == "index":}}
+        {{if request.function == "index" or 'message_register' in URL():}}
           <a href="{{=URL(c='default', f='user', args=['request_reset_password'])}}">{{=T('Forgot your password?')}}</a>
           {{=form_login.custom.begin}}
             {{form_login.custom.widget.username['_placeholder'] = T('Username')}}            
