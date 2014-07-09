@@ -2,8 +2,6 @@
 {{if user != message:}}
 <!-- Espaço apresentação do Usuário -->
 
-<section class="f-left span_8 col apresenta-user">
-
     <style>
         .foto-perfil{
             margin-left: 10px;
@@ -46,14 +44,33 @@
             margin: 10px;
             margin-bottom: 0px;
         }
+        .bloco_info{
+            height: 302px;
+            color: white;
+            margin-top: 20px;
+        }
+        .info_user h3{
+            background: #2c3e50;
+            padding: 14px;
+            margin-top: 0px;
+            text-align: center;
+        }
+        
 
 
     </style>
 
+<section class="row span_12">
+    <section class="f-left span_8 col apresenta-user">
+
+
+
     <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left barra-colorida">    
     <!-- Apresentação do usuário -->
     <section class="f-left span_4 col">
+        <a href="{{=URL('edit_perfil')}}">
         <img src={{=URL('static', '/images/editBlack.png')}} class="edit">
+        </a>
         <!-- Foto de perfil -->
         <figure class="foto-perfil">
             {{if not user.avatar:}}
@@ -85,6 +102,7 @@
             <br>
             {{=user.bio or ''}}
         </p>
+        <b>Site pessoal: <a href="#">www.google.com</a></b>
     </section>
     <!-- Social - Disponibilidade -->
     <section class="f-left span_12  col redes_sociais">
@@ -108,7 +126,7 @@
 
 </section>
 <!-- Informações pessoais -->
-<section class="f-left span_4 col">
+<section class="f-left span_4 col bloco_info info_user">
     <h3>{{=T("Personal Info")}}</h3>
     <ul>
         <li><b>{{=T("Name")}}:</b> {{=user.first_name}}{{=' '}}{{=user.last_name or ''}}</li>
@@ -121,8 +139,11 @@
         <li><b>{{=T("E-mail")}}:</b> {{=g_return_if_empty(user.email)}}</li>
     </ul>
 </section>
+</section>
+<section class="row span_12">
+
 <!-- Informações profissionais -->
-<section class="f-left span_4 col">
+<section class="f-left span_4 col bloco_info info_profissional">
    <h3>{{=T("Professional Info")}}</h3>
    {{if professional_data:}}
        {{for p in professional_data:}}
@@ -145,7 +166,7 @@
     {{pass}}
 </section>
 <!-- Meus projetos -->
-<section class="f-left span_4 col">
+<section class="f-left span_4 col bloco_info meus_projetos">
   
     {{if auth.user_id == user.id:}}
     <a class="btn" href="{{=URL('create_project')}}">{{=T("Create a new project!")}}</a>
@@ -171,7 +192,7 @@
                 {{pass}}
 </section>
 <!-- Projetos que eu colaboro -->
-<section class="f-left span_4 col">
+<section class="f-left span_4 col bloco_info projetos_colaboro">
          <h3>{{=T("Projects I Colaborate")}}</h3>
                 {{if colaborate_projects:}}
                 <table>
@@ -202,7 +223,7 @@
                 {{=T("None")}}
                 {{pass}}
 </section>
-
+</section>
 {{else:}}
     {{=user}}
 {{pass}}
