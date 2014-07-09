@@ -2,6 +2,10 @@
 {{if user != message:}}
 <!-- Espaço apresentação do Usuário -->
 
+
+<section class="f-left span_8 col apresenta-user">
+
+
     <style>
         .foto-perfil{
             margin-left: 10px;
@@ -25,6 +29,7 @@
             padding: 0px 10px;
             color: white;
         }
+
         .disponibilidade{
             margin: 7px 0px;
         }
@@ -57,7 +62,6 @@
         }
         
 
-
     </style>
 
 <section class="row span_12">
@@ -68,9 +72,11 @@
     <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left barra-colorida">    
     <!-- Apresentação do usuário -->
     <section class="f-left span_4 col">
+
         <a href="{{=URL('edit_perfil')}}">
         <img src={{=URL('static', '/images/editBlack.png')}} class="edit">
         </a>
+
         <!-- Foto de perfil -->
         <figure class="foto-perfil">
             {{if not user.avatar:}}
@@ -79,6 +85,7 @@
             <img src={{=URL(f='download', args=user.avatar)}} width="168px" height="168px">
             {{pass}}
         </figure>
+
         <section class="disponibilidade">            
             {{ if user.user_available:}}                 
                 <div class="disponivel f-left true"></div>
@@ -86,6 +93,7 @@
                 <div class="disponivel f-left false"></div>
             {{pass}}
             <b>{{=T("Available")}}</b> 
+
             {{if user.user_available:}}
                 {{if user.availability:}}
                     <b>{{=T("Availability")}}:</b> 
@@ -114,10 +122,12 @@
             <h2 class="f-left">SIGA-ME:</h2>
             <ul class="list-inline f-right">
                 {{ for i in my_links: }}
+
                     <li>
                     <a href="{{=i.url}}">
                     <img data-link="{{=i.link_type_id.name}}" name="{{=i.link_type_id.name}}" src="#" alt="{{=i.link_type_id.name}}"></a>
                     </li>
+
                 {{ pass }}
             </ul>
             <!-- Aqui vai os links -->
