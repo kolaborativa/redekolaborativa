@@ -20,6 +20,10 @@ def index():
     return dict(form_login=form_login, form_register=form_register)
 
 
+def panel():
+    return dict()
+
+
 def landing():
     '''Landing page
     '''
