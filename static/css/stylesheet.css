@@ -953,7 +953,10 @@ li {
   list-style-type: none;
 }
 .list-inline {
-  display: inline;
+  display: inline-flex;
+}
+.list-inline li {
+  margin-right: 10px;
 }
 .img-grande {
   width: 300px;
