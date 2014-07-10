@@ -1,175 +1,166 @@
-{{extend 'layout.html'}}
+{{extend 'layout_rede.html'}}
 {{if user != message:}}
-<h1>{{=user.username}}</h1>
-<div id="user_info">
-<table id="profile">
-<tr>
-<td>
-<h3>{{=T("Personal Info")}}</h3>
-<b>{{=T("Name")}}:</b> {{=user.first_name}}{{=' '}}{{=user.last_name or ''}}<br>
-<b>{{=T("Age")}}:</b> {{=user.age or ''}}<br>
-<b>{{=T("Localization")}}:</b> {{=user.localization or ''}}<br>
-<b>{{=T("Biography")}}</b><br>
-{{=user.bio or ''}}
-</td>
-<td>
-    <h3>{{=T("Professional Info")}}</h3>
-    {{if professions:}}
-        {{for p in professions:}}
-        <ul>
-            <li><b>{{=T("Profession")}}:</b> {{=p.profession}}
-                <ul>
-                {{if len(competencies) >= 1:}}
-                    {{list_competencies=[i.competence for c in competencies for i in c if i.profession_id ==  p.id]}}
-                    <li><b>{{=T("Competencies")}}:</b> {{=', '.join(list_competencies)}}</li>
+<!-- Espaço apresentação do Usuário -->
+<section class="f-left span_8 col apresenta-user">
+
+    <style>
+        .foto-perfil img{
+            border-radius: 50%;
+        }
+        .apresenta-user{
+            background: white;
+            height:304;
+            margin-top: 20px;
+        }
+        .barra-colorida{
+            height: 2px;
+        }
+    </style>
+
+    <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left barra-colorida">    
+    <!-- Apresentação do usuário -->
+    <section class="f-left span_4 col">
+
+        
+        <!-- Foto de perfil -->
+        <figure class="foto-perfil">
+            {{if not user.avatar:}}
+            <img src={{=URL('static', '/images/non_avatar.gif')}} width="168px" height="168px">
+                 {{else:}}
+            <img src={{=URL(f='download', args=user.avatar)}} width="168px" height="168px">
+            {{pass}}
+        </figure>
+    </section>
+    <!-- Bio usuário -->
+    <section class="f-left span_6  col bio-user">
+        <p>
+            <h1>{{=user.username}}</h1>
+            <b>{{=T("Biography")}}</b><br>
+            {{=user.bio or ''}}
+        </p>
+    </section>
+    <!-- Social - Disponibilidade -->
+    <section class="f-left span_12  col ">
+        <!-- Disponibilidade -->
+        <section>
+            <b>{{=T("Available")}}:</b> {{ if user.user_available:}} {{=T('Yes')}} {{else:}} {{=T('No')}} {{pass}}<br />    
+            {{if user.user_available:}}
+                {{if user.availability:}}
+                    <b>{{=T("Availability")}}:</b> 
+                    {{=', '.join(user.availability)}}
+                    <br />
                 {{pass}}
-                </ul>
+            {{pass}}
+        </section>
+        <!-- Redes sociais -->
+        <section class="redes_sociais">
+            <p><strong>Links:</strong></p>
+            <ul>
+                {{ for i in my_links: }}
+                    <li><a href="{{=i.url}}">{{=i.link_type_id.name}}</a></li>
+                {{ pass }}
+            </ul>
+            <!-- Aqui vai os links -->
+        </section>
+    </section>
+
+</section>
+<!-- Informações pessoais -->
+<section class="f-left span_4 col">
+    <h3>{{=T("Personal Info")}}</h3>
+    <ul>
+        <li><b>{{=T("Name")}}:</b> {{=user.first_name}}{{=' '}}{{=user.last_name or ''}}</li>
+        {{ if user.born_on: }}<li><b>{{=T("Date of birth")}}:</b> {{=user.born_on}}</li> {{ pass }}
+        <li><b>{{=T("Localization")}}:</b> 
+            {{ if user.city_id: }} {{=user.city_id.name}} - {{pass}}
+            {{ if user.states_id: }} {{=user.states_id.name}} - {{pass}}
+            {{ if user.country_id: }} {{=user.country_id.name}} {{pass}}
             </li>
+        <li><b>{{=T("E-mail")}}:</b> {{=g_return_if_empty(user.email)}}</li>
+    </ul>
+</section>
+<!-- Informações profissionais -->
+<section class="f-left span_4 col">
+   <h3>{{=T("Professional Info")}}</h3>
+   {{if professional_data:}}
+       {{for p in professional_data:}}
+       <ul>
+        <li><b>{{=T("Profession")}}:</b> {{=p}}
+            {{ if professional_data[p]: }}
+                <ul>
+                    <b>{{=T("Competencies")}}:</b>
+                    {{ for c in professional_data[p]: }}
+                        <li>{{=c}}</li>
+                    {{ pass }}
+                </ul>
+            {{ pass }}
+        </li>
         </ul>
 
         {{pass}}
     {{else:}}
         {{=T("None")}}<br />
     {{pass}}
-    <b>{{=T("E-mail")}}:</b> {{=g_return_if_empty(user.email)}}<br />
-    {{if networking:}}
-    	<b>{{=T("Social Networking")}}</b><br />
-    	{{for s in networking:}}
-    	<ul>
-            {{if s.network_type == 'Twitter':}}
-            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="http://twitter.com/{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{pass}}</li>
-            {{elif s.network_type == 'Facebook':}}
-            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="http://facebook.com/{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{pass}}</li>
-            {{elif s.network_type == 'Google+':}}
-            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="https://plus.google.com/{{=s.network}}/posts" target="_blank">{{=s.network_type}}</a>{{pass}}</li>
-            {{elif s.network_type == 'LinkedIn':}}
-            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="http://linkedin.com/in/{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{pass}}</li>
-            {{elif s.network_type == 'Skype':}}
-            <li>{{if is_url(s.network):}}<a href="{{=s.network}}" target="_blank">{{=s.network_type}}</a>{{else:}}<a href="skype:{{=s.network}}?userinfo">{{=s.network_type}}</a>{{pass}}</li>
-            {{else:}}
-            <li>{{=s.network}}</li>
-            {{pass}}
-    	</ul>
-    	{{pass}}
+</section>
+<!-- Meus projetos -->
+<section class="f-left span_4 col">
+  
+    {{if auth.user_id == user.id:}}
+    <a class="btn" href="{{=URL('create_project')}}">{{=T("Create a new project!")}}</a>
     {{pass}}
-            
+    <br>
+     <h3>{{=T("My Projects")}}</h3>
+                {{if my_projects:}}
+                    <ul>
+                    {{for l in my_projects:}}
+                        <li>
+                            <a href={{=URL('projects', args=l.project_slug)}}>
+                                {{=l.name}}
+                            </a>
+                        </li>
+                    {{pass}}
+                    </ul>
+                    {{if len(my_projects) > 5:}}
+                        {{=A(T('Read more'), _href="#")}}
+                    {{pass}}
 
-<b>{{=T("Available")}}:</b> {{=T(user.user_available)}}<br />
-{{if user.user_available == 'Yes':}}
-  {{if user.availability:}}<b>{{=T("Availability")}}:</b> {{=', '.join(user.availability)}}<br />{{pass}}
-{{pass}}
-</td>
+                {{else:}}
+                    {{=T("None")}}
+                {{pass}}
+</section>
+<!-- Projetos que eu colaboro -->
+<section class="f-left span_4 col">
+         <h3>{{=T("Projects I Colaborate")}}</h3>
+                {{if colaborate_projects:}}
+                <table>
+                    {{for l in colaborate_projects:}}
+                    <tr>
+                        <td>
+                        <a href={{=URL('projects', args=colaborate_projects[l].project_slug)}}>
+                            {{=colaborate_projects[l].name}}
+                        </a>
+                        </td>                       
+                        <td>
+                        {{user_function = db((db.team_function.username == user.id)&(db.team_function.project_id == colaborate_projects[l].id)).select(db.team_function.role).as_list()}}
+                            {{if user_function:}}
+                            {{for x,y in user_function[0].iteritems():}}
+                            {{=y}}
+                            {{pass}}<br>
+                            {{else:}}
+                            {{=T("Undefined")}}<br>
+                            {{pass}}
+                        </td>
+                    </tr>
+                    {{pass}}
+                </table>
+                {{if len(colaborate_projects) > 5:}}
+                {{=A(T('Read more'), _href="#")}}
+                {{pass}}
+                {{else:}}
+                {{=T("None")}}
+                {{pass}}
+</section>
 
-<td>
-{{if not user.avatar:}}
-<img src={{=URL('static', '/images/non_avatar.gif')}} width="168px" height="168px">
 {{else:}}
-<img src={{=URL(f='download', args=user.avatar)}} width="168px" height="168px">
-{{pass}}<br /><br />
-{{if auth.user_id == user.id:}}
-<a class="btn" href="{{=URL('create_project')}}">{{=T("Create a new project!")}}</a>
-{{pass}}
-</td>
-</tr>
-
-<tr>
-<td>
-<h3>{{=T("My Last Project")}}</h3>
-{{if last_project:}}
-<h4>{{=last_project.name}}</h4><br>
-<a href={{=URL('projects', args=last_project.project_slug)}}>
-{{if last_project.image:}}	<img src={{=URL(f='download', args=last_project.image)}} width="100px" height="100px" align="left">
-{{else:}}
-<img src={{=URL('static', 'images/non_project.png')}} width="100px" height="100px" align="left">
- {{pass}}
-</a>
-{{if len(last_project.description) > 255:}}
-{{=last_project.description[0:255]}}... <a href='#'>Leia mais</a>
-{{else:}}
-{{=last_project.description}}
-{{pass}}
-<br>
-<b>{{=T("Type")}}:</b>{{=last_project.project_type}}
-{{else:}}
-{{=T("None")}}
-{{pass}}
-</td>
-<td>
-<h3>{{=T("My Projects")}}</h3>
-{{if my_projects:}}
-<table>
-<tr>
-<th></th>
-<th>{{=T("Name")}}</th>
-<th>{{=T("Type")}}</th>
-<th>{{=T("Date")}}</th>
-</tr>
-{{for l in my_projects:}}
-<tr>
-<td><a href={{=URL('projects', args=l.project_slug)}}>
-{{if l.image:}}
-<img src={{=URL(f='download', args=l.image)}} width="40px" height="40px">
-{{else:}}
-<img src={{=URL('static', 'images/non_project.png')}} width="40px" height="40px">
-{{pass}}
-</a></td>
-<td>{{=l.name}}</td>
-<td>{{=l.project_type}}</td>
-<td>{{=l.created_on}}</td>
-</tr>
-{{pass}}
-</table>
-{{if len(my_projects) > 5:}}
-{{=A(T('Read more'), _href="#")}}
-{{pass}}
-{{else:}}
-{{=T("None")}}
-{{pass}}
-</td>
-<td>
-<h3>{{=T("Projects I Colaborate")}}</h3>
-{{if colaborate_projects:}}
-<table>
-<tr>
-<th></th>
-<th>{{=T("Name")}}</th>
-<th>{{=T("Type")}}</th>
-<th>{{=T("Date")}}</th>
-<th>{{=T("Role")}}</th>
-</tr>
-{{for l in colaborate_projects:}}
-<tr>
-<td><a href={{=URL('projects', args=colaborate_projects[l].project_slug)}}>
-{{if colaborate_projects[l].image:}}
-	<img src={{=URL(f='download', args=colaborate_projects[l].image)}} width="40px" height="40px">
-{{else:}}
-	<img src={{=URL('static', 'images/non_project.png')}} width="40px" height="40px">
-{{pass}}
-</a></td>
-<td>{{=colaborate_projects[l].name}}</td>
-<td>{{=colaborate_projects[l].project_type}}</td>
-<td>{{=colaborate_projects[l].created_on}}</td>
-<td>{{user_function = db((db.team_function.username == user.id)&(db.team_function.project_id == colaborate_projects[l].id)).select(db.team_function.role).as_list()}}
-      		{{if user_function:}}
-      			{{for x,y in user_function[0].iteritems():}}
-      			{{=y}}
-      			{{pass}}<br>
-      		{{else:}}
-      		{{=T("Undefined")}}<br>
-    		{{pass}}
-</td>
-</tr>
-{{pass}}
-</table>
-{{if len(colaborate_projects) > 5:}}
-{{=A(T('Read more'), _href="#")}}
-{{pass}}
-{{else:}}
-{{=T("None")}}
-{{pass}}
-</td>
-</tr>
-</table>
-{{else:}}
-{{=user}}
+    {{=user}}
 {{pass}}

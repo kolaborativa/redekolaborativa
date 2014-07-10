@@ -7,34 +7,18 @@ input,textarea,select,.form-input{
 }
 
 input[type="submit"],input[type="button"],button{
-	border:none;
-	outline: none;
-	padding:0px;
+	// border:none;
+	// outline: none;
+	// padding:0px;
 }
 
-// input[type="text"],
-// input[type="password"],
-// input[type="email"],
-// input[type="color"],
-// input[type="date"],
-// input[type="datetime"],
-// input[type="datetime-local"],
-// input[type="email"],
-// input[type="month"],
-// input[type="number"],
-// input[type="range"],
-// input[type="search"],
-// input[type="tel"],
-// input[type="time"],
-// input[type="url"],
-// input[type="week"],
-// textarea,
-// select,
+
 .form-input-comum
 {
 	padding: 5px 0px 5px 10px;
 	background: @branco;
 }
+
 
 .input-valido{
 	border: 1px solid green;
@@ -47,4 +31,115 @@ input[type="submit"],input[type="button"],button{
 
 .form-select{
 	height: 35px;
+}
+.form-select[type="date"]{
+	text-align: center;
+	font-size: 22px;
+	color: rgb(172, 172, 172);
+}
+
+//
+.select {
+	position: relative;
+	display: inline-block;
+}
+
+.select select {
+	background-color: #FFF; /*Cor do select default*/
+	color: #000;
+	/*font-size: inherit;*/
+	padding: .2em;
+	padding-right: 2.5em;	/*Define a distancia entre a seta e o texto */
+	border: 0;
+	margin: 0;
+	/*border-radius: 3px;*/
+	text-indent: 0.01px;
+	text-overflow: '';
+	-webkit-appearance: button;
+}
+select:disabled, input:disabled{
+	color: @cinza2;	
+	background: @cinza1;
+	border:1px solid @cinza2;
+}
+.select::before,.select::after {
+	content: "";
+	position: absolute;
+	pointer-events: none;
+}
+
+.select::after {
+	/*  Personalizando a seta */
+	content: "\25BC"; /*Seta*/
+	height: 1em;
+	font-size: .625em;
+	line-height: 1;
+	right: 1.2em;
+	top: 50%;
+	margin-top: -.5em;
+}
+
+.select::before {
+	width: 2em;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.select::before {
+	background-color: rgb(160, 160, 160);
+}
+
+.select::after {
+	color: @branco+02;
+}
+
+// Checkbox para ON e OFF
+.checkbox {
+  width: 93%;
+  background: @verdeAgua2;
+  // margin: 20px 0px;
+  position: relative;
+}
+.checkbox:after {
+  top: 20%;
+  content: url(../images/checkbox/error.png);
+  /*Imagem que define negativo*/
+  position: absolute;
+  right: 10px;
+  z-index: 0;
+}
+.checkbox:before {
+  top: 20%;
+  content: url(../images/checkbox/ok.png);
+  /*Imagem que define o positivo*/
+  position: absolute;
+  left: 10px;
+  z-index: 0;
+}
+.checkbox label {
+  display: block;
+  width: 45%;
+  height: 82%;
+  text-align: center;
+  // font-size: 18px;
+  box-sizing: border-box;
+  padding-top:3px;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  z-index: 1;
+  background:@verdeAgua;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+.checkbox input[type=checkbox] {
+  visibility: hidden;
+}
+.checkbox input[type=checkbox]:checked + label {
+  left: 52%;
 }

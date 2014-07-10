@@ -28,8 +28,7 @@ db.define_table("team_function",
 	)
 
 db.define_table("profession",
-	Field("profession", length=128, requires=IS_NOT_EMPTY(error_message=field_empty)),
-	Field("user_id", db.auth_user, default=auth.user_id, readable=False, writable=False)
+	Field("name", length=128, requires=IS_NOT_EMPTY(error_message=field_empty)),
 	)
 
 db.define_table("competence",
@@ -37,10 +36,22 @@ db.define_table("competence",
 	Field("profession_id", db.profession, readable=False, writable=False)
 	)
 
-db.define_table("network_type",
-Field("user_id"),
-Field("network", label='Username'),
-Field("network_type", label='Network')
+db.define_table("professional_relationship",
+	Field("profession_id", db.profession, readable=False, writable=False),
+	Field("competence_id", db.competence, readable=False, writable=False),
+	Field("user_id", db.auth_user, default=auth.user_id, readable=False, writable=False)
+    )
+
+
+db.define_table('link_type',
+    Field('name', 'string'),
+    format='%(name)s'
+)
+
+db.define_table("links",
+Field("user_id", db.auth_user),
+Field("link_type_id", db.link_type, label=T('Link Type')),
+Field("url", 'string')
 )
 
 db.define_table('comment_project',

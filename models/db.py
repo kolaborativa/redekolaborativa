@@ -73,15 +73,42 @@ use_janrain(auth, filename='private/janrain.key')
 auth.settings.formstyle = "divs"
 auth.messages.register_button = T("Kollaborate!")
 
+# 'localization tables' necessary for the user table
+db.define_table('country',
+    Field('name', 'string'),
+    Field('abbrev', 'string'),
+    format='%(name)s'
+)
+
+db.define_table('states',
+    Field('country_id', db.country),
+    Field('name', 'string'),
+    Field('abbrev', 'string'),
+    format='%(name)s'
+)
+
+db.define_table('city',
+    Field('states_id', db.states),
+    Field('country_id', db.country),
+    Field('name', 'string'),
+    format='%(name)s'
+)
+
 
 # auth user extra fields
 auth.settings.extra_fields["auth_user"] = [
-    Field("age", "integer", label='%s (%s)' %(T("Age"),T("optional")) ),
-    Field("localization", label='Localization (district/city/state/country)'),
+    Field("born_on", "date", label='%s (%s)' %(T("Date of birth"),T("optional")) ),
+    Field("country_id", db.country, label=T("Country")),
+    Field("states_id", db.states, label=T("State")),
+    Field("city_id", db.city, label=T("City")),
     Field("bio", "text"),
     Field("avatar", "upload"),
-    Field("user_available", widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET({'Yes': T('Yes'), 'No': T('No')}), default='No'),
-    Field("availability", "list:string", widget=SQLFORM.widgets.checkboxes.widget, requires=IS_IN_SET( [ (T('OpenSource'), T('OpenSource')), (T('Enterprising'), T('Enterprising')) ], multiple=True))
+    Field("user_available", 'boolean', default=False),
+    Field("availability", "list:string", widget=SQLFORM.widgets.checkboxes.widget, requires=IS_IN_SET( [
+            (T('OpenSource'), T('OpenSource')),
+            (T('Enterprising'), T('Enterprising')),
+            (T('Others'), T('Others')),
+        ], multiple=True), default="Others")
 ]
 
 # create all tables needed by auth if not custom tables
@@ -96,6 +123,7 @@ auth.settings.register_next= URL('message_register')
 auth.settings.login_next = URL('panel')
 auth.settings.logged_url = URL('panel')
 auth.settings.verify_email_next = URL('index')
+auth.settings.login_url = URL('index')
 
 #
 # Define your tables below (or better in another model file) for example

@@ -2,7 +2,6 @@
 @paddingTopo: 10px;
 body{
   width: 100%;
-  background: @cinza1;
 }
 @larguraTela:1200px;
 .header{
@@ -13,7 +12,6 @@ body{
 .col_header{
   height: 60.414px;
   position: relative;
-
 }
 .header-navigator{
   width: 100%;
@@ -25,9 +23,14 @@ body{
   padding-top: @paddingTopo;
 }
 .input-search{
-  // width: 125px;
-  width: 60%;
+  
+  width: 55%;
+  height: 19px; // definido baseado na home
 }
+.input-select{
+  height: 29px;
+}
+
 .pesquisa{
   padding-top: 17px;
   width: 50%;
@@ -85,7 +88,7 @@ body{
 .section-form > input[type="email"],
 .section-form > input[type="password"]
 {
-  
+
   height: 36px;
 }
 
@@ -93,3 +96,141 @@ body{
   width: @larguraTela;
   text-align: center;
 }
+
+// -------------------------------- Home acima /\--------- //
+
+.col_edit_perfil_topo{
+  height: 125px;
+  background: @branco;
+  border:1px solid @cinza4 ;
+  border-bottom:none;
+}
+.col_edit_perfil_topo figure{
+  text-align: center;
+  padding-top: 10px;
+}
+
+.col_edit_perfil_formulario {
+  padding-top: 25px;
+  min-height: 446px;
+  border:1px solid @cinza4;
+  border-top: none;
+  margin-bottom: 40px;
+}
+.edit_perfil_fases{
+  min-height: 446px;
+}
+.displayBlock{
+  display: block;
+  transition:1s;
+}
+.displayNone{
+  display: none;
+  transition:1s;
+}
+// Colunas dentro dos blocos do editar perfil
+.colunas{
+  min-height: 283px;
+}
+.bio{
+  min-width: 408px;
+  min-height: 131px;
+  max-width: 408px;
+  max-height: 131px;
+
+}
+
+// -------------------------- Para arrumar \/ Deixar no formato less
+
+.select-edit-perfil,.select-edit-perfil select{
+  height: 37px;
+  // font-size: 25px;
+  font-size: 18px;
+}
+
+.btn-submit-select{
+  padding: 0px 12px;
+  border: 0px;
+  background: black;
+  color: white;
+  /*Coisas do botão*/
+  font-size: 38px;
+  height: 60px;
+  width: 52px;
+}
+.usr-input-form{
+  height: 40px;
+}
+.usr-btn-form{
+  height: 50px;
+  font-size: 30px;
+  padding: 0px 6px;
+  width: 45px;
+  background:#828181;
+}
+.social-field{
+  margin-top: 20px;
+  background: #66cab3;
+  height: 55px;
+  text-align: left;
+  float: left;
+  /*min-width: 48%;*/
+  margin-left: 5px;
+  box-sizing: border-box;
+}
+.social-field img{
+  vertical-align: middle;
+  padding: 16px 13px;
+  cursor:pointer;
+}
+.social-field a{
+  font-size: 16px;
+  vertical-align: middle;
+}
+.input-editar{
+  background: #FFFFFF;
+  height: 25px;
+  vertical-align: middle;
+}
+.profissao{
+  width: 32%;
+  min-height: 100px;
+  margin: 0px 0.5%;
+  background: #7cbae3;
+  // display: block;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.profissao > span{
+  margin-left: 11px;
+  color: @branco;
+}
+
+.profissao > .select2-container-multi .select2-choices .select2-search-choice {
+    background: #2980b9;
+    font-style: italic;
+    box-shadow: none;
+    color: #ffffff;
+    border: none;
+    border-radius: 0px;
+}
+.profissao > .select2-container-multi .select2-choices .select2-search-field input{
+  background: #bcd4e4;
+  margin: 0px 4px;
+  padding-left: 17px;
+}
+.competencias{
+  margin-top: 10px !important;
+}
+.delete_profissao{
+  cursor: pointer;
+  // margin-right: 21px;
+  // margin-top: 12px;
+  margin-right: 16px;
+  margin-top: 4px;
+}
+
+// .list-profissao{
+//   display: flex;
+// }

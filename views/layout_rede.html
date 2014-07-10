@@ -1,0 +1,202 @@
+<!--[if HTML5]><![endif]-->
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]><html class="ie ie6 ie-lte9 ie-lte8 ie-lte7 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
+<!--[if IE 7]><html class="ie ie7 ie-lte9 ie-lte8 ie-lte7 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
+<!--[if IE 8]><html class="ie ie8 ie-lte9 ie-lte8 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
+<!--[if IE 9]><html class="ie9 ie-lte9 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{=T.accepted_language or 'en'}}"> <!--<![endif]-->
+<head>
+<!--[if !HTML5]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
+<![endif]-->
+<!-- www.phpied.com/conditional-comments-block-downloads/ -->
+<!-- Always force latest IE rendering engine
+(even in intranet) & Chrome Frame
+Remove this if you use the .htaccess -->
+
+<title>Kolaborativa Network - Rede social de Profissionais da Web.</title>
+<meta name="description" content="Um movimento pela criação de uma comunidade unida e ativa de Profissionais da Web." />
+<meta name="keywords" content="kolaborativa, rede social kolaborativa, compartilhar informação, aprender, inovar, empreender, colaboração, grupos de ação, eventos, comunidade." />
+
+<meta charset="utf-8" />
+
+<!-- http://dev.w3.org/html5/markup/meta.name.html -->
+<meta name="application-name" content="{{=request.application}}" />
+
+<!-- Speaking of Google, don't forget to set your site up:
+  http://google.com/webmasters -->
+  <meta name="google-site-verification" content="" />
+
+<!--  Mobile Viewport Fix
+j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
+device-width: Occupy full width of the screen in its current orientation
+initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
+user-scalable = yes allows the user to zoom in -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
+<link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+
+<!-- All JavaScript at the bottom, except for Modernizr which enables
+  HTML5 elements & feature detects -->
+  <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>
+
+  <link rel="stylesheet" href='{{=URL("static","css/normalize.css")}}' />
+
+  {{include 'web2py_ajax.html'}}
+
+  <!-- Google Web Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href='{{=URL("static", "css/stylesheet.css")}}' />
+
+  <script>
+
+   url = {
+         "edit_profile"            : "{{=URL(c='default', f='ajax_edit_profile')}}"
+        ,"ajax_add_profission"     : "{{=URL(c='default', f='ajax_add_profission')}}"
+        ,"testaAjax"               : "{{=URL(c='default', f='testaAjax')}}"
+        ,"ajax_add_competence"     : "{{=URL(c='default', f='ajax_add_competence')}}"
+        ,"ajax_add_location"       : "{{=URL(c='default', f='ajax_add_location')}}"
+        ,"ajax_add_link"           : "{{=URL(c='default', f='ajax_add_link')}}"
+        ,"ajax_remove_profission"  : "{{=URL(c='default', f='ajax_remove_profission')}}"
+        ,"ajax_remove_link"        : "{{=URL(c='default', f='ajax_remove_link')}}"
+        ,"index"                   : "{{=URL(c='default', f='index')}}"
+
+   };
+   image = {
+         "delete"                    : "{{=URL('static','images/Edit_perfil/delete.png')}}"
+        ,"editProfilefase1"          : "{{=URL('static','images/Edit_perfil/pessoal.png')}}"
+        ,"editProfilefase1_completa" : "{{=URL('static','images/Edit_perfil/pessoal_completa.png')}}"
+        ,"editProfilefase2_cinza"    : "{{=URL('static','images/Edit_perfil/bio_cinza.png')}}"
+        ,"editProfilefase2"          : "{{=URL('static','images/Edit_perfil/bio.png')}}"
+        ,"editProfilefase2_completa" : "{{=URL('static','images/Edit_perfil/bio_completa.png')}}"
+        ,"editProfilefase3_cinza"    : "{{=URL('static','images/Edit_perfil/prof_cinza.png')}}"
+        ,"editProfilefase3"          : "{{=URL('static','images/Edit_perfil/prof.png')}}"
+        ,"editProfilefase3_completa" : "{{=URL('static','images/Edit_perfil/prof_completa.png')}}"
+        ,"editProfilefase4_cinza"    : "{{=URL('static','images/Edit_perfil/cont_cinza.png')}}"
+        ,"editProfilefase4"          : "{{=URL('static','images/Edit_perfil/contato.png')}}"
+        ,"confirm"                   : "{{=URL('static','images/Edit_perfil/confirm.png')}}"
+        ,"edit"                      : "{{=URL('static','images/Edit_perfil/edit.png')}}"
+
+  };
+  ico = {
+    "facebook" : "{{=URL('static','images/Edit_perfil/fb.png')}}"
+    
+  };
+
+  txt = {
+    
+     "submitHomeEnabled"  : "{{=T('CREATE AN ACCOUNT ON KOLABORATIVA')}}"
+    ,"submitHomeDisabled" : "{{=T('Fill out all fields to release registering')}}"
+  };
+  </script>
+
+
+</head>
+
+<body class="cinza1">
+
+
+
+  <header class="f-left w-full cinza2">
+
+
+    <section class="header row">
+
+      <section class="col col_header span_2 logo-header">
+      {{if 'index' not in URL():}}
+        <figure class="a-bottom">
+          <img src="{{=URL('static','images/logo-kolaborativa-header.png')}}" alt="Figura Kolaborativa">
+        </figure>
+       {{pass}}
+      </section>
+      <section class="col col_header span_1"></section>
+
+      <section class="col col_header span_3">
+        <div class="a-bottom w-full">
+          <form class="search">
+          <input type="search" class="form-input-comum input-search span_2" placeholder="{{=T('Search for ..')}}" >
+
+          <label class="select">
+            <select class="input-select">
+              <option value="1">{{=T('Projects')}}</option>
+              <option value="2">{{=T('Persons')}}</option>
+            </select>
+          </label>
+
+
+          </form>
+        </div>
+      </section>
+
+      <section class="col col_header span_1">
+      </section>
+
+      <section class="col col_header span_5 t-right">
+        <div class="a-bottom">
+        {{if request.function == "index":}}
+          <a href="{{=URL(c='default', f='user', args=['request_reset_password'])}}">{{=T('Forgot your password?')}}</a>
+          {{=form_login.custom.begin}}
+            {{form_login.custom.widget.username['_placeholder'] = T('Username')}}            
+            {{form_login.custom.widget.username['_required'] = 'required'}}
+            {{form_login.custom.widget.username['_class'] = 'form-input-comum input-login'}}
+
+
+            {{form_login.custom.widget.password['_placeholder'] = T('Enter your password')}}
+            {{form_login.custom.widget.password['_required'] = 'required'}}
+            {{form_login.custom.widget.password['_class'] = 'form-input-comum input-login'}}
+
+            {{form_login.custom.submit['_value'] = T('Enter')}}
+            {{form_login.custom.submit['_class'] = 'btn-2 btn-login'}}
+
+            {{=form_login.custom.widget.username}}
+            {{=form_login.custom.widget.password}}
+            {{=form_login.custom.submit}}
+          {{=form_login.custom.end}}
+        {{pass}}
+
+
+        </div>
+      </section>
+
+    </section>
+  </header>
+
+  <section class="f-left w-full">
+    <section class="row content f-center">
+
+      {{include}}
+
+
+    </section>
+  </section>
+
+  {{if request.function == "index": }}
+  <section class="f-left w-full">
+    <section class="footer row f-center">
+      <section class="col col_footer span_12" data-device="desktop">
+        <a href="#" class="font-icon">f</a>
+        <a href="#" class="font-icon">t</a>
+        <a href="#" class="font-icon">g</a>
+      </section>
+    </section>
+    {{pass}}
+
+    {{if response.google_analytics_id:}}
+    <script src="{{=URL('static','js/analytics.min.js')}}"></script>
+
+    <script type="text/javascript">
+      analytics.initialize({
+        'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'}
+      });
+    </script>
+      {{pass}}
+
+  <!-- Colocar os JS no fim do arquivo  -->
+  <script src="{{=URL('static','js/rede_javascript.js')}}"></script>
+
+    </body>
+    </html>

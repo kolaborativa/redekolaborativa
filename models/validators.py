@@ -21,9 +21,12 @@ db.team_function.username.requires = IS_IN_DB(db, 'auth_user.username', '%(usern
 db.team_function.project_id.readable = db.team_function.project_id.writable = False
 db.team_function.username.requires = db.team_function.role.requires = IS_NOT_EMPTY(error_message=field_empty)
 
-#network_type
-db.network_type.user_id.requires = IS_IN_DB(db, 'auth_user.id')
-db.network_type.network_type.requires = IS_EMPTY_OR(IS_IN_SET(['Skype', 'Facebook', 'Google+', 'LinkedIn', 'Twitter', 'E-mail']))
+#link_type
+db.link_type.name.requires = IS_NOT_EMPTY()
+
+#links
+db.links.url.requires = IS_URL()
+db.links.link_type_id.requires=IS_IN_DB(db, db.link_type.id, '%(name)s')
 
 #comment_project
 db.comment_project.body.requires = IS_NOT_EMPTY(error_message=field_empty)
@@ -36,3 +39,11 @@ db.comment_project.modified_by.requires = IS_IN_DB(db, 'auth_user.id', '%(userna
 db.subscription_emails.email.requires = [IS_NOT_EMPTY(error_message=field_empty),
 												IS_NOT_IN_DB(db, 'subscription_emails.email'),
 												IS_EMAIL(error_message='Invalid e-mail!')]
+
+
+#auth_user
+db.auth_user.country_id.requires=IS_EMPTY_OR(IS_IN_DB(db, db.country.id, '%(name)s', zero="Escolha um País"))
+db.auth_user.states_id.requires=IS_EMPTY_OR(IS_IN_DB(db, db.states.id, '%(name)s', zero="Escolha um Estado"))
+db.auth_user.city_id.requires=IS_EMPTY_OR(IS_IN_DB(db, db.city.id, '%(name)s', zero="Escolha uma Cidade"))
+
+

@@ -14,10 +14,9 @@ def index():
     if request.env.http_host == 'rede.kolaborativa.com':
         redirect(URL('landing'))
 
-    form_login = auth.login()
     form_register = auth.register()
 
-    return dict(form_login=form_login, form_register=form_register)
+    return dict(form_register=form_register)
 
 
 def panel():
@@ -43,6 +42,384 @@ def landing():
 def principal():
     projeto = db(db.projects).select().first()
     return dict(projeto=projeto)
+
+@auth.requires_login()
+def edit_perfil():
+    form=auth.profile()
+
+    my_links = db(db.links.user_id == auth.user.id).select()
+    my_links_id = [i.link_type_id for i in my_links]
+    count_type_other = db( (db.links.user_id == auth.user.id) & \
+        (db.links.link_type_id == 10) ).count()
+    list_link_types = db(db.link_type.id>0).select()
+
+    others_links = {}
+
+    for i in list_link_types:
+        if not i.id in my_links_id:
+            others_links[i.id] = i.name
+    if count_type_other < 2 and 10 not in others_links:
+        others_links[10] = 'Outro'
+
+    my_professions_id = [i.profession_id for i in db(db.professional_relationship).select()]
+    list_professions = [i for i in db(db.profession).select() if not i.id in my_professions_id ]
+    my_avatar = db.auth_user[auth.user.id].avatar
+
+    professional_relation = db(db.professional_relationship.user_id ==  auth.user.id).select()
+    professional_data = {}
+    if professional_relation:
+        for i in professional_relation:
+            if i.profession_id.name in professional_data:
+                professional_data[i.profession_id.name]['my_competencies'].append((i.competence_id, i.competence_id.competence))
+
+            else:
+                try:
+                    professional_data[i.profession_id.name] = {
+                        'profession_id': i.profession_id,
+                    }
+                    professional_data[i.profession_id.name]['my_competencies'] = [(i.competence_id, i.competence_id.competence)]
+
+                except:
+                    professional_data[i.profession_id.name] = {
+                        'profession_id': i.profession_id,
+                        'my_competencies': [],
+                        'others_competencies': []
+
+                    }
+
+        for pro in professional_data:
+            professional_data[pro]['others_competencies'] = []
+            others_comp = [(i.id, i.competence) for i in db(db.competence.profession_id==professional_data[pro]['profession_id']).select()]
+            for oc in others_comp:
+                if not oc in professional_data[pro]['my_competencies']:
+                    professional_data[pro]['others_competencies'].append(oc)
+
+
+    form_links = SQLFORM.factory(
+        db.links,
+        )
+
+    form_profession = SQLFORM.factory(
+        db.profession,
+        table_name='professions',
+        submit_button=T('add')
+        )
+    form_competencies = SQLFORM.factory(
+        Field("profession_id",label="profession_id"),
+        db.competence,
+        table_name='competencies',
+        )
+
+    # auth form
+    if form.process().accepted:
+        redirect(URL("user_info"))
+    elif form.errors:
+        response.session = 'form has errors'
+
+    # professions form
+    if form_profession.process().accepted:
+        # id_professions = [i.id for i in professions]
+        # if not request.vars.profession in id_professions:
+        db.profession.insert(
+            profession=request.vars.profession,
+            user_id=auth.user.id
+            )
+        # else:
+        #     db(db.profession.id == ).update(
+        #         profession=request.vars.profession,
+        #         )
+
+        response.flash = 'form accepted'
+        redirect(URL("user",args=["profile"]))
+    elif form_profession.errors:
+        response.flash = 'form has errors'
+
+    # competencies form
+    if form_competencies.process().accepted:
+        db.competence.insert(
+            competence=request.vars.competence,
+            profession_id=request.vars.profession_id,
+            )
+
+        response.flash = 'form accepted'
+        redirect(URL("user",args=["profile"]))
+    elif form_competencies.errors:
+        response.flash = 'form has errors'
+
+    #networking form
+
+    return dict(form=form,
+                form_profession=form_profession,
+                form_competencies=form_competencies,
+                form_links=form_links,
+                list_professions=list_professions,
+                professional_data=professional_data,
+                my_avatar=my_avatar,
+                my_links=my_links,
+                others_links=others_links,
+                )
+
+
+def _image_converter(img64, upload_folder):
+    '''Funcao que converte uma imagem base64 e retorna a imagem convertida
+    '''
+    import subprocess
+    from convertImage import convertBase64String
+
+    img_base64 = img64
+    upload_folder = upload_folder
+    img_converted = convertBase64String(img_base64, upload_folder)
+
+    return img_converted
+
+
+@auth.requires_login()
+def ajax_edit_profile():
+    try:
+        field_db =  request.vars.field
+        new_value =  request.vars.value
+        dic_update = {field_db:new_value}
+
+        if field_db == 'availability':
+            dados = db(db.auth_user.id==auth.user.id).select().first()
+            value = dados.availability
+            if new_value in value:
+                value.remove(new_value)
+            else:
+                value.append(new_value)
+            db.auth_user[auth.user.id] = {field_db: value}
+
+        elif field_db == 'born_on':
+            from datetime import date
+
+            field_db =  request.vars.field
+            new_value =  request.vars.value
+
+            list_date=new_value.split('/')
+            year = int(list_date[2])
+            month = int(list_date[1])
+            day = int(list_date[0])
+            new_value = date(year, month, day)
+
+            dic_update = {field_db: new_value}
+            db.auth_user[auth.user.id] = dic_update
+
+        elif field_db == 'avatar':
+            field_db =  request.vars.field
+            img64 =  request.vars.image64
+            upload_folder = '{}uploads/'.format(request.folder)
+            img_converted = _image_converter(img64, upload_folder)
+
+            #grava no banco
+            if img_converted:
+                user = db(db.auth_user.id == auth.user.id).select().first()
+
+                if user.avatar:
+                    # Deleta o avatar antigo
+                    import subprocess
+                    subprocess.call('rm %s/%s' % (upload_folder, user.avatar), shell=True)
+
+               # Salva o avatar novo
+                db(db.auth_user.id == user.id).update(avatar=img_converted)
+                return True
+
+        else:
+            db.auth_user[auth.user.id] = dic_update
+
+            if field_db == 'username':
+                auth.logout()
+
+            elif field_db == 'user_available' and new_value == 'true':
+                dados = db(db.auth_user.id==auth.user.id).select().first()
+                if not dados.availability:
+                    db.auth_user[auth.user.id] = {'availability': 'Others'}
+
+        #print 'campo do banco:',field_db
+        return True
+
+    except:
+        return False
+
+
+@auth.requires_login()
+def ajax_add_profission():
+    try:
+        profession_id = request.vars.value
+        # Record profession in the database
+        dic_insert = {
+            'profession_id': profession_id,
+            'user_id': auth.user.id,
+            }
+        db.professional_relationship[0] = dic_insert
+
+        #Taking competencies related to profession inserted
+        competencies = db(db.competence.profession_id==profession_id).select()
+        dic_competencies = {}
+        for c in competencies:
+            dic_competencies[str(c.id)] = c.competence
+
+        return dict(competencies=dic_competencies)
+    except:
+        return False
+
+
+@auth.requires_login()
+def ajax_add_competence():
+    import json
+    try:
+        profession_id = request.vars.profession
+        my_competencies_id = json.loads(request.vars.competence)
+        list_competencies =[i.id for i in db(db.competence.profession_id==profession_id).select(db.competence.id)]
+        user_id = auth.user.id
+
+        # inserts the new competencies
+        for competence_id in my_competencies_id:
+            row = db( (db.professional_relationship.user_id == user_id) & \
+                    (db.professional_relationship.profession_id == profession_id) & \
+                    (db.professional_relationship.competence_id == None) \
+                ).select().first()
+
+            if row:
+                #update
+                db.professional_relationship[row.id] = {'competence_id': competence_id}
+            else:
+                #insert
+                record = db( (db.professional_relationship.user_id == user_id) & \
+                        (db.professional_relationship.profession_id == profession_id) & \
+                        (db.professional_relationship.competence_id == competence_id) \
+                    ).select().first()
+                if not record:
+                    #insert
+                    db.professional_relationship.insert(
+                        profession_id = profession_id,
+                        competence_id = competence_id,
+                        user_id = user_id,
+                    )
+        # excludes competencies unused
+        for competence_id in list_competencies:
+            if not competence_id in my_competencies_id:
+                count = db((db.professional_relationship.user_id == user_id) & \
+                           (db.professional_relationship.profession_id==profession_id) \
+                ).count()
+                if count == 1:
+                    # updates if there is 1 record
+                    db( (db.professional_relationship.user_id == user_id) & \
+                            (db.professional_relationship.profession_id == profession_id) & \
+                            (db.professional_relationship.competence_id == competence_id) \
+                        ).update(competence_id=None)
+
+                else:
+                    # delete if more than 1 record
+                    db( (db.professional_relationship.user_id == user_id) & \
+                            (db.professional_relationship.profession_id == profession_id) & \
+                            (db.professional_relationship.competence_id == competence_id) \
+                        ).delete()
+
+        return True
+    except:
+        return False
+
+@auth.requires_login()
+def ajax_add_location():
+    if request.vars.field == "country_id":
+        try:
+            field_db =  request.vars.field
+            new_value =  request.vars.value
+            user_id = auth.user.id
+            dic_update = {field_db:new_value}
+            db.auth_user[user_id] = dic_update
+
+            rows = db(db.states.country_id==new_value).select(db.states.id, db.states.name)
+            states = {}
+
+            for row in rows:
+                states[str(row.id)] = row.name
+
+            return states
+        except:
+            return False
+
+    elif request.vars.field == "states_id":
+        try:
+            field_db =  request.vars.field
+            new_value =  request.vars.value
+            user_id = auth.user.id
+            dic_update = {field_db:new_value}
+            db.auth_user[user_id] = dic_update
+
+            rows = db(db.city.states_id==new_value).select(db.city.id, db.city.name)
+            citys = {}
+
+            for row in rows:
+                citys[str(row.id)] = row.name
+
+            # first city record for default
+            citys_id = citys.keys()
+            citys_id.sort()
+            db.auth_user[user_id] = {'city_id': citys_id[0]}
+            return citys
+        except:
+            return False
+
+    else:
+        try:
+            field_db =  request.vars.field
+            new_value =  request.vars.value
+            user_id = auth.user.id
+            dic_update = {field_db:new_value}
+            db.auth_user[user_id] = dic_update
+
+            return True
+        except:
+            return False
+
+@auth.requires_login()
+def ajax_add_link():
+    try:
+        link_type_id =  request.vars.link_type_id
+        url =  request.vars.url
+        user_id = auth.user.id
+        dic_update = dict(user_id=user_id, link_type_id=link_type_id, url=url)
+
+        db.links[0] = dic_update
+        return True
+    except:
+        return False
+
+
+@auth.requires_login()
+def ajax_remove_profission():
+    try:
+        id_profission =  request.vars.id
+        user_id = auth.user.id
+        db( (db.professional_relationship.profession_id==id_profission) & \
+            (db.professional_relationship.user_id==user_id)
+        ).delete()
+        return True
+    except:
+        return False
+
+
+@auth.requires_login()
+def ajax_remove_link():
+    try:
+        id_link_type =  request.vars.id
+        user_id = auth.user.id
+        db( (db.links.link_type_id==id_link_type) & \
+            (db.links.user_id==user_id)
+        ).delete()
+        return True
+    except:
+        return False
+
+
+# Usando essa função para testar os ajax por favor não deletar
+def testaAjax():
+
+    print request.vars
+
+    return True
+
 
 def user():
     """
@@ -80,15 +457,15 @@ def user():
         return dict(form=auth())
 
     elif 'profile' in request.args:
-        form=auth()           
+        form=auth()
         professions = db(db.profession.user_id == auth.user.id).select()
         networking = db(db.network_type.user_id == auth.user.id).select()
-        
+
         form_networking = SQLFORM.factory(
             db.network_type,
             fields = ['network', 'network_type'],
             submit_button=T('add')
-            )                
+            )
 
         competencies = []
         if professions:
@@ -143,7 +520,7 @@ def user():
             redirect(URL("user",args=["profile"]))
         elif form_competencies.errors:
             response.flash = 'form has errors'
-            
+
         #networking form
         if form_networking.process().accepted:
             db.network_type.insert(
@@ -188,7 +565,7 @@ def delete_profession():
         redirect(URL("user",args=["profile"]))
     else:
         redirect(URL("user",args=["profile"]))
-        
+
 @auth.requires_login()
 def edit_network():
     network = db.network_type(request.vars.id)
@@ -208,21 +585,32 @@ def delete_network():
         redirect(URL("user",args=["profile"]))
     else:
         redirect(URL("user",args=["profile"]))
-    
+
 def user_info():
     message = T("User doesn't exist.")
-    seach_user = request.args(0) or auth.user.username
+    if auth.is_logged_in():
+        seach_user = auth.user.username
+    else:
+        seach_user = request.args(0) or redirect(URL('index'))
+
     user = db.auth_user(username=seach_user) or message
 
     if user != message:
-        networking = db(db.network_type.user_id == user.id).select()
-        professions = db(db.profession.user_id == user.id).select()
-        competencies = []
-        if professions:
-            for i in professions:
-                this_competence = db(db.competence.profession_id == i.id).select()
-                if this_competence:
-                    competencies.append(this_competence)
+        my_links = db(db.links.user_id == auth.user.id).select()
+        professional_relation = db(db.professional_relationship.user_id == user.id).select()
+        professional_data = {}
+        if professional_relation:
+            for i in professional_relation:
+                if i.profession_id.name in professional_data:
+                    try:
+                        professional_data[i.profession_id.name].append(i.competence_id.competence)
+                    except:
+                        professional_data[i.profession_id.name].append({})
+                else:
+                    try:
+                        professional_data[i.profession_id.name] = [i.competence_id.competence]
+                    except:
+                        professional_data[i.profession_id.name] = {}
 
         last_project = db(db.projects.project_owner == user).select(orderby='created_on').last()
         my_projects = db(db.projects.project_owner == user).select(orderby='created_on', limitby=(0,5))
@@ -233,8 +621,13 @@ def user_info():
                 if i.team.count(str(user.id)):
                     colaborate_projects[n] = i
         return dict(
-                user=user, message=message, professions=professions, competencies=competencies, networking=networking,
-                last_project=last_project, my_projects=my_projects, colaborate_projects=colaborate_projects)
+                user=user, message=message,
+                professional_data=professional_data,
+                last_project=last_project,
+                my_projects=my_projects,
+                my_links=my_links,
+                colaborate_projects=colaborate_projects,
+                )
 
     else:
         if db.projects(project_slug = request.args(0)):
@@ -255,7 +648,8 @@ def projects():
             for i in json.loads(project.team):
                 collaborator = db(db.auth_user.id == i).select().first()
                 user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == project.id)).select().first()
-                profession = db(db.profession.user_id == i).select(db.profession.profession)
+                # listar profissoes do colaborador
+                #profession = db(db.professional_relationship.user_id == i).select(db.professional_relationship.profession_id)
 
                 collaborator.username = collaborator.username
                 if user_role:
@@ -263,10 +657,10 @@ def projects():
                 else:
                     collaborator.role = user_role
 
-                if profession:
-                    collaborator.professions = profession
-                else:
-                    collaborator.profession = profession
+                #if profession:
+                #    collaborator.professions = profession
+                #else:
+                #    collaborator.profession = profession
 
                 collaborators.append(collaborator)
                 user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')
@@ -435,7 +829,7 @@ def comments():
         for comment in comments:
             if comment.is_reply:
                 replied += db(db.comment_project.id == comment.replied_id).select()
-                
+
     return dict(message=message, project=project, comments=comments, replied=replied, form=form)
 
 @auth.requires_login()
@@ -459,7 +853,7 @@ def delete_comment():
         redirect(URL('projects', args=project.name, extension=False))
     else:
         redirect(URL('projects', args=project.name, extension=False))
-            
+
 @auth.requires_login()
 def reply_comment():
     comment = db.comment_project(request.vars.id)
@@ -482,8 +876,8 @@ def results():
     message = T('Your search returned no results.')
     projects = db(db.projects.name.like('%'+query+'%')).select()
     users = db(db.auth_user.username.like('%'+query+'%')).select()
-    return dict(users=users, projects=projects, message=message)  
-            
+    return dict(users=users, projects=projects, message=message)
+
 @service.json
 def get_users():
     term = request.vars.q

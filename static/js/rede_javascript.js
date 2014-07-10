@@ -474,7 +474,11 @@ function gravaAjaxEditProfile(e){
 	}else if(e.id == "network"){
 
 			var link_type_id = Id("no_table_link_type_id").value;
+<<<<<<< HEAD
 			var linkName 	 = Id("no_table_link_type_id").selectedOptions[0].innerHTML;
+=======
+			var linkName 	 = Id("no_table_link_type_id").selectedOptions.item().innerHTML;
+>>>>>>> remove_logo_header
 			var link 	 	 = e.value;
 				vars    	 = "link_type_id="+link_type_id+"&url="+link;
 				caminho 	 = url.ajax_add_link;

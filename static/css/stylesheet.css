@@ -26,6 +26,9 @@
 .azul1 {
   background: #2693b1;
 }
+.azul2 {
+  background: #7cbae3;
+}
 .branco {
   background: #ffffff;
 }
@@ -36,6 +39,132 @@
   font-family: 'Hero';
   src: url('../fonts/hero-webfont.eot');
   src: url('../fonts/hero-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/hero-webfont.woff') format('woff'), url('../fonts/hero-webfont.ttf') format('truetype'), url('../fonts/hero-webfont.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinBlack-Italic';
+  src: url('../fonts/Lato/LatoLatinBlack-Italic.eot');
+  src: url('../fonts/Lato/LatoLatinBlack-Italic.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinBlack-Italic.woff') format('woff'), url('../fonts/Lato/LatoLatinBlack-Italic.ttf') format('truetype'), url('../fonts/Lato/LatoLatinBlack-Italic.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinBlack-Regular';
+  src: url('../fonts/Lato/LatoLatinBlack-Regular.eot');
+  src: url('../fonts/Lato/LatoLatinBlack-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinBlack-Regular.woff') format('woff'), url('../fonts/Lato/LatoLatinBlack-Regular.ttf') format('truetype'), url('../fonts/Lato/LatoLatinBlack-Regular.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatin-Bold';
+  src: url('../fonts/Lato/LatoLatin-Bold.eot');
+  src: url('../fonts/Lato/LatoLatin-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatin-Bold.woff') format('woff'), url('../fonts/Lato/LatoLatin-Bold.ttf') format('truetype'), url('../fonts/Lato/LatoLatin-Bold.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatin-BoldItalic';
+  src: url('../fonts/Lato/LatoLatin-BoldItalic.eot');
+  src: url('../fonts/Lato/LatoLatin-BoldItalic.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatin-BoldItalic.woff') format('woff'), url('../fonts/Lato/LatoLatin-BoldItalic.ttf') format('truetype'), url('../fonts/Lato/LatoLatin-BoldItalic.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinExtBd-Italic';
+  src: url('../fonts/Lato/LatoLatinExtBd-Italic.eot');
+  src: url('../fonts/Lato/LatoLatinExtBd-Italic.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinExtBd-Italic.woff') format('woff'), url('../fonts/Lato/LatoLatinExtBd-Italic.ttf') format('truetype'), url('../fonts/Lato/LatoLatinExtBd-Italic.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinExtBd-Regular';
+  src: url('../fonts/Lato/LatoLatinExtBd-Regular.eot');
+  src: url('../fonts/Lato/LatoLatinExtBd-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinExtBd-Regular.woff') format('woff'), url('../fonts/Lato/LatoLatinExtBd-Regular.ttf') format('truetype'), url('../fonts/Lato/LatoLatinExtBd-Regular.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinHair-Italic';
+  src: url('../fonts/Lato/LatoLatinHair-Italic.eot');
+  src: url('../fonts/Lato/LatoLatinHair-Italic.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinHair-Italic.woff') format('woff'), url('../fonts/Lato/LatoLatinHair-Italic.ttf') format('truetype'), url('../fonts/Lato/LatoLatinHair-Italic.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinHair-Regular';
+  src: url('../fonts/Lato/LatoLatinHair-Regular.eot');
+  src: url('../fonts/Lato/LatoLatinHair-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinHair-Regular.woff') format('woff'), url('../fonts/Lato/LatoLatinHair-Regular.ttf') format('truetype'), url('../fonts/Lato/LatoLatinHair-Regular.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatin-Italic';
+  src: url('../fonts/Lato/LatoLatin-Italic.eot');
+  src: url('../fonts/Lato/LatoLatin-Italic.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatin-Italic.woff') format('woff'), url('../fonts/Lato/LatoLatin-Italic.ttf') format('truetype'), url('../fonts/Lato/LatoLatin-Italic.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinLight-Italic';
+  src: url('../fonts/Lato/LatoLatinLight-Italic.eot');
+  src: url('../fonts/Lato/LatoLatinLight-Italic.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinLight-Italic.woff') format('woff'), url('../fonts/Lato/LatoLatinLight-Italic.ttf') format('truetype'), url('../fonts/Lato/LatoLatinLight-Italic.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinLight-Regular';
+  src: url('../fonts/Lato/LatoLatinLight-Regular.eot');
+  src: url('../fonts/Lato/LatoLatinLight-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinLight-Regular.woff') format('woff'), url('../fonts/Lato/LatoLatinLight-Regular.ttf') format('truetype'), url('../fonts/Lato/LatoLatinLight-Regular.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinMed-Italic';
+  src: url('../fonts/Lato/LatoLatinMed-Italic.eot');
+  src: url('../fonts/Lato/LatoLatinMed-Italic.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinMed-Italic.woff') format('woff'), url('../fonts/Lato/LatoLatinMed-Italic.ttf') format('truetype'), url('../fonts/Lato/LatoLatinMed-Italic.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinMed-Regular';
+  src: url('../fonts/Lato/LatoLatinMed-Regular.eot');
+  src: url('../fonts/Lato/LatoLatinMed-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinMed-Regular.woff') format('woff'), url('../fonts/Lato/LatoLatinMed-Regular.ttf') format('truetype'), url('../fonts/Lato/LatoLatinMed-Regular.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatin-Regular';
+  src: url('../fonts/Lato/LatoLatin-Regular.eot');
+  src: url('../fonts/Lato/LatoLatin-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatin-Regular.woff') format('woff'), url('../fonts/Lato/LatoLatin-Regular.ttf') format('truetype'), url('../fonts/Lato/LatoLatin-Regular.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinSemBd-Italic';
+  src: url('../fonts/Lato/LatoLatinSemBd-Italic.eot');
+  src: url('../fonts/Lato/LatoLatinSemBd-Italic.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinSemBd-Italic.woff') format('woff'), url('../fonts/Lato/LatoLatinSemBd-Italic.ttf') format('truetype'), url('../fonts/Lato/LatoLatinSemBd-Italic.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinSemBd-Regular';
+  src: url('../fonts/Lato/LatoLatinSemBd-Regular.eot');
+  src: url('../fonts/Lato/LatoLatinSemBd-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinSemBd-Regular.woff') format('woff'), url('../fonts/Lato/LatoLatinSemBd-Regular.ttf') format('truetype'), url('../fonts/Lato/LatoLatinSemBd-Regular.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinThin-Regular';
+  src: url('../fonts/Lato/LatoLatinThin-Regular.eot');
+  src: url('../fonts/Lato/LatoLatinThin-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinThin-Regular.woff') format('woff'), url('../fonts/Lato/LatoLatinThin-Regular.ttf') format('truetype'), url('../fonts/Lato/LatoLatinThin-Regular.svg#heroregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLatinThin-Italic';
+  src: url('../fonts/Lato/LatoLatinThin-Italic.eot');
+  src: url('../fonts/Lato/LatoLatinThin-Italic.eot?#iefix') format('embedded-opentype'), url('../fonts/Lato/LatoLatinThin-Italic.woff') format('woff'), url('../fonts/Lato/LatoLatinThin-Italic.ttf') format('truetype'), url('../fonts/Lato/LatoLatinThin-Italic.svg#heroregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -59,13 +188,16 @@
 .font-museo {
   font-family: Museo;
 }
+.font-lato {
+  font-family: Lato;
+}
 .font-icon {
   font-family: 'Socialico';
   font-size: 5rem;
   color: #828181;
 }
 * {
-  font-family: 'Open Sans', sans-serif;
+  font-family: LatoLatinLight-Regular;
   font-size: 14px;
   text-decoration: none;
 }
@@ -74,17 +206,13 @@ h2,
 h3,
 h4,
 h5,
-h6 {
-  font-family: 'Open Sans', sans-serif;
-  margin-bottom: 0.4979232333264em;
-}
+h6,
 .h1,
 .h2,
 .h3,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Open Sans', sans-serif;
   margin-bottom: 0.4979232333264em;
 }
 h1,
@@ -116,7 +244,6 @@ a {
 }
 a,
 .link {
-  font-family: Lato;
   font-size: 12px;
 }
 .t-center {
@@ -594,6 +721,12 @@ a,
     width: 100%;
   }
 }
+.span_vazio {
+  height: 1px;
+}
+* {
+  outline: none;
+}
 .f-left {
   float: left;
 }
@@ -606,21 +739,33 @@ a,
 .w-full {
   width: 100%;
 }
+.w-90 {
+  width: 90%;
+}
+.w-70 {
+  width: 70%;
+}
+.w-50 {
+  width: 50%;
+}
+.w-40 {
+  width: 40%;
+}
 .a-relative {
   position: relative;
+}
+.d-none {
+  display: none;
 }
 .a-bottom {
   position: absolute;
   bottom: 0px;
 }
-input[type="submit"],
-input[type="button"],
-button {
-  border: none;
-  outline: none;
-  padding: 0px;
+.cursor-hand:hover {
+  cursor: pointer;
 }
 .btn-1 {
+  margin: 0px 5px;
   height: 36px;
   background: #66cab3;
   color: #fff;
@@ -637,6 +782,7 @@ button {
   padding-right: 0px;
 }
 .btn-2 {
+  margin: 0px 5px;
   height: 36px;
   background: #a0a0a0;
   color: #fff;
@@ -652,19 +798,29 @@ button {
   border-bottom: 3px solid #828181;
   padding-right: 0px;
 }
+.btn-3 {
+  margin: 0px 5px;
+  height: 36px;
+  background: #7cbae3;
+  color: #fff;
+  border-bottom: 3px solid #2693b1;
+  padding: 3px;
+}
+.btn-3:hover {
+  background: #2693b1;
+  border-bottom: 3px solid #2693b1;
+}
+.btn-3:active {
+  background: #7cbae3;
+  border-bottom: 3px solid #2693b1;
+  padding-right: 0px;
+}
 input,
 textarea,
 select,
 .form-input {
   border: none;
   outline: none;
-}
-input[type="submit"],
-input[type="button"],
-button {
-  border: none;
-  outline: none;
-  padding: 0px;
 }
 .form-input-comum {
   padding: 5px 0px 5px 10px;
@@ -680,6 +836,111 @@ button {
 }
 .form-select {
   height: 35px;
+}
+.form-select[type="date"] {
+  text-align: center;
+  font-size: 22px;
+  color: #acacac;
+}
+.select {
+  position: relative;
+  display: inline-block;
+}
+.select select {
+  background-color: #FFF;
+  /*Cor do select default*/
+  color: #000;
+  /*font-size: inherit;*/
+  padding: .2em;
+  padding-right: 2.5em;
+  /*Define a distancia entre a seta e o texto */
+  border: 0;
+  margin: 0;
+  /*border-radius: 3px;*/
+  text-indent: 0.01px;
+  text-overflow: '';
+  -webkit-appearance: button;
+}
+select:disabled,
+input:disabled {
+  color: #c8c8c8;
+  background: #e6e7e7;
+  border: 1px solid #c8c8c8;
+}
+.select::before,
+.select::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.select::after {
+  /*  Personalizando a seta */
+  content: "\25BC";
+  /*Seta*/
+  height: 1em;
+  font-size: .625em;
+  line-height: 1;
+  right: 1.2em;
+  top: 50%;
+  margin-top: -0.5em;
+}
+.select::before {
+  width: 2em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.select::before {
+  background-color: #a0a0a0;
+}
+.select::after {
+  color: #ffffff;
+}
+.checkbox {
+  width: 93%;
+  background: #468879;
+  position: relative;
+}
+.checkbox:after {
+  top: 20%;
+  content: url(../images/checkbox/error.png);
+  /*Imagem que define negativo*/
+  position: absolute;
+  right: 10px;
+  z-index: 0;
+}
+.checkbox:before {
+  top: 20%;
+  content: url(../images/checkbox/ok.png);
+  /*Imagem que define o positivo*/
+  position: absolute;
+  left: 10px;
+  z-index: 0;
+}
+.checkbox label {
+  display: block;
+  width: 45%;
+  height: 82%;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 3px;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  z-index: 1;
+  background: #66cab3;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+.checkbox input[type=checkbox] {
+  visibility: hidden;
+}
+.checkbox input[type=checkbox]:checked + label {
+  left: 52%;
 }
 ul {
   padding-left: 0px;
@@ -697,7 +958,6 @@ li {
 }
 body {
   width: 100%;
-  background: #e6e7e7;
 }
 .header {
   width: 1200px;
@@ -718,7 +978,11 @@ body {
   padding-top: 10px;
 }
 .input-search {
-  width: 60%;
+  width: 55%;
+  height: 19px;
+}
+.input-select {
+  height: 29px;
 }
 .pesquisa {
   padding-top: 17px;
@@ -773,4 +1037,123 @@ body {
 .footer {
   width: 1200px;
   text-align: center;
+}
+.col_edit_perfil_topo {
+  height: 125px;
+  background: #ffffff;
+  border: 1px solid #828181;
+  border-bottom: none;
+}
+.col_edit_perfil_topo figure {
+  text-align: center;
+  padding-top: 10px;
+}
+.col_edit_perfil_formulario {
+  padding-top: 25px;
+  min-height: 446px;
+  border: 1px solid #828181;
+  border-top: none;
+  margin-bottom: 40px;
+}
+.edit_perfil_fases {
+  min-height: 446px;
+}
+.displayBlock {
+  display: block;
+  transition: 1s;
+}
+.displayNone {
+  display: none;
+  transition: 1s;
+}
+.colunas {
+  min-height: 283px;
+}
+.bio {
+  min-width: 408px;
+  min-height: 131px;
+  max-width: 408px;
+  max-height: 131px;
+}
+.select-edit-perfil,
+.select-edit-perfil select {
+  height: 37px;
+  font-size: 18px;
+}
+.btn-submit-select {
+  padding: 0px 12px;
+  border: 0px;
+  background: black;
+  color: white;
+  /*Coisas do botão*/
+  font-size: 38px;
+  height: 60px;
+  width: 52px;
+}
+.usr-input-form {
+  height: 40px;
+}
+.usr-btn-form {
+  height: 50px;
+  font-size: 30px;
+  padding: 0px 6px;
+  width: 45px;
+  background: #828181;
+}
+.social-field {
+  margin-top: 20px;
+  background: #66cab3;
+  height: 55px;
+  text-align: left;
+  float: left;
+  /*min-width: 48%;*/
+  margin-left: 5px;
+  box-sizing: border-box;
+}
+.social-field img {
+  vertical-align: middle;
+  padding: 16px 13px;
+  cursor: pointer;
+}
+.social-field a {
+  font-size: 16px;
+  vertical-align: middle;
+}
+.input-editar {
+  background: #FFFFFF;
+  height: 25px;
+  vertical-align: middle;
+}
+.profissao {
+  width: 32%;
+  min-height: 100px;
+  margin: 0px 0.5%;
+  background: #7cbae3;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.profissao > span {
+  margin-left: 11px;
+  color: #ffffff;
+}
+.profissao > .select2-container-multi .select2-choices .select2-search-choice {
+  background: #2980b9;
+  font-style: italic;
+  box-shadow: none;
+  color: #ffffff;
+  border: none;
+  border-radius: 0px;
+}
+.profissao > .select2-container-multi .select2-choices .select2-search-field input {
+  background: #bcd4e4;
+  margin: 0px 4px;
+  padding-left: 17px;
+}
+.competencias {
+  margin-top: 10px !important;
+}
+.delete_profissao {
+  cursor: pointer;
+  margin-right: 16px;
+  margin-top: 4px;
 }
