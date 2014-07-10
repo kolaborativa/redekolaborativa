@@ -1,27 +1,81 @@
 {{extend 'layout_rede.html'}}
 {{if user != message:}}
 <!-- Espaço apresentação do Usuário -->
-<section class="f-left span_8 col apresenta-user">
+
+
+
 
     <style>
+        .foto-perfil{
+            margin-left: 10px;
+            text-align: center;
+        }
+
         .foto-perfil img{
-            border-radius: 50%;
+            border-radius: 50%;            
         }
         .apresenta-user{
             background: white;
             height:304;
             margin-top: 20px;
+            padding: 0px 0px;
         }
         .barra-colorida{
             height: 2px;
         }
+        .redes_sociais{
+            background: #2c3e50;
+            padding: 0px 10px;
+            color: white;
+        }
+
+        .disponibilidade{
+            margin: 7px 0px;
+        }
+        .disponivel{
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 50%;            
+        }
+        .disponivel.true{
+            background: green;
+        }
+        .disponivel.false{
+            background: red;
+        }
+        .edit{
+            margin: 10px;
+            margin-bottom: 0px;
+        }
+        .bloco_info{
+            height: 302px;
+            color: white;
+            margin-top: 20px;
+        }
+        .info_user h3{
+            background: #2c3e50;
+            padding: 14px;
+            margin-top: 0px;
+            text-align: center;
+        }
+        
+
     </style>
+
+<section class="row span_12">
+    <section class="f-left span_8 col apresenta-user">
+
+
 
     <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left barra-colorida">    
     <!-- Apresentação do usuário -->
     <section class="f-left span_4 col">
 
-        
+        <a href="{{=URL('edit_perfil')}}">
+        <img src={{=URL('static', '/images/editBlack.png')}} class="edit">
+        </a>
+
         <!-- Foto de perfil -->
         <figure class="foto-perfil">
             {{if not user.avatar:}}
@@ -30,20 +84,15 @@
             <img src={{=URL(f='download', args=user.avatar)}} width="168px" height="168px">
             {{pass}}
         </figure>
-    </section>
-    <!-- Bio usuário -->
-    <section class="f-left span_6  col bio-user">
-        <p>
-            <h1>{{=user.username}}</h1>
-            <b>{{=T("Biography")}}</b><br>
-            {{=user.bio or ''}}
-        </p>
-    </section>
-    <!-- Social - Disponibilidade -->
-    <section class="f-left span_12  col ">
-        <!-- Disponibilidade -->
-        <section>
-            <b>{{=T("Available")}}:</b> {{ if user.user_available:}} {{=T('Yes')}} {{else:}} {{=T('No')}} {{pass}}<br />    
+
+        <section class="disponibilidade">            
+            {{ if user.user_available:}}                 
+                <div class="disponivel f-left true"></div>
+            {{else:}} 
+                <div class="disponivel f-left false"></div>
+            {{pass}}
+            <b>{{=T("Available")}}</b> 
+
             {{if user.user_available:}}
                 {{if user.availability:}}
                     <b>{{=T("Availability")}}:</b> 
@@ -52,12 +101,32 @@
                 {{pass}}
             {{pass}}
         </section>
+    </section>
+    <!-- Bio usuário -->
+    <section class="f-left span_6  col bio-user">
+        <p>
+            <h1>{{=user.username}}</h1>
+            <br>
+            {{=user.bio or ''}}
+        </p>
+        <b>Site pessoal: <a href="#">www.google.com</a></b>
+    </section>
+    <!-- Social - Disponibilidade -->
+    <section class="f-left span_12  col redes_sociais">
+        <!-- Disponibilidade -->
+        
+        
         <!-- Redes sociais -->
-        <section class="redes_sociais">
-            <p><strong>Links:</strong></p>
-            <ul>
+        <section class="f-left w-full">
+            <h2 class="f-left">SIGA-ME:</h2>
+            <ul class="list-inline f-right">
                 {{ for i in my_links: }}
-                    <li><a href="{{=i.url}}">{{=i.link_type_id.name}}</a></li>
+
+                    <li>
+                    <a href="{{=i.url}}">
+                    <img data-link="{{=i.link_type_id.name}}" name="{{=i.link_type_id.name}}" src="#" alt="{{=i.link_type_id.name}}"></a>
+                    </li>
+
                 {{ pass }}
             </ul>
             <!-- Aqui vai os links -->
@@ -66,7 +135,7 @@
 
 </section>
 <!-- Informações pessoais -->
-<section class="f-left span_4 col">
+<section class="f-left span_4 col bloco_info info_user">
     <h3>{{=T("Personal Info")}}</h3>
     <ul>
         <li><b>{{=T("Name")}}:</b> {{=user.first_name}}{{=' '}}{{=user.last_name or ''}}</li>
@@ -79,8 +148,11 @@
         <li><b>{{=T("E-mail")}}:</b> {{=g_return_if_empty(user.email)}}</li>
     </ul>
 </section>
+</section>
+<section class="row span_12">
+
 <!-- Informações profissionais -->
-<section class="f-left span_4 col">
+<section class="f-left span_4 col bloco_info info_profissional">
    <h3>{{=T("Professional Info")}}</h3>
    {{if professional_data:}}
        {{for p in professional_data:}}
@@ -103,7 +175,7 @@
     {{pass}}
 </section>
 <!-- Meus projetos -->
-<section class="f-left span_4 col">
+<section class="f-left span_4 col bloco_info meus_projetos">
   
     {{if auth.user_id == user.id:}}
     <a class="btn" href="{{=URL('create_project')}}">{{=T("Create a new project!")}}</a>
@@ -129,7 +201,7 @@
                 {{pass}}
 </section>
 <!-- Projetos que eu colaboro -->
-<section class="f-left span_4 col">
+<section class="f-left span_4 col bloco_info projetos_colaboro">
          <h3>{{=T("Projects I Colaborate")}}</h3>
                 {{if colaborate_projects:}}
                 <table>
@@ -160,7 +232,40 @@
                 {{=T("None")}}
                 {{pass}}
 </section>
-
+</section>
 {{else:}}
     {{=user}}
 {{pass}}
+
+<script>
+    var links = document.querySelectorAll("[data-link]");
+    console.log("links",links);
+    for (var i = 0; i < links.length; i++) {
+        switch(links[i].name){
+            case "Facebook":
+                links[i].src = social_ico.facebook;
+                break;
+            case "Twitter":
+                links[i].src = social_ico.twitter;
+                break;
+            case "Google+":
+                links[i].src = social_ico.googlePlus
+                break;
+            case "github":
+                links[i].src = social_ico.github
+                break;
+            case "linkedin":
+                links[i].src = social_ico.linkedin
+                break;
+            case "bitbucket":
+                links[i].src = social_ico.bitbucket
+                break;
+            case "bihance":
+                links[i].src = social_ico.bihance
+                break;
+
+        }
+    };
+</script>
+
+

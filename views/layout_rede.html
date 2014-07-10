@@ -55,15 +55,15 @@ user-scalable = yes allows the user to zoom in -->
   <script>
 
    url = {
-         "edit_profile"         : "{{=URL(c='default', f='ajax_edit_profile')}}"
-        ,"ajax_add_profission"  : "{{=URL(c='default', f='ajax_add_profission')}}"
-        ,"testaAjax"        : "{{=URL(c='default', f='testaAjax')}}"
-        ,"ajax_add_competence"  : "{{=URL(c='default', f='ajax_add_competence')}}"
-        ,"ajax_add_location"    : "{{=URL(c='default', f='ajax_add_location')}}"
-        ,"ajax_add_link"        : "{{=URL(c='default', f='ajax_add_link')}}"
-        ,"ajax_remove_profission"        : "{{=URL(c='default', f='ajax_remove_profission')}}"
+         "edit_profile"            : "{{=URL(c='default', f='ajax_edit_profile')}}"
+        ,"ajax_add_profission"     : "{{=URL(c='default', f='ajax_add_profission')}}"
+        ,"testaAjax"               : "{{=URL(c='default', f='testaAjax')}}"
+        ,"ajax_add_competence"     : "{{=URL(c='default', f='ajax_add_competence')}}"
+        ,"ajax_add_location"       : "{{=URL(c='default', f='ajax_add_location')}}"
+        ,"ajax_add_link"           : "{{=URL(c='default', f='ajax_add_link')}}"
+        ,"ajax_remove_profission"  : "{{=URL(c='default', f='ajax_remove_profission')}}"
         ,"ajax_remove_link"        : "{{=URL(c='default', f='ajax_remove_link')}}"
-        ,"index"                : "{{=URL(c='default', f='index')}}"
+        ,"index"                   : "{{=URL(c='default', f='index')}}"
 
    };
    image = {
@@ -80,8 +80,30 @@ user-scalable = yes allows the user to zoom in -->
         ,"editProfilefase4"          : "{{=URL('static','images/Edit_perfil/contato.png')}}"
         ,"confirm"                   : "{{=URL('static','images/Edit_perfil/confirm.png')}}"
         ,"edit"                      : "{{=URL('static','images/Edit_perfil/edit.png')}}"
+        ,"panel_editPerfilPeB"       : "{{=URL('static','images/panel/panel-editPerfilPretoEBranco.png')}}"
+        ,"panel_editPerfilColor"     : "{{=URL('static','images/panel/panel-editPerfilColorido.png')}}"
 
-  }
+
+  };
+  ico = {
+    "facebook" : "{{=URL('static','images/Edit_perfil/fb.png')}}"
+  };
+
+  social_ico = {
+     "facebook" : "{{=URL('static','images/social_ico/facebook.png')}}"
+    ,"twitter" : "{{=URL('static','images/social_ico/twitter.png')}}"
+    ,"googlePlus" : "{{=URL('static','images/social_ico/googlePlus.png')}}"
+    ,"github" : "{{=URL('static','images/social_ico/github.png')}}"
+    ,"linkedin" : "{{=URL('static','images/social_ico/linkedin.png')}}"
+    ,"bitbucket" : "{{=URL('static','images/social_ico/bitbucket.png')}}"
+    ,"bihance" : "{{=URL('static','images/social_ico/bihance.png')}}"
+  };
+  txt = {
+     "submitHomeEnabled"  : "{{=T('CREATE AN ACCOUNT ON KOLABORATIVA')}}"
+    ,"submitHomeDisabled" : "{{=T('Fill out all fields to release registering')}}"
+  };
+
+
   </script>
 
 
@@ -97,9 +119,11 @@ user-scalable = yes allows the user to zoom in -->
     <section class="header row">
 
       <section class="col col_header span_2 logo-header">
+      {{if 'index' not in URL() and 'message_register' not in URL():}}
         <figure class="a-bottom">
-          <img src="{{=URL('static','images/placeholder/171x19.gif')}}" alt="Figura Kolaborativa">
+          <a href='panel'><img src="{{=URL('static','images/logo-kolaborativa-header.png')}}" alt="Figura Kolaborativa"></a>
         </figure>
+      {{pass}}
       </section>
       <section class="col col_header span_1"></section>
 
@@ -125,13 +149,16 @@ user-scalable = yes allows the user to zoom in -->
 
       <section class="col col_header span_5 t-right">
         <div class="a-bottom">
-        {{if request.function == "index":}}
+        {{if request.function == "index" or 'message_register' in URL():}}
           <a href="{{=URL(c='default', f='user', args=['request_reset_password'])}}">{{=T('Forgot your password?')}}</a>
           {{=form_login.custom.begin}}
             {{form_login.custom.widget.username['_placeholder'] = T('Username')}}
+            {{form_login.custom.widget.username['_required'] = 'required'}}
             {{form_login.custom.widget.username['_class'] = 'form-input-comum input-login'}}
 
+
             {{form_login.custom.widget.password['_placeholder'] = T('Enter your password')}}
+            {{form_login.custom.widget.password['_required'] = 'required'}}
             {{form_login.custom.widget.password['_class'] = 'form-input-comum input-login'}}
 
             {{form_login.custom.submit['_value'] = T('Enter')}}
@@ -142,6 +169,8 @@ user-scalable = yes allows the user to zoom in -->
             {{=form_login.custom.submit}}
           {{=form_login.custom.end}}
         {{pass}}
+
+
         </div>
       </section>
 
