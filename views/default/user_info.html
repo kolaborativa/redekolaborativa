@@ -59,7 +59,7 @@
                 .bloco_info ul li{ border-bottom: 1px solid white; height: 40px; padding-bottom: 10px;}
                     .bloco_info ul li .thumbnail { width: 30px; height: 30px; border-radius: 50%; margin-right: 5px ;margin-left:0px;}
                     .bloco_info ul li a{ color: white;}
-                    .bloco_info ul li img{margin-left: 10px;}
+                    .bloco_info ul li img{margin-left: 10px; margin-top: 7px;}
                     
 
         .info_user{background: #445f7a;}
@@ -231,10 +231,11 @@
     </span>
     {{pass}}
      </h3>
+     <ul>
                 {{if my_projects:}}
-                    <ul>
                     {{for l in my_projects:}}
                         <li>
+                        
                         <img src="#" alt="#" class="f-left thumbnail">
                             <a href={{=URL('projects', args=l.project_slug)}} class="f-left">
                                 <span class="h1">{{=l.name}}</span>
@@ -242,14 +243,14 @@
                         <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="" class="f-right">
                         </li>
                     {{pass}}
-                    </ul>
                     {{if len(my_projects) > 5:}}
-                        {{=A(T('Read more'), _href="#")}}
+                        <li>{{=A(T('Read more'), _href="#")}}</li>
                     {{pass}}
 
                 {{else:}}
-                    {{=T("None")}}
+                    <li>{{=T("None")}}</li>
                 {{pass}}
+        </ul>
 </section>
 <!-- Projetos que eu colaboro -->
 <section class="f-left span_4 col bloco_info projetos_colaboro">
@@ -264,15 +265,15 @@
                             <span class="h1">{{=colaborate_projects[l].name}}</span>
                         </a>
                         
-                        {{user_function = db((db.team_function.username == user.id)&(db.team_function.project_id == colaborate_projects[l].id)).select(db.team_function.role).as_list()}}
-                            {{if user_function:}}
-                                {{for x,y in user_function[0].iteritems():}}
-                            {{=y}}
-                            {{pass}}
-                            {{else:}}
-                                 {{=T("Undefined")}} 
+                        {{#user_function = db((db.team_function.username == user.id)&(db.team_function.project_id == colaborate_projects[l].id)).select(db.team_function.role).as_list()}}
+                            {{#if user_function:}}
+                                {{#for x,y in user_function[0].iteritems():}}
+                            {{#=y}}
+                            {{#pass}}
+                            {{#else:}}
+                                 {{#=T("Undefined")}} 
                                  <!-- Pra que é isso? -->
-                            {{pass}}
+                            {{#pass}}
                         
                         <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="" class="f-right">
                         <img src="{{=URL('static','images/exit.png')}}" alt="" class="f-right">
