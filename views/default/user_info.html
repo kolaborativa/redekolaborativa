@@ -8,8 +8,6 @@
 <section class="row span_12 f-left">
     <section class="f-left span_8 col apresenta-user">
 
-
-
     <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left barra-colorida">    
     <!-- Apresentação do usuário -->
     <section class="f-left span_4 col">
@@ -78,7 +76,7 @@
 </section>
 <!-- Informações pessoais -->
 <section class="f-left span_4 col bloco_info info_user">
-    <h1 class="title">{{=T("Personal Info")}}</h1>
+    <h2 class="title">{{=T("Personal Info")}}</h2>
     <ul>
         <li>
         <span class="h2">
@@ -124,12 +122,12 @@
 
 <!-- Informações profissionais -->
 <section class="f-left span_4 col bloco_info info_profissional">
-   <h1 class="title">{{=T("Professional Info")}}</h1>
+   <h2 class="title">{{=T("Professional Info")}}</h2>
    <ul>
    {{if professional_data:}}
    
        {{for p in professional_data:}}
-        <li><span class="h1"> {{=p}}</span>
+        <li><span class="h2"> {{=p}}</span>
             {{ if professional_data[p]: }}
                 <ul>
                     {{ for c in professional_data[p]: }}
@@ -147,13 +145,13 @@
 <!-- Meus projetos -->
 <section class="f-left span_4 col bloco_info meus_projetos">
     
-     <h1 class="title">{{=T("My Projects")}}
+     <h2 class="title">{{=T("My Projects")}}
      {{if auth.user_id == user.id:}}
      <span class="createProject">
             <a class="btn" href="{{=URL('create_project')}}" alt="Criar Projeto">+</a>
     </span>
     {{pass}}
-     </h1>
+     </h3>
      <ul>
                 {{if my_projects:}}
                     {{for l in my_projects:}}
@@ -161,7 +159,7 @@
                         
                         <img src="#" alt="#" class="f-left thumbnail">
                             <a href={{=URL('projects', args=l.project_slug)}} class="f-left">
-                                <span class="h1">{{=l.name}}</span>
+                                <span class="h2">{{=l.name}}</span>
                             </a>
                         <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="" class="f-right">
                         </li>
@@ -177,7 +175,7 @@
 </section>
 <!-- Projetos que eu colaboro -->
 <section class="f-left span_4 col bloco_info projetos_colaboro">
-         <h1 class="title">{{=T("Projects I Colaborate")}}</h1>
+         <h2 class="title">{{=T("Projects I Colaborate")}}</h2>
                 {{if colaborate_projects:}}
                 <ul>
                     {{for l in colaborate_projects:}}
@@ -185,7 +183,7 @@
                         <li>
                         <img src="#" alt="#" class="f-left thumbnail">
                         <a href={{=URL('projects', args=colaborate_projects[l].project_slug)}}>
-                            <span class="h1">{{=colaborate_projects[l].name}}</span>
+                            <span class="h2">{{=colaborate_projects[l].name}}</span>
                         </a>
                         
                         {{#user_function = db((db.team_function.username == user.id)&(db.team_function.project_id == colaborate_projects[l].id)).select(db.team_function.role).as_list()}}
