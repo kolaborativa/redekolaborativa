@@ -16,7 +16,7 @@ if not request.is_local :
     user_db = os.environ['KOLABORATIVA_MYSQL_LOGIN']
     pass_db = os.environ['KOLABORATIVA_MYSQL_PASS']
     host_db = '{host}:{port}'.format(host=os.environ['OPENSHIFT_MYSQL_DB_HOST'], port = os.environ['OPENSHIFT_MYSQL_DB_PORT'])
-    name_db = 'rede'
+    name_db = 'rede_kolaborativa'
 
     db = DAL('mysql://{user}:{pas}@{host}/{name}'.format(user=user_db, pas=pass_db, host=host_db, name=name_db))
 else:
@@ -61,7 +61,8 @@ mail.settings.login = CLIENT_LOGIN
 auth.settings.registration_requires_verification = True
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
-
+auth.messages.verify_email_subject = T("Rede Kolaborativa - Confirmação de cadastro")
+auth.messages.verify_email = '<html><h2>Olá %(username)s,</h2><p>Você está a um clique de desenvolver projetos com os outros membros da <strong>Rede Kolaborativa</strong>!<br>Você será redirecionado à pagina da home, <strong>FAÇA SEU LOGIN</strong> normalmente para começar a acessar a <strong>Rede Kolaborativa.</strong></p><p>Clique para confirmar seu cadastro: http://'+request.env.http_host+URL("default","user",args=["verify_email"])+'/%(key)s<p></html>'
 
 # if you need to use OpenID, Facebook, MySpace, Twitter, Linkedin, etc.
 # register with janrain.com, write your domain:api_key in private/janrain.key
@@ -119,8 +120,8 @@ db.auth_user.last_name.label = T("Nickname")
 db.auth_user.last_name.requires = IS_EMPTY_OR(IS_ALPHANUMERIC(error_message='Must be alphanumeric!'))
 
 auth.settings.register_next= URL('message_register')
-auth.settings.login_next = URL('user_info')
-auth.settings.logged_url = URL('user_info')
+auth.settings.login_next = URL('panel')
+auth.settings.logged_url = URL('panel')
 auth.settings.verify_email_next = URL('index')
 auth.settings.login_url = URL('index')
 

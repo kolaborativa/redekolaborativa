@@ -18,6 +18,10 @@ def index():
 
     return dict(form_register=form_register)
 
+@auth.requires_login()
+def panel():
+    
+    return dict()
 
 def landing():
     '''Landing page
@@ -382,6 +386,33 @@ def ajax_add_link():
     except:
         return False
 
+
+@auth.requires_login()
+def ajax_remove_profission():
+    try:
+        id_profission =  request.vars.id
+        user_id = auth.user.id
+        db( (db.professional_relationship.profession_id==id_profission) & \
+            (db.professional_relationship.user_id==user_id)
+        ).delete()
+        return True
+    except:
+        return False
+
+
+@auth.requires_login()
+def ajax_remove_link():
+    try:
+        id_link_type =  request.vars.id
+        user_id = auth.user.id
+        db( (db.links.link_type_id==id_link_type) & \
+            (db.links.user_id==user_id)
+        ).delete()
+        return True
+    except:
+        return False
+
+
 # Usando essa função para testar os ajax por favor não deletar
 def testaAjax():
 
@@ -617,7 +648,8 @@ def projects():
             for i in json.loads(project.team):
                 collaborator = db(db.auth_user.id == i).select().first()
                 user_role = db((db.team_function.username == collaborator.username)&(db.team_function.project_id == project.id)).select().first()
-                profession = db(db.profession.user_id == i).select(db.profession.profession)
+                # listar profissoes do colaborador
+                #profession = db(db.professional_relationship.user_id == i).select(db.professional_relationship.profession_id)
 
                 collaborator.username = collaborator.username
                 if user_role:
@@ -625,10 +657,10 @@ def projects():
                 else:
                     collaborator.role = user_role
 
-                if profession:
-                    collaborator.professions = profession
-                else:
-                    collaborator.profession = profession
+                #if profession:
+                #    collaborator.professions = profession
+                #else:
+                #    collaborator.profession = profession
 
                 collaborators.append(collaborator)
                 user_role = SQLFORM.factory(Field("username"), Field("role"), _id='user_role')

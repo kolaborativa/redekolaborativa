@@ -20,9 +20,59 @@ function SelectAll(parametro) {
 document.addEventListener("DOMContentLoaded",main)
 
 function main(){
+	if(Id("submit") != null ){ 
+		DOMHome();
+	} // ativa o JS da home !	
+	
+	if(Id("formulario_edicao_perfil") != null) {
+		mudaStatusCheckbox();
+		DOMEditarPerfil();
+	}
+	
+}
 
-	mudaStatusCheckbox();
-	DOMEditarPerfil();
+function DOMHome(){
+
+	var  verificado = false
+	 	,nome       = document.getElementsByName("first_name")[0]
+	 	,email      = document.getElementsByName("email")[0]
+	 	,user       = document.getElementsByName("username")[1]
+	 	,senha      = document.getElementsByName("password")[1]
+	 	,termos     = Id("termosConfirm")
+
+	 	
+	
+	Id("submit")
+	
+
+	nome.addEventListener  ("change",function(){validaForm()});
+	email.addEventListener ("change",function(){validaForm()});
+	user.addEventListener  ("change",function(){validaForm()});
+	senha.addEventListener ("change",function(){validaForm()});
+	termos.addEventListener("click",function(){validaForm()});
+
+	Id("submit").addEventListener("click",function(){
+		if(termos.checked == true && verificado == true){
+			document.forms[2].submit();
+		}
+	});
+	
+
+	
+	function validaForm(){
+		var campos = [nome,user,senha,email];
+		
+		if(nome.value != "" &&  user.value != "" && senha.value != "" && email.value != "")
+			verificado = true;		
+		else verificado = false;
+
+		
+		
+	}
+
+	
+
+
 }
 
 function mudaStatusCheckbox(checkbox){
@@ -41,13 +91,11 @@ function mudaStatusCheckbox(checkbox){
 
 		checkbox.innerHTML = "Disponivel"
 		disponibilidades.style.display = "block";
-		alert('sim');
 	}
 	else{
 
 		checkbox.innerHTML = "Indisponivel"
 		disponibilidades.style.display = "none";
-		alert("nao");
 	}
 	console.log("checado",checked);
 }
@@ -131,12 +179,12 @@ function inputEditarUser(){
 	 	 att   	   = document.createAttribute("class");
 		 att.value = "input-editar";
 		 input.setAttributeNode(att);
-
-	return input
-}
+		return input
+ }
 
 
 // Códigos da parte de Editar Perfil
+
 function DOMEditarPerfil(){
 		mudando_fase_perfil();
 
@@ -201,7 +249,7 @@ function DOMEditarPerfil(){
 
 	for (; iInputs < inputs.length; iInputs++) {
 		if(inputs[iInputs].id == "network"){
-			Id("network").addEventListener("change",function(){
+			Id("network").addEventListener("change",function(){				
 				gravaAjaxEditProfile(this);
 			})
 		}
@@ -237,8 +285,9 @@ function DOMEditarPerfil(){
 
 	for (; iLinks < links.length; iLinks++) {
 		links[iLinks].addEventListener("click",function(){
+			if(confirm("Deseja realmente deletar?")){
 				gravaAjaxEditProfile(this);
-				// console.log(this);
+			}
 		})
 	};
 
@@ -248,7 +297,11 @@ function DOMEditarPerfil(){
 	// Identifica os data-select e busca no banco as competencias que já existem
 	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
 	$("select[data-select]").on("click",function(){gravaAjaxEditProfile(this)});
-	$(".delete_profissao").on("click",function(){gravaAjaxEditProfile(this);});
+	$(".delete_profissao").on("click",function(){
+		if(confirm("Deseja realmente deletar?")){
+			gravaAjaxEditProfile(this);
+		}
+	});
 
 
 }
@@ -277,6 +330,7 @@ function adicionandoProfissao(idProfissao, profissao,competencias){
 
 	var linha = document.createElement('li')
 		linha.setAttribute('class','profissao t-left');
+		linha.setAttribute("data-profissao",idProfissao);
 
 	var span = document.createElement('span');
 		span.setAttribute('class','h2');
@@ -285,6 +339,13 @@ function adicionandoProfissao(idProfissao, profissao,competencias){
 	var deletar = document.createElement('img');
 		deletar.setAttribute('class','delete_profissao f-right');
 		deletar.src= image.delete;
+		deletar.setAttribute("data-idProfissao",idProfissao)
+		deletar.name="delete_profission";
+		deletar.addEventListener("click",function(){
+			if(confirm("Deseja realmente deletar?")){
+				gravaAjaxEditProfile(this);
+			}
+		});
 
 	var listasProfissoes = document.querySelector('.list-profissao')
 
@@ -296,10 +357,99 @@ function adicionandoProfissao(idProfissao, profissao,competencias){
 	// Eventos ================
 	$("[data-select='"+profissao+"']").select2({maximumSelectionSize: 5});
 	$("[data-select='"+profissao+"']").on("change",function(){gravaAjaxEditProfile(this);});
-	$(".delete_profissao").on("click",function(){console.log("delete isso");});
+	
 
 };
 
+function adicionandoLinks(linkName,linkId,url){
+
+	var div  = document.createElement("div");
+	var thumbnail = document.createElement("img");
+	var img = document.createElement("img");
+	var a = document.createElement("a");
+	var span = document.createElement("span");
+
+	// thumbnail do link
+	switch(linkName){
+		case "Facebook":
+			 thumbnail.src = ico.facebook
+			 thumbnail.alt = "Facebook"
+			 break;
+
+	}
+	
+
+
+	// Link 
+	a.src 		= url;
+	a.innerHTML = url;
+	a.target    = "_blank";
+
+	// btn Delete
+	img.src     = image.delete;
+	img.id      = linkId;
+	img.name    ="delete_link";
+	img.addEventListener("click",function(){
+			if(confirm("Deseja realmente deletar?")){
+				gravaAjaxEditProfile(this);
+			}
+	});
+
+	span.appendChild(a);
+	div.setAttribute("class","social-field");	
+	div.setAttribute("data-link",linkId);
+	div.appendChild(thumbnail);
+	div.appendChild(span);
+	div.appendChild(img);
+	document.getElementById("field-links").appendChild(div);
+	
+}
+
+function deletandoProfissao(id){
+	 var campo  = Id("list-profissao").querySelectorAll("[data-profissao]");
+	 var iCampo = 0;
+	 var bloco;
+
+	 for (; iCampo < campo.length; iCampo++) {
+
+	 	bloco = campo[iCampo].getAttribute("data-profissao");
+
+	 	if(bloco == id){
+	 		Id("list-profissao").removeChild(campo[iCampo]);
+	 		for (var i = 0; i < Id("profissoes").options.length; i++) {
+	 			if(Id("profissoes").options[i].value == id){
+	 				Id("profissoes").options[i].disabled = false;
+	 			}
+	 		};
+	 	}
+
+	 };
+}
+function deletandoLinks(id){
+
+	 var campo  = Id("field-links").querySelectorAll("[data-link]");
+	 var iCampo = 0;
+	 var bloco;
+
+	 for (; iCampo < campo.length; iCampo++) {
+
+	 	bloco = campo[iCampo].getAttribute("data-link");
+
+	 	if(bloco == id){
+	 		Id("field-links").removeChild(campo[iCampo]);
+	 		for (var i = 0; i < Id("no_table_link_type_id").options.length; i++) {
+	 			if(Id("no_table_link_type_id").options[i].value == id ){
+	 				Id("no_table_link_type_id").options[i].disabled = false;
+	 			}
+	 		};
+	 	}
+
+	 };
+	 
+	 
+	 
+
+}
 
 function gravaAjaxEditProfile(e){
 
@@ -324,6 +474,7 @@ function gravaAjaxEditProfile(e){
 	}else if(e.id == "network"){
 
 			var link_type_id = Id("no_table_link_type_id").value;
+			var linkName 	 = Id("no_table_link_type_id").selectedOptions[0].innerHTML;
 			var link 	 	 = e.value;
 				vars    	 = "link_type_id="+link_type_id+"&url="+link;
 				caminho 	 = url.ajax_add_link;
@@ -368,14 +519,14 @@ function gravaAjaxEditProfile(e){
 	else if(e.name == "delete_link"){
 		field = e.name;
 		value = e.id;
-		vars = "field="+field+"&id="+value;
-		caminho = url.testaAjax;
+		vars = "field="+field+"&id="+value;		
+		caminho = url.ajax_remove_link;
 	}
 	else if(e.name == "delete_profission"){
 		field = e.name;
 		value = e.getAttribute("data-idProfissao");
 		vars = "field="+field+"&id="+value;
-		caminho = url.testaAjax;
+		caminho = url.ajax_remove_profission;
 	}
 	else {
 			field = e.name;
@@ -419,10 +570,17 @@ function gravaAjaxEditProfile(e){
 			else if(e.name == "username") {
 				location.href = url.index;
 			}
-			else if(e.id == "network"){
-				console.log("foi");
+			else if(e.id == "network"){				
 				Id("no_table_link_type_id").selectedOptions[0].disabled = true;
-				console.log(data);
+				Id("no_table_link_type_id").selectedIndex = 0
+				e.value = "";
+				adicionandoLinks(linkName,link_type_id,link);
+			}
+			else if(e.name == "delete_link"){
+				deletandoLinks(value);
+			}
+			else if(e.name == "delete_profission"){
+				deletandoProfissao(value);
 			}
 			else{
 				console.log(data);
