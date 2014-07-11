@@ -101,6 +101,7 @@ auth.settings.extra_fields["auth_user"] = [
     Field("states_id", db.states, label=T("State")),
     Field("city_id", db.city, label=T("City")),
     Field("bio", "text"),
+    Field("site", "string"),
     Field("avatar", "upload"),
     Field("user_available", 'boolean', default=False),
     Field("availability", "list:string", widget=SQLFORM.widgets.checkboxes.widget, requires=IS_IN_SET( [
