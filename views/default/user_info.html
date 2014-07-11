@@ -48,22 +48,32 @@
             margin: 10px;
             margin-bottom: 0px;
         }
-        .bloco_info{
-            height: 302px;
-            color: white;
-            margin-top: 20px;
-        }
-        .info_user h3{
-            background: #2c3e50;
-            padding: 14px;
-            margin-top: 0px;
-            text-align: center;
-        }
+
+        .bloco_info{padding-left: 0px;padding-right: 0px;height: 302px;color: white;margin-top: 20px;}
+            .bloco_info > h3{padding: 14px;margin-top: 0px;text-align: center;}
+            .bloco_info ul{ padding-left: 20px; padding-right: 20px}
+                .bloco_info ul li{ border-bottom: 1px solid white; height: 40px}
+                    .bloco_info ul li .thumbnail { width: 30px; height: 30px; border-radius: 50%; margin-right: 5px ;margin-left:0px;}
+                    .bloco_info ul li a{ color: white;}
+                    .bloco_info ul li img{margin-left: 10px;}
+                    
+
+        .info_user{background: #445f7a;}
+            .info_user .title{background: #2c3e50;}
+            .info_user ul li{ border-bottom: 0px; height: auto;padding-bottom: 20px;}
         
+        .info_profissional{background: #62cd90;}
+            .info_profissional .title{background: #27ae60;}
+        
+        .meus_projetos{ background: #e55c4e;  }
+            .meus_projetos .title{background: #c0392b;}
+        
+        .projetos_colaboro{background: #7cbae3;}
+            .projetos_colaboro .title{background: #2980b9;}
 
     </style>
 
-<section class="row span_12">
+<section class="row span_12 f-left">
     <section class="f-left span_8 col apresenta-user">
 
 
@@ -136,24 +146,47 @@
 </section>
 <!-- Informações pessoais -->
 <section class="f-left span_4 col bloco_info info_user">
-    <h3>{{=T("Personal Info")}}</h3>
+    <h3 class="title">{{=T("Personal Info")}}</h3>
     <ul>
-        <li><b>{{=T("Name")}}:</b> {{=user.first_name}}{{=' '}}{{=user.last_name or ''}}</li>
-        {{ if user.born_on: }}<li><b>{{=T("Date of birth")}}:</b> {{=user.born_on}}</li> {{ pass }}
-        <li><b>{{=T("Localization")}}:</b> 
-            {{ if user.city_id: }} {{=user.city_id.name}} - {{pass}}
-            {{ if user.states_id: }} {{=user.states_id.name}} - {{pass}}
-            {{ if user.country_id: }} {{=user.country_id.name}} {{pass}}
-            </li>
-        <li><b>{{=T("E-mail")}}:</b> {{=g_return_if_empty(user.email)}}</li>
+        <li>
+        <span class="h2">
+            {{=T("Name")}}: {{=user.first_name}}{{=' '}}{{=user.last_name or ''}}
+        </span>
+        </li>
+        {{ if user.born_on: }}
+        <li>
+        <span class="h2">
+            {{=T("Date of birth")}}: {{=user.born_on}}
+        </span>
+        </li>{{ pass }}
+        <li>
+        <span class="h2">
+            
+            {{ if user.country_id: }}
+             Pais: {{=user.country_id.name}} <br>
+            {{pass}}
+            {{ if user.states_id: }} 
+            Estado: {{=user.states_id.name}} <br>
+            {{pass}}
+            {{ if user.city_id: }} 
+            Cidade: {{=user.city_id.name}} <br>
+            {{pass}}
+            
+        </span>
+        </li>
+        <li>
+        <span class="h2">
+        {{=T("E-mail")}}: {{=g_return_if_empty(user.email)}}
+        </span>
+        </li>
     </ul>
 </section>
 </section>
-<section class="row span_12">
+<section class="row span_12 f-left colunas">
 
 <!-- Informações profissionais -->
 <section class="f-left span_4 col bloco_info info_profissional">
-   <h3>{{=T("Professional Info")}}</h3>
+   <h3 class="title">{{=T("Professional Info")}}</h3>
    {{if professional_data:}}
        {{for p in professional_data:}}
        <ul>
@@ -176,19 +209,21 @@
 </section>
 <!-- Meus projetos -->
 <section class="f-left span_4 col bloco_info meus_projetos">
-  
-    {{if auth.user_id == user.id:}}
-    <a class="btn" href="{{=URL('create_project')}}">{{=T("Create a new project!")}}</a>
+    
+     <h3 class="title">{{=T("My Projects")}}
+     {{if auth.user_id == user.id:}}
+    <a class="btn" href="{{=URL('create_project')}}">+</a>
     {{pass}}
-    <br>
-     <h3>{{=T("My Projects")}}</h3>
+     </h3>
                 {{if my_projects:}}
                     <ul>
                     {{for l in my_projects:}}
                         <li>
-                            <a href={{=URL('projects', args=l.project_slug)}}>
-                                {{=l.name}}
+                        <img src="#" alt="#" class="f-left thumbnail">
+                            <a href={{=URL('projects', args=l.project_slug)}} class="f-left">
+                                <span class="h1">{{=l.name}}</span>
                             </a>
+                        <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="" class="f-right">
                         </li>
                     {{pass}}
                     </ul>
@@ -202,29 +237,32 @@
 </section>
 <!-- Projetos que eu colaboro -->
 <section class="f-left span_4 col bloco_info projetos_colaboro">
-         <h3>{{=T("Projects I Colaborate")}}</h3>
+         <h3 class="title">{{=T("Projects I Colaborate")}}</h3>
                 {{if colaborate_projects:}}
-                <table>
+                <ul>
                     {{for l in colaborate_projects:}}
-                    <tr>
-                        <td>
+                    
+                        <li>
+                        <img src="#" alt="#" class="f-left thumbnail">
                         <a href={{=URL('projects', args=colaborate_projects[l].project_slug)}}>
-                            {{=colaborate_projects[l].name}}
+                            <span class="h1">{{=colaborate_projects[l].name}}</span>
                         </a>
-                        </td>                       
-                        <td>
+                        
                         {{user_function = db((db.team_function.username == user.id)&(db.team_function.project_id == colaborate_projects[l].id)).select(db.team_function.role).as_list()}}
                             {{if user_function:}}
-                            {{for x,y in user_function[0].iteritems():}}
+                                {{for x,y in user_function[0].iteritems():}}
                             {{=y}}
-                            {{pass}}<br>
-                            {{else:}}
-                            {{=T("Undefined")}}<br>
                             {{pass}}
-                        </td>
-                    </tr>
+                            {{else:}}
+                                 {{=T("Undefined")}} 
+                                 <!-- Pra que é isso? -->
+                            {{pass}}
+                        <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="" class="f-right">
+                        <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="" class="f-right">
+                        </li>
+                    
                     {{pass}}
-                </table>
+                </ul>
                 {{if len(colaborate_projects) > 5:}}
                 {{=A(T('Read more'), _href="#")}}
                 {{pass}}
@@ -232,6 +270,7 @@
                 {{=T("None")}}
                 {{pass}}
 </section>
+
 </section>
 {{else:}}
     {{=user}}
@@ -263,7 +302,6 @@
             case "bihance":
                 links[i].src = social_ico.bihance
                 break;
-
         }
     };
 </script>
