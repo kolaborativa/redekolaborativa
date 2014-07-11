@@ -244,7 +244,7 @@ a {
 }
 a,
 .link {
-  font-size: 12px;
+  font-size: 16px;
 }
 .t-center {
   text-align: center;
@@ -779,6 +779,9 @@ li {
 .list-inline li {
   margin-right: 10px;
 }
+.btn-nav {
+  font-size: 24px;
+}
 .btn-1 {
   margin: 0px 5px;
   height: 36px;
@@ -837,6 +840,13 @@ select,
   border: none;
   outline: none;
 }
+.form-input-comum::-webkit-input-placeholder,
+.form-input-comum::-moz-placeholder {
+  color: #999999;
+  font-family: LatoLatin-Regular;
+  font-size: 16px;
+  font-style: bold;
+}
 .form-input-comum {
   padding: 5px 0px 5px 10px;
   background: #ffffff;
@@ -866,13 +876,11 @@ select,
   background-color: #FFF;
   /*Cor do select default*/
   color: #000;
-  /*font-size: inherit;*/
   padding: .2em;
   padding-right: 2.5em;
   /*Define a distancia entre a seta e o texto */
   border: 0;
   margin: 0;
-  /*border-radius: 3px;*/
   text-indent: 0.01px;
   text-overflow: '';
   -webkit-appearance: button;
@@ -1168,10 +1176,15 @@ body {
 .colunas {
   min-height: 283px;
 }
+.descriptionAvatar,
+.descriptionBio {
+  font-size: 14px;
+  color: #9d9d9d;
+}
 .bio {
-  min-width: 408px;
+  min-width: 418px;
   min-height: 131px;
-  max-width: 408px;
+  max-width: 418px;
   max-height: 131px;
 }
 .select-edit-perfil,

@@ -6,11 +6,15 @@ input,textarea,select,.form-input{
 	outline: none;
 }
 
-input[type="submit"],input[type="button"],button{
-	// border:none;
-	// outline: none;
-	// padding:0px;
+input[type="submit"],input[type="button"],button{}
+
+.form-input-comum::-webkit-input-placeholder,.form-input-comum::-moz-placeholder {
+ color: #999999; 
+ font-family: LatoLatin-Regular;
+ font-size:16px;
+ font-style: bold;
 }
+
 
 
 .form-input-comum
@@ -48,12 +52,12 @@ input[type="submit"],input[type="button"],button{
 .select select {
 	background-color: #FFF; /*Cor do select default*/
 	color: #000;
-	/*font-size: inherit;*/
+	
 	padding: .2em;
 	padding-right: 2.5em;	/*Define a distancia entre a seta e o texto */
 	border: 0;
 	margin: 0;
-	/*border-radius: 3px;*/
+	
 	text-indent: 0.01px;
 	text-overflow: '';
 	-webkit-appearance: button;
