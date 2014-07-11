@@ -430,7 +430,7 @@ function adicionandoLinks(linkName,linkId,url){
 	// thumbnail do link
 	switch(linkName){
 		case "Facebook":
-			 thumbnail.src = ico.facebook
+			 thumbnail.src = social_ico.facebook
 			 thumbnail.alt = "Facebook"
 			 break;
 
