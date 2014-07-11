@@ -188,6 +188,7 @@ function inputEditarUser(){
 function DOMEditarPerfil(){
 		mudando_fase_perfil();
 
+		validacaoLocalizacao();
 	var btnPerfil  = SelectAll("data-irParaFase");
 	var iBtnPerfil = 0;
 	var img_fase   = SelectAll("data-img-fase");
@@ -204,6 +205,13 @@ function DOMEditarPerfil(){
 	var textareas  = formulario.getElementsByTagName("textarea")[0];
 	var links      = document.getElementsByName("delete_link");
 	var iLinks     = 0;
+	var pais  	   = Id('auth_user_country_id')
+	var estado 	   = Id('auth_user_states_id')
+	var cidade 	   = Id('auth_user_city_id')
+
+	pais.addEventListener("change",validacaoLocalizacao);
+	estado.addEventListener("change",validacaoLocalizacao);
+	cidade.addEventListener("change",validacaoLocalizacao);
 
 	// Chama a função para ir para o próximo estágio do editar perfil
 	for (; iBtnPerfil < btnPerfil.length; iBtnPerfil++) {
@@ -297,16 +305,34 @@ function DOMEditarPerfil(){
 	// Identifica os data-select e busca no banco as competencias que já existem
 	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
 	$("select[data-select]").on("click",function(){gravaAjaxEditProfile(this)});
-	$(".delete_profissao").on("click",function(){
-		if(confirm("Deseja realmente deletar?")){
-			gravaAjaxEditProfile(this);
-		}
-	});
+	$(".delete_profissao").on("click",function(){if(confirm("Deseja realmente deletar?")){gravaAjaxEditProfile(this);}});
 
 
 }
 
 
+function validacaoLocalizacao(){
+
+	var pais   = Id('auth_user_country_id')
+	var cidade = Id('auth_user_city_id')
+	var estado = Id('auth_user_states_id')
+	console.log(pais.selectedIndex);
+	
+	if(pais.selectedOptions[0].value != ""){
+	  	estado.disabled = false;
+	}else{
+		estado.disabled = true;
+	}
+
+	if(estado.selectedOptions[0].value != ""){
+		cidade.disabled = false;
+	}
+	else{ 
+		cidade.disabled = true;
+	}
+
+	
+}
 
 
 function adicionandoProfissao(idProfissao, profissao,competencias){

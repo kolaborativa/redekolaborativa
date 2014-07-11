@@ -186,11 +186,13 @@
 				<div class="t-center f-center w-70">
 					<span class=" h2 f-left">Profissões?</span>
 					<section class="section-form f-left w-full">
-                    <select class="w-full form-input-comum" name="profession" id="profissoes"  multiple data-placeholder="Selecione uma profissão">
+
+                    <select class="w-full form-input-comum f-left" name="profession" id="profissoes"  multiple data-placeholder="Selecione uma profissão">
                         {{ for profession in list_professions:}}
 						    <option value="{{=profession.id}}">{{=profession.name}}</option>
                         {{ pass }}
 					</select>
+					
 					<div>
                         <ul class="list-profissao" id="list-profissao">
                             {{ if professional_data: }}
@@ -243,13 +245,14 @@
                         <select>
 
 					</label>
-
+						<button type="button" class="f-right btn-submit">+</button>
                         {{form_links.custom.widget.url['_class'] = 'form-input-comum usr-input-form w-50 f-right'}}
                         {{form_links.custom.widget.url['_id'] = 'network'}}
                         {{form_links.custom.widget.url['_placeholder'] = 'Selecione uma rede para habilitar esse campo'}}
                         {{form_links.custom.widget.url['_disabled'] = ''}}
                         {{=form_links.custom.widget.url}}
 
+						
 					<section id="field-links" class="w-full f-left">
 
                         {{ for link in my_links: }}
