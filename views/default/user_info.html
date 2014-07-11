@@ -56,7 +56,7 @@
         .bloco_info{padding-left: 0px;padding-right: 0px;height: 302px;color: white;margin-top: 20px;}
             .bloco_info > h3{padding: 14px;margin-top: 0px;text-align: center;}
             .bloco_info ul{ padding-left: 20px; padding-right: 20px}
-                .bloco_info ul li{ border-bottom: 1px solid white; height: 40px}
+                .bloco_info ul li{ border-bottom: 1px solid white; height: 40px; padding-bottom: 10px;}
                     .bloco_info ul li .thumbnail { width: 30px; height: 30px; border-radius: 50%; margin-right: 5px ;margin-left:0px;}
                     .bloco_info ul li a{ color: white;}
                     .bloco_info ul li img{margin-left: 10px;}
@@ -64,7 +64,7 @@
 
         .info_user{background: #445f7a;}
             .info_user .title{background: #2c3e50;}
-            .info_user ul li{ border-bottom: 0px; height: auto;padding-bottom: 20px;}
+            .info_user ul li{ border-bottom: 0px; height: auto;padding-bottom: 14px;}
         
         .info_profissional{background: #62cd90;}
             .info_profissional .title{background: #27ae60;}
@@ -74,6 +74,7 @@
 
         .meus_projetos{ background: #e55c4e;  }
             .meus_projetos .title{background: #c0392b;}
+            .meus_projetos .createProject a{float: right;color: white;font-size: 53px;padding: 0px;margin: -22px 0px; font-weight: 100;}
         
         .projetos_colaboro{background: #7cbae3;}
             .projetos_colaboro .title{background: #2980b9;}
@@ -167,21 +168,27 @@
             {{=T("Date of birth")}}: {{=user.born_on}}
         </span>
         </li>{{ pass }}
-        <li>
-        <span class="h2">
-            
-            {{ if user.country_id: }}
+        {{ if user.country_id: }}
+            <li>
+            <span class="h2">
              Pais: {{=user.country_id.name}} <br>
+             </span>
+             </li>
             {{pass}}
             {{ if user.states_id: }} 
+            <li>
+            <span class="h2">
             Estado: {{=user.states_id.name}} <br>
+            </span>
+            </li>
             {{pass}}
             {{ if user.city_id: }} 
+            <li>
+            <span class="h2">
             Cidade: {{=user.city_id.name}} <br>
-            {{pass}}
-            
-        </span>
-        </li>
+            </span>
+            </li>
+        {{pass}}
         <li>
         <span class="h2">
         {{=T("E-mail")}}: {{=g_return_if_empty(user.email)}}
@@ -219,7 +226,9 @@
     
      <h3 class="title">{{=T("My Projects")}}
      {{if auth.user_id == user.id:}}
-    <a class="btn" href="{{=URL('create_project')}}">+</a>
+     <span class="createProject">
+            <a class="btn" href="{{=URL('create_project')}}" alt="Criar Projeto">+</a>
+    </span>
     {{pass}}
      </h3>
                 {{if my_projects:}}
@@ -264,8 +273,9 @@
                                  {{=T("Undefined")}} 
                                  <!-- Pra que é isso? -->
                             {{pass}}
+                        
                         <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="" class="f-right">
-                        <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="" class="f-right">
+                        <img src="{{=URL('static','images/exit.png')}}" alt="" class="f-right">
                         </li>
                     
                     {{pass}}
