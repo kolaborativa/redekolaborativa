@@ -11,18 +11,19 @@
     <ul class="nav nav-list list-panel f-lelft">
       <li class="iten-panel f-left" name="list-panel">
         <a href="{{=URL('edit_perfil')}}" class="f-left w-full" name="item-list" id="EditPerfil">
-        <figure class="f-left">
-          <img class="iten-panel-img" src="{{=URL('static','images/panel/panel-editPerfilPretoEBranco.png')}}" alt="">
-        </figure>
-        <div class="f-left description-panel">
-          <span class="h2">Editar Perfil</span>
-          <p>
-            Altere as informações de usuário que aparecerão publicamente em seu perfil.
-          </p>
-        </div>
-        <img class="f-right arrow-panel" src="{{=URL('static','images/arrow-panel.png')}}" alt="">
-      </a>
+          <figure class="f-left">
+            <img class="iten-panel-img" data-item="EditPerfil" src="{{=URL('static','images/panel/panel-editPerfilPretoEBranco.png')}}" alt="">
+          </figure>
+          <div class="f-left description-panel">
+            <span class="h2">Editar Perfil</span>
+            <p>
+              Altere as informações de usuário que aparecerão publicamente em seu perfil.
+            </p>
+          </div>
+          <img class="f-right arrow-panel" src="{{=URL('static','images/arrow-panel.png')}}" alt="">
+        </a>
       </li>
+     
     </ul>
   </div>
   <div class="col span_1 span_vazio"></div>
@@ -33,28 +34,37 @@
   var lista = document.getElementsByName("item-list");
   for (var i = 0; i < lista.length; i++) {
     lista[i].addEventListener("mouseover",function(){
-      // var img = this.getElementsByTagName("img")[0];
-      // TrocaImgPainel(this,img,'hover');
+      var img = document.querySelectorAll("[data-item]")
+      for (var i = 0; i < img.length; i++) {
+        if(img[i].getAttribute("data-item") == this.id){
+          TrocaImgPainel(this,img[i],'hover');
+        }
+      };
+
     })
     lista[i].addEventListener("mouseout",function(){
-      // var img = this.getElementsByTagName("img")[0];
-      // TrocaImgPainel(this,img,'out');
+      var img = document.querySelectorAll("[data-item]")
+      for (var i = 0; i < img.length; i++) {
+        if(img[i].getAttribute("data-item") == this.id){
+          TrocaImgPainel(this,img[i],'out');
+        }
+      };
     })
   };
 
   function TrocaImgPainel(e,img,event){
     if(event == 'hover'){
-        switch(e.id){
-          case "EditPerfil":
-            img.src = image.panel_editPerfilColor;
-            break;        
+      switch(e.id){
+        case "EditPerfil":
+        img.src = image.panel_editPerfilColor;
+        break;
       }
     }
     else if(event == 'out'){
-       switch(e.id){
-          case "EditPerfil":
-            img.src = image.panel_editPerfilPeB;
-            break;        
+      switch(e.id){
+        case "EditPerfil":
+        img.src = image.panel_editPerfilPeB;
+        break;        
       } 
     }
 
