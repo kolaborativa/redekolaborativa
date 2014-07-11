@@ -1374,3 +1374,133 @@ body {
   margin-top: 0px;
   text-align: center;
 }
+.foto-perfil {
+  margin-left: 10px;
+  text-align: center;
+}
+.foto-perfil img {
+  border-radius: 50%;
+}
+.apresenta-user {
+  background: white;
+  height: 304;
+  margin-top: 20px;
+  padding: 0px 0px;
+}
+.barra-colorida {
+  height: 2px;
+}
+.redes_sociais {
+  background: #2c3e50;
+  padding: 0px 10px;
+  color: white;
+}
+.disponibilidade {
+  margin: 7px 0px;
+}
+.disponivel {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+.disponivel.true {
+  background: green;
+}
+.disponivel.false {
+  background: red;
+}
+.edit {
+  margin: 10px;
+  margin-bottom: 0px;
+}
+.espacamentoBottom {
+  padding-bottom: 40px;
+}
+.bloco_info {
+  padding-left: 0px;
+  padding-right: 0px;
+  height: 302px;
+  color: white;
+  margin-top: 20px;
+}
+.bloco_info > h1 {
+  padding: 14px;
+  margin-top: 0px;
+  text-align: center;
+}
+.bloco_info .title {
+  font-weight: normal;
+}
+.bloco_info ul {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.bloco_info ul li {
+  border-bottom: 1px solid white;
+  height: 40px;
+  padding-bottom: 10px;
+}
+.bloco_info ul li .thumbnail {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 5px ;
+  margin-left: 0px;
+}
+.bloco_info ul li a {
+  color: white;
+}
+.bloco_info ul li img {
+  margin-left: 10px;
+  margin-top: 7px;
+}
+.info_user {
+  background: #445f7a;
+}
+.info_user .title {
+  background: #2c3e50;
+}
+.info_user ul li {
+  border-bottom: 0px;
+  height: auto;
+  padding-bottom: 14px;
+}
+.info_profissional {
+  background: #62cd90;
+}
+.info_profissional .title {
+  background: #27ae60;
+}
+.info_profissional ul li {
+  border: 0px;
+  height: auto;
+}
+.info_profissional ul li ul li {
+  display: inline;
+  border: 0px;
+  background: #27ae60;
+  color: white;
+  font-weight: 900;
+  padding: 0px 3px;
+}
+.meus_projetos {
+  background: #e55c4e;
+}
+.meus_projetos .title {
+  background: #c0392b;
+}
+.meus_projetos .createProject a {
+  float: right;
+  color: white;
+  font-size: 53px;
+  padding: 0px;
+  margin: -22px 0px;
+  font-weight: 100;
+}
+.projetos_colaboro {
+  background: #7cbae3;
+}
+.projetos_colaboro .title {
+  background: #2980b9;
+}
