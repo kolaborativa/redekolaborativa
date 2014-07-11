@@ -16,8 +16,7 @@ if not request.is_local :
     user_db = os.environ['KOLABORATIVA_MYSQL_LOGIN']
     pass_db = os.environ['KOLABORATIVA_MYSQL_PASS']
     host_db = '{host}:{port}'.format(host=os.environ['OPENSHIFT_MYSQL_DB_HOST'], port = os.environ['OPENSHIFT_MYSQL_DB_PORT'])
-    name_db = 'rede_kolaborativa'
-
+    name_db = os.environ['OPENSHIFT_APP_NAME'] #db name
     db = DAL('mysql://{user}:{pas}@{host}/{name}'.format(user=user_db, pas=pass_db, host=host_db, name=name_db))
 else:
     # LOCAL
@@ -102,6 +101,7 @@ auth.settings.extra_fields["auth_user"] = [
     Field("states_id", db.states, label=T("State")),
     Field("city_id", db.city, label=T("City")),
     Field("bio", "text"),
+    Field("site", "string"),
     Field("avatar", "upload"),
     Field("user_available", 'boolean', default=False),
     Field("availability", "list:string", widget=SQLFORM.widgets.checkboxes.widget, requires=IS_IN_SET( [

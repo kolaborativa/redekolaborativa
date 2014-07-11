@@ -14,6 +14,12 @@
 .cinza5 {
   background: #4d4d4d;
 }
+.vermelho1 {
+  background: #c0392b;
+}
+.vermelho2 {
+  background: #e55c4e;
+}
 .verdeAgua {
   background: #66cab3;
 }
@@ -244,7 +250,7 @@ a {
 }
 a,
 .link {
-  font-size: 12px;
+  font-size: 16px;
 }
 .t-center {
   text-align: center;
@@ -767,6 +773,27 @@ a,
 .cursor-hand:hover {
   cursor: pointer;
 }
+ul {
+  padding-left: 0px;
+}
+li {
+  list-style-type: none;
+}
+.list-inline {
+  display: inline-flex;
+}
+.list-inline li {
+  margin-right: 10px;
+}
+.btn-nav {
+  font-size: 24px;
+}
+.btn-submit {
+  height: 46px;
+  color: white;
+  background: #a0a0a0;
+  border: none;
+}
 .btn-1 {
   margin: 0px 5px;
   height: 36px;
@@ -825,6 +852,13 @@ select,
   border: none;
   outline: none;
 }
+.form-input-comum::-webkit-input-placeholder,
+.form-input-comum::-moz-placeholder {
+  color: #999999;
+  font-family: LatoLatin-Regular;
+  font-size: 16px;
+  font-style: bold;
+}
 .form-input-comum {
   padding: 5px 0px 5px 10px;
   background: #ffffff;
@@ -854,13 +888,11 @@ select,
   background-color: #FFF;
   /*Cor do select default*/
   color: #000;
-  /*font-size: inherit;*/
   padding: .2em;
   padding-right: 2.5em;
   /*Define a distancia entre a seta e o texto */
   border: 0;
   margin: 0;
-  /*border-radius: 3px;*/
   text-indent: 0.01px;
   text-overflow: '';
   -webkit-appearance: button;
@@ -902,7 +934,6 @@ input:disabled {
 }
 .checkbox {
   width: 93%;
-  background: #468879;
   position: relative;
 }
 .checkbox:after {
@@ -934,7 +965,6 @@ input:disabled {
   top: 3px;
   left: 3px;
   z-index: 1;
-  background: #66cab3;
   -moz-transition: all 0.4s ease;
   -o-transition: all 0.4s ease;
   -webkit-transition: all 0.4s ease;
@@ -946,17 +976,94 @@ input:disabled {
 .checkbox input[type=checkbox]:checked + label {
   left: 52%;
 }
-ul {
-  padding-left: 0px;
+.dropdown.projetos {
+  left: 0;
 }
-li {
-  list-style-type: none;
+.dropdown.projetos {
+  z-index: 1;
+  width: 50%;
 }
-.list-inline {
-  display: inline-flex;
+.dropdown.perfil {
+  z-index: 2;
+  width: 8%;
 }
-.list-inline li {
+.dropdown.config {
+  z-index: 3;
+}
+.dropdown.projetos:hover,
+.dropdown.perfil:hover,
+.dropdown.config:hover {
+  z-index: 4;
+}
+.dropdown.perfil {
+  left: 252px;
+}
+.dropdown.projetos img,
+.dropdown.perfil img,
+.dropdown.config img {
+  vertical-align: middle;
   margin-right: 10px;
+}
+.dropdown ul {
+  font-family: Arial, Verdana;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dropdown ul li {
+  padding: 4px 10px;
+  background: #c8c8c8;
+  display: block;
+  position: relative;
+  float: left;
+}
+.dropdown ul li:hover {
+  border: 1px solid #beb2b2;
+  border-bottom: 0px;
+  background: #e6e7e7;
+  margin-left: -1px;
+  padding-right: 9px;
+}
+.dropdown li ul {
+  display: none;
+}
+.dropdown ul li a {
+  display: block;
+  text-decoration: none;
+  color: #c8c8c8;
+  margin-left: 1px;
+  white-space: nowrap;
+}
+.dropdown ul li:hover a {
+  color: #a0a0a0;
+}
+.dropdown li:hover ul {
+  display: block;
+  position: absolute;
+}
+.dropdown li:hover li {
+  float: none;
+  background: #e6e7e7;
+  font-size: 11px;
+  border-top: 0px;
+  padding: 10px 12px;
+}
+.dropdown li:hover li:hover {
+  background: #66cab3;
+}
+.dropdown ul li {
+  display: block;
+  float: left;
+}
+.dropdown li:hover ul {
+  display: block;
+  position: absolute;
+  left: 0px;
+}
+.dropdown li:hover li {
+  float: left;
+  font-size: 11px;
 }
 .img-grande {
   width: 300px;
@@ -1079,10 +1186,15 @@ body {
 .colunas {
   min-height: 283px;
 }
+.descriptionAvatar,
+.descriptionBio {
+  font-size: 14px;
+  color: #9d9d9d;
+}
 .bio {
-  min-width: 408px;
+  min-width: 418px;
   min-height: 131px;
-  max-width: 408px;
+  max-width: 418px;
   max-height: 131px;
 }
 .select-edit-perfil,
@@ -1170,7 +1282,7 @@ body {
 .content-panel {
   padding: 0px;
   border: 1px solid black;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 .header-panel {
   height: 125px;
@@ -1210,4 +1322,55 @@ body {
 .iten-panel-img {
   margin-left: 10px;
   margin-top: 4px;
+}
+.foto-perfil {
+  margin-left: 10px;
+  text-align: center;
+}
+.foto-perfil img {
+  border-radius: 50%;
+}
+.apresenta-user {
+  background: white;
+  height: 304;
+  margin-top: 20px;
+  padding: 0px 0px;
+}
+.barra-colorida {
+  height: 2px;
+}
+.redes_sociais {
+  background: #2c3e50;
+  padding: 0px 10px;
+  color: white;
+}
+.disponibilidade {
+  margin: 7px 0px;
+}
+.disponivel {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+.disponivel.true {
+  background: green;
+}
+.disponivel.false {
+  background: red;
+}
+.edit {
+  margin: 10px;
+  margin-bottom: 0px;
+}
+.bloco_info {
+  height: 302px;
+  color: white;
+  margin-top: 20px;
+}
+.info_user h3 {
+  background: #2c3e50;
+  padding: 14px;
+  margin-top: 0px;
+  text-align: center;
 }

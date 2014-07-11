@@ -85,9 +85,7 @@ user-scalable = yes allows the user to zoom in -->
 
 
   };
-  ico = {
-    "facebook" : "{{=URL('static','images/Edit_perfil/fb.png')}}"
-  };
+
 
   social_ico = {
      "facebook" : "{{=URL('static','images/social_ico/facebook.png')}}"
@@ -104,28 +102,29 @@ user-scalable = yes allows the user to zoom in -->
   };
 
 
+
+  ico = {
+       "compasso"   : "{{=URL('static','images/Ico/compasso.png')}}"
+      ,"engrenagem" : "{{=URL('static','images/Ico/engrenagem.png')}}"
+      ,"list"       : "{{=URL('static','images/Ico/icoList.png')}}"
+      ,"perfil"     : "{{=URL('static','images/Ico/icoPerfil.png')}}"
+      ,"logout"     : "{{=URL('static','images/Ico/logout.png')}}"
+  }
+
   </script>
 
 
 </head>
 
 <body class="cinza1">
-
-
-
   <header class="f-left w-full cinza2">
-
-
     <section class="header row">
-
       <section class="col col_header span_2 logo-header">
-
       {{if 'index' not in URL() and 'message_register' not in URL():}}
         <figure class="a-bottom">
           <a href='panel'><img src="{{=URL('static','images/logo-kolaborativa-header.png')}}" alt="Figura Kolaborativa"></a>
         </figure>
       {{pass}}
-
       </section>
       <section class="col col_header span_1"></section>
 
@@ -145,13 +144,15 @@ user-scalable = yes allows the user to zoom in -->
           </form>
         </div>
       </section>
-
       <section class="col col_header span_1">
       </section>
+ {{if request.function == "index" or 'message_register' in URL():}}
+      
 
       <section class="col col_header span_5 t-right">
+        
+        
         <div class="a-bottom">
-        {{if request.function == "index":}}
           <a href="{{=URL(c='default', f='user', args=['request_reset_password'])}}">{{=T('Forgot your password?')}}</a>
           {{=form_login.custom.begin}}
             {{form_login.custom.widget.username['_placeholder'] = T('Username')}}
@@ -170,11 +171,78 @@ user-scalable = yes allows the user to zoom in -->
             {{=form_login.custom.widget.password}}
             {{=form_login.custom.submit}}
           {{=form_login.custom.end}}
+          </div>
+          </section>
+          {{else:}}
+          <section class="col col_header span_5 t-right">
+            <nav class="dropdown projetos a-bottom">
+              <ul>
+                <li>
+                  <a href='#'>
+                    <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Projetos"> 
+                    <span>CRIAR NOVOS PROJETOS</span>
+                  </a>
+                  <ul>
+                    <li>
+                      <a href='#'>
+                        <img src="{{=URL('static','images/Ico/icoList.png')}}" alt="Projetos"> 
+                        <span>
+                          LISTAR MEUS PROJETOS
+                        </span>
+                      </a>
+                    </li>
+
+                  </ul>
+                </li>
+              </nav>
+            <nav class="dropdown perfil a-bottom">
+                <ul>
+                  <li>
+                    <a href='#'>
+                      <img src="{{=URL('static','images/Ico/icoPerfil.png')}}" alt="Ver Perfil"> 
+                      <span>VER MEU PERFIL</span>
+                    </a>
+                    <ul>
+                      <li>
+                        <a href='edit_perfil'>
+                          <img src="{{=URL('static','images/Ico/edit.png')}}" alt="Editar Perfil"> 
+                          <span>
+                            EDITAR MEU PERFIL
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            <nav class="dropdown config a-bottom">
+              <ul>
+                  <li>
+                    <a href="#">
+                    <img src="{{=URL('static','images/Ico/engrenagem.png')}}" alt="Alterar Senha"> 
+                    <span>ALTERAR SENHA</span>
+                    </a>
+                  <ul>
+                    <li>
+                        <a href='#'>
+                          <img src="{{=URL('static','images/Ico/logout.png')}}" alt="Projetos"> 
+                          <span>
+                            LOGOUT
+                          </span>
+                        </a>
+                  
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </section>
         {{pass}}
+  <!-- /////////////////////////////////////////// -->
+        
+        
 
-
-        </div>
-      </section>
+      
 
     </section>
   </header>

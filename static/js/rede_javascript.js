@@ -83,16 +83,26 @@ function mudaStatusCheckbox(checkbox){
 	// Verifica se o campo veio nulo, se veio define o campo Default, se não usa o parametro mesmo
 
 	var disponibilidades = Id("disponibilidades");
-
-
+	var label 			 = document.querySelector("[data-checkbox-label]");
+	var div 			 = document.querySelector("[data-div-label]");
 	var checked 		 = document.getElementsByName("user_available")[0].checked;
 
+	
+	
 	if (checked) {
 
 		checkbox.innerHTML = "Disponivel"
 		disponibilidades.style.display = "block";
+		div.classList.remove("vermelho1");
+		div.classList.add("verdeAgua2");
+		label.classList.remove("vermelho2");
+		label.classList.add("verdeAgua")
 	}
 	else{
+		div.classList.add("vermelho1");
+		label.classList.add("vermelho2");
+		div.classList.remove("verdeAgua2");
+		label.classList.remove("verdeAgua");
 
 		checkbox.innerHTML = "Indisponivel"
 		disponibilidades.style.display = "none";
@@ -188,6 +198,7 @@ function inputEditarUser(){
 function DOMEditarPerfil(){
 		mudando_fase_perfil();
 
+		validacaoLocalizacao();
 	var btnPerfil  = SelectAll("data-irParaFase");
 	var iBtnPerfil = 0;
 	var img_fase   = SelectAll("data-img-fase");
@@ -204,6 +215,13 @@ function DOMEditarPerfil(){
 	var textareas  = formulario.getElementsByTagName("textarea")[0];
 	var links      = document.getElementsByName("delete_link");
 	var iLinks     = 0;
+	var pais  	   = Id('auth_user_country_id')
+	var estado 	   = Id('auth_user_states_id')
+	var cidade 	   = Id('auth_user_city_id')
+
+	pais.addEventListener("change",validacaoLocalizacao);
+	estado.addEventListener("change",validacaoLocalizacao);
+	cidade.addEventListener("change",validacaoLocalizacao);
 
 	// Chama a função para ir para o próximo estágio do editar perfil
 	for (; iBtnPerfil < btnPerfil.length; iBtnPerfil++) {
@@ -259,9 +277,19 @@ function DOMEditarPerfil(){
 				gravaAjaxEditProfile(this)
 			})
 		}
+		else if(inputs[iInputs].name == "site"){
+			inputs[iInputs].addEventListener("change",function(){
+				if(regexLink(this)){
+					gravaAjaxEditProfile(this);
+				}else{
+					alert('Digite um link válido');
+				}
+			});
+		}
 		else if(inputs[iInputs].name != "avatar"){ //Pula o input avatar !
 			inputs[iInputs].addEventListener("change",function(){gravaAjaxEditProfile(this);})
 		}
+
 
 	};
 
@@ -297,16 +325,46 @@ function DOMEditarPerfil(){
 	// Identifica os data-select e busca no banco as competencias que já existem
 	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
 	$("select[data-select]").on("click",function(){gravaAjaxEditProfile(this)});
-	$(".delete_profissao").on("click",function(){
-		if(confirm("Deseja realmente deletar?")){
-			gravaAjaxEditProfile(this);
-		}
-	});
+	$(".delete_profissao").on("click",function(){if(confirm("Deseja realmente deletar?")){gravaAjaxEditProfile(this);}});
 
 
 }
 
 
+function validacaoLocalizacao(){
+
+	var pais   = Id('auth_user_country_id')
+	var cidade = Id('auth_user_city_id')
+	var estado = Id('auth_user_states_id')
+	console.log(pais.selectedIndex);
+	
+	if(pais.selectedOptions[0].value != ""){
+	  	estado.disabled = false;
+	}else{
+		estado.disabled = true;
+	}
+
+	if(estado.selectedOptions[0].value != ""){
+		cidade.disabled = false;
+	}
+	else{ 
+		cidade.disabled = true;
+	}
+
+	
+}
+
+function regexLink(e){
+	var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+	var regex      = new RegExp(expression);
+	var link       = e.value;
+
+	 if (link.match(regex)){
+	   return true
+	 }else{
+	   return false;
+	 }
+}
 
 
 function adicionandoProfissao(idProfissao, profissao,competencias){
@@ -405,6 +463,8 @@ function adicionandoLinks(linkName,linkId,url){
 	
 }
 
+
+
 function deletandoProfissao(id){
 	 var campo  = Id("list-profissao").querySelectorAll("[data-profissao]");
 	 var iCampo = 0;
@@ -474,7 +534,7 @@ function gravaAjaxEditProfile(e){
 	}else if(e.id == "network"){
 
 			var link_type_id = Id("no_table_link_type_id").value;
-			var linkName 	 = Id("no_table_link_type_id").selectedOptions[0].innerHTML;
+			var linkName 	 = Id("no_table_link_type_id").selectedOptions.item().innerHTML;
 			var link 	 	 = e.value;
 				vars    	 = "link_type_id="+link_type_id+"&url="+link;
 				caminho 	 = url.ajax_add_link;
@@ -581,6 +641,9 @@ function gravaAjaxEditProfile(e){
 			}
 			else if(e.name == "delete_profission"){
 				deletandoProfissao(value);
+			}
+			else if(e.name =="avatar"){
+				document.querySelector('[data-section-avatar]').classList.remove('branco');
 			}
 			else{
 				console.log(data);
