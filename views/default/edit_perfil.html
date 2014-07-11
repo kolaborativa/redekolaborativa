@@ -48,17 +48,17 @@
 
 		<section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
 			<section class="span_5 col colunas">
-				<span class="font-lato h2 f-left">Nome Completo</span>
+				<span class=" h2 f-left">Nome Completo</span>
 				<section class="section-form">
                     {{=form.custom.widget.first_name}}
 					<!--<input type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">-->
 				</section>
-				<span class="font-lato h2 f-left">Nome de Usuário</span>
+				<span class=" h2 f-left">Nome de Usuário</span>
 				<section class="section-form">
                     {{=form.custom.widget.username}}
 					<!--<input type="text" name="username" class="form-input-comum w-full" placeholder="{{=T('User')}}">-->
 				</section>
-				<span class="font-lato h2 f-left">Email</span>
+				<span class=" h2 f-left">Email</span>
 				<section class="section-form">
                     {{=form.custom.widget.email}}
 					<!--<input type="email" name="email" class="form-input-comum w-full" placeholder="email@dominio.com">-->
@@ -69,19 +69,19 @@
 
 			<section class="span_6 col colunas">
 				<div class="span_6 col f-left">
-					<span class="font-lato h2 f-left">Data de Nascimento</span>
+					<span class=" h2 f-left">Data de Nascimento</span>
 					<br>
 					<section class="section-form">
                         {{=form.custom.widget.born_on}}
 					</section>
-					<span class="font-lato h2 f-left">Estado</span>
+					<span class=" h2 f-left">Estado</span>
 					<br>
 					<section class="section-form">
 						<label class="select w-90 form-input-comum form-select">
                             {{=form.custom.widget.states_id}}
 						</label>
 					</section>
-					<span class="font-lato h2 f-left">Disponibilidade</span>
+					<span class=" h2 f-left">Disponibilidade</span>
 					<br>
 					<br>
 					<section class="section-form">
@@ -92,28 +92,29 @@
 					</section>
 				</div>
 				<div class="span_6 col f-left">
-					<span class="font-lato h2 f-left">País</span>
+					<span class=" h2 f-left">País</span>
 					<br>
 					<section class="section-form">
 						<label class="select w-90 form-input-comum form-select">
                             {{=form.custom.widget.country_id}}
 						</label>
 					</section>
-					<span class="font-lato h2 f-left">Cidade</span>
+					<span class=" h2 f-left">Cidade</span>
 					<br>
 					<section class="section-form">
 						<label class="select w-90 form-input-comum form-select">
                             {{=form.custom.widget.city_id}}
 						</label>
 					</section>
-
+				</div>
+				<div class="span_12 col f-left">
 					<section class="section-form">
 						<div class="" id="disponibilidades">
                             {{=form.custom.widget.availability}}
 						</div>
 					</section>
-
 				</div>
+
 
 			</section>
 			<div class="span_6 col f-right t-right">
@@ -122,7 +123,7 @@
 				<br>
 				<br>
 				<span class="t-right">
-					<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
+					<a href="user_info">Quero Kolaborar agora e completar o perfil mais tarde</a>
 				</span>
 			</div>
 		</section>
@@ -130,9 +131,8 @@
 		<section  data-fase="2" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
 			<section class="span_1 col span_vazio"></section>
 			<section class="span_5 col colunas">
-				<span class="font-lato h2 f-left">Avatar</span>
-				<section class="section-form f-left">
-
+				<span class=" h2 f-left">Avatar</span>
+				<section class="section-form f-left branco t-center">
 					<label class="profile-avatar-wrap">
                         {{ if my_avatar: }}
                             <img src="{{=URL(f='download', args=my_avatar)}}" id="profile-avatar" alt="Image for Profile">
@@ -144,19 +144,27 @@
 					</label>
 
 					<p class="paragrafo2">
-						Escolha a foto que será exibida em seu perfil.
-						A imagem deve ser nos formatos xxxxx e ter a
-						resolução máxima de xxxx.
+						Arraste uma imagem ou clique para escolher 
+						a foto que será exibida em seu perfil. 
+						A imagem deve ser nos formatos xxxxx 
+						e ter a resolução máxima de xxxx.
 					</p>
 				</section>
 			</section>
 
 			<section class="span_6 col">
-				<div class="span_12 col colunas">
-					<span class="font-lato h2 f-left">Quem é você?</span>
+				<div class="span_12 col">
+					<span class=" h2 f-left">Quem é você?</span>
 					<section class="section-form f-left w-full">
                         {{=form.custom.widget.bio}}
 						<p class="paragrafo2 f-left">Limite de <span data-caracteres>350</span> Caracteres </p>
+					</section>
+				</div>
+				<div class="span_12 col">
+					<section class="section-form">
+						<span class=" h2 f-left">Site Pessoal</span>
+						<br><br><br>
+						<input type="text" class="form-input-comum w-70" placeholder="Possui um site pessoal? Divulgue aqui :)">
 					</section>
 				</div>
 			</section>
@@ -168,7 +176,7 @@
 
 				<br/>
 				<span class="f-right">
-					<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
+					<a href="user_info">Quero Kolaborar agora e completar o perfil mais tarde</a>
 				</span>
 			</div>
 		</section>
@@ -176,7 +184,7 @@
 		<section  data-fase="3" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
 			<section class="span_12 col">
 				<div class="t-center f-center w-70">
-					<span class="font-lato h2 f-left">Profissões?</span>
+					<span class=" h2 f-left">Profissões?</span>
 					<section class="section-form f-left w-full">
                     <select class="w-full form-input-comum" name="profession" id="profissoes"  multiple data-placeholder="Selecione uma profissão">
                         {{ for profession in list_professions:}}
@@ -214,7 +222,7 @@
 			<input type="button" class="btn-1 f-right w-40" data-irParaFase="4" value="Avançar">
 			<input type="button" class="btn-2 f-right w-40" data-irParaFase="2" value="Voltar">
 			<span class="f-right">
-				<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
+				<a href="user_info">Quero Kolaborar agora e completar o perfil mais tarde</a>
 			</span>
 		</div>
 	</section>
@@ -222,7 +230,7 @@
 	<section  data-fase="4" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
 		<section class="span_12 col">
 			<div class="t-center f-center w-70">
-				<span class="font-lato h2 f-left">Links</span>
+				<span class=" h2 f-left">Links</span>
 				<section class="section-form f-left w-full">
 
 					<!-- select-edit-perfil -->
@@ -269,7 +277,7 @@
 	<input type="button" class="btn-2 f-right w-40" data-irParaFase="3" value="Voltar">
 	<br/>
 	<span class="f-right">
-		<a href="#">Quero Kolaborar agora e completar o perfil mais tarde</a>
+		<a href="user_info">Quero Kolaborar agora e completar o perfil mais tarde</a>
 	</span>
 </div>
 </section>
