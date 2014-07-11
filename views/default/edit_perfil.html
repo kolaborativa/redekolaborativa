@@ -85,9 +85,9 @@
 					<br>
 					<br>
 					<section class="section-form">
-						<div class="checkbox form-select">
+						<div class="checkbox form-select verdeAgua2" data-div-label>
                             {{=form.custom.widget.user_available}}
-                            <label for="checkbox" data-checkbox-label></label>
+                            <label for="checkbox" data-checkbox-label class="verdeAgua"></label>
 						</div>
 					</section>
 				</div>
@@ -189,7 +189,7 @@
 					<span class=" h2 f-left">Profissões?</span>
 					<section class="section-form f-left w-full">
 
-                    <select class="w-full form-input-comum f-left" name="profession" id="profissoes"  multiple data-placeholder="Selecione uma profissão">
+                    <select class="w-full form-input-comum" name="profession" id="profissoes"  multiple data-placeholder="Selecione uma profissão">
                         {{ for profession in list_professions:}}
 						    <option value="{{=profession.id}}">{{=profession.name}}</option>
                         {{ pass }}

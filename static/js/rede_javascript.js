@@ -83,16 +83,26 @@ function mudaStatusCheckbox(checkbox){
 	// Verifica se o campo veio nulo, se veio define o campo Default, se não usa o parametro mesmo
 
 	var disponibilidades = Id("disponibilidades");
-
-
+	var label 			 = document.querySelector("[data-checkbox-label]");
+	var div 			 = document.querySelector("[data-div-label]");
 	var checked 		 = document.getElementsByName("user_available")[0].checked;
 
+	
+	
 	if (checked) {
 
 		checkbox.innerHTML = "Disponivel"
 		disponibilidades.style.display = "block";
+		div.classList.remove("vermelho1");
+		div.classList.add("verdeAgua2");
+		label.classList.remove("vermelho2");
+		label.classList.add("verdeAgua")
 	}
 	else{
+		div.classList.add("vermelho1");
+		label.classList.add("vermelho2");
+		div.classList.remove("verdeAgua2");
+		label.classList.remove("verdeAgua");
 
 		checkbox.innerHTML = "Indisponivel"
 		disponibilidades.style.display = "none";
