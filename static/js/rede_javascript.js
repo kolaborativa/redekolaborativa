@@ -618,6 +618,9 @@ function gravaAjaxEditProfile(e){
 			else if(e.name == "delete_profission"){
 				deletandoProfissao(value);
 			}
+			else if(e.name =="avatar"){
+				document.querySelector('[data-section-avatar]').classList.remove('branco');
+			}
 			else{
 				console.log(data);
 			}

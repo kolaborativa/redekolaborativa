@@ -132,7 +132,7 @@
 			<section class="span_1 col span_vazio"></section>
 			<section class="span_5 col colunas">
 				<span class=" h2 f-left">Avatar</span>
-				<section class="section-form f-left branco t-center">
+				<section class="section-form f-left {{if my_avatar:}}branco{{pass}} t-center" data-section-avatar>
 					<label class="profile-avatar-wrap">
                         {{ if my_avatar: }}
                             <img src="{{=URL(f='download', args=my_avatar)}}" id="profile-avatar" alt="Image for Profile">
