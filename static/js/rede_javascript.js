@@ -277,9 +277,19 @@ function DOMEditarPerfil(){
 				gravaAjaxEditProfile(this)
 			})
 		}
+		else if(inputs[iInputs].name == "site"){
+			inputs[iInputs].addEventListener("change",function(){
+				if(regexLink(this)){
+					gravaAjaxEditProfile(this);
+				}else{
+					alert('Digite um link válido');
+				}
+			});
+		}
 		else if(inputs[iInputs].name != "avatar"){ //Pula o input avatar !
 			inputs[iInputs].addEventListener("change",function(){gravaAjaxEditProfile(this);})
 		}
+
 
 	};
 
@@ -342,6 +352,18 @@ function validacaoLocalizacao(){
 	}
 
 	
+}
+
+function regexLink(e){
+	var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+	var regex      = new RegExp(expression);
+	var link       = e.value;
+
+	 if (link.match(regex)){
+	   return true
+	 }else{
+	   return false;
+	 }
 }
 
 
@@ -440,6 +462,8 @@ function adicionandoLinks(linkName,linkId,url){
 	document.getElementById("field-links").appendChild(div);
 	
 }
+
+
 
 function deletandoProfissao(id){
 	 var campo  = Id("list-profissao").querySelectorAll("[data-profissao]");
