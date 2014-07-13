@@ -104,7 +104,7 @@ auth.settings.extra_fields["auth_user"] = [
     Field("site", "string"),
     Field("avatar", "upload"),
     Field("user_available", 'boolean', default=False),
-    Field("availability", "list:string", widget=SQLFORM.widgets.checkboxes.widget, requires=IS_IN_SET( [
+    Field("availability", "list:string", widget= lambda k,v: SQLFORM.widgets.checkboxes.widget(k, v, style='ul', _class='checkbox-list'), requires=IS_IN_SET( [
             (T('OpenSource'), T('OpenSource')),
             (T('Enterprising'), T('Enterprising')),
             (T('Others'), T('Others')),
