@@ -1021,15 +1021,20 @@ input:disabled {
   color: #a0a0a0;
 }
 .dropdown li:hover ul {
+  width: 100%;
   display: block;
   position: absolute;
 }
 .dropdown li:hover li {
   float: none;
+  width: 100%;
   background: #e6e7e7;
   font-size: 11px;
   border-top: 0px;
   padding: 10px 12px;
+}
+.dropdown li:hover li a {
+  float: left;
 }
 .dropdown li:hover li:hover {
   background: #66cab3;
