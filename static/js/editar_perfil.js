@@ -59,11 +59,11 @@ function DOMEditarPerfil(){
 	MascaraDeData();
 
 	//Parte da Bio pra ver quantos caracteres tem ainda a ser digitados
-	document.querySelector("[data-caracteres]").innerHTML = (350 - textareas.value.length);
+	document.querySelector("[data-caracteres]").innerHTML = (400 - textareas.value.length);
 	textareas.addEventListener("keyup",function(){
-		document.querySelector("[data-caracteres]").innerHTML = (350 - this.value.length);
-		if(this.value.length >= 350){
-			this.value = this.value.substr(0,350);
+		document.querySelector("[data-caracteres]").innerHTML = (400 - this.value.length);
+		if(this.value.length >= 400){
+			this.value = this.value.substr(0,400);
 		}
 	})
 
