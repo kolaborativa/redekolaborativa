@@ -1,5 +1,8 @@
 {{extend 'layout_rede.html'}}
 <link rel="stylesheet" href="{{=URL('static','plugins/select2-3.4.8/select2.css')}}">
+<style>
+
+</style>
 
 <h1>Editar Perfil</h1>
 
@@ -109,7 +112,12 @@
 				</div>
 				<div class="span_12 col f-left">
 					<section class="section-form">
+					<style>
+					
+					
+					</style>
 						<div class="" id="disponibilidades">
+						
                             {{=form.custom.widget.availability}}
 						</div>
 					</section>
@@ -292,3 +300,17 @@
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/resample.js')}}"></script>
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/avatar.js')}}"></script>
 <script src="{{=URL('static','plugins/select2-3.4.8/select2.js')}}"></script>
+<style>
+
+
+</style>
+<script>
+	$('input[name="availability"]').wrap('<div class="check-box"><i></i></div>');
+	$.fn.toggleCheckbox = function () {
+	    this.attr('checked', !this.attr('checked'));
+	}
+	$('.check-box').on('click', function () {
+	    $(this).find(':checkbox').toggleCheckbox();
+	    $(this).toggleClass('checkedBox');
+	});
+</script>
