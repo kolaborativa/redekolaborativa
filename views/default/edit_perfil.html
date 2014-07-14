@@ -117,8 +117,10 @@
 					
 					</style>
 						<div class="" id="disponibilidades">
-						
-                            {{=form.custom.widget.availability}}
+						<input type="checkbox" name="availability" value="OpenSource">OpenSource
+						<input type="checkbox" name="availability" value="Empreendedor">Empreendedor
+						<input type="checkbox" name="availability" value="Others">Others
+                            {{#=form.custom.widget.availability}}
 						</div>
 					</section>
 				</div>
