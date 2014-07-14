@@ -12,28 +12,60 @@
     <figure class="span_3 col">
         <img src="" class="cursor-hand" title="Fale sobre suas habilidades profissionais" data-img-fase="3">
     </figure>
-    <figure class="span_3 col">
-        <img src="" class="cursor-hand" title="Formas de contato e suas redes sociais" data-img-fase="4">
-    </figure>
 </section>
 <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left">
 
 <section class="col col_edit_perfil_formulario span_12 f-left">
     <!-- Inicio do formulário (tudo aqui dentro forma um unico formulário) -->
         <section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
-            <section class="span_5 col colunas">
-                {{=form}}
+            <section class="span_1 col span_vazio"></section>
+            <section class="span_4 col colunas">
+                <span class=" h2 f-left">Nome do Projeto</span>
+                <section class="section-form">
+                    <input type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">
+                </section>
+                <!-- Tipo de Projeto -->
+                <span class=" h2 f-left w-full">Tipo de Projeto</span>
+                <section class="section-form">
+                        <label class="select w-50 form-input-comum form-select">
+                           <select class="input-select w-full">
+                               <option value="teste">Tipo 1</option>
+                               <option value="teste">Tipo 1</option>
+                               <option value="teste">Tipo 1</option>
+                           </select>
+                        </label>
+                </section>
+                <!-- Avatar -->
+                <span class=" h2 f-left">Avatar</span>
+                <section class="section-form f-left branco t-center" data-section-avatar>
+                    <label class="profile-avatar-wrap">
+                        <img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
+                        <input type="file" name="avatar" class="d-none" id="uploader">
+                        <input type="hidden" value="" id="hidden-avatar">
+                    </label>
+                    <p class="paragrafo2 descriptionAvatar">
+                        Arraste uma imagem ou clique para escolher a foto que será exibida em seu perfil. Para alterar a foto basta clicar na imagem atual. 
+                    </p>
+                    <p class="paragrafo2 descriptionAvatar">
+                    A imagem deve ser nos formatos jpg ou png.
+                    </p>
+                </section>
             </section>
             <section class="span_1 col span_vazio"></section>
-            <section class="span_6 col colunas"></section>
+            <section class="span_6 col colunas">
+                <span class=" h2 f-left">Descrição curta do projeto</span>
+                <section class="section-form w-full f-left">
+                    <textarea class="form-input-comum w-full bio" placeholder="Aqui vem uma Bio curta"></textarea>
+                    <p class="paragrafo2 f-left descriptionBio">Limite de <span data-caracteres>350</span> Caracteres </p>
+                </section>
+                <span class=" h2 f-left">Descrição longa do projet</span>
+                <section class="section-form w-full f-left">
+                    <textarea class="form-input-comum w-full bio" placeholder="Aqui vem uma Bio completa"></textarea>
+                    <p class="paragrafo2 f-left descriptionBio">Limite de <span data-caracteres>350</span> Caracteres </p>
+                </section>
+            </section>
             <div class="span_6 col f-right t-right">
                 <input type="button" class="btn-1 f-right w-40 btn-nav" data-irParaFase="2" value="Avançar">
-                <br>
-                <br>
-                <br>
-                <span class="t-right">
-                    <a href="user_info">Quero Kolaborar agora e completar o perfil mais tarde</a>
-                </span>
             </div>
         </section>
 </section>

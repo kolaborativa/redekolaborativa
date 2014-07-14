@@ -38,10 +38,9 @@ function DOMHome(){
 	 	,user       = document.getElementsByName("username")[1]
 	 	,senha      = document.getElementsByName("password")[1]
 	 	,termos     = Id("termosConfirm")
-
 	 	
 	
-	Id("submit")
+	// Id("submit")
 	
 
 	nome.addEventListener  ("change",function(){validaForm()});
@@ -106,3 +105,18 @@ function regexLink(e){
 	 }
 }
 
+
+function pegaGET(name)
+{
+	var url   = window.location.search.replace("?", "");
+	var itens = url.split("&");
+
+	for(n in itens)
+	{
+		if( itens[n].match(name) )
+		{
+			return decodeURIComponent(itens[n].replace(name+"=", ""));
+		}
+	}
+	return null;
+}
