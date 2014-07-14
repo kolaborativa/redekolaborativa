@@ -46,5 +46,6 @@ db.auth_user.country_id.requires=IS_EMPTY_OR(IS_IN_DB(db, db.country.id, '%(name
 db.auth_user.states_id.requires=IS_EMPTY_OR(IS_IN_DB(db, db.states.id, '%(name)s', zero="Escolha um Estado"))
 db.auth_user.city_id.requires=IS_EMPTY_OR(IS_IN_DB(db, db.city.id, '%(name)s', zero="Escolha uma Cidade"))
 db.auth_user.site.requires=IS_EMPTY_OR(IS_URL())
+db.auth_user.requires=IS_EMPTY_OR(IS_URL())
 
 
