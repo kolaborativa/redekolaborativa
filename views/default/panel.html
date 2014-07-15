@@ -11,17 +11,31 @@
     <ul class="nav nav-list list-panel f-lelft">
       <li class="iten-panel f-left" name="list-panel">
         <a href="{{=URL('edit_perfil')}}" class="f-left w-full" name="item-list" id="EditPerfil">
-        <figure class="f-left">
-          <img class="iten-panel-img" src="{{=URL('static','images/panel/panel-editPerfilPretoEBranco.png')}}" alt="">
-        </figure>
-        <div class="f-left description-panel">
-          <span class="h2">Editar Perfil</span>
-          <p>
-            Altere as informações de usuário que aparecerão publicamente em seu perfil.
-          </p>
-        </div>
-        <img class="f-right arrow-panel" src="{{=URL('static','images/arrow-panel.png')}}" alt="">
-      </a>
+          <figure class="f-left">
+            <img class="iten-panel-img" src="{{=URL('static','images/panel/panel-editPerfilPretoEBranco.png')}}" alt="">
+          </figure>
+          <div class="f-left description-panel">
+            <span class="h2">EDITAR PERFIL</span>
+            <p>
+              Altere as informações de usuário que aparecerão publicamente em seu perfil.
+            </p>
+          </div>
+          <img class="f-right arrow-panel" src="{{=URL('static','images/arrow-panel.png')}}" alt="">
+        </a>
+      </li>
+      <li class="iten-panel f-left" name="list-panel">
+        <a href="{{=URL('user_info')}}" class="f-left w-full" name="item-list" id="VerPerfil">
+          <figure class="f-left">
+            <img class="iten-panel-img" src="{{=URL('static','images/panel/painel-visualizarPerfilPretoEbranco.png')}}" alt="">
+          </figure>
+          <div class="f-left description-panel">
+            <span class="h2">VER MEU PERFIL</span>
+            <p>
+              Visualizar o seu perfil público.
+            </p>
+          </div>
+          <img class="f-right arrow-panel" src="{{=URL('static','images/arrow-panel.png')}}" alt="">
+        </a>
       </li>
     </ul>
   </div>
@@ -44,19 +58,26 @@
 
   function TrocaImgPainel(e,img,event){
     if(event == 'hover'){
-        switch(e.id){
-          case "EditPerfil":
-            img.src = image.panel_editPerfilColor;
-            break;        
+      switch(e.id){
+        case "EditPerfil":
+        img.src = image.panel_editPerfilColor;
+        break;
+        case "VerPerfil":
+        img.src = image.panel_verPerfilColor;
+        break;
+
       }
     }
     else if(event == 'out'){
-       switch(e.id){
-          case "EditPerfil":
-            img.src = image.panel_editPerfilPeB;
-            break;        
-      } 
-    }
-
+     switch(e.id){
+      case "EditPerfil":
+      img.src = image.panel_editPerfilPeB;
+      break;
+      case "VerPerfil":
+      img.src = image.panel_verPerfilPeB;
+      break;
+    } 
   }
+
+}
 </script>
