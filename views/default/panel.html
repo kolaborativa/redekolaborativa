@@ -15,9 +15,23 @@
             <img class="iten-panel-img" data-item="EditPerfil" src="{{=URL('static','images/panel/panel-editPerfilPretoEBranco.png')}}" alt="">
           </figure>
           <div class="f-left description-panel">
-            <span class="h2">Editar Perfil</span>
+            <span class="h2">EDITAR PERFIL</span>
             <p>
               Altere as informações de usuário que aparecerão publicamente em seu perfil.
+            </p>
+          </div>
+          <img class="f-right arrow-panel" src="{{=URL('static','images/arrow-panel.png')}}" alt="">
+        </a>
+      </li>
+      <li class="iten-panel f-left" name="list-panel">
+        <a href="{{=URL('user_info')}}" class="f-left w-full" name="item-list" id="VerPerfil">
+          <figure class="f-left">
+            <img class="iten-panel-img" data-item="VerPerfil" src="{{=URL('static','images/panel/painel-visualizarPerfilPretoEbranco.png')}}" alt="">
+          </figure>
+          <div class="f-left description-panel">
+            <span class="h2">VER MEU PERFIL</span>
+            <p>
+              Visualizar o seu perfil público.
             </p>
           </div>
           <img class="f-right arrow-panel" src="{{=URL('static','images/arrow-panel.png')}}" alt="">
@@ -56,17 +70,23 @@
     if(event == 'hover'){
       switch(e.id){
         case "EditPerfil":
-        img.src = image.panel_editPerfilColor;
-        break;
+          img.src = image.panel_editPerfilColor;
+          break;
+        case "VerPerfil":
+          img.src = image.panel_verPerfilColor;
+          break;
+
       }
     }
     else if(event == 'out'){
-      switch(e.id){
-        case "EditPerfil":
+     switch(e.id){
+      case "EditPerfil":
         img.src = image.panel_editPerfilPeB;
-        break;        
-      } 
-    }
-
+        break;
+      case "VerPerfil":
+        img.src = image.panel_verPerfilPeB;
+        break;
+    } 
   }
+}
 </script>
