@@ -117,9 +117,9 @@ jQuery.event.props.push('dataTransfer');
       if(Id("formulario_edicao_perfil") != null) {
         gravaAjaxEditProfile(document.getElementById("uploader")); 
       }
-      else if(Id("formulario_EditCreate_projeto") != null) {
-        gravaAjaxEditCreateProjeto(document.getElementById("uploader"))
-      }
+      // else if(Id("formulario_EditCreate_projeto") != null) {
+      //   gravaAjaxEditCreateProjeto(document.getElementById("uploader"))
+      // }
       // Pega na hora da mudança da imagem e envia por ajax para o backend a imagem em base 64
       // Esse trecho só é usado na rede Kolaborativa, podendo ser tirado para uso perfeito do plugin
       
