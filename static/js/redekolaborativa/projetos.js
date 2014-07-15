@@ -1,6 +1,10 @@
 function DOMEditCreateProjeto(){
 	mudando_fase_projeto(pegaGET('stage'));
-	console.log("here")
+	
+};
+
+
+function SetandoAjaxProjeto(){
 	var inputs    = document.getElementsByTagName('input');
 	var iInput    = 0;
 	var textArea  = document.getElementsByTagName('textarea')
@@ -24,9 +28,7 @@ function DOMEditCreateProjeto(){
 			gravaAjaxEditCreateProjeto(this);
 		})
 	};
-
-};
-
+}
 		
 		
 
