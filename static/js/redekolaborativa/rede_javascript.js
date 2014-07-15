@@ -27,6 +27,9 @@ function main(){
 		mudaStatusCheckbox();
 		DOMEditarPerfil();
 	}
+	if(Id("formulario_EditCreate_projeto") != null) {
+		DOMEditCreateProjeto();
+	}
 	
 }
 

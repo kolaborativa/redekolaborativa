@@ -1,16 +1,41 @@
-document.addEventListener('DOMContentLoaded',function(){
+function DOMEditCreateProjeto(){
+	mudando_fase_projeto(pegaGET('stage'));
+	console.log("here")
+	var inputs    = document.getElementsByTagName('input');
+	var iInput    = 0;
+	var textArea  = document.getElementsByTagName('textarea')
+	var iTextArea = 0;
+	var selects   = document.getElementsByTagName('select')
+	var iSelect   = 0
 
-		console.log("Etapa",pegaGET('stage'));
-		mudando_fase_perfil(pegaGET('stage'));
+	for (; iInput < inputs.length; iInput++) {
+		if(inputs[iInput].name != "avatar"){ //Pula o input avatar !
+			inputs[iInput].addEventListener("change",function(){gravaAjaxEditProfile(this);})
+		}
+	};
 
-});
+	for (; iTextArea < textArea.length; iTextArea++) {
+		textArea[iTextArea].addEventListener('change',function(){
+			gravaAjaxEditCreateProjeto(this);
+		})
+	};
+	for (; iSelect < selects.length; iSelect++) {
+		selects[iSelect].addEventListener('change',function(){
+			gravaAjaxEditCreateProjeto(this);
+		})
+	};
+
+};
+
+		
+		
 
 
 
 
 
-function mudando_fase_perfil(fase){
-	console.log(fase)
+function mudando_fase_projeto(fase){
+	
 	fase = fase == null? "1": fase; // se o valor vier null ele atribui a fase numero 1 do formulário
 
 	var fases_edicao = SelectAll("data-fase")
@@ -42,46 +67,34 @@ function mudando_fase_perfil(fase){
 	// Identifica quais as imagens da fase atual de edição do perfil e adiciona dinamicamente
 	switch(fase){
 		case "1":
-			 img_fase[0].src = image.editProfilefase1
-			 img_fase[1].src = image.editProfilefase2_cinza
-			 img_fase[2].src = image.editProfilefase3_cinza
+			 img_fase[0].src = image.editProjetofase1_completa;
+			 img_fase[1].src = image.editProjetofase2;
+			 img_fase[2].src = image.editProjetofase3;
 		break;
-		case "2":
-			 img_fase[0].src = image.editProfilefase1_completa
-			 img_fase[1].src = image.editProfilefase2
-			 img_fase[2].src = image.editProfilefase3_cinza
-			 img_fase[3].src = image.editProfilefase4_cinza
-		break;
-		case "3":
-			 img_fase[0].src = image.editProfilefase1_completa
-			 img_fase[1].src = image.editProfilefase2_completa
-			 img_fase[2].src = image.editProfilefase3
-			 img_fase[3].src = image.editProfilefase4_cinza
-		break;
-		case "4":
-			 img_fase[0].src = image.editProfilefase1_completa
-			 img_fase[1].src = image.editProfilefase2_completa
-			 img_fase[2].src = image.editProfilefase3_completa
-			 img_fase[3].src = image.editProfilefase4
-		break;
-
+		// case "2":
+		// 	 img_fase[0].src = image.editProjetofase1_completa
+		// 	 img_fase[1].src = image.editProjetofase2_completa
+		// 	 img_fase[2].src = image.editProjetofase3_cinza
+		// break;
+		// case "3":
+		// 	 img_fase[0].src = image.editProjetofase1_completa
+		// 	 img_fase[1].src = image.editProjetofase2_completa
+		// 	 img_fase[2].src = image.editProjetofase3
+		// break;
 	};
 }
 
-function gravaAjaxEditProfile(e){
+function gravaAjaxEditCreateProjeto(e){
 
 	var field;
 	var value;
 	var vars;
 
-	if(e.name == "profession"){
-
-	}
-	else if(e.name == "avatar"){
-
+	
+	if(e.name == "avatar"){
 		var img 	= Id("hidden-avatar").value;
 			vars    = {image64: img, field : e.name}; // Cria um objeto com a img em base64 e o nome do campo
-			// caminho = url.edit_profile;
+			caminho = url.testaAjax;
 	}
 	else {
 			field = e.name;
@@ -96,6 +109,9 @@ function gravaAjaxEditProfile(e){
 		data: vars,
 		success: function(data){
 			console.log(data);
+			if(e.name == "avatar"){
+				document.querySelector('[data-section-avatar]').classList.remove('branco');
+			}
 		},
 		error: function(data){
 			console.log(data);
