@@ -26,19 +26,16 @@
         </figure>
 
         <section class="disponibilidade">            
-            {{ if user.user_available:}}                 
-                <div class="disponivel f-left true"></div>
-            {{else:}} 
-                <div class="disponivel f-left false"></div>
-            {{pass}}
-            <b>{{=T("Available")}}</b> 
-
+            
             {{if user.user_available:}}
+                <div class="disponivel f-left true"></div>
                 {{if user.availability:}}
                     <b>{{=T("Availability")}}:</b> 
                     {{=', '.join(user.availability)}}
                     <br />
                 {{pass}}
+            {{else:}} 
+                <div class="disponivel f-left false"></div>
             {{pass}}
         </section>
     </section>
