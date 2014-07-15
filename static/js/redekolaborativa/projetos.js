@@ -1,7 +1,24 @@
 function DOMEditCreateProjeto(){
 	mudando_fase_projeto(pegaGET('stage'));
-	
+	// SetandoAjaxProjeto();
 };
+
+
+function validaCriacao(){
+	var inputs    = document.getElementsByTagName('input');
+	var textArea  = document.getElementsByTagName('textarea')
+	var selects   = document.getElementsByTagName('select')
+
+	
+	for (; iTextArea < textArea.length; iTextArea++) {
+		textArea[iTextArea].addEventListener("keyup",function(){
+			var idCampoLimite 			= this.getAttribute('data-limite-id')
+			var limite 					= this.getAttribute('data-limite')
+			Id(idCampoLimite).innerHTML = validaQtdCaracter(this,limite);
+		});	
+	};
+	
+}
 
 
 function SetandoAjaxProjeto(){
@@ -14,26 +31,39 @@ function SetandoAjaxProjeto(){
 
 	for (; iInput < inputs.length; iInput++) {
 		if(inputs[iInput].name != "avatar"){ //Pula o input avatar !
-			inputs[iInput].addEventListener("change",function(){gravaAjaxEditProfile(this);})
+			inputs[iInput].addEventListener("change",function(){enviaAjax(this)});
 		}
 	};
 
 	for (; iTextArea < textArea.length; iTextArea++) {
-		textArea[iTextArea].addEventListener('change',function(){
-			gravaAjaxEditCreateProjeto(this);
-		})
+		textArea[iTextArea].addEventListener("change",function(){enviaAjax(this)});	
+		textArea[iTextArea].addEventListener("keyup",function(){
+			var idCampoLimite 			= this.getAttribute('data-limite-id')
+			var limite 					= this.getAttribute('data-limite')
+			Id(idCampoLimite).innerHTML = validaQtdCaracter(this,limite);
+		});	
 	};
 	for (; iSelect < selects.length; iSelect++) {
-		selects[iSelect].addEventListener('change',function(){
-			gravaAjaxEditCreateProjeto(this);
-		})
-	};
+		selects[iSelect].addEventListener("change",function(){enviaAjax(this)});};
 }
 		
-		
 
+function enviaAjax(e){
+		if(e.value != "")
+			 gravaAjaxEditProfile(e);
+		else console.log("Preencha Algo")
+}
 
-
+// Função de validação de quantidade de caracteres em um campo
+// passa o campo por parametro, e qual é o limite de caracteres que esse campo pode ter
+// Exemplo : validaQtdCaracter(elemento,50)
+// Retorna quantos caracteres falta para alcançar o limite
+function validaQtdCaracter(campo,limite){
+		if(campo.value.length >= limite){
+			campo.value = campo.value.substr(0,limite);
+		}
+		return (limite - campo.value.length)
+}
 
 
 function mudando_fase_projeto(fase){
