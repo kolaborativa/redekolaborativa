@@ -295,7 +295,9 @@ user-scalable = yes allows the user to zoom in -->
   <!-- Colocar os JS no fim do arquivo  -->
   <script src="{{=URL('static','js/redekolaborativa/rede_javascript.js')}}"></script>
   <script src="{{=URL('static','js/redekolaborativa/editar_perfil.js')}}"></script>
+  {{if request.function == "create_project": }}
   <script src="{{=URL('static','js/redekolaborativa/projetos.js')}}"></script>
+  {{pass}}
 
     </body>
     </html>
