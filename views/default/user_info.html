@@ -49,7 +49,9 @@
             <br>
             {{=user.bio or ''}}
         </p>
-        <b>Site pessoal: <a href="#">www.google.com</a></b>
+        {{ if user.site: }}
+        <b>Site pessoal: <a href="#">{{=user.site}}</a></b>
+        {{ pass }}
     </section>
     <!-- Social - Disponibilidade -->
     <section class="f-left span_12  col redes_sociais">
