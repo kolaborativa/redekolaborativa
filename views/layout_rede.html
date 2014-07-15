@@ -83,9 +83,9 @@ user-scalable = yes allows the user to zoom in -->
         ,"panel_editPerfilColor"     : "{{=URL('static','images/panel/panel-editPerfilColorido.png')}}"
         ,"editProjetofase1_completa" : "{{=URL('static','images/Edit_projeto/info_basica_colorida.png')}}"
         ,"editProjetofase2"          : "{{=URL('static','images/Edit_projeto/equipe_cinza.png')}}"
-        ,"editProjetofase2_completa" : "{{=URL('static','images/Edit_projeto/')}}"
+        ,"editProjetofase2_completa" : "{{=URL('static','images/Edit_projeto/equipe_cinza.png')}}"
         ,"editProjetofase3"          : "{{=URL('static','images/Edit_perfil/cont_cinza.png')}}"
-        ,"editProjetofase3_completa" : "{{=URL('static','images/Edit_projeto/')}}"
+        ,"editProjetofase3_completa" : "{{=URL('static','images/Edit_perfil/cont_cinza.png')}}"
 
 
   };
@@ -296,7 +296,7 @@ user-scalable = yes allows the user to zoom in -->
 <!-- Colocar os JS no fim do arquivo  -->
 <script src="{{=URL('static','js/redekolaborativa/rede_javascript.js')}}"></script>
 <script src="{{=URL('static','js/redekolaborativa/editar_perfil.js')}}"></script>
-{{if request.function == "create_project": }}
+{{if request.function == "create_project" or request.function == "edit_project":}}
 <script src="{{=URL('static','js/redekolaborativa/projetos.js')}}"></script>
 {{pass}}
 <!-- Colocar os JS no fim do arquivo  -->

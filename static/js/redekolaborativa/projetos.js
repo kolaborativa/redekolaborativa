@@ -1,6 +1,28 @@
-function DOMEditCreateProjeto(){
+function DOMCreateProjeto(){
+	
+}
+
+function DOMEditProjeto(){
 	mudando_fase_projeto(pegaGET('stage'));
-	// SetandoAjaxProjeto();
+	var btnPerfil  = SelectAll("data-irParaFase");
+	var iBtnPerfil = 0;
+	var img_fase   = SelectAll("data-img-fase");
+	var iImg	   = 0;
+	// Chama a função para ir para o próximo estágio do editar perfil
+	for (; iBtnPerfil < btnPerfil.length; iBtnPerfil++) {
+		btnPerfil[iBtnPerfil].addEventListener("click",function(){
+			mudando_fase_projeto(this.getAttribute("data-irParaFase"));
+		});
+	};
+
+	// Chama a função para ir para o próximo estágio do editar perfil
+	for (; iImg < img_fase.length; iImg++) {
+		img_fase[iImg].addEventListener("click",function(){
+			mudando_fase_projeto(this.getAttribute("data-img-fase"));
+		});
+	};
+	SetandoAjaxProjeto();
+
 };
 
 
@@ -103,16 +125,16 @@ function mudando_fase_projeto(fase){
 			 img_fase[1].src = image.editProjetofase2;
 			 img_fase[2].src = image.editProjetofase3;
 		break;
-		// case "2":
-		// 	 img_fase[0].src = image.editProjetofase1_completa
-		// 	 img_fase[1].src = image.editProjetofase2_completa
-		// 	 img_fase[2].src = image.editProjetofase3_cinza
-		// break;
-		// case "3":
-		// 	 img_fase[0].src = image.editProjetofase1_completa
-		// 	 img_fase[1].src = image.editProjetofase2_completa
-		// 	 img_fase[2].src = image.editProjetofase3
-		// break;
+		case "2":
+			 img_fase[0].src = image.editProjetofase1_completa
+			 img_fase[1].src = image.editProjetofase2_completa
+			 img_fase[2].src = image.editProjetofase3
+		break;
+		case "3":
+			 img_fase[0].src = image.editProjetofase1_completa
+			 img_fase[1].src = image.editProjetofase2_completa
+			 img_fase[2].src = image.editProjetofase3
+		break;
 	};
 }
 
