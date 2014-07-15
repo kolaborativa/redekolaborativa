@@ -18,6 +18,11 @@ function DOMEditarPerfil(){
 	var iInputs    = 0;
 	var selects    = formulario.getElementsByTagName("select");
 	var iSelects   = 0
+	// Pega os checkbox de disponibilidade	
+	// (está sendo usado um plugin por isso está pegando pela class e não pelo input)
+	var checkbox   = formulario.getElementsByClassName('check-box'); 
+	var icheckboxs = 0;
+	// Pega os checkbox de disponibilidade	(está sendo usado um plugin)
 	var textareas  = formulario.getElementsByTagName("textarea")[0];
 	var links      = document.getElementsByName("delete_link");
 	var iLinks     = 0;
@@ -125,6 +130,14 @@ function DOMEditarPerfil(){
 		})
 	};
 
+	for (; icheckboxs < checkbox.length; icheckboxs++){
+		
+		checkbox[icheckboxs].addEventListener('click',function(){
+			gravaAjaxEditProfile(this.getElementsByTagName('input')[0]);
+			// Está mandando dessa forma pois o checkbox está dentro de uma div
+			// que está sendo gerada pelo plugin do botão personalizado
+		});
+	}
 	//
 	$("#profissoes").select2({ 	maximumSelectionSize: 1	});
 	$("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
