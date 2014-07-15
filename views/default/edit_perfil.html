@@ -117,8 +117,10 @@
 					
 					</style>
 						<div class="" id="disponibilidades">
-						
-                            {{=form.custom.widget.availability}}
+						<input type="checkbox" data-availability name="availability" value="OpenSource">OpenSource
+						<input type="checkbox" data-availability name="availability" value="Empreendedor">Empreendedor
+						<input type="checkbox" data-availability name="availability" value="Others">Others
+                            {{#=form.custom.widget.availability}}
 						</div>
 					</section>
 				</div>
@@ -152,10 +154,10 @@
 					</label>
 
 					<p class="paragrafo2 descriptionAvatar">
-						Arraste uma imagem ou clique para escolher 
-						a foto que será exibida em seu perfil. 
-						A imagem deve ser nos formatos xxxxx 
-						e ter a resolução máxima de xxxx.
+						Arraste uma imagem ou clique para escolher a foto que será exibida em seu perfil. Para alterar a foto basta clicar na imagem atual. 
+					</p>
+					<p class="paragrafo2 descriptionAvatar">
+					A imagem deve ser nos formatos jpg ou png.
 					</p>
 				</section>
 			</section>
@@ -300,10 +302,7 @@
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/resample.js')}}"></script>
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/avatar.js')}}"></script>
 <script src="{{=URL('static','plugins/select2-3.4.8/select2.js')}}"></script>
-<style>
 
-
-</style>
 <script>
 	$('input[name="availability"]').wrap('<div class="check-box"><i></i></div>');
 	$.fn.toggleCheckbox = function () {

@@ -82,6 +82,8 @@ user-scalable = yes allows the user to zoom in -->
         ,"edit"                      : "{{=URL('static','images/Edit_perfil/edit.png')}}"
         ,"panel_editPerfilPeB"       : "{{=URL('static','images/panel/panel-editPerfilPretoEBranco.png')}}"
         ,"panel_editPerfilColor"     : "{{=URL('static','images/panel/panel-editPerfilColorido.png')}}"
+        ,"panel_verPerfilPeB"        : "{{=URL('static','images/panel/painel-visualizarPerfilPretoEbranco.png')}}"
+        ,"panel_verPerfilColor"      : "{{=URL('static','images/panel/painel-visualizarPerfilColorido.png')}}"
 
 
   };
@@ -293,7 +295,10 @@ user-scalable = yes allows the user to zoom in -->
       {{pass}}
 
   <!-- Colocar os JS no fim do arquivo  -->
-  <script src="{{=URL('static','js/rede_javascript.js')}}"></script>
-
-    </body>
+  <script src="{{=URL('static','js/redekolaborativa/rede_javascript.js')}}"></script>
+  <script src="{{=URL('static','js/redekolaborativa/editar_perfil.js')}}"></script>
+  {{if request.function == "create_project": }}
+  <script src="{{=URL('static','js/redekolaborativa/projetos.js')}}"></script>
+  {{pass}}
+  </body>
     </html>
