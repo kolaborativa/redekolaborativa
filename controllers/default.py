@@ -445,16 +445,7 @@ def user():
             field.readable = field.writable = False
 
     elif 'login' in request.args:
-        db.auth_user.username.label = T("Username or Email")
-        auth.settings.login_userfield = 'username'
-        if request.vars.username and not IS_EMAIL()(request.vars.username)[1]:
-            auth.settings.login_userfield = 'email'
-            request.vars.email = request.vars.username
-            request.post_vars.email = request.vars.email
-            request.vars.username = None
-            request.post_vars.username = None
-
-        return dict(form=auth())
+        redirect(URL('index'))
 
     elif 'profile' in request.args:
         form=auth()
