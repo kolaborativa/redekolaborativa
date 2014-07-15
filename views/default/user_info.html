@@ -159,11 +159,13 @@
                     {{for l in my_projects:}}
                         <li>
                         
-                        <img src="{{=URL(c='default', f='download', args=[l.image])}}" alt="#" class="f-left thumbnail">
+                            <img src="{{=URL(c='default', f='download', args=[l.image])}}" alt="#" class="f-left thumbnail">
                             <a href={{=URL('projects', args=l.project_slug)}} class="f-left">
                                 <span class="h2">{{=l.name}}</span>
                             </a>
-                        <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="" class="f-right">
+                            <a href="{{=URL('edit_project', args=l.project_slug)}}">
+                                <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="" class="f-right">
+                            </a>
                         </li>
                     {{pass}}
                     {{if len(my_projects) > 5:}}
@@ -183,7 +185,7 @@
                     {{for l in colaborate_projects:}}
                     
                         <li>
-                        <img src="#" alt="#" class="f-left thumbnail">
+                        <img src="{{=URL(c='default', f='download', args=[colaborate_projects[l].image])}}" alt="#" class="f-left thumbnail">
                         <a href={{=URL('projects', args=colaborate_projects[l].project_slug)}}>
                             <span class="h2">{{=colaborate_projects[l].name}}</span>
                         </a>
@@ -197,9 +199,15 @@
                                  {{#=T("Undefined")}} 
                                  <!-- Pra que é isso? -->
                             {{#pass}}
-                        
-                        <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="" class="f-right">
-                        <img src="{{=URL('static','images/exit.png')}}" alt="" class="f-right">
+                        <a href="{{=URL('edit_project', args=colaborate_projects[l].project_slug)}}">
+                            <img src="{{=URL('static','images/Edit_perfil/edit.png')}}" alt="" class="f-right">
+                        </a>
+
+                        <!--http://localhost:8000/redekolaborativa/default/remove_person?project_id=2&user_id=2-->
+
+                        <a href="{{=URL('remove_person', vars={'project_id':colaborate_projects[l].id, 'user_id': auth.user.id })}}">
+                                <img src="{{=URL('static','images/exit.png')}}" alt="" class="f-right">
+                            </a>
                         </li>
                     
                     {{pass}}
