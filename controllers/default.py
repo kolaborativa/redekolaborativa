@@ -451,6 +451,11 @@ def user():
     elif 'login' in request.args:
         redirect(URL('index'))
 
+    elif 'request_reset_password' in request.args or 'reset_password' in request.args:
+        form = auth()
+        form.custom.submit['_style'] = "background-color: #2cc36b"
+        return dict(form=form)
+
     elif 'profile' in request.args:
         form=auth()
         professions = db(db.profession.user_id == auth.user.id).select()
