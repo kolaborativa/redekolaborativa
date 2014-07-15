@@ -1,5 +1,6 @@
 function DOMCreateProjeto(){
-
+	mudando_fase_projeto(pegaGET('stage'));
+	validaCriacao();
 }
 
 function DOMEditProjeto(){
@@ -29,6 +30,7 @@ function DOMEditProjeto(){
 function validaCriacao(){
 	var inputs    = document.getElementsByTagName('input');
 	var textArea  = document.getElementsByTagName('textarea')
+	var iTextArea = 0;
 	var selects   = document.getElementsByTagName('select')
 
 	
