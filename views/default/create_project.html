@@ -1,15 +1,19 @@
 {{extend 'layout_rede.html'}}
 
 <h1>Criar Projeto</h1>
-
+<style>
+    .figureStage{
+        width: 30%;
+    }
+</style>
 <section class="col col_edit_perfil_topo span_12 f-left">
-    <figure class="span_3 col">
+    <figure class="figureStage f-left">
         <img src="" class="cursor-hand" title="Preencha seus dados pessoais" data-img-fase="1">
     </figure>
-    <figure class="span_3 col">
+    <figure class="figureStage f-left">
         <img src="" class="cursor-hand" title="Escolha um avatar e fale sobre você" data-img-fase="2">
     </figure>
-    <figure class="span_3 col">
+    <figure class="figureStage f-left">
         <img src="" class="cursor-hand" title="Fale sobre suas habilidades profissionais" data-img-fase="3">
     </figure>
 </section>
@@ -71,32 +75,11 @@
 </section>
 
 
-<script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/resample.js')}}"></script>
-<script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/avatar.js')}}"></script>
-<script src="{{=URL('static','plugins/select2-3.4.8/select2.js')}}"></script>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src={{=URL('static', 'js/select2.min.js')}}></script>
-<link href={{=URL('static', 'css/select2.css')}} rel="stylesheet">
 <script>
 jQuery(document).ready(function(){
    jQuery('#projects_team_wanted__row').hide();
