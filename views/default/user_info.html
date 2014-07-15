@@ -159,7 +159,7 @@
                     {{for l in my_projects:}}
                         <li>
                         
-                        <img src="#" alt="#" class="f-left thumbnail">
+                        <img src="{{=URL(c='default', f='download', args=[l.image])}}" alt="#" class="f-left thumbnail">
                             <a href={{=URL('projects', args=l.project_slug)}} class="f-left">
                                 <span class="h2">{{=l.name}}</span>
                             </a>
