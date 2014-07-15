@@ -1,5 +1,5 @@
 function DOMCreateProjeto(){
-	
+
 }
 
 function DOMEditProjeto(){
@@ -72,7 +72,7 @@ function SetandoAjaxProjeto(){
 
 function enviaAjax(e){
 		if(e.value != "")
-			 gravaAjaxEditProfile(e);
+			 gravaAjaxEditProjeto(e);
 		else console.log("Preencha Algo")
 }
 
@@ -138,7 +138,7 @@ function mudando_fase_projeto(fase){
 	};
 }
 
-function gravaAjaxEditCreateProjeto(e){
+function gravaAjaxEditProjeto(e){
 
 	var field;
 	var value;
