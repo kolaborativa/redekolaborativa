@@ -47,7 +47,7 @@
             {{=user.bio or ''}}
         </p>
         {{ if user.site: }}
-        <b>Site pessoal: <a href="#">{{=user.site}}</a></b>
+        <b>Site pessoal: <a href="http://{{=user.site}}" target="_blank">{{=user.site}}</a></b>
         {{ pass }}
     </section>
     <!-- Social - Disponibilidade -->
@@ -60,12 +60,10 @@
             <h2 class="f-left">SIGA-ME:</h2>
             <ul class="list-inline f-right">
                 {{ for i in my_links: }}
-
                     <li>
-                    <a href="{{=i.url}}">
-                    <img data-link="{{=i.link_type_id.name}}" name="{{=i.link_type_id.name}}" src="#" alt="{{=i.link_type_id.name}}"></a>
+                        <a href="{{=i.url}}" target="_blank">
+                        <img data-link="{{=i.link_type_id.name}}" name="{{=i.link_type_id.name}}" src="#" alt="{{=i.link_type_id.name}}"></a>
                     </li>
-
                 {{ pass }}
             </ul>
             <!-- Aqui vai os links -->
@@ -124,7 +122,6 @@
    <h2 class="title">{{=T("Professional Info")}}</h2>
    <ul>
    {{if professional_data:}}
-   
        {{for p in professional_data:}}
         <li><span class="h2"> {{=p}}</span>
             {{ if professional_data[p]: }}
