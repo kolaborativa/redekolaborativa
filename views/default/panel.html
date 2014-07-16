@@ -3,3 +3,9 @@
 <p>Esse eh painel temporario</p>
 <p><a href="{{=URL('user_info')}}">pagina do usuario</a></p>
 
+{{ if session.password_changed:}}
+<script>
+    alert('Senha alterada com sucesso!');
+</script>
+{{ pass }}
+

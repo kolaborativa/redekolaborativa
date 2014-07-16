@@ -425,6 +425,11 @@ def testaAjax():
     return True
 
 
+def password_changed(form):
+    session.password_changed = True
+    return locals()
+
+
 def user():
     """
     exposes:
@@ -452,10 +457,15 @@ def user():
         redirect(URL('index'))
 
     elif 'request_reset_password' in request.args \
-            or 'reset_password' in request.args \
-            or 'change_password' in request.args:
+            or 'reset_password' in request.args:
         form = auth()
         form.custom.submit['_style'] = "background-color: #2cc36b"
+        return dict(form=form)
+
+    elif 'change_password' in request.args:
+        form = auth.change_password(onaccept=password_changed)
+        form.custom.submit['_style'] = "background-color: #2cc36b"
+
         return dict(form=form)
 
     elif 'profile' in request.args:
@@ -539,6 +549,7 @@ def user():
         return dict(
             form=form,form_profession=form_profession,form_competencies=form_competencies,form_networking=form_networking,
             professions=professions,competencies=competencies,networking=networking)
+
 
     return dict(form=auth())
 
