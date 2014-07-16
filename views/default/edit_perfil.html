@@ -112,15 +112,8 @@
 				</div>
 				<div class="span_12 col f-left">
 					<section class="section-form">
-					<style>
-					
-					
-					</style>
 						<div class="" id="disponibilidades">
-						<input type="checkbox" data-availability name="availability" value="OpenSource">OpenSource
-						<input type="checkbox" data-availability name="availability" value="Empreendedor">Empreendedor
-						<input type="checkbox" data-availability name="availability" value="Others">Others
-                            {{#=form.custom.widget.availability}}
+							{{=form.custom.widget.availability}}
 						</div>
 					</section>
 				</div>
@@ -303,6 +296,7 @@
 <script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/avatar.js')}}"></script>
 <script src="{{=URL('static','plugins/select2-3.4.8/select2.js')}}"></script>
 
+<<<<<<< HEAD
 <script>
 	$('input[name="availability"]').wrap('<div class="check-box"><i></i></div>');
 	$.fn.toggleCheckbox = function () {
@@ -313,3 +307,5 @@
 	    $(this).toggleClass('checkedBox');
 	});
 </script>
+=======
+>>>>>>> 10c7d884d9d7c15c56ba286747f6e4a94bc8a666
