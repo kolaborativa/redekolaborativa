@@ -23,8 +23,61 @@ function DOMEditProjeto(){
 		});
 	};
 	SetandoAjaxProjeto();
+	ajaxAdicionandoProjeto()
+	// $("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
+	
 
 };
+
+
+function ajaxAdicionandoProjeto(){
+        // Ativa o pluguin select2
+        $('#adicionaMembro').select2({
+        	minimumInputLength: 1,
+        	 ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+        		url: url.testaAjax+".json",
+		        results: function (data) { 
+		            // console.log(data.usuarios[0]);
+		            return {results: data.usuarios[0]};
+		        },
+		        dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
+    			escapeMarkup: function (m) { return m; }
+		    }
+        });
+
+        // document.getElementById('adicionaMembro').addEventListener('keyup',function(){
+        // 	if(true){
+        // 		$.ajax({
+		      //       type: "POST",
+		      //       cache:false,
+		      //       response:vars,
+		      //       url: url.testaAjax+".json",
+		      //       success: function(response)
+		      //       {	
+		      //       	console.log(response);
+		      //       	var opcoes;
+		      //       	for(i in response.usuarios){
+		      //       		// console.log("id >> ",response.usuarios[i].id)
+		      //       		// console.log("Nome >> ",response.usuarios[i].nome)
+		      //       		// console.log("Email >> ",response.usuarios[i].email)
+		      //       		var opcao = document.createElement('option');
+		      //       		opcao.value = response.usuarios[i].id;
+		      //       		opcao.innerHTML = response.usuarios[i].nome;
+		      //       		$('#adicionaMembro').append(opcao);
+		      //       		$('#adicionaMembro').select2();
+		      //       	}
+		      //       	// $('#adicionaMembro').html(opcoes);
+		      //       }
+		      //   });
+        // 	}
+        // })
+
+        
+		
+        
+};
+
+
 
 
 function validaCriacao(){
