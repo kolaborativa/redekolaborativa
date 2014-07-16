@@ -1,9 +1,7 @@
 {{extend 'layout_rede.html'}}
 
 <h1>Criar Projeto</h1>
-<style>
-    
-</style>
+
 <section class="col col_edit_perfil_topo span_12 f-left">
     <figure class="figureStage f-left col span_4">
         <img src="" class="cursor-hand" title="Preencha seus dados pessoais" data-img-fase="1">
@@ -19,23 +17,27 @@
 
 <section class="col col_edit_perfil_formulario span_12 f-left">
     <!-- Inicio do formulário (tudo aqui dentro forma um unico formulário) -->
-    <form id="formulario_EditCreate_projeto">
+    
+    <!--<form id="formulario_EditCreate_projeto">-->
+    {{=form.custom.begin}}
         <section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
             <section class="span_1 col span_vazio"></section>
             <section class="span_4 col colunas">
                 <span class=" h2 f-left">Nome do Projeto</span>
                 <section class="section-form">
-                    <input required="required" type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">
+                    {{=form.custom.widget.name}}
+                    <!--<input required="required" type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">-->
                 </section>
                 <!-- Tipo de Projeto -->
                 <span class=" h2 f-left w-full">Tipo de Projeto</span>
                 <section class="section-form">
                         <label class="select w-50 form-input-comum form-select">
-                           <select class="input-select w-full">
+                          {{=form.custom.widget.project_type}}
+                           <!--<select class="input-select w-full">
                                <option value="teste">Tipo 1</option>
                                <option value="teste">Tipo 1</option>
                                <option value="teste">Tipo 1</option>
-                           </select>
+                           </select>-->
                         </label>
                 </section>
                 <!-- Avatar -->
@@ -58,7 +60,8 @@
             <section class="span_6 col colunas">
                 <span class=" h2 f-left">Descrição curta do projeto</span>
                 <section class="section-form w-full f-left">
-                    <textarea class="form-input-comum w-full bio" data-limite-id="bioCurta" data-limite="400" placeholder="Aqui vem uma Bio curta"></textarea>
+                    <p>{{=form.custom.widget.description}}</p>
+                    <!--<textarea class="form-input-comum w-full bio" data-limite-id="bioCurta" data-limite="400" placeholder="Aqui vem uma Bio curta"></textarea>-->
                     <p class="paragrafo2 f-left descriptionBio">Limite de <span id="bioCurta">400</span> Caracteres </p>
                 </section>
                 <span class=" h2 f-left">Descrição longa do projet</span>
@@ -68,10 +71,12 @@
                 </section>
             </section>
             <div class="span_6 col f-right t-right">
-                <input  type="submit" class="btn-1 f-right w-40 btn-nav" data-irParaFase="2" value="Criar">
+                <p>{{=form.custom.submit}}</p>
+                <!--<input  type="submit" class="btn-1 f-right w-40 btn-nav" data-irParaFase="2" value="Criar">-->
             </div>
         </section>
-        </form>
+    {{=form.custom.end}}
+    <!--</form>-->
 </section>
 
 
