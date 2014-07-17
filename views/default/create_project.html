@@ -45,8 +45,8 @@
                 <section class="section-form f-left branco t-center" data-section-avatar>
                     <label class="profile-avatar-wrap">
                         <img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
-                        <input type="file" name="avatar" class="d-none" id="uploader">
-                        <input type="hidden" value="" id="hidden-avatar">
+                        <input type="file" class="d-none" id="uploader">
+                        <input type="hidden" value="" id="hidden-avatar" name="img">
                     </label>
                     <p class="paragrafo2 descriptionAvatar">
                         Arraste uma imagem ou clique para escolher a foto que será exibida em seu perfil. Para alterar a foto basta clicar na imagem atual. 
@@ -60,12 +60,13 @@
             <section class="span_6 col colunas">
                 <span class=" h2 f-left">Descrição curta do projeto</span>
                 <section class="section-form w-full f-left">
-                    <p>{{=form.custom.widget.description}}</p>
+                    <p>{{=form.custom.widget.short_description}}</p>
                     <!--<textarea class="form-input-comum w-full bio" data-limite-id="bioCurta" data-limite="400" placeholder="Aqui vem uma Bio curta"></textarea>-->
                     <p class="paragrafo2 f-left descriptionBio">Limite de <span id="bioCurta">400</span> Caracteres </p>
                 </section>
                 <span class=" h2 f-left">Descrição longa do projet</span>
                 <section class="section-form w-full f-left">
+                    {{=form.custom.widget.description}}
                     <textarea class="form-input-comum w-full bio" data-limite-id="bioLonga" data-limite="1000" placeholder="Aqui vem uma Bio completa"></textarea>
                     <p class="paragrafo2 f-left descriptionBio">Limite de <span id="bioLonga">1000</span> Caracteres </p>
                 </section>
