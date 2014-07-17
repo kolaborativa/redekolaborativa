@@ -24,10 +24,6 @@ function DOMEditProjeto(){
 		});
 	};
 
-	
-
-	
-
 	SetandoAjaxProjeto();
 	ajaxAdicionandoProjeto()
 	// $("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
@@ -50,37 +46,6 @@ function ajaxAdicionandoProjeto(){
     			escapeMarkup: function (m) { return m; }
 		    }
         });
-
-        // document.getElementById('adicionaMembro').addEventListener('keyup',function(){
-        // 	if(true){
-        // 		$.ajax({
-		      //       type: "POST",
-		      //       cache:false,
-		      //       response:vars,
-		      //       url: url.testaAjax+".json",
-		      //       success: function(response)
-		      //       {	
-		      //       	console.log(response);
-		      //       	var opcoes;
-		      //       	for(i in response.usuarios){
-		      //       		// console.log("id >> ",response.usuarios[i].id)
-		      //       		// console.log("Nome >> ",response.usuarios[i].nome)
-		      //       		// console.log("Email >> ",response.usuarios[i].email)
-		      //       		var opcao = document.createElement('option');
-		      //       		opcao.value = response.usuarios[i].id;
-		      //       		opcao.innerHTML = response.usuarios[i].nome;
-		      //       		$('#adicionaMembro').append(opcao);
-		      //       		$('#adicionaMembro').select2();
-		      //       	}
-		      //       	// $('#adicionaMembro').html(opcoes);
-		      //       }
-		      //   });
-        // 	}
-        // })
-
-        
-		
-        
 };
 
 
@@ -91,7 +56,6 @@ function validaCriacao(){
 	var textArea  = document.getElementsByTagName('textarea')
 	var iTextArea = 0;
 	var selects   = document.getElementsByTagName('select')
-
 	
 	for (; iTextArea < textArea.length; iTextArea++) {
 		textArea[iTextArea].addEventListener("keyup",function(){
@@ -114,8 +78,7 @@ function SetandoAjaxProjeto(){
 	
 	for (; iInput < inputs.length; iInput++) {
 		if(inputs[iInput].name == "CheckboxOnOff"){
-			// Inputs de checkbox primeira verificação
-			checkboxOnOff(inputs[iInput],"On","Off");
+			checkboxOnOff(inputs[iInput],"On","Off"); // Inputs de checkbox primeira verificação
 			inputs[iInput].addEventListener("change",function(){
 				checkboxOnOff(this,"On","Off");
 			});
@@ -133,7 +96,32 @@ function SetandoAjaxProjeto(){
 		});	
 	};
 	for (; iSelect < selects.length; iSelect++) {
-		selects[iSelect].addEventListener("change",function(){enviaAjax(this)});};
+		if(selects[iSelect].name == "buscaKolaborador"){
+			selects[iSelect].addEventListener("change",function(){
+				adicionandoBloco(
+					 'profissionalList' //IdBloco
+					,this.selectedOptions[0].innerHTML //Texto
+					,'data-id' //Data Attribute
+					,this.id //Id do Elemento
+				)
+			});
+		}
+		if(selects[iSelect].name == "buscaOutros"){
+			selects[iSelect].addEventListener("change",function(){
+				adicionandoBloco(
+					 'buscaOutrosbloco' //IdBloco
+					,this.selectedOptions[0].innerHTML //Texto
+					,'data-id' //Data Attribute
+					,this.id //Id do Elemento
+				)
+			});
+		}else{
+			selects[iSelect].addEventListener("change",function(){
+				enviaAjax(this)
+				console.log("Mudou")
+			});
+		}
+	};
 }
 		
 
@@ -210,7 +198,6 @@ function gravaAjaxEditProjeto(e){
 	var field;
 	var value;
 	var vars;
-
 	
 	if(e.name == "avatar"){
 		var img 	= Id("hidden-avatar").value;
@@ -229,10 +216,10 @@ function gravaAjaxEditProjeto(e){
 		url: caminho,
 		data: vars,
 		success: function(data){
-			console.log(data);
 			if(e.name == "avatar"){
 				document.querySelector('[data-section-avatar]').classList.remove('branco');
 			}
+			return true; // caso queira fazer uma condicional 
 		},
 		error: function(data){
 			console.log(data);
@@ -240,10 +227,15 @@ function gravaAjaxEditProjeto(e){
 	});
 }
 
+
+
+
+
+
 // Checkbox que vai ir para a função
 // TextoOn do botão - a mensagem que vai aparecer quando tiver checkado
 // TextoOff do botão - a mensagem que vai aparecer quando tiver não checkado
-
+// Retorna uma booleana caso queira usar como condicional
 function checkboxOnOff(checkbox,textoOn,textoOff){
 	
     var label            = document.querySelector("[data-checkbox-label='"+checkbox.id+"']");
@@ -265,5 +257,66 @@ function checkboxOnOff(checkbox,textoOn,textoOff){
         div.classList.remove("verdeAgua2");
         label.classList.remove("verdeAgua");
     }
-    
+    return checked
+}
+
+//Função para adicionar Kolaborador
+//Passa por parametro a ID do bloco que contem todos os blocos
+//Passa por parametro o Data Atribute que todos os blocos possuem
+//Passa por parametro o ID do Elemento que você quer deletar
+//Passa uma booleana para falar se o texto é um link ou não
+//Passa uma URL para o Link
+function adicionandoBloco(idBloco,texto,idElemento,dataAttribute,link,url){
+
+	// Cria todos os elementos dinamicos
+	var div  	  = document.createElement("div");
+	var img  	  = document.createElement("img");
+	var span 	  = document.createElement("span");
+
+	// Se True cria o elemento com URL
+	if(link){
+		var a = document.createElement("a");
+		a.src = url;
+	}
+
+	// Cria botão delete
+	// Seta a Id do elemento
+	// Adiciona o evento de remoção
+
+	img.src     = image.delete; //  é colocado o Icone de deletar
+	img.id      = idElemento; 
+	img.name    ="delete_block"; 
+	img.addEventListener("click",function(){
+		if(confirm("Deseja realmente deletar?")){
+			deletandoBloco(idBloco,dataAttribute,idElemento);
+		}
+	});
+
+	// Coloca o texto dentro de um span
+	// Seta as classes na div
+	// Adiciona o Data Attribute com o valor da ID do elemento
+	// 
+	span.innerHTML = texto;
+	div.setAttribute("class","social-field");	
+	div.setAttribute(dataAttribute,idElemento);
+	div.appendChild(span);
+	div.appendChild(img);
+	document.getElementById(idBloco).appendChild(div);
+	
+}
+
+
+//Passa por parametro a ID do bloco que contem todos os blocos
+//Passa por parametro o Data Atribute que todos os blocos possuem
+//Passa por parametro o ID do Elemento que você quer deletar
+function deletandoBloco(idBloco,dataAttribute,idElemento){
+	 var campo  = Id(idBloco).querySelectorAll("["+dataAttribute+"]");
+	 var iCampo = 0;
+	 var bloco;
+	 for (; iCampo < campo.length; iCampo++) {
+	 	bloco = campo[iCampo].getAttribute(dataAttribute);
+	 	if(bloco == idElemento){
+	 		Id(idBloco).removeChild(campo[iCampo]);
+	 	}
+	 };
 }

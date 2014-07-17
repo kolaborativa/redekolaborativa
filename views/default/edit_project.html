@@ -144,21 +144,15 @@
                         <h3 class="h3">Selecione o tipo de profissional que procura</h3>
                         <div>
                             <label class="select w-40 form-input-comum f-left select-edit-perfil">
-                                <select class="input-select w-full" id="no_table_link_type_id" name="link_type_id">
-                                    <option value>Selecione Profissões</option>
-                                    <option value>Desenvolvedor</option>
-                                    <option value>Designer</option>
+                                <select class="input-select w-full" id="buscaKolaborador" name="buscaKolaborador">
+                                    <option value="1">Selecione Profissões</option>
+                                    <option value="2">Desenvolvedor</option>
+                                    <option value="3">Designer</option>
                                 <select>
                             </label>
                             <button type="button" class="btn-submit">+</button>
                         </div>
-                        <section id="field-links" class="w-full f-left">
-                            <div class="social-field" data-link="1">
-                                <span>
-                                    <a href="#" target="_blank"> Desenvolvedor</a>
-                                </span>
-                                <img src="{{=URL('static','images/Edit_perfil/delete.png')}}" id="1" name="delete_link" alt="">
-                            </div>
+                        <section id="profissionalList" class="w-full f-left">
                         </section>
                     </section>
                 </section>
@@ -179,21 +173,15 @@
                         <!-- select-edit-perfil -->
                         <div>
                             <label class="select w-40 form-input-comum f-left select-edit-perfil">
-                                <select class="input-select w-full" id="no_table_link_type_id" name="link_type_id">
-                                    <option value>Selecione Profissões</option>
-                                    <option value>Desenvolvedor</option>
-                                    <option value>Designer</option>
-                                    <select>
+                                <select class="input-select w-full" id="buscaOutros" name="buscaOutros">
+                                    <option value="1">Selecione Profissões</option>
+                                    <option value="2">Desenvolvedor</option>
+                                    <option value="3">Designer</option>
+                                <select>
                             </label>
                             <button type="button" class="btn-submit">+</button>
                         </div>
-                        <section id="field-links" class="w-full f-left">
-                            <div class="social-field" data-link="1">
-                                <span>
-                                    <a href="#" target="_blank"> Desenvolvedor</a>
-                                </span>
-                                <img src="{{=URL('static','images/Edit_perfil/delete.png')}}" id="1" name="delete_link" alt="">
-                            </div>
+                        <section id="buscaOutrosbloco" class="w-full f-left">
                         </section>
                     </section>
                 </section>

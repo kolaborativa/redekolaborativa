@@ -421,8 +421,8 @@ def testaAjax():
 
     varJson = {"usuarios":["John","jorge"]}
     
-    return dict(varJson)
-    # return True
+    # return dict(varJson)
+    return True
 
 
 def user():
