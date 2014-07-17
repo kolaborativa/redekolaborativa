@@ -789,10 +789,12 @@ li {
   font-size: 24px;
 }
 .btn-submit {
-  height: 46px;
+  height: 47px;
   color: white;
   background: #a0a0a0;
   border: none;
+  padding: 0px 13px;
+  margin-left: 10px;
 }
 .btn-1 {
   margin: 0px 5px;
@@ -1197,6 +1199,13 @@ body {
   width: 1200px;
   height: 500px;
 }
+.contorno {
+  border: 1px solid #cacaca;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 .col_content {
   height: 10px;
   margin-top: 100px;
@@ -1425,7 +1434,7 @@ body {
 }
 .espacamentoBottom {
   padding-bottom: 40px;
-  margin-top: -10px;
+  /*margin-top: -10px;*/
 }
 .bloco_info {
   padding-left: 0px;

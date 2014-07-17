@@ -9,6 +9,7 @@ function DOMEditProjeto(){
 	var iBtnPerfil = 0;
 	var img_fase   = SelectAll("data-img-fase");
 	var iImg	   = 0;
+
 	// Chama a função para ir para o próximo estágio do editar perfil
 	for (; iBtnPerfil < btnPerfil.length; iBtnPerfil++) {
 		btnPerfil[iBtnPerfil].addEventListener("click",function(){
@@ -22,6 +23,11 @@ function DOMEditProjeto(){
 			mudando_fase_projeto(this.getAttribute("data-img-fase"));
 		});
 	};
+
+	
+
+	
+
 	SetandoAjaxProjeto();
 	ajaxAdicionandoProjeto()
 	// $("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
@@ -105,9 +111,15 @@ function SetandoAjaxProjeto(){
 	var iTextArea = 0;
 	var selects   = document.getElementsByTagName('select')
 	var iSelect   = 0
-
+	
 	for (; iInput < inputs.length; iInput++) {
-		if(inputs[iInput].name != "avatar"){ //Pula o input avatar !
+		if(inputs[iInput].name == "CheckboxOnOff"){
+			// Inputs de checkbox primeira verificação
+			checkboxOnOff(inputs[iInput],"On","Off");
+			inputs[iInput].addEventListener("change",function(){
+				checkboxOnOff(this,"On","Off");
+			});
+		}else if(inputs[iInput].name != "avatar"){ //Pula o input avatar !
 			inputs[iInput].addEventListener("change",function(){enviaAjax(this)});
 		}
 	};
@@ -176,19 +188,19 @@ function mudando_fase_projeto(fase){
 	// Identifica quais as imagens da fase atual de edição do perfil e adiciona dinamicamente
 	switch(fase){
 		case "1":
-			 img_fase[0].src = image.editProjetofase1_completa;
-			 img_fase[1].src = image.editProjetofase2;
-			 img_fase[2].src = image.editProjetofase3;
+			 img_fase[0].src = image.editProjetofase1;
+			 img_fase[1].src = image.editProjetofase2_cinza;
+			 img_fase[2].src = image.editProjetofase3_cinza;
 		break;
 		case "2":
-			 img_fase[0].src = image.editProjetofase1_completa
-			 img_fase[1].src = image.editProjetofase2_completa
-			 img_fase[2].src = image.editProjetofase3
+			 img_fase[0].src = image.editProjetofase1_completa;
+			 img_fase[1].src = image.editProjetofase2;
+			 img_fase[2].src = image.editProjetofase3_cinza;
 		break;
 		case "3":
-			 img_fase[0].src = image.editProjetofase1_completa
-			 img_fase[1].src = image.editProjetofase2_completa
-			 img_fase[2].src = image.editProjetofase3
+			 img_fase[0].src = image.editProjetofase1_completa;
+			 img_fase[1].src = image.editProjetofase2_completa;
+			 img_fase[2].src = image.editProjetofase3;
 		break;
 	};
 }
@@ -226,4 +238,32 @@ function gravaAjaxEditProjeto(e){
 			console.log(data);
 		}
 	});
+}
+
+// Checkbox que vai ir para a função
+// TextoOn do botão - a mensagem que vai aparecer quando tiver checkado
+// TextoOff do botão - a mensagem que vai aparecer quando tiver não checkado
+
+function checkboxOnOff(checkbox,textoOn,textoOff){
+	
+    var label            = document.querySelector("[data-checkbox-label='"+checkbox.id+"']");
+    var div              = document.querySelector("[data-div-label='"+checkbox.id+"']");
+    var checked          = checkbox.checked;
+    label.innerHTML = checkbox.checked == null ? textoOn : textoOff
+
+    if (checked) {
+        div.classList.remove("vermelho1");
+        div.classList.add("verdeAgua2");
+        label.classList.remove("vermelho2");
+        label.classList.add("verdeAgua")
+        label.innerHTML = textoOn
+    }
+    else{
+    	label.innerHTML = textoOff
+        div.classList.add("vermelho1");
+        label.classList.add("vermelho2");
+        div.classList.remove("verdeAgua2");
+        label.classList.remove("verdeAgua");
+    }
+    
 }
