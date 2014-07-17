@@ -20,24 +20,38 @@
     
     <!--<form id="formulario_EditCreate_projeto">-->
     {{=form.custom.begin}}
+        {{form.custom.widget.name['_required'] = 'required'}}
+        {{form.custom.widget.name['_class'] = 'form-input-comum w-full'}}
+        {{form.custom.widget.name['_placeholder'] = T('Project Name')}}
+
+        {{form.custom.widget.project_type['_class'] = 'input-select w-full'}}
+        
+        {{form.custom.widget.short_description['_class'] = 'form-input-comum w-full bio'}}
+        {{form.custom.widget.short_description['_data-limite-id'] = 'bioCurta'}}
+        {{form.custom.widget.short_description['_data-limite'] = '400'}}
+        {{form.custom.widget.short_description['_placeholder'] = 'Aqui vem uma Bio curta'}}
+
+        {{form.custom.widget.description['_class'] = 'form-input-comum w-full bio'}}
+        {{form.custom.widget.description['_data-limite-id'] = 'bioLonga'}}
+        {{form.custom.widget.description['_data-limite'] = '1000'}}
+        {{form.custom.widget.description['_placeholder'] = 'Aqui vem uma Bio completa'}}
+        
+        {{form.custom.submit['_class'] = 'btn-1 f-right w-40 btn-nav'}}
+        {{form.custom.submit['_data-irParaFase'] = '2'}}
+        {{form.custom.submit['_value'] = 'Criar'}}
+
         <section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
             <section class="span_1 col span_vazio"></section>
             <section class="span_4 col colunas">
                 <span class=" h2 f-left">Nome do Projeto</span>
                 <section class="section-form">
                     {{=form.custom.widget.name}}
-                    <!--<input required="required" type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">-->
                 </section>
                 <!-- Tipo de Projeto -->
                 <span class=" h2 f-left w-full">Tipo de Projeto</span>
                 <section class="section-form">
                         <label class="select w-50 form-input-comum form-select">
                           {{=form.custom.widget.project_type}}
-                           <!--<select class="input-select w-full">
-                               <option value="teste">Tipo 1</option>
-                               <option value="teste">Tipo 1</option>
-                               <option value="teste">Tipo 1</option>
-                           </select>-->
                         </label>
                 </section>
                 <!-- Avatar -->
@@ -61,19 +75,16 @@
                 <span class=" h2 f-left">Descrição curta do projeto</span>
                 <section class="section-form w-full f-left">
                     <p>{{=form.custom.widget.short_description}}</p>
-                    <!--<textarea class="form-input-comum w-full bio" data-limite-id="bioCurta" data-limite="400" placeholder="Aqui vem uma Bio curta"></textarea>-->
                     <p class="paragrafo2 f-left descriptionBio">Limite de <span id="bioCurta">400</span> Caracteres </p>
                 </section>
-                <span class=" h2 f-left">Descrição longa do projet</span>
+                <span class=" h2 f-left">Descrição longa do projeto</span>
                 <section class="section-form w-full f-left">
                     {{=form.custom.widget.description}}
-                    <textarea class="form-input-comum w-full bio" data-limite-id="bioLonga" data-limite="1000" placeholder="Aqui vem uma Bio completa"></textarea>
                     <p class="paragrafo2 f-left descriptionBio">Limite de <span id="bioLonga">1000</span> Caracteres </p>
                 </section>
             </section>
             <div class="span_6 col f-right t-right">
                 <p>{{=form.custom.submit}}</p>
-                <!--<input  type="submit" class="btn-1 f-right w-40 btn-nav" data-irParaFase="2" value="Criar">-->
             </div>
         </section>
     {{=form.custom.end}}
