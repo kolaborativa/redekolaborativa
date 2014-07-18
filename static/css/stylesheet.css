@@ -1379,7 +1379,7 @@ body {
 .bloco_info > h2 {
   padding: 14px;
   margin-top: 0px;
-  text-align: center;
+  padding-left: 20px;
 }
 .bloco_info .title {
   font-weight: normal;
