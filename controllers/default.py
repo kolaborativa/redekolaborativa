@@ -414,10 +414,14 @@ def ajax_remove_link():
 
 
 # Usando essa função para testar os ajax por favor não deletar
+
 def testaAjax():
 
     print request.vars
 
+    varJson = {"usuarios":["John","jorge"]}
+    
+    # return dict(varJson)
     return True
 
 

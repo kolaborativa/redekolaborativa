@@ -111,10 +111,15 @@ jQuery.event.props.push('dataTransfer');
     placeImage: function(data) {
       s.img.attr("src", data);
       document.getElementById("hidden-avatar").value = data; // coloca o base64 da imagem em um input hidden
-      
+
       // Esse trecho diz respeito ao site da RedeKolaborativa
       // Trecho não faz parte do Plugin
-      gravaAjaxEditProfile(document.getElementById("uploader")); 
+      if(Id("formulario_edicao_perfil") != null) {
+        gravaAjaxEditProfile(document.getElementById("uploader")); 
+      }
+      else if(Id("formulario_edit_projeto") != null) {
+        gravaAjaxEditProjeto(document.getElementById("uploader"))
+      }
       // Pega na hora da mudança da imagem e envia por ajax para o backend a imagem em base 64
       // Esse trecho só é usado na rede Kolaborativa, podendo ser tirado para uso perfeito do plugin
       
