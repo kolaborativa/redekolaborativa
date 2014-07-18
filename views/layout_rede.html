@@ -126,10 +126,15 @@ user-scalable = yes allows the user to zoom in -->
   <header class="f-left w-full cinza2">
     <section class="header row">
       <section class="col col_header span_2 logo-header">
-      {{if 'index' not in URL() and 'message_register' not in URL():}}
+      {{if 'index' not in URL() and 'message_register' not in URL() and 'panel' not in URL():}}
         <figure class="a-bottom">
-        <a href='panel'><img src="{{=URL('static','images/logo-kolaborativa-header.png')}}" alt="Figura Kolaborativa"></a>
+          <a href="{{=URL(f='panel')}}"><img src="{{=URL('static','images/logo-kolaborativa-header.png')}}" alt="Figura Kolaborativa"></a>
         </figure>
+      {{elif 'panel' in URL() or 'change_password' in request.args:}}
+        <figure class="a-bottom">
+          <img src="{{=URL('static','images/logo-kolaborativa-header.png')}}" alt="Figura Kolaborativa">
+        </figure>
+    
       {{pass}}
       </section>
       <section class="col col_header span_1"></section>
@@ -148,8 +153,7 @@ user-scalable = yes allows the user to zoom in -->
       </section>
       <section class="col col_header span_1">
       </section>
- {{if request.function == "index" or 'message_register' in URL():}}
-      
+ {{if request.function == "index" or 'message_register' in URL() or 'request_reset_password' in request.args:}}      
 
       <section class="col col_header span_5 t-right">
         
@@ -180,14 +184,21 @@ user-scalable = yes allows the user to zoom in -->
             <nav class="dropdown projetos a-bottom">
               <ul>
                 <li>
-                  <a href='#'>
-                    <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Projetos"> 
+                {{if 'user' in URL():}}
+                  <a href="{{=URL(f='create_project')}}">
+                    <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Criar Projetos"> 
                     <span>CRIAR NOVOS PROJETOS</span>
                   </a>
+                {{else:}}
+                  <a href='create_project'>
+                    <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Criar Projetos"> 
+                    <span>CRIAR NOVOS PROJETOS</span>
+                  </a>
+                {{pass}}
                   <ul>
                     <li>
                       <a href='#'>
-                        <img src="{{=URL('static','images/Ico/icoList.png')}}" alt="Projetos"> 
+                        <img src="{{=URL('static','images/Ico/icoList.png')}}" alt="Listar Projetos"> 
                         <span>
                           LISTAR MEUS PROJETOS
                         </span>
@@ -199,10 +210,17 @@ user-scalable = yes allows the user to zoom in -->
             <nav class="dropdown perfil a-bottom">
                 <ul>
                   <li>
-                    <a href='#'>
-                      <img src="{{=URL('static','images/Ico/icoPerfil.png')}}" alt="Ver Perfil"> 
-                      <span>VER MEU PERFIL</span>
-                    </a>
+                    {{if 'user' in URL():}}
+                      <a href="{{=URL(f='user_info')}}">
+                        <img src="{{=URL('static','images/Ico/icoPerfil.png')}}" alt="Ver Perfil"> 
+                        <span>VER MEU PERFIL</span>
+                      </a>
+                    {{else:}}
+                      <a href='user_info'>
+                        <img src="{{=URL('static','images/Ico/icoPerfil.png')}}" alt="Ver Perfil"> 
+                        <span>VER MEU PERFIL</span>
+                      </a>
+                    {{pass}}
                     <ul>
                       <li>
                         <a href='edit_perfil'>
@@ -235,19 +253,20 @@ user-scalable = yes allows the user to zoom in -->
             <nav class="dropdown config a-bottom">
               <ul>
                   <li>
-                    <a href="#">
-                    <img src="{{=URL('static','images/Ico/engrenagem.png')}}" alt="Alterar Senha"> 
-                    <span>ALTERAR SENHA</span>
+                  {{if 'user' not in URL() or 'user_info' in URL() or 'change_password' in request.args:}}
+                    <a href="{{=URL(f='user/change_password')}}">
+                      <img src="{{=URL('static','images/Ico/engrenagem.png')}}" alt="Alterar Senha"> 
+                      <span>ALTERAR SENHA</span>
                     </a>
+                    {{pass}}
                   <ul>
                     <li>
-                        <a href='#'>
-                          <img src="{{=URL('static','images/Ico/logout.png')}}" alt="Projetos"> 
+                        <a href="{{=URL(f='user/logout')}}">
+                          <img src="{{=URL('static','images/Ico/logout.png')}}" alt="Sair"> 
                           <span>
                             LOGOUT
                           </span>
                         </a>
-                  
                     </li>
                   </ul>
                 </li>
