@@ -27,6 +27,12 @@ function main(){
 		mudaStatusCheckbox();
 		DOMEditarPerfil();
 	}
+	if(Id("create-project") != null) {
+		DOMCreateProjeto();
+	}
+	if(Id("edit-project") != null) {
+		DOMEditProjeto();
+	}
 	
 }
 

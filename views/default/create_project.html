@@ -1,15 +1,15 @@
 {{extend 'layout_rede.html'}}
-
+<input type="hidden" id="create-project">
 <h1>Criar Projeto</h1>
 
 <section class="col col_edit_perfil_topo span_12 f-left">
-    <figure class="span_3 col">
+    <figure class="figureStage f-left col span_4">
         <img src="" class="cursor-hand" title="Preencha seus dados pessoais" data-img-fase="1">
     </figure>
-    <figure class="span_3 col">
+    <figure class="figureStage f-left col span_4">
         <img src="" class="cursor-hand" title="Escolha um avatar e fale sobre você" data-img-fase="2">
     </figure>
-    <figure class="span_3 col">
+    <figure class="figureStage f-left col span_4">
         <img src="" class="cursor-hand" title="Fale sobre suas habilidades profissionais" data-img-fase="3">
     </figure>
 </section>
@@ -17,22 +17,43 @@
 
 <section class="col col_edit_perfil_formulario span_12 f-left">
     <!-- Inicio do formulário (tudo aqui dentro forma um unico formulário) -->
+
+    
+    <!--<form id="formulario_EditCreate_projeto">-->
+    {{=form.custom.begin}}
+        {{form.custom.widget.name['_required'] = 'required'}}
+        {{form.custom.widget.name['_class'] = 'form-input-comum w-full'}}
+        {{form.custom.widget.name['_placeholder'] = T('Project Name')}}
+
+        {{form.custom.widget.project_type['_class'] = 'input-select w-full'}}
+        
+        {{form.custom.widget.short_description['_class'] = 'form-input-comum w-full bio'}}
+        {{form.custom.widget.short_description['_data-limite-id'] = 'bioCurta'}}
+        {{form.custom.widget.short_description['_data-limite'] = '400'}}
+        {{form.custom.widget.short_description['_placeholder'] = 'Aqui vem uma Bio curta'}}
+
+        {{form.custom.widget.description['_class'] = 'form-input-comum w-full bio'}}
+        {{form.custom.widget.description['_data-limite-id'] = 'bioLonga'}}
+        {{form.custom.widget.description['_data-limite'] = '1000'}}
+        {{form.custom.widget.description['_placeholder'] = 'Aqui vem uma Bio completa'}}
+        
+        {{form.custom.submit['_class'] = 'btn-1 f-right w-40 btn-nav'}}
+        {{form.custom.submit['_data-irParaFase'] = '2'}}
+        {{form.custom.submit['_value'] = 'Criar'}}
+
+
         <section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
             <section class="span_1 col span_vazio"></section>
             <section class="span_4 col colunas">
                 <span class=" h2 f-left">Nome do Projeto</span>
                 <section class="section-form">
-                    <input type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">
+                    {{=form.custom.widget.name}}
                 </section>
                 <!-- Tipo de Projeto -->
                 <span class=" h2 f-left w-full">Tipo de Projeto</span>
                 <section class="section-form">
                         <label class="select w-50 form-input-comum form-select">
-                           <select class="input-select w-full">
-                               <option value="teste">Tipo 1</option>
-                               <option value="teste">Tipo 1</option>
-                               <option value="teste">Tipo 1</option>
-                           </select>
+                          {{=form.custom.widget.project_type}}
                         </label>
                 </section>
                 <!-- Avatar -->
@@ -40,8 +61,8 @@
                 <section class="section-form f-left branco t-center" data-section-avatar>
                     <label class="profile-avatar-wrap">
                         <img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
-                        <input type="file" name="avatar" class="d-none" id="uploader">
-                        <input type="hidden" value="" id="hidden-avatar">
+                        <input type="file" class="d-none" id="uploader">
+                        <input type="hidden" value="" id="hidden-avatar" name="img">
                     </label>
                     <p class="paragrafo2 descriptionAvatar">
                         Arraste uma imagem ou clique para escolher a foto que será exibida em seu perfil. Para alterar a foto basta clicar na imagem atual. 
@@ -55,114 +76,19 @@
             <section class="span_6 col colunas">
                 <span class=" h2 f-left">Descrição curta do projeto</span>
                 <section class="section-form w-full f-left">
-                    <textarea class="form-input-comum w-full bio" placeholder="Aqui vem uma Bio curta"></textarea>
-                    <p class="paragrafo2 f-left descriptionBio">Limite de <span data-caracteres>350</span> Caracteres </p>
+                    <p>{{=form.custom.widget.short_description}}</p>
+                    <p class="paragrafo2 f-left descriptionBio">Limite de <span id="bioCurta">400</span> Caracteres </p>
                 </section>
-                <span class=" h2 f-left">Descrição longa do projet</span>
+                <span class=" h2 f-left">Descrição longa do projeto</span>
                 <section class="section-form w-full f-left">
-                    <textarea class="form-input-comum w-full bio" placeholder="Aqui vem uma Bio completa"></textarea>
-                    <p class="paragrafo2 f-left descriptionBio">Limite de <span data-caracteres>350</span> Caracteres </p>
+                    {{=form.custom.widget.description}}
+                    <p class="paragrafo2 f-left descriptionBio">Limite de <span id="bioLonga">1000</span> Caracteres </p>
                 </section>
             </section>
-            <div class="span_6 col f-right t-right">
-                <input type="button" class="btn-1 f-right w-40 btn-nav" data-irParaFase="2" value="Avançar">
+            <div class="span_6 col f-right espacamentoBottom t-right">
+                <p>{{=form.custom.submit}}</p>
             </div>
         </section>
+    {{=form.custom.end}}
+    <!--</form>-->
 </section>
-
-
-<script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/resample.js')}}"></script>
-<script src="{{=URL('static','plugins/Avatar_Upload_DragInDrop/avatar.js')}}"></script>
-<script src="{{=URL('static','plugins/select2-3.4.8/select2.js')}}"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src={{=URL('static', 'js/select2.min.js')}}></script>
-<link href={{=URL('static', 'css/select2.css')}} rel="stylesheet">
-<script>
-jQuery(document).ready(function(){
-   jQuery('#projects_team_wanted__row').hide();
-   jQuery('#projects_other_wanted__row').hide();
-   jQuery('#projects_wanting_team').change(function(){
-        if(jQuery('#projects_wanting_team').attr('checked'))
-            jQuery('#projects_team_wanted__row').show();
-        else jQuery('#projects_team_wanted__row').hide();});
-   jQuery('#projects_wanting_other').change(function(){
-        if(jQuery('#projects_wanting_other').attr('checked'))
-            jQuery('#projects_other_wanted__row').show();
-        else jQuery('#projects_other_wanted__row').hide();});
-});
-
-function MultiAjaxAutoComplete(element, url) {
-    $(element).select2({
-        placeholder: "{{=T('Search for a user')}}",
-        minimumInputLength: 1,
-        multiple: true,
-        formatNoMatches: function(){return "{{=T('No results')}}"},
-        formatSearching: function(){return "{{=T('Searching...')}}"},
-        formatInputTooShort: function(){return "{{=T('Too short')}}"},
-
-        id: function(e) { return e.id+":"+e.title; },
-        ajax: {
-            url: url,
-            dataType: 'json',
-            data: function(term, page) {
-
-                return {
-                    q: term,
-                    page_limit: 10,
-                };
-            },
-            results: function(data, page) {
-                return {
-                    results: data.users
-                };
-            }
-        },
-        formatResult: formatResult,
-        formatSelection: formatSelection,
-        initSelection: function(element, callback) {
-            var data = [];
-            $(element.val().split(",")).each(function(i) {
-                var item = this.split(':');
-                data.push({
-                    id: item[0],
-                    title: item[1]
-                });
-            });
-            callback(data);
-        }
-    });
-};
-
-var url = "{{=URL(r=request,f='call',args=['json','get_users'])}}";
-
-MultiAjaxAutoComplete('#projects_team', url);
-
-function formatResult(user) {
-    return '<div>' + user.title + '</div>';
-};
-
-function formatSelection(data) {
-    return data.title;
-};
-
-</script>
