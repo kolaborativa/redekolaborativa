@@ -86,8 +86,8 @@ user-scalable = yes allows the user to zoom in -->
         ,"editProjetofase2_cinza"    : "{{=URL('static','images/Edit_projeto/equipe_cinza.png')}}"
         ,"editProjetofase2"          : "{{=URL('static','images/Edit_projeto/equipe.png')}}"
         ,"editProjetofase2_completa" : "{{=URL('static','images/Edit_projeto/equipe_completa.png')}}"
-        ,"editProjetofase3_cinza"          : "{{=URL('static','images/Edit_projeto/contato_cinza.png')}}"
-        ,"editProjetofase3" : "{{=URL('static','images/Edit_projeto/contato.png')}}"
+        ,"editProjetofase3_cinza"    : "{{=URL('static','images/Edit_projeto/contato_cinza.png')}}"
+        ,"editProjetofase3"          : "{{=URL('static','images/Edit_projeto/contato.png')}}"
 
 
   };
@@ -299,7 +299,7 @@ user-scalable = yes allows the user to zoom in -->
 <script src="{{=URL('static','js/redekolaborativa/rede_javascript.js')}}"></script>
 <script src="{{=URL('static','js/redekolaborativa/editar_perfil.js')}}"></script>
 {{if request.function == "create_project" or request.function == "edit_project":}}
-<script src="{{=URL('static','js/redekolaborativa/projetos.js')}}"></script>
+    <script src="{{=URL('static','js/redekolaborativa/projetos.js')}}"></script>
 {{pass}}
 <!-- Colocar os JS no fim do arquivo  -->
 
@@ -312,8 +312,5 @@ user-scalable = yes allows the user to zoom in -->
 <script src="{{=URL('static', 'plugins/select2-3.4.8/select2.min.js')}}"></script>
 <!-- Plugin de Select  -->
 
-
-
-
     </body>
-    </html>
+</html>

@@ -27,10 +27,10 @@ function main(){
 		mudaStatusCheckbox();
 		DOMEditarPerfil();
 	}
-	if(Id("formulario_create_projeto") != null) {
+	if(Id("create-project") != null) {
 		DOMCreateProjeto();
 	}
-	if(Id("formulario_edit_projeto") != null) {
+	if(Id("edit-project") != null) {
 		DOMEditProjeto();
 	}
 	
