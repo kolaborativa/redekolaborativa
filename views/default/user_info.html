@@ -174,8 +174,9 @@
 <!-- Projetos que eu colaboro -->
 <section class="f-left span_4 col bloco_info projetos_colaboro">
          <h2 class="title">{{=T("Projects I Colaborate")}}</h2>
+         <ul>
                 {{if colaborate_projects:}}
-                <ul>
+                
                     {{for l in colaborate_projects:}}
                     
                         <li>
@@ -205,13 +206,16 @@
                         </li>
                     
                     {{pass}}
-                </ul>
+                
                 {{if len(colaborate_projects) > 5:}}
                 {{=A(T('Read more'), _href="#")}}
-                {{pass}}
+                     {{pass}}
                 {{else:}}
-                {{=T("None")}}
+                <ul>
+                     {{=T("None")}}
+                </ul>
                 {{pass}}
+                </ul>
 </section>
 
 </section>
