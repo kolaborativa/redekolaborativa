@@ -65,6 +65,16 @@ function validaCriacao(){
 		});	
 	};
 	
+	
+	for (var iInput = 0; iInput < inputs.length; iInput++) {
+		if(inputs[iInput].id == "profile-avatar"){
+			inputs[iInput].addEventListener('click',function(){
+		
+			})
+		}
+
+	};
+	
 }
 
 
