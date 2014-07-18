@@ -1,14 +1,61 @@
-function DOMEditCreateProjeto(){
+function DOMCreateProjeto(){
 	mudando_fase_projeto(pegaGET('stage'));
-	// SetandoAjaxProjeto();
+	validaCriacao();
+}
+
+function DOMEditProjeto(){
+	mudando_fase_projeto(pegaGET('stage'));
+	var btnPerfil  = SelectAll("data-irParaFase");
+	var iBtnPerfil = 0;
+	var img_fase   = SelectAll("data-img-fase");
+	var iImg	   = 0;
+
+	// Chama a função para ir para o próximo estágio do editar perfil
+	for (; iBtnPerfil < btnPerfil.length; iBtnPerfil++) {
+		btnPerfil[iBtnPerfil].addEventListener("click",function(){
+			mudando_fase_projeto(this.getAttribute("data-irParaFase"));
+		});
+	};
+
+	// Chama a função para ir para o próximo estágio do editar perfil
+	for (; iImg < img_fase.length; iImg++) {
+		img_fase[iImg].addEventListener("click",function(){
+			mudando_fase_projeto(this.getAttribute("data-img-fase"));
+		});
+	};
+
+	SetandoAjaxProjeto();
+	ajaxAdicionandoProjeto()
+	// $("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
+	
+
 };
+
+
+function ajaxAdicionandoProjeto(){
+        // Ativa o pluguin select2
+        $('#adicionaMembro').select2({
+        	minimumInputLength: 1,
+        	 ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+        		url: url.testaAjax+".json",
+		        results: function (data) { 
+		            // console.log(data.usuarios[0]);
+		            return {results: data.usuarios[0]};
+		        },
+		        dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
+    			escapeMarkup: function (m) { return m; }
+		    }
+        });
+};
+
+
 
 
 function validaCriacao(){
 	var inputs    = document.getElementsByTagName('input');
 	var textArea  = document.getElementsByTagName('textarea')
+	var iTextArea = 0;
 	var selects   = document.getElementsByTagName('select')
-
 	
 	for (; iTextArea < textArea.length; iTextArea++) {
 		textArea[iTextArea].addEventListener("keyup",function(){
@@ -28,9 +75,14 @@ function SetandoAjaxProjeto(){
 	var iTextArea = 0;
 	var selects   = document.getElementsByTagName('select')
 	var iSelect   = 0
-
+	
 	for (; iInput < inputs.length; iInput++) {
-		if(inputs[iInput].name != "avatar"){ //Pula o input avatar !
+		if(inputs[iInput].name == "CheckboxOnOff"){
+			checkboxOnOff(inputs[iInput],"On","Off"); // Inputs de checkbox primeira verificação
+			inputs[iInput].addEventListener("change",function(){
+				checkboxOnOff(this,"On","Off");
+			});
+		}else if(inputs[iInput].name != "avatar"){ //Pula o input avatar !
 			inputs[iInput].addEventListener("change",function(){enviaAjax(this)});
 		}
 	};
@@ -44,13 +96,38 @@ function SetandoAjaxProjeto(){
 		});	
 	};
 	for (; iSelect < selects.length; iSelect++) {
-		selects[iSelect].addEventListener("change",function(){enviaAjax(this)});};
+		if(selects[iSelect].name == "buscaKolaborador"){
+			selects[iSelect].addEventListener("change",function(){
+				adicionandoBloco(
+					 'profissionalList' //IdBloco
+					,this.selectedOptions[0].innerHTML //Texto
+					,'data-id' //Data Attribute
+					,this.id //Id do Elemento
+				)
+			});
+		}
+		if(selects[iSelect].name == "buscaOutros"){
+			selects[iSelect].addEventListener("change",function(){
+				adicionandoBloco(
+					 'buscaOutrosbloco' //IdBloco
+					,this.selectedOptions[0].innerHTML //Texto
+					,'data-id' //Data Attribute
+					,this.id //Id do Elemento
+				)
+			});
+		}else{
+			selects[iSelect].addEventListener("change",function(){
+				enviaAjax(this)
+				console.log("Mudou")
+			});
+		}
+	};
 }
 		
 
 function enviaAjax(e){
 		if(e.value != "")
-			 gravaAjaxEditProfile(e);
+			 gravaAjaxEditProjeto(e);
 		else console.log("Preencha Algo")
 }
 
@@ -99,29 +176,28 @@ function mudando_fase_projeto(fase){
 	// Identifica quais as imagens da fase atual de edição do perfil e adiciona dinamicamente
 	switch(fase){
 		case "1":
+			 img_fase[0].src = image.editProjetofase1;
+			 img_fase[1].src = image.editProjetofase2_cinza;
+			 img_fase[2].src = image.editProjetofase3_cinza;
+		break;
+		case "2":
 			 img_fase[0].src = image.editProjetofase1_completa;
 			 img_fase[1].src = image.editProjetofase2;
+			 img_fase[2].src = image.editProjetofase3_cinza;
+		break;
+		case "3":
+			 img_fase[0].src = image.editProjetofase1_completa;
+			 img_fase[1].src = image.editProjetofase2_completa;
 			 img_fase[2].src = image.editProjetofase3;
 		break;
-		// case "2":
-		// 	 img_fase[0].src = image.editProjetofase1_completa
-		// 	 img_fase[1].src = image.editProjetofase2_completa
-		// 	 img_fase[2].src = image.editProjetofase3_cinza
-		// break;
-		// case "3":
-		// 	 img_fase[0].src = image.editProjetofase1_completa
-		// 	 img_fase[1].src = image.editProjetofase2_completa
-		// 	 img_fase[2].src = image.editProjetofase3
-		// break;
 	};
 }
 
-function gravaAjaxEditCreateProjeto(e){
+function gravaAjaxEditProjeto(e){
 
 	var field;
 	var value;
 	var vars;
-
 	
 	if(e.name == "avatar"){
 		var img 	= Id("hidden-avatar").value;
@@ -140,13 +216,107 @@ function gravaAjaxEditCreateProjeto(e){
 		url: caminho,
 		data: vars,
 		success: function(data){
-			console.log(data);
 			if(e.name == "avatar"){
 				document.querySelector('[data-section-avatar]').classList.remove('branco');
 			}
+			return true; // caso queira fazer uma condicional 
 		},
 		error: function(data){
 			console.log(data);
 		}
 	});
+}
+
+
+
+
+
+
+// Checkbox que vai ir para a função
+// TextoOn do botão - a mensagem que vai aparecer quando tiver checkado
+// TextoOff do botão - a mensagem que vai aparecer quando tiver não checkado
+// Retorna uma booleana caso queira usar como condicional
+function checkboxOnOff(checkbox,textoOn,textoOff){
+	
+    var label            = document.querySelector("[data-checkbox-label='"+checkbox.id+"']");
+    var div              = document.querySelector("[data-div-label='"+checkbox.id+"']");
+    var checked          = checkbox.checked;
+    label.innerHTML = checkbox.checked == null ? textoOn : textoOff
+
+    if (checked) {
+        div.classList.remove("vermelho1");
+        div.classList.add("verdeAgua2");
+        label.classList.remove("vermelho2");
+        label.classList.add("verdeAgua")
+        label.innerHTML = textoOn
+    }
+    else{
+    	label.innerHTML = textoOff
+        div.classList.add("vermelho1");
+        label.classList.add("vermelho2");
+        div.classList.remove("verdeAgua2");
+        label.classList.remove("verdeAgua");
+    }
+    return checked
+}
+
+//Função para adicionar Kolaborador
+//Passa por parametro a ID do bloco que contem todos os blocos
+//Passa por parametro o Data Atribute que todos os blocos possuem
+//Passa por parametro o ID do Elemento que você quer deletar
+//Passa uma booleana para falar se o texto é um link ou não
+//Passa uma URL para o Link
+function adicionandoBloco(idBloco,texto,idElemento,dataAttribute,link,url){
+
+	// Cria todos os elementos dinamicos
+	var div  	  = document.createElement("div");
+	var img  	  = document.createElement("img");
+	var span 	  = document.createElement("span");
+
+	// Se True cria o elemento com URL
+	if(link){
+		var a = document.createElement("a");
+		a.src = url;
+	}
+
+	// Cria botão delete
+	// Seta a Id do elemento
+	// Adiciona o evento de remoção
+
+	img.src     = image.delete; //  é colocado o Icone de deletar
+	img.id      = idElemento; 
+	img.name    ="delete_block"; 
+	img.addEventListener("click",function(){
+		if(confirm("Deseja realmente deletar?")){
+			deletandoBloco(idBloco,dataAttribute,idElemento);
+		}
+	});
+
+	// Coloca o texto dentro de um span
+	// Seta as classes na div
+	// Adiciona o Data Attribute com o valor da ID do elemento
+	// 
+	span.innerHTML = texto;
+	div.setAttribute("class","social-field");	
+	div.setAttribute(dataAttribute,idElemento);
+	div.appendChild(span);
+	div.appendChild(img);
+	document.getElementById(idBloco).appendChild(div);
+	
+}
+
+
+//Passa por parametro a ID do bloco que contem todos os blocos
+//Passa por parametro o Data Atribute que todos os blocos possuem
+//Passa por parametro o ID do Elemento que você quer deletar
+function deletandoBloco(idBloco,dataAttribute,idElemento){
+	 var campo  = Id(idBloco).querySelectorAll("["+dataAttribute+"]");
+	 var iCampo = 0;
+	 var bloco;
+	 for (; iCampo < campo.length; iCampo++) {
+	 	bloco = campo[iCampo].getAttribute(dataAttribute);
+	 	if(bloco == idElemento){
+	 		Id(idBloco).removeChild(campo[iCampo]);
+	 	}
+	 };
 }

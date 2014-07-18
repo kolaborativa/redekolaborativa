@@ -1,12 +1,270 @@
-{{extend 'layout.html'}}
-{{if project != message:}}
-{{=form}}
-{{else:}}
-{{=project}}
-{{pass}}
+{{extend 'layout_rede.html'}}
 
-<script src={{=URL('static', 'js/select2.min.js')}}></script>
-<link href={{=URL('static', 'css/select2.css')}} rel="stylesheet">
+<h1>Editar Projeto</h1>
+
+<section class="col col_edit_perfil_topo span_12 f-left">
+    <figure class="figureStage f-left col span_4">
+        <img src="" class="cursor-hand" title="Preencha seus dados pessoais" data-img-fase="1">
+    </figure>
+    <figure class="figureStage f-left col span_4">
+        <img src="" class="cursor-hand" title="Escolha um avatar e fale sobre você" data-img-fase="2">
+    </figure>
+    <figure class="figureStage f-left col span_4">
+        <img src="" class="cursor-hand" title="Fale sobre suas habilidades profissionais" data-img-fase="3">
+    </figure>
+</section>
+<img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left">
+
+<section class="col col_edit_perfil_formulario span_12 f-left">
+    <!-- Inicio do formulário (tudo aqui dentro forma um unico formulário) -->
+    <form id="formulario_edit_projeto">
+        <section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
+            <section class="span_1 col span_vazio"></section>
+            <section class="span_4 col colunas">
+                <span class=" h2 f-left">Nome do Projeto</span>
+                <section class="section-form">
+                    <input required="required" type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">
+                </section>
+                <!-- Tipo de Projeto -->
+                <span class=" h2 f-left w-full">Tipo de Projeto</span>
+                <section class="section-form">
+                    <label class="select w-50 form-input-comum form-select">
+                       <select class="input-select w-full">
+                           <option value="teste">Tipo 1</option>
+                           <option value="teste">Tipo 1</option>
+                           <option value="teste">Tipo 1</option>
+                       </select>
+                   </label>
+               </section>
+               <!-- Avatar -->
+               <span class=" h2 f-left">Avatar</span>
+               <section class="section-form f-left branco t-center" data-section-avatar>
+                <label class="profile-avatar-wrap">
+                    <img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
+                    <input type="file" name="avatar" class="d-none" id="uploader">
+                    <input type="hidden" value="" id="hidden-avatar">
+                </label>
+                <p class="paragrafo2 descriptionAvatar">
+                    Arraste uma imagem ou clique para escolher a foto que será exibida em seu perfil. Para alterar a foto basta clicar na imagem atual. 
+                </p>
+                <p class="paragrafo2 descriptionAvatar">
+                    A imagem deve ser nos formatos jpg ou png.
+                </p>
+            </section>
+        </section>
+        <section class="span_1 col span_vazio"></section>
+        <section class="span_6 col colunas">
+            <span class=" h2 f-left">Descrição curta do projeto</span>
+            <section class="section-form w-full f-left">
+                <textarea class="form-input-comum w-full bio" data-limite-id="bioCurta" data-limite="400" placeholder="Aqui vem uma Bio curta"></textarea>
+                <p class="paragrafo2 f-left descriptionBio">Limite de <span id="bioCurta">400</span> Caracteres </p>
+            </section>
+            <span class=" h2 f-left">Descrição longa do projet</span>
+            <section class="section-form w-full f-left">
+                <textarea class="form-input-comum w-full bio" data-limite-id="bioLonga" data-limite="1000" placeholder="Aqui vem uma Bio completa"></textarea>
+                <p class="paragrafo2 f-left descriptionBio">Limite de <span id="bioLonga">1000</span> Caracteres </p>
+            </section>
+        </section>
+        <div class="span_6 col f-right t-right">
+            <input  type="submit" class="btn-1 f-right w-40 btn-nav" data-irParaFase="2" value="Criar">
+        </div>
+    </section>
+    <section  data-fase="2" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
+            <section class="span_12 col f-left">
+                <section class="span_6 col">
+                    <span class=" h2 f-left">Adicionar Kolaboradores</span>
+                    <section class="section-form">
+                        <input type="hidden" class="bigdrop select2-offscreen" id="adicionaMembro" style="width:600px">
+                    <!-- <select id="adicionaMembro" name="select" class="select2">
+                            <option value="" selected disabled>Please Select Above Field</option>
+                        </select> -->
+                    </section>
+                </section>
+                <section class="span_6 col span_vazio"></section>
+            </section>
+                        <style>
+                            .thumbnail-member{margin: auto 0px;width: 50%;text-align: center;}
+                            .thumbnail-member img{ border-radius: 50%;}
+                        </style>
+            <section class="span_12 row colunas t-center contorno f-left">
+                <section class="span_4 col">
+                    <figure class="f-left thumbnail-member">
+                        <img src="http://placehold.it/100x100" alt="">
+                        <figcaption class="bold">Nome</figcaption>
+                        <span class="italic">Cargo</span>
+                    </figure>
+                    <figure class="f-left thumbnail-member">
+                        <img src="http://placehold.it/100x100" alt="">
+                        <figcaption class="bold">Nome</figcaption>
+                        <span class="italic">Cargo</span>
+                    </figure>
+                </section>
+                <section class="span_4 col">
+                    <figure class="f-left thumbnail-member">
+                        <img src="http://placehold.it/100x100" alt="">
+                        <figcaption class="bold">Nome</figcaption>
+                        <span class="italic">Cargo</span>
+                    </figure>
+                    <figure class="f-left thumbnail-member">
+                        <img src="http://placehold.it/100x100" alt="">
+                        <figcaption class="bold">Nome</figcaption>
+                        <span class="italic">Cargo</span>
+                    </figure>
+                </section>
+                <section class="span_4 col">
+                    <figure class="f-left thumbnail-member">
+                        <img src="http://placehold.it/100x100" alt="">
+                        <figcaption class="bold">Nome</figcaption>
+                        <span class="italic">Cargo</span>
+                    </figure>
+                    <figure class="f-left thumbnail-member">
+                        <img src="http://placehold.it/100x100" alt="">
+                        <figcaption class="bold">Nome</figcaption>
+                        <span class="italic">Cargo</span>
+                    </figure>
+                </section>
+            </section>
+
+            <!-- Espaço de on e off e busca de profissinais -->
+            <section class="span_12 row colunas f-left contorno">
+                <section class="span_6 col">
+                    <!-- Checkbox -->
+                    <div class="span_12 col">
+                        <span class=" h2 f-left">Buscando Kolaboradores</span>
+                    </div>
+                    <section class="section-form span_3 col">
+                        <div class="checkbox form-select verdeAgua2" data-div-label="BuscandoKolaboradores">
+                            <input type="checkbox" id="BuscandoKolaboradores" name="CheckboxOnOff" value="none">
+                            <label for="BuscandoKolaboradores" data-checkbox-label="BuscandoKolaboradores" class="verdeAgua"></label>
+                        </div>
+                    </section>
+                    <!-- Campos -->
+                    <section class="span_12 col">
+                        <!-- select-edit-perfil -->
+                        <h3 class="h3">Selecione o tipo de profissional que procura</h3>
+                        <div>
+                            <label class="select w-40 form-input-comum f-left select-edit-perfil">
+                                <select class="input-select w-full" id="buscaKolaborador" name="buscaKolaborador">
+                                    <option value="1">Selecione Profissões</option>
+                                    <option value="2">Desenvolvedor</option>
+                                    <option value="3">Designer</option>
+                                <select>
+                            </label>
+                            <button type="button" class="btn-submit">+</button>
+                        </div>
+                        <section id="profissionalList" class="w-full f-left">
+                        </section>
+                    </section>
+                </section>
+                <section class="span_6 col">
+                       <!-- Checkbox -->
+                    <div class="span_12 col">
+                        <span class=" h2 f-left">Buscando Outros</span>
+                    </div>
+                    <section class="section-form span_3 col">
+                        <div class="checkbox form-select verdeAgua2" data-div-label="BuscandoOutros">
+                            <input type="checkbox" id="BuscandoOutros" name="CheckboxOnOff" value="none">
+                            <label for="BuscandoOutros" data-checkbox-label="BuscandoOutros" class="verdeAgua"></label>
+                        </div>
+                    </section>
+                    <!-- Campos -->
+                    <section class="span_12 col">
+                        <h3 class="h3">Selecione o tipo de profissional que procura</h3>
+                        <!-- select-edit-perfil -->
+                        <div>
+                            <label class="select w-40 form-input-comum f-left select-edit-perfil">
+                                <select class="input-select w-full" id="buscaOutros" name="buscaOutros">
+                                    <option value="1">Selecione Profissões</option>
+                                    <option value="2">Desenvolvedor</option>
+                                    <option value="3">Designer</option>
+                                <select>
+                            </label>
+                            <button type="button" class="btn-submit">+</button>
+                        </div>
+                        <section id="buscaOutrosbloco" class="w-full f-left">
+                        </section>
+                    </section>
+                </section>
+            </section>
+
+            <!-- botões de navegação -->
+            <div class="span_6 col f-right t-right espacamentoBottom">
+                <input type="button" class="btn-1 f-right w-40 btn-nav" data-irParaFase="3" value="Avançar">
+                <input type="button" class="btn-2 f-right w-40 btn-nav" data-irParaFase="1" value="Voltar">
+            </div>
+    </section>
+    <section  data-fase="3" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
+        <section class="span_5 col colunas">
+            <span class=" h2 f-left">Email do projeto</span>
+            <section class="section-form">
+                <input type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">
+            </section>
+            <span class=" h2 f-left">Site do projeto</span>
+            <section class="section-form">
+                <input type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">
+            </section>
+            <span class=" h2 f-left">Video do projeto</span>
+            <section class="section-form">
+                <input type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">
+            </section>
+        </section>
+        <section class="span_2 col span_vazio"></section>
+        <section class="span_5 col colunas">
+            <span class=" h2 f-left">Telefone</span>
+            <section class="section-form col span_12">
+                <input type="text" name="first_name" class="form-input-comum w-50" placeholder="{{=T('Full Name')}}">
+            </section>
+            <span class=" h2 f-left">Slideshare</span>
+            <section class="section-form">
+                <input type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">
+            </section>
+            <span class=" h2 f-left">Outros links</span>
+            <section class="section-form">
+                <input type="text" name="first_name" class="form-input-comum w-full" placeholder="{{=T('Full Name')}}">
+            </section>
+            <section class="section-form t-right">
+                <input type="button" class="btn-1 w-40 btn-nav" value="Adicionar">
+            </section>
+        </section>
+        <div class="span_6 col f-right t-right">
+            <input type="button" class="btn-1 f-right w-40 btn-nav" data-irParaFase="4" value="Avançar">
+            <input type="button" class="btn-2 f-right w-40 btn-nav" data-irParaFase="2" value="Voltar">
+            <span class="f-right">
+                <a href="user_info">Quero Kolaborar agora e completar o perfil mais tarde</a>
+            </span>
+        </div>
+    </section>
+    </form>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 <script>
 jQuery(document).ready(function(){
    jQuery('#projects_wanting_team').change(function(){
@@ -73,4 +331,4 @@ function formatSelection(data) {
     return data.title;
 };
 
-</script>
+</script> -->
