@@ -5,6 +5,7 @@ function DOMCreateProjeto(){
 	var nomeProjeto = Id('projects_name');
 	var tipoProjeto = Id('projects_project_type');
 
+
 	Id('submeter').addEventListener('click',function(){
 		if(validaCriacao()){
 			document.forms[1].submit();
@@ -14,9 +15,15 @@ function DOMCreateProjeto(){
 			if(nomeProjeto.value == ""){
 				nomeProjeto.classList.add('input-invalido');	
 			}
+			else{
+				nomeProjeto.classList.remove('input-invalido');
+			}
 
 			if(tipoProjeto.selectedIndex == 0){
-				tipoProjeto.classList.add('input-invalido')
+				Id("tiposProjetos").classList.add('input-invalido')
+			}
+			else{
+				Id("tiposProjetos").classList.remove('input-invalido')	
 			}
 		}
 	})
