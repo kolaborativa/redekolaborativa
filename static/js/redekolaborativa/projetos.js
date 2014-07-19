@@ -2,12 +2,22 @@ function DOMCreateProjeto(){
 	mudando_fase_projeto(pegaGET('stage'));
 	validaCriacao();
 
+	var nomeProjeto = Id('projects_name');
+	var tipoProjeto = Id('projects_project_type');
 
-	document.getElementById('submeter').addEventListener('click',function(){
+	Id('submeter').addEventListener('click',function(){
 		if(validaCriacao()){
 			document.forms[1].submit();
 		}else{
-			console.log("Preencha os campos obrigatórios")
+			alert("Preencha os campos obrigatórios");
+			console.log(nomeProjeto);
+			if(nomeProjeto.value == ""){
+				nomeProjeto.classList.add('input-invalido');	
+			}
+
+			if(tipoProjeto.selectedIndex == 0){
+				tipoProjeto.classList.add('input-invalido')
+			}
 		}
 	})
 
