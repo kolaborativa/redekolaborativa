@@ -1,6 +1,27 @@
 function DOMCreateProjeto(){
 	mudando_fase_projeto(pegaGET('stage'));
 	validaCriacao();
+
+
+	document.getElementById('submeter').addEventListener('click',function(){
+		if(validaCriacao()){
+			document.forms[1].submit();
+		}else{
+			console.log("Preencha os campos obrigatórios")
+		}
+	})
+
+	var textArea  = document.getElementsByTagName('textarea')
+	var iTextArea = 0;
+	
+	for (; iTextArea < textArea.length; iTextArea++) {
+		textArea[iTextArea].addEventListener("keyup",function(){
+			var idCampoLimite 			= this.getAttribute('data-limite-id')
+			var limite 					= this.getAttribute('data-limite')
+			Id(idCampoLimite).innerHTML = validaQtdCaracter(this,limite);
+		});	
+	};
+
 }
 
 function DOMEditProjeto(){
@@ -27,7 +48,6 @@ function DOMEditProjeto(){
 	SetandoAjaxProjeto();
 	ajaxAdicionandoProjeto()
 	// $("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
-	
 
 };
 
@@ -52,28 +72,16 @@ function ajaxAdicionandoProjeto(){
 
 
 function validaCriacao(){
-	var inputs    = document.getElementsByTagName('input');
-	var textArea  = document.getElementsByTagName('textarea')
-	var iTextArea = 0;
-	var selects   = document.getElementsByTagName('select')
-	
-	for (; iTextArea < textArea.length; iTextArea++) {
-		textArea[iTextArea].addEventListener("keyup",function(){
-			var idCampoLimite 			= this.getAttribute('data-limite-id')
-			var limite 					= this.getAttribute('data-limite')
-			Id(idCampoLimite).innerHTML = validaQtdCaracter(this,limite);
-		});	
-	};
-	
-	
-	for (var iInput = 0; iInput < inputs.length; iInput++) {
-		if(inputs[iInput].id == "profile-avatar"){
-			inputs[iInput].addEventListener('click',function(){
-		
-			})
-		}
 
-	};
+	nomeProjeto = Id('projects_name').value;
+	tipoProjeto = Id('projects_project_type').selectedIndex;
+
+	if(nomeProjeto != "" && tipoProjeto != 0){
+		return true;
+	}
+	else{
+		return false;
+	}
 	
 }
 
