@@ -419,10 +419,11 @@ def testaAjax():
 
     print request.vars
 
-    varJson = {"usuarios":["John","jorge"]}
-    
+    # varJson = 
+    users.append({"1": "r4bugento", "7": "vinnywan"})
+    return dict(users=users)
     # return dict(varJson)
-    return True
+    # return True
 
 
 def password_changed(form):

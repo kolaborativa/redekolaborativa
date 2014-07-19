@@ -760,6 +760,9 @@ a,
 .w-40 {
   width: 40%;
 }
+.w-30 {
+  width: 30%;
+}
 .a-relative {
   position: relative;
 }
@@ -1277,6 +1280,13 @@ body {
   vertical-align: middle;
   padding: 16px 13px;
   cursor: pointer;
+}
+.social-field span {
+  color: white;
+  font-weight: bold;
+  margin-left: 12px;
+  font-size: 16px;
+  vertical-align: middle;
 }
 .social-field a {
   font-size: 16px;
