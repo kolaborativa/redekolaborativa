@@ -1,6 +1,44 @@
 function DOMCreateProjeto(){
 	mudando_fase_projeto(pegaGET('stage'));
 	validaCriacao();
+
+	var nomeProjeto = Id('projects_name');
+	var tipoProjeto = Id('projects_project_type');
+
+
+	Id('submeter').addEventListener('click',function(){
+		if(validaCriacao()){
+			document.forms[1].submit();
+		}else{
+			alert("Preencha os campos obrigatórios");
+			console.log(nomeProjeto);
+			if(nomeProjeto.value == ""){
+				nomeProjeto.classList.add('input-invalido');	
+			}
+			else{
+				nomeProjeto.classList.remove('input-invalido');
+			}
+
+			if(tipoProjeto.selectedIndex == 0){
+				Id("tiposProjetos").classList.add('input-invalido')
+			}
+			else{
+				Id("tiposProjetos").classList.remove('input-invalido')	
+			}
+		}
+	})
+
+	var textArea  = document.getElementsByTagName('textarea')
+	var iTextArea = 0;
+	
+	for (; iTextArea < textArea.length; iTextArea++) {
+		textArea[iTextArea].addEventListener("keyup",function(){
+			var idCampoLimite 			= this.getAttribute('data-limite-id')
+			var limite 					= this.getAttribute('data-limite')
+			Id(idCampoLimite).innerHTML = validaQtdCaracter(this,limite);
+		});	
+	};
+
 }
 
 function DOMEditProjeto(){
@@ -27,7 +65,6 @@ function DOMEditProjeto(){
 	SetandoAjaxProjeto();
 	ajaxAdicionandoProjeto()
 	// $("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
-	
 
 };
 
@@ -52,18 +89,16 @@ function ajaxAdicionandoProjeto(){
 
 
 function validaCriacao(){
-	var inputs    = document.getElementsByTagName('input');
-	var textArea  = document.getElementsByTagName('textarea')
-	var iTextArea = 0;
-	var selects   = document.getElementsByTagName('select')
-	
-	for (; iTextArea < textArea.length; iTextArea++) {
-		textArea[iTextArea].addEventListener("keyup",function(){
-			var idCampoLimite 			= this.getAttribute('data-limite-id')
-			var limite 					= this.getAttribute('data-limite')
-			Id(idCampoLimite).innerHTML = validaQtdCaracter(this,limite);
-		});	
-	};
+
+	nomeProjeto = Id('projects_name').value;
+	tipoProjeto = Id('projects_project_type').selectedIndex;
+
+	if(nomeProjeto != "" && tipoProjeto != 0){
+		return true;
+	}
+	else{
+		return false;
+	}
 	
 }
 

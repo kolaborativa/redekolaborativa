@@ -280,6 +280,7 @@
 'Search for a user': 'Busque um usuário',
 'Searching for members?': 'Procurando membros?',
 'Searching...': 'Procurando...',
+'Select the type of project': 'Selecione o tipo de projeto',
 'Semantic': 'Semântica',
 'Send': 'Enviar',
 'Services': 'Serviços',
