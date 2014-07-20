@@ -66,6 +66,9 @@ function DOMEditProjeto(){
 	MultiAjaxAutoComplete() 
 	// $("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
 
+	for (var i = 0; i < 10; i++) {
+		criathumbnailMembros();
+	};
 };
 
 
@@ -164,16 +167,6 @@ function SetandoAjaxProjeto(){
 			});
 		}
 	};
-
-
-		
-
-
-
-
-
-
-
 }
 		
 
@@ -278,10 +271,6 @@ function gravaAjaxEditProjeto(e){
 		}
 	});
 }
-
-
-
-
 
 
 // Checkbox que vai ir para a função
@@ -434,5 +423,33 @@ function MultiAjaxAutoComplete() {
 
 
 
+function criathumbnailMembros(img,nome,cargo){
 
+	var figure 		= document.createElement('figure') // bloco
+	var avatar 		= document.createElement('img') // avatar 
+	var nomeMembro  = document.createElement('figcaption') // nome do membro
+	var cargoMembro = document.createElement('span') // cargo do membro
+
+	// Setando Variaveis
+	avatar.src = 'http://placehold.it/100x100';
+	nomeMembro.innerHTML = "Nome";
+	cargoMembro.innerHTML = "Cargo";
+	// Setando Variaveis
+	
+	// Adicionando CSS ao bloco
+	figure.classList.add('f-left');
+	figure.classList.add('thumbnail-member');	
+	nomeMembro.classList.add('bold');
+	cargoMembro.classList.add('italic');
+	// 
+
+	// Montando o bloco
+	figure.appendChild(avatar)
+	figure.appendChild(nomeMembro)
+	figure.appendChild(cargoMembro)
+	Id('campoDeMembros').appendChild(figure);
+	// Montando o bloco
+
+
+}
 

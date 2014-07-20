@@ -1044,6 +1044,7 @@ input[name="availability"]:checked + label::before {
   list-style: none;
 }
 .dropdown ul li {
+  width: 200px;
   padding: 4px 10px;
   background: #c8c8c8;
   display: block;
@@ -1071,7 +1072,7 @@ input[name="availability"]:checked + label::before {
   color: #a0a0a0;
 }
 .dropdown li:hover ul {
-  width: 100%;
+  width: 200px;
   display: block;
   position: absolute;
 }
@@ -1508,4 +1509,12 @@ body {
 }
 .projetos_colaboro .title {
   background: #2980b9;
+}
+.thumbnail-member {
+  margin: auto 0px 3% 0px;
+  width: 16%;
+  text-align: center;
+}
+.thumbnail-member img {
+  border-radius: 50%;
 }
