@@ -144,10 +144,10 @@ user-scalable = yes allows the user to zoom in -->
           </form>
         </div>
       </section>
+      
+ {{if request.function == "index" or 'message_register' in URL():}}
       <section class="col col_header span_1">
       </section>
- {{if request.function == "index" or 'message_register' in URL():}}
-      
 
       <section class="col col_header span_5 t-right">
         
@@ -174,55 +174,49 @@ user-scalable = yes allows the user to zoom in -->
           </div>
           </section>
           {{else:}}
-          <section class="col col_header span_5 t-right">
-            <nav class="dropdown projetos a-bottom">
+          <section class="col col_header span_6 t-right">
+            <nav id="menuGlobal">
               <ul>
-                <li>
-                  <a href='#'>
-                    <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Projetos"> 
-                    <span>CRIAR NOVOS PROJETOS</span>
-                  </a>
+                <li>                   
+                    <a href='#'> 
+                      <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Projetos"> 
+                      <span>CRIAR PROJETO</span>
+                    </a>
                   <ul>
                     <li>
                       <a href='#'>
                         <img src="{{=URL('static','images/Ico/icoList.png')}}" alt="Projetos"> 
                         <span>
-                          LISTAR MEUS PROJETOS
+                          MEUS PROJETOS
                         </span>
                       </a>
                     </li>
-
                   </ul>
                 </li>
-              </nav>
-            <nav class="dropdown perfil a-bottom">
-                <ul>
-                  <li>
+                <li>   
                     <a href='#'>
                       <img src="{{=URL('static','images/Ico/icoPerfil.png')}}" alt="Ver Perfil"> 
                       <span>VER MEU PERFIL</span>
                     </a>
                     <ul>
                       <li>
+                      <div class="quadrado">
                         <a href='edit_perfil'>
                           <img src="{{=URL('static','images/Ico/edit.png')}}" alt="Editar Perfil"> 
                           <span>
                             EDITAR MEU PERFIL
                           </span>
                         </a>
+                        </div>
                       </li>
                     </ul>
                   </li>
-                </ul>
-              </nav>
-            <nav class="dropdown config a-bottom">
-              <ul>
-                  <li>
+                <li>   
                     <a href="#">
                     <img src="{{=URL('static','images/Ico/engrenagem.png')}}" alt="Alterar Senha"> 
                     <span>ALTERAR SENHA</span>
                     </a>
-                  <ul>
+                    <ul>
                     <li>
                         <a href='#'>
                           <img src="{{=URL('static','images/Ico/logout.png')}}" alt="Projetos"> 
@@ -234,8 +228,9 @@ user-scalable = yes allows the user to zoom in -->
                     </li>
                   </ul>
                 </li>
-              </ul>
-            </nav>
+                </ul>
+              </nav>
+          
           </section>
         {{pass}}
   <!-- /////////////////////////////////////////// -->
