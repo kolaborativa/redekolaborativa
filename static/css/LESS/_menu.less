@@ -1,88 +1,92 @@
-.dropdown.projetos{
-    left:0;
-}
-.dropdown.projetos{z-index: 1;width: 50%;}
-.dropdown.perfil{z-index: 2; width: 8%;}
-.dropdown.config{z-index: 3;}
 
-.dropdown.projetos:hover,.dropdown.perfil:hover,.dropdown.config:hover{
-    z-index: 4;
-}
-.dropdown.perfil{
-    left: 252px;
-}
-.dropdown.projetos img,.dropdown.perfil img,.dropdown.config img{
-vertical-align: middle;  
-margin-right: 10px;  
-}
-
-.dropdown ul {
-    font-family: Arial, Verdana;
-    font-size: 14px;
-    margin: 0;
-    padding: 0;
+// -----------------------------------------------------
+  #menuGlobal {width: auto;}
+  #menuGlobal > ul {
+    padding: 1px 0;
+    margin: 0px;
     list-style: none;
-}
-.dropdown ul li {
-    width: 200px;
-    padding: 4px 10px;
-    background: #c8c8c8;
-    display: block;
-    position: relative;
-    float: left;
-}
-.dropdown ul li:hover{
-    border: 1px solid #beb2b2;
-    border-bottom: 0px;
-    background: #e6e7e7;
-    margin-left: -1px;
-    padding-right: 9px;
-}
-.dropdown li ul {
-    display: none;
-}
-.dropdown ul li a {
-    display: block;
-    text-decoration: none;
-    color: #c8c8c8;
-    
-    margin-left:1px;
-    white-space: nowrap;
-}
-.dropdown ul li:hover a{
-    color: #a0a0a0;
-}
-.dropdown li:hover ul {
-    // width: 100%;
-    width: 200px;
-    display: block;
-    position: absolute;
-}
-.dropdown li:hover li {
-    float: none;
     width: 100%;
-    background: #e6e7e7;
-    font-size: 11px;
-    border-top: 0px;
-    padding: 10px 12px;
-}
-.dropdown li:hover li a{
+    margin-top: 5px;
+    height: 53px;
+    font: normal 8pt verdana, arial, helvetica;
+  }
+  #menuGlobal > ul li {
+    margin: 0;
+    padding: 0;                      
     float: left;
-}
-.dropdown li:hover li:hover{
-    background: #66cab3;
-}
+    background: #c8c8c8;; // Submenu
+    position: relative;
+    width: 194px;
+    height: 54px;
+  }
+  #menuGlobal > ul li:hover {
+    background: #e6e7e7; // Submenu
+  }
 
-.dropdown ul li {
+  #menuGlobal > ul li img{
+    float: left;
+    margin: 8px 0px 0px 10px;
+  }
+  #menuGlobal span {
     display: block;
+    margin-left: 16px;
+    margin-top: 14px;
     float: left;
-}
-.dropdown li:hover ul {
-    display: block; 
-    position: absolute;
-    left:0px;
-} 
-.dropdown li:hover li {
-    float: left;
-    font-size: 11px;
-}
+  }
+  #menuGlobal > ul li a:link,
+  #menuGlobal > ul li a:visited {
+    padding: 4px 0;
+    display: block;
+    color: #c8c8c8;                    
+    text-align: left;
+    text-decoration: none;                        
+    width: 208px;
+
+  }
+  #menuGlobal > ul li:hover a,
+  #menuGlobal > ul li a:hover,
+  #menuGlobal > ul li a:active {
+    padding: 4px 0;       
+    color: #a0a0a0;
+    text-align: left;
+    text-decoration: none;
+    width: 208px;
+  }
+  #menuGlobal > ul li ul {
+          margin: 0;
+          padding: 1px 1px 0;
+          list-style: none;
+          display: none;
+          width: 192px;
+          position: absolute;
+          top: 53px;
+          left: 0px;
+          border-top: none;
+          background: #e6e7e7; // Submenu
+  }
+  #menuGlobal > ul li ul li{
+    background: #e6e7e7; // Submenu
+  }
+  #menuGlobal > ul li:hover ul {display: block;}
+  #menuGlobal > ul li ul li {clear: left;width: 146px;}
+  #menuGlobal > ul li ul li a:link,
+  #menuGlobal > ul li ul li a:visited {
+    clear: left;
+    padding: 4px 0;
+    width: 188px;
+    border: none;
+    position: relative;
+    z-index: 1000;
+
+  }
+  #menuGlobal > ul li ul li:hover a,
+  #menuGlobal > ul li ul li a:active,
+  #menuGlobal > ul li ul li a:hover {
+    clear: left;
+    padding: 4px 0;
+    width: 188px;
+    border: none;
+    position: relative;
+    z-index: 1000;
+
+  }
