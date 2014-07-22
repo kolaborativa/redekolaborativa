@@ -160,7 +160,7 @@ def edit_perfil():
                 )
 
 
-def _image_converter(img64, upload_folder):
+def _image_converter(img64, upload_folder, type_upload):
     '''Funcao que converte uma imagem base64 e retorna a imagem convertida
     '''
     import subprocess
@@ -168,7 +168,7 @@ def _image_converter(img64, upload_folder):
 
     img_base64 = img64
     upload_folder = upload_folder
-    img_converted = convertBase64String(img_base64, upload_folder)
+    img_converted = convertBase64String(img_base64, upload_folder, type_upload)
 
     return img_converted
 
@@ -414,7 +414,7 @@ def ajax_remove_link():
 
 @auth.requires_login()
 def ajax_edit_project():
-    #TODO: avatar
+    #TODO: 
         # team
         # links
     #try:
@@ -422,7 +422,22 @@ def ajax_edit_project():
     new_value =  request.vars.value
     dic_update = {field_db:new_value}
 
-    #print field_db, ':', new_value
+    if field_db == 'image':
+        request.vars.img = request.vars.image64
+        image_converted = converter_imagem_projeto()
+        if image_converted:
+            project = db(db.projects.id == session.project_id).select().first()
+
+            if project.image:
+                # Deleta o avatar antigo
+                import subprocess
+                subprocess.call('rm %suploads/%s' % (request.folder,project.image), shell=True)
+
+                #Salva o avatar novo
+                db(db.projects.id  == project.id).update(image=image_converted)
+                return True
+
+    print field_db, ':', new_value
     db.projects[session.project_id] = dic_update
 
     #except:
@@ -740,8 +755,11 @@ def projects():
 
 
 def converter_imagem_projeto():
+    import subprocess
+
     upload_folder = '{}uploads/'.format(request.folder)
-    img_converted = _image_converter(request.vars.img, upload_folder)
+    type_upload = 'image_project'
+    img_converted = _image_converter(request.vars.img, upload_folder, type_upload)
 
     return img_converted or ''
 
