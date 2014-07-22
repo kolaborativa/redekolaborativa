@@ -133,7 +133,7 @@ function SetandoAjaxProjeto(){
                     this.value = status;
                     enviaAjax(this);
 			});
-		}else if(inputs[iInput].name != "avatar"){ //Pula o input avatar !
+		}else if(inputs[iInput].name != "image"){ //Pula o input avatar !
 			inputs[iInput].addEventListener("change",function(){enviaAjax(this)});
 		}
 	};
@@ -264,7 +264,7 @@ function gravaAjaxEditProjeto(e){
 	var value;
 	var vars;
 	
-	if(e.name == "avatar"){
+	if(e.name == "image"){
 		var img 	= Id("hidden-avatar").value;
 			vars    = {image64: img, field : e.name}; // Cria um objeto com a img em base64 e o nome do campo
 			caminho = url.edit_project;
@@ -281,7 +281,7 @@ function gravaAjaxEditProjeto(e){
 		url: caminho,
 		data: vars,
 		success: function(data){
-			if(e.name == "avatar"){
+			if(e.name == "image"){
 				document.querySelector('[data-section-avatar]').classList.remove('branco');
 			}
 			return true; // caso queira fazer uma condicional 

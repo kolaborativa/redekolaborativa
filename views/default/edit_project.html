@@ -18,7 +18,8 @@
 
 <section class="col col_edit_perfil_formulario span_12 f-left">
 <!-- Inicio do formulário (tudo aqui dentro forma um unico formulário) -->
-    <form id="formulario_edit_projeto">
+    {{=form.custom.begin}}
+    <!--<form id="formulario_edit_projeto">-->
         {{form.custom.widget.name['_required'] = 'required'}}
         {{form.custom.widget.name['_class'] = 'form-input-comum w-full'}}
         {{form.custom.widget.name['_placeholder'] = T('Project Name')}}
@@ -81,7 +82,7 @@
                <section class="section-form f-left branco t-center" data-section-avatar>
                 <label class="profile-avatar-wrap">
                     <img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
-                    <input type="file" name="avatar" class="d-none" id="uploader">
+                    <input type="file" name="image" class="d-none" id="uploader">
                     <input type="hidden" value="" id="hidden-avatar">
                 </label>
                 <p class="paragrafo2 descriptionAvatar">
@@ -276,7 +277,8 @@
             <input type="button" class="btn-2 f-right w-40 btn-nav" data-irParaFase="2" value="Voltar">
         </div>
     </section>
-    </form>
+    {{=form.custom.end}}
+    <!--</form>-->
 </section>
 
 
