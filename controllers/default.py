@@ -842,7 +842,7 @@ def edit_project():
         elif form.errors:
             response.flash = T("Form has errors!")
 
-        return dict(form=form)
+        return dict(form=form, project=project)
     else:
         redirect(URL('user_info'))
 

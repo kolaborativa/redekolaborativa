@@ -80,8 +80,12 @@
                <!-- Avatar -->
                <span class=" h2 f-left">Avatar</span>
                <section class="section-form f-left branco t-center" data-section-avatar>
-                <label class="profile-avatar-wrap">
-                    <img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
+               <label class="profile-avatar-wrap">
+                   {{ if project.image: }}
+                     <img src="{{=URL('download', args=[project.image])}}" id="profile-avatar" alt="Image for Profile">
+                   {{ else: }}
+                     <img src="{{=URL('static','images/Edit_perfil/AvatarDefault.png')}}" id="profile-avatar" alt="Image for Profile">
+                   {{ pass }}
                     <input type="file" name="image" class="d-none" id="uploader">
                     <input type="hidden" value="" id="hidden-avatar">
                 </label>
