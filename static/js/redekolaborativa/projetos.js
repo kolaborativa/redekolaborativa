@@ -80,6 +80,8 @@ function DOMEditProjeto(){
 
 		lista.appendChild(link)
 		Id("projects_project_links_grow_input").appendChild(lista)
+
+		
 	})
 
 };
@@ -87,12 +89,15 @@ function DOMEditProjeto(){
 
 
 function adicionandoOutroLink(){
-	Id("adicionarLink").addEventListener('click',function(){
-		var link = document.createElement('input')
-		Id("projects_project_links_grow_input").appendChild(link)
-	})
 
-
+	var vetLinks = document.getElementsByName('project_links');
+	var vetUrlLinks;
+	vetUrlLinks = [];
+	vetUrlLinks.length = 0
+	for (var i = 0; i < vetLinks.length; i++) {
+		vetUrlLinks[i] = vetLinks[i].value
+	};
+	console.log(vetUrlLinks);
 }
 
 
@@ -293,7 +298,25 @@ function gravaAjaxEditProjeto(e){
 			vars    = {image64: img, field : e.name}; // Cria um objeto com a img em base64 e o nome do campo
 			caminho = url.edit_project;
 	}
-	else {
+	else if(e.name == "project_links"){
+			field = e.name;
+			// Lista todos os links existentes 
+				var vetLinks = document.getElementsByName('project_links');
+				var vetUrlLinks;
+				vetUrlLinks = [];
+				vetUrlLinks.length = 0
+				// Insere as url em um vetor para ser enviado no ajax
+				for (var i = 0; i < vetLinks.length; i++) {
+					vetUrlLinks[i] = vetLinks[i].value
+				};
+			
+			value = vetUrlLinks;
+			//  Json com o campo e o vetor
+			vars = {'field':field,'value':value}
+            // caminho = url.edit_project;
+            caminho = url.testaAjax;
+
+	}else {
 			field = e.name;
 			value = e.value;
 			vars = "field="+field+"&value="+value;
@@ -468,6 +491,7 @@ function MultiAjaxAutoComplete() {
     });
 		
 };
+
 
 
 
