@@ -27,14 +27,10 @@
         </figure>
        
     </section>
-      <style>
-      .bio-user{
-        height: 264px;
-      }
-      </style>
+      
 
     <!-- Bio usuário -->
-    <section class="f-left span_7  col bio-user">
+    <section class="f-left span_7  col descricao">
         <p>
             <h1>{{=project.name}}</h1>
             <br>
@@ -55,7 +51,7 @@
 
 </section>
 <!-- Informações pessoais -->
-<section class="f-left span_4 col bloco_info info_user">
+<section class="f-left span_4 col bloco_info info_basica">
     <h2 class="title">{{=T("Personal Info")}}</h2>
     <ul>
         <li>
@@ -82,77 +78,81 @@
 </section>
 </section>
 <section class="row span_12 f-left">
-  <section class="col span_4 f-left">
-      <!-- Video do projeto -->
-    <section class="f-left span_12 col bloco_info info_profissional">
-         <h2 class="title">{{=T("Video")}}</h2>
-        {{if project.video_url:}}
-        <iframe width="360" height="203" src="{{=project.video_url}}" frameborder="0" allowfullscreen></iframe>
-        {{pass}}
-    </section>
-    <!-- Projetos que eu colaboro -->
-    <section class="f-left span_12 col bloco_info projetos_colaboro">
-             <h2 class="title">Slideshare</h2>
-              {{if project.slideshare_url:}}
-              <iframe src="{{=project.slideshare_url}}" width="490px" height="470px" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:none;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
-              {{pass}}
-    </section> 
-      <!-- Procurando por -->
-    <section class="f-left span_12 col bloco_info projetos_colaboro">
-             <h2 class="title">Procurando por Membros</h2>
-              {{if project.wanting_team:}}<b>{{=T("We need some more members...")}}</b> <br>
-              {{if project.team_wanted:}}
-                                      {{if len(project.team_wanted) >= 1:}}
-                                      {{=project.team_wanted}}<br>
-                                      {{pass}}
-              {{pass}}
-              {{pass}}
+  <section class="col span_4 f-left proj_col">
+          <!-- Video do projeto -->
+          <section class="f-left span_12 col bloco_info video">
+           <h2 class="title">{{=T("Video")}}</h2>
+           {{if project.video_url:}}
+           <iframe width="360" height="203" src="{{=project.video_url}}" frameborder="0" allowfullscreen></iframe>
+           {{pass}}
+         </section>
+         <!-- Projetos que eu colaboro -->
+         <section class="f-left span_12 col bloco_info slideshare">
+           <h2 class="title">Slideshare</h2>
+           {{if project.slideshare_url:}}
+           <iframe src="{{=project.slideshare_url}}" width="490px" height="470px" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:none;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+           {{pass}}
+         </section> 
+         <!-- Procurando por -->
+         <section class="f-left span_12 col bloco_info procura_membros">
+           <h2 class="title">Procurando por</h2>
+           <!-- Procurando profissões \/ -->
+           {{if project.wanting_team:}}<b>{{=T("We need some more members...")}}</b> <br>
+           {{if project.team_wanted:}}
+           {{if len(project.team_wanted) >= 1:}}
+           {{=project.team_wanted}}<br>
+           {{pass}}
+           {{pass}}
+           {{pass}}
 
-              <h2>Procurando por Outros</h2>
-              {{if project.wanting_other:}}<b>{{=T("We are looking for other kinds of help...")}}</b> <br>
-              {{if project.other_wanted:}}
-                                      {{if len(project.other_wanted) >= 1:}}
-                                      {{=project.other_wanted}}<br>
-                                      {{pass}}
-              {{pass}}
-              {{pass}}
-    </section> 
-    <section class="f-left span_12 col bloco_info projetos_colaboro">
-        <h2 class="title">{{=T("Links")}}:</h2>
+           <!-- Procurando outros \/ -->
+           {{if project.wanting_other:}}<b>{{=T("We are looking for other kinds of help...")}}</b> <br>
+           {{if project.other_wanted:}}
+           {{if len(project.other_wanted) >= 1:}}
+           {{=project.other_wanted}}<br>
+           {{pass}}
+           {{pass}}
+           {{pass}}
+         </section> 
+         <section class="f-left span_12 col bloco_info link">
+          <h2 class="title">{{=T("Links")}}:</h2>
           {{if project.project_links:}}
-                {{for i in project.project_links:}}
-                            {{if i == project.project_links[-1]:}}
-                                  <a href="{{=i}}" target="_blank">Link {{=project.project_links.index(i) + 1}}</a><br>
-                            {{else:}}
-                                  <a href="{{=i}}" target="_blank">Link {{=project.project_links.index(i) + 1}}</a> |
-                                {{pass}}
-                {{pass}}
+          {{for i in project.project_links:}}
+          {{if i == project.project_links[-1]:}}
+          <a href="{{=i}}" target="_blank">Link {{=project.project_links.index(i) + 1}}</a><br>
           {{else:}}
-                {{=T("Undefined")}}<br>
+          <a href="{{=i}}" target="_blank">Link {{=project.project_links.index(i) + 1}}</a> |
           {{pass}}
+          {{pass}}
+          {{else:}}
+          {{=T("Undefined")}}<br>
+          {{pass}}
+        </section>
+
+         <!--  <section class="f-left span_12 col bloco_info info_profissional">
+            <a class="btn btn_team">{{=T("Searching for members?")}}</a>
+            {{=searching_team}}
+          </section>
+        -->
     </section>
 
-    <section class="f-left span_12 col bloco_info info_profissional">
-      <a class="btn btn_team">{{=T("Searching for members?")}}</a>
-      {{=searching_team}}
-    </section>
-
-
-  </section>
-
-  <section class="col span_8 f-left">
+  <section class="col span_8 f-left proj_col">
       <!-- Meus projetos -->
-      <section class="f-left span_12 col bloco_info meus_projetos">
+      <section class="f-left span_12 col bloco_info desc_completa">
              <h2 class="title">Descrição completa</h2>
       </section>
-      <section class="f-left span_12 col bloco_info meus_projetos">
-           <h2 class="title">Membros</h2>
-             {{if collaborators:}}
-             <h3>{{=T("Who is Kolaborating")}}</h3>
-             {{else:}}
-             <h5>{{=T("Nobody is Kolaborating yet")}}</h5>
-             {{pass}}
-
+      <section class="f-left span_12 col bloco_info equipe">
+           <h2 class="title f-left">Membros</h2>
+           <style>
+           .search-equipe{
+            width: 82%;
+           }
+           </style>
+           <div class="title f-left search-equipe">
+                 {{ if auth.user and auth.user.id == project.project_owner:}}
+                    {{=new_colaborator}}
+                {{ pass }}
+           </div>
              {{for collaborator in collaborators:}}
              <div class="media">
                <a href="/{{=collaborator.username}}" class="pull-left">
@@ -177,20 +177,19 @@
                 <br>
                 <b>{{=T("Profession")}}:</b>
                 {{if hasattr(collaborator, 'professions'):}}
-                {{for job in collaborator.professions:}}
-                {{if job == collaborator.professions[-1]:}}
-                {{=job.profession}}<br>
+                  {{for job in collaborator.professions:}}
+                    {{if job == collaborator.professions[-1]:}}
+                      {{=job.profession}}<br>
+                    {{else:}}
+                      {{=job.profession}},
+                    {{pass}}
+                  {{pass}}
                 {{else:}}
-                {{=job.profession}},
-                {{pass}}
-                {{pass}}
-                {{else:}}
-                {{=T("Undefined")}}<br>
+                  {{=T("Undefined")}}<br>
                 {{pass}}
 
                 <b>{{=T("Role")}}:</b>
                 {{=g_return_if_empty(collaborator.role)}}
-
                 {{if auth.user_id == project.project_owner:}}
                 <br>
                 {{=user_role.custom.begin}}
@@ -199,6 +198,7 @@
                 {{else:}}
                 <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
                 {{pass}}
+
                 {{user_role.elements(_type="submit")[0] ['_class']="btn btn_ok"}}
                 {{=user_role.custom.submit}}
                 {{user_role.elements("#no_table_username")[0] ['_type']="hidden"}}
@@ -216,11 +216,9 @@
             </div>
           </div>
           {{pass}}
-          {{ if auth.user and auth.user.id == project.project_owner:}}
-              {{=new_colaborator}}
-          {{ pass }}
+      
       </section>
-      <section class="f-left span_12 col bloco_info meus_projetos">
+      <section class="f-left span_12 col bloco_info comentarios">
            <h2 class="title">{{=T('Comments')}}</h2>
            
           {{=LOAD('default','comments.load',ajax=True)}}

@@ -1400,6 +1400,10 @@ body {
   margin-left: 10px;
   margin-top: 4px;
 }
+.espacamentoBottom {
+  padding-bottom: 40px;
+  /*margin-top: -10px;*/
+}
 .apresenta-user {
   background: white;
   max-height: 316px;
@@ -1424,6 +1428,9 @@ body {
 .apresenta-user .disponibilidade {
   margin: 7px 0px;
 }
+.descricao {
+  height: 264px;
+}
 .apresenta-user .disponivel {
   width: 20px;
   height: 20px;
@@ -1442,10 +1449,6 @@ body {
   color: white;
   margin-top: 14px;
 }
-.espacamentoBottom {
-  padding-bottom: 40px;
-  /*margin-top: -10px;*/
-}
 .bloco_info {
   padding-left: 0px;
   padding-right: 0px;
@@ -1453,10 +1456,9 @@ body {
   color: white;
   margin-top: 20px;
 }
-.bloco_info > h2 {
+.bloco_info > .title {
   padding: 14px;
   margin-top: 0px;
-  text-align: center;
 }
 .bloco_info .title {
   font-weight: normal;
@@ -1485,13 +1487,13 @@ body {
 .bloco_info ul li img {
   margin-left: 10px;
 }
-.info_user {
+.bloco_info.info_basica {
   background: #445f7a;
 }
-.info_user .title {
+.bloco_info.info_basica .title {
   background: #2c3e50;
 }
-.info_user ul li {
+.bloco_info.info_basica ul li {
   border-bottom: 0px;
   height: auto;
   padding-bottom: 14px;
@@ -1534,4 +1536,49 @@ body {
 }
 .projetos_colaboro .title {
   background: #2980b9;
+}
+.proj_col {
+  padding: 0px;
+}
+.bloco_info.video {
+  background: #e55c4e;
+}
+.bloco_info.video .title {
+  background: #c0392b;
+}
+.bloco_info.slideshare {
+  background: #fed634;
+}
+.bloco_info.slideshare .title {
+  background: #dda715;
+}
+.bloco_info.procura_membros {
+  background: #62cd90;
+}
+.bloco_info.procura_membros .title {
+  background: #27ae60;
+}
+.bloco_info.link {
+  background: #95a5a6;
+}
+.bloco_info.link .title {
+  background: #7f8c8d;
+}
+.bloco_info.desc_completa {
+  background: white;
+}
+.bloco_info.desc_completa .title {
+  background: #16a085;
+}
+.bloco_info.equipe {
+  background: #7cbae3;
+}
+.bloco_info.equipe .title {
+  background: #2980b9;
+}
+.bloco_info.comentarios {
+  background: #b185c1;
+}
+.bloco_info.comentarios .title {
+  background: #9b50ba;
 }
