@@ -1,180 +1,269 @@
-{{extend 'layout.html'}}
+{{extend 'layout_rede.html'}}
 {{if project != message:}}
-<h1>{{=project.name}}</h1>
-<table>
-<tr>
-<td width="40%">
-<h3>{{=T("Project Info")}}</h3>
-<b>{{=T("Name")}}:</b> {{=project.name}}<br>
-<b>{{=T("Type")}}:</b> {{=g_return_if_empty(project.project_type)}}<br>
-<b>{{=T("Owner")}}:</b> <a href="/{{=project.project_owner.username}}">{{=project.project_owner.username}}</a><br>
-<b>{{=T("Description")}}:</b> {{=g_return_if_empty(project.description)}}
-</td>
 
-<td width="40%">
-<h3>{{=T("Contact Info")}}</h3>
-<b>{{=T("Address")}}:</b> {{=g_return_if_empty(project.address)}} <br>
-<b>{{=T("Phone")}}:</b> {{=g_return_if_empty(project.phone)}} <br>
-<b>{{=T("Links")}}:</b>
-      {{if project.project_links:}}
-            {{for i in project.project_links:}}
-                        {{if i == project.project_links[-1]:}}
-                              <a href="{{=i}}" target="_blank">Link {{=project.project_links.index(i) + 1}}</a><br>
-                        {{else:}}
-                              <a href="{{=i}}" target="_blank">Link {{=project.project_links.index(i) + 1}}</a> |
-                            {{pass}}
-            {{pass}}
-      {{else:}}
-            {{=T("Undefined")}}<br>
-      {{pass}}
-
-<b>{{=T("Email")}}:</b> {{=g_return_if_empty(project.project_mail)}} <br>
-
-{{if project.wanting_team:}}<b>{{=T("We need some more members...")}}</b> <br>
-{{if project.team_wanted:}}
-                        {{if len(project.team_wanted) >= 1:}}
-                        {{=project.team_wanted}}<br>
-                        {{pass}}
-{{pass}}
-{{pass}}
-
-{{if project.wanting_other:}}<b>{{=T("We are looking for other kinds of help...")}}</b> <br>
-{{if project.other_wanted:}}
-                        {{if len(project.other_wanted) >= 1:}}
-                        {{=project.other_wanted}}<br>
-                        {{pass}}
-{{pass}}
-{{pass}}
-</td>
-
-<td>
-{{if project.image:}}
-<img src={{=URL('download', args=project.image)}} width="168px" height="168px">
-{{else:}}
-<img src={{=URL('static', 'images/non_project.png')}} width="168px" height="168px">
-{{pass}}
-</td>
-</tr>
-
-<tr>
+<!-- Espaço apresentação do Usuário -->
 
 
-<td>
-{{if project.video_url:}}
-<h2>{{=T("Video")}}</h2>
-<iframe width="360" height="203" src="{{=project.video_url}}" frameborder="0" allowfullscreen></iframe>
-{{pass}}
-</td>
 
-<td>
-{{if project.slideshare_url:}}
-<h2>Slideshare</h2>
-<iframe src="{{=project.slideshare_url}}" width="490px" height="470px" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:none;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
-{{pass}}
-</td>
 
-<td>
-{{if auth.user_id == project.project_owner:}}
-    <a class="btn" href="{{=URL('edit_project', args=request.args(0))}}">{{=T("Edit project")}}</a><br><br>
-    <a class="btn btn_team">{{=T("Searching for members?")}}</a>
-    {{=searching_team}}
-{{pass}}
-</td>
+<section class="row span_12 f-left">
+    <section class="f-left span_8 col apresenta-user">
 
-</tr>
+    <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="" class="w-full f-left barra-colorida">    
+    <!-- Apresentação do usuário -->
+    <section class="f-left span_4 col">
 
-<tr>
-<td>
-
-{{if collaborators:}}
-    <h3>{{=T("Who is Kolaborating")}}</h3>
-{{else:}}
-    <h5>{{=T("Nobody is Kolaborating yet")}}</h5>
-{{pass}}
-
-{{for collaborator in collaborators:}}
-  <div class="media">
-       <a href="/{{=collaborator.username}}" class="pull-left">
-           {{if not collaborator.avatar:}}
-          <img src="{{=URL('static', 'images/non_avatar.gif')}}" alt="{{=collaborator.username}}" class="media-object" width="50px" height="50px">
-            {{else:}}
-                  <img src="{{=URL('download', args=collaborator.avatar)}}" alt="{{=collaborator.username}}" class="media-object" width="50px" height="50px">
-            {{pass}}
+        <a class="btn" href="{{=URL('edit_project', args=request.args(0))}}">
+          <img src={{=URL('static', '/images/editBlack.png')}} class="edit">
         </a>
-      <div class="media-body">
-        <b>{{=T("Kolaborator")}}:</b>
-        {{=g_return_if_empty(collaborator.username)}} 
-            {{ if auth.user and collaborator.id == auth.user.id: }}
-                <a href="{{=URL(c='default', f='remove_person', vars={'user_id':collaborator.id, 'project_id': project.id})}}">
-                    <button class="btn btn-small btn-danger">Sair</button>
-                </a>
-            {{ elif auth.user and project.project_owner == auth.user.id: }}
-                <a href="{{=URL(c='default', f='remove_person', vars={'user_id':collaborator.id, 'project_id': project.id})}}">
-                    <button class="btn btn-small btn-danger">Remover</button>
-                </a>
-            {{ pass }}
+
+        <!-- Foto de perfil -->
+        <figure class="foto-perfil">
+          {{if project.image:}}
+              <img src={{=URL('download', args=project.image)}} width="168px" height="168px">
+          {{else:}}
+              <img src={{=URL('static', 'images/non_project.png')}} width="168px" height="168px">
+          {{pass}}
+        </figure>
+       
+    </section>
+      <style>
+      .bio-user{
+        height: 264px;
+      }
+      </style>
+
+    <!-- Bio usuário -->
+    <section class="f-left span_7  col bio-user">
+        <p>
+            <h1>{{=project.name}}</h1>
             <br>
-        <b>{{=T("Profession")}}:</b>
-                  {{if hasattr(collaborator, 'professions'):}}
-                        {{for job in collaborator.professions:}}
-                              {{if job == collaborator.professions[-1]:}}
-                                    {{=job.profession}}<br>
-                              {{else:}}
-                                    {{=job.profession}},
-                              {{pass}}
-                        {{pass}}
-                  {{else:}}
-                        {{=T("Undefined")}}<br>
-                  {{pass}}
+            {{=g_return_if_empty(project.description)}}
+        </p>
+        
+        <b>Site do Projeto: <a href="#">www.google.com</a></b>
+        
+    </section>
+    <!-- Barra abaixo -->
+    <section class="f-left span_12  col redes_sociais">
+        <section class="f-left w-full">
+            <h2 class="f-left">SIGA-ME:</h2>
+            
+            <!-- Aqui vai os links -->
+        </section>
+    </section>
 
-            <b>{{=T("Role")}}:</b>
-                  {{=g_return_if_empty(collaborator.role)}}
+</section>
+<!-- Informações pessoais -->
+<section class="f-left span_4 col bloco_info info_user">
+    <h2 class="title">{{=T("Personal Info")}}</h2>
+    <ul>
+        <li>
+          <span class="h2">
+              {{=T("Owner")}}:<a href="/{{=project.project_owner.username}}">{{=project.project_owner.username}}</a>
+          </span>
+        </li>
+        <li>
+          <span class="h2">
+             {{=T("Phone")}}: {{=g_return_if_empty(project.phone)}}
+          </span>
+        </li>
+        <li>
+          <span class="h2">
+           Tipo: {{=g_return_if_empty(project.project_type)}} <br>
+           </span>
+        </li>
+        <li>
+          <span class="h2">
+            {{=T("Email")}}: {{=g_return_if_empty(project.project_mail)}}
+          </span>
+        </li>
+    </ul>
+</section>
+</section>
+<section class="row span_12 f-left">
+  <section class="col span_4 f-left">
+      <!-- Video do projeto -->
+    <section class="f-left span_12 col bloco_info info_profissional">
+         <h2 class="title">{{=T("Video")}}</h2>
+        {{if project.video_url:}}
+        <iframe width="360" height="203" src="{{=project.video_url}}" frameborder="0" allowfullscreen></iframe>
+        {{pass}}
+    </section>
+    <!-- Projetos que eu colaboro -->
+    <section class="f-left span_12 col bloco_info projetos_colaboro">
+             <h2 class="title">Slideshare</h2>
+              {{if project.slideshare_url:}}
+              <iframe src="{{=project.slideshare_url}}" width="490px" height="470px" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:none;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+              {{pass}}
+    </section> 
+      <!-- Procurando por -->
+    <section class="f-left span_12 col bloco_info projetos_colaboro">
+             <h2 class="title">Procurando por Membros</h2>
+              {{if project.wanting_team:}}<b>{{=T("We need some more members...")}}</b> <br>
+              {{if project.team_wanted:}}
+                                      {{if len(project.team_wanted) >= 1:}}
+                                      {{=project.team_wanted}}<br>
+                                      {{pass}}
+              {{pass}}
+              {{pass}}
 
-            {{if auth.user_id == project.project_owner:}}
-                  <br>
-                  {{=user_role.custom.begin}}
-                  {{if collaborator.role:}}
-                        <a class="btn btn_edit"><i class="icon-edit"></i></a>
-                  {{else:}}
-                        <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
-                  {{pass}}
-                  {{user_role.elements(_type="submit")[0] ['_class']="btn btn_ok"}}
-                  {{=user_role.custom.submit}}
-                  {{user_role.elements("#no_table_username")[0] ['_type']="hidden"}}
-                  {{user_role.elements("#no_table_username")[0] ['_value']=collaborator.username}}
-                  {{=user_role.custom.widget.username}}<br>
-                  {{user_role.elements("#no_table_role")[0] ['_placeholder']=T("Define role")}}
-                  {{user_role.elements("#no_table_role")[0] ['_name']="role"}}
-                  {{user_role.elements("#no_table_role")[0] ['_class']="field_role"}}
-                  {{=user_role.custom.widget.role}}<br>
-                  {{=user_role.custom.end}}
-            {{pass}}
-            <!-- """
-            Se for o dono do projeto, adicionar campo para adicionar uma pessoa no projeto.
-            """ -->
-      </div>
-    </div>
+              <h2>Procurando por Outros</h2>
+              {{if project.wanting_other:}}<b>{{=T("We are looking for other kinds of help...")}}</b> <br>
+              {{if project.other_wanted:}}
+                                      {{if len(project.other_wanted) >= 1:}}
+                                      {{=project.other_wanted}}<br>
+                                      {{pass}}
+              {{pass}}
+              {{pass}}
+    </section> 
+    <section class="f-left span_12 col bloco_info projetos_colaboro">
+        <h2 class="title">{{=T("Links")}}:</h2>
+          {{if project.project_links:}}
+                {{for i in project.project_links:}}
+                            {{if i == project.project_links[-1]:}}
+                                  <a href="{{=i}}" target="_blank">Link {{=project.project_links.index(i) + 1}}</a><br>
+                            {{else:}}
+                                  <a href="{{=i}}" target="_blank">Link {{=project.project_links.index(i) + 1}}</a> |
+                                {{pass}}
+                {{pass}}
+          {{else:}}
+                {{=T("Undefined")}}<br>
+          {{pass}}
+    </section>
 
+    <section class="f-left span_12 col bloco_info info_profissional">
+      <a class="btn btn_team">{{=T("Searching for members?")}}</a>
+      {{=searching_team}}
+    </section>
+
+
+  </section>
+
+  <section class="col span_8 f-left">
+      <!-- Meus projetos -->
+      <section class="f-left span_12 col bloco_info meus_projetos">
+             <h2 class="title">Descrição completa</h2>
+      </section>
+      <section class="f-left span_12 col bloco_info meus_projetos">
+           <h2 class="title">Membros</h2>
+             {{if collaborators:}}
+             <h3>{{=T("Who is Kolaborating")}}</h3>
+             {{else:}}
+             <h5>{{=T("Nobody is Kolaborating yet")}}</h5>
+             {{pass}}
+
+             {{for collaborator in collaborators:}}
+             <div class="media">
+               <a href="/{{=collaborator.username}}" class="pull-left">
+                 {{if not collaborator.avatar:}}
+                 <img src="{{=URL('static', 'images/non_avatar.gif')}}" alt="{{=collaborator.username}}" class="media-object" width="50px" height="50px">
+                 {{else:}}
+                 <img src="{{=URL('download', args=collaborator.avatar)}}" alt="{{=collaborator.username}}" class="media-object" width="50px" height="50px">
+                 {{pass}}
+               </a>
+               <div class="media-body">
+                <b>{{=T("Kolaborator")}}:</b>
+                {{=g_return_if_empty(collaborator.username)}} 
+                {{ if auth.user and collaborator.id == auth.user.id: }}
+                <a href="{{=URL(c='default', f='remove_person', vars={'user_id':collaborator.id, 'project_id': project.id})}}">
+                  <button class="btn btn-small btn-danger">Sair</button>
+                </a>
+                {{ elif auth.user and project.project_owner == auth.user.id: }}
+                <a href="{{=URL(c='default', f='remove_person', vars={'user_id':collaborator.id, 'project_id': project.id})}}">
+                  <button class="btn btn-small btn-danger">Remover</button>
+                </a>
+                {{ pass }}
+                <br>
+                <b>{{=T("Profession")}}:</b>
+                {{if hasattr(collaborator, 'professions'):}}
+                {{for job in collaborator.professions:}}
+                {{if job == collaborator.professions[-1]:}}
+                {{=job.profession}}<br>
+                {{else:}}
+                {{=job.profession}},
+                {{pass}}
+                {{pass}}
+                {{else:}}
+                {{=T("Undefined")}}<br>
+                {{pass}}
+
+                <b>{{=T("Role")}}:</b>
+                {{=g_return_if_empty(collaborator.role)}}
+
+                {{if auth.user_id == project.project_owner:}}
+                <br>
+                {{=user_role.custom.begin}}
+                {{if collaborator.role:}}
+                <a class="btn btn_edit"><i class="icon-edit"></i></a>
+                {{else:}}
+                <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
+                {{pass}}
+                {{user_role.elements(_type="submit")[0] ['_class']="btn btn_ok"}}
+                {{=user_role.custom.submit}}
+                {{user_role.elements("#no_table_username")[0] ['_type']="hidden"}}
+                {{user_role.elements("#no_table_username")[0] ['_value']=collaborator.username}}
+                {{=user_role.custom.widget.username}}<br>
+                {{user_role.elements("#no_table_role")[0] ['_placeholder']=T("Define role")}}
+                {{user_role.elements("#no_table_role")[0] ['_name']="role"}}
+                {{user_role.elements("#no_table_role")[0] ['_class']="field_role"}}
+                {{=user_role.custom.widget.role}}<br>
+                {{=user_role.custom.end}}
+                {{pass}}
+                                  <!-- """
+                                  Se for o dono do projeto, adicionar campo para adicionar uma pessoa no projeto.
+                                  """ -->
+            </div>
+          </div>
+          {{pass}}
+          {{ if auth.user and auth.user.id == project.project_owner:}}
+              {{=new_colaborator}}
+          {{ pass }}
+      </section>
+      <section class="f-left span_12 col bloco_info meus_projetos">
+           <h2 class="title">{{=T('Comments')}}</h2>
+           
+          {{=LOAD('default','comments.load',ajax=True)}}
+      </section>
+  </section>
+</section>
+    
 {{pass}}
 
-{{ if auth.user and auth.user.id == project.project_owner:}}
-    {{=new_colaborator}}
-{{ pass }}
 
-</ul>
-</td>
 
-</tr>
-<tr>
-<td>
-<h3>{{=T('Comments')}}</h3>
-{{=LOAD('default','comments.load',ajax=True)}}
-<td>
-</tr>
-</table>
-{{else:}}
-{{=project}}
-{{pass}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script src={{=URL('static', 'js/select2.min.js')}}></script>
 <link href={{=URL('static', 'css/select2.css')}} rel="stylesheet">
 
