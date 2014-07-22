@@ -65,12 +65,35 @@ function DOMEditProjeto(){
 	SetandoAjaxProjeto();
 	MultiAjaxAutoComplete() 
 	// $("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
+	Id("adicionarLink").addEventListener('click',function(){
+		var link = document.createElement('input')
+		var lista = document.createElement('li');
+
+		link.classList.add('form-input-comum')
+		link.classList.add('w-full');
+		link.type = "text";
+		link.name = "project_links"
+		link.setAttribute('placeholder','http://myprojectlinks.com')
+		link.addEventListener("change",function(){
+			enviaAjax(this)}
+		);
+
+		lista.appendChild(link)
+		Id("projects_project_links_grow_input").appendChild(lista)
+	})
 
 };
 
 
 
+function adicionandoOutroLink(){
+	Id("adicionarLink").addEventListener('click',function(){
+		var link = document.createElement('input')
+		Id("projects_project_links_grow_input").appendChild(link)
+	})
 
+
+}
 
 
 
@@ -191,6 +214,7 @@ function SetandoAjaxProjeto(){
 		
 
 function enviaAjax(e){
+	console.log(e);
 		if(e.value != "")
 			 gravaAjaxEditProjeto(e);
 		else console.log("Preencha Algo")

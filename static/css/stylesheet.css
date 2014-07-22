@@ -1216,9 +1216,9 @@ body {
 .section-form {
   margin-bottom: 11px;
 }
-.section-form > input[type="text"],
-.section-form > input[type="email"],
-.section-form > input[type="password"] {
+.section-form input[type="text"],
+.section-form input[type="email"],
+.section-form input[type="password"] {
   height: 36px;
 }
 .footer {
@@ -1399,6 +1399,17 @@ body {
 .iten-panel-img {
   margin-left: 10px;
   margin-top: 4px;
+}
+.thumbnail-member {
+  margin: auto 0px;
+  width: 50%;
+  text-align: center;
+}
+.thumbnail-member img {
+  border-radius: 50%;
+}
+#projects_project_links_grow_input li {
+  margin: 5px auto;
 }
 .apresenta-user {
   background: white;
