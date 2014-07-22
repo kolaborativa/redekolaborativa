@@ -234,7 +234,6 @@ def ajax_edit_profile():
                 if not dados.availability:
                     db.auth_user[auth.user.id] = {'availability': 'Others'}
 
-        #print 'campo do banco:',field_db
         return True
 
     except:
@@ -413,8 +412,23 @@ def ajax_remove_link():
         return False
 
 
-# Usando essa função para testar os ajax por favor não deletar
+@auth.requires_login()
+def ajax_edit_project():
+    #TODO: avatar
+        # team
+        # links
+    #try:
+    field_db =  request.vars.field
+    new_value =  request.vars.value
+    dic_update = {field_db:new_value}
 
+    #print field_db, ':', new_value
+    db.projects[session.project_id] = dic_update
+
+    #except:
+
+
+# Usando essa função para testar os ajax por favor não deletar
 def testaAjax():
 
     print request.vars
@@ -777,42 +791,44 @@ def create_project():
 @auth.requires_login()
 def edit_project():
     import json
-    message = T("Project not found.")
-    project = db.projects(project_slug=request.args(0)) or message
+#mudar:
+# soh retornar o form de edicao (ou nao.. veja a linha de baixo)
+# ver o esquema do my_team
+# verificar se eh o dono do projeto se nao redireciona para o user_info
+    project_slug = request.args(0) or redirect(URL('user_info'))
+    project = db.projects(project_slug=project_slug) or redirect(URL('user_info'))
+    session.project_id = project.id
 
-    if project != message:
-        if auth.user_id == project.project_owner:
-            if project.team:
-                myteam = json.loads(project.team)
-                mystring = ""
-                for i in myteam:
-                    mystring += "%s:%s," % (i,myteam[i])
-                project.team = mystring[0:-1]
+    if auth.user_id == project.project_owner:
+        if project.team:
+            myteam = json.loads(project.team)
+            mystring = ""
+            for i in myteam:
+                mystring += "%s:%s," % (i,myteam[i])
+            project.team = mystring[0:-1]
 
-            form = SQLFORM(db.projects,
-                   project,
-                   showid=False
-                   )
-            if form.process().accepted:
-                team = form.vars.team.split(",")
-                d = {}
-                for i in team:
-                    x = i.split(":")
-                    d[x[0]] = x[1]
-                myjson = json.dumps(d)
-                project_id = form.vars.id
-                db(db.projects.id  == project_id).update(team=myjson)
-                session.flash = T("Project edited!")
-                redirect(URL('projects', args=request.args(0)))
-            elif form.errors:
-                response.flash = T("Form has errors!")
+        form = SQLFORM(db.projects,
+               project,
+               showid=False
+               )
+        if form.process().accepted:
+            team = form.vars.team.split(",")
+            d = {}
+            for i in team:
+                x = i.split(":")
+                d[x[0]] = x[1]
+            myjson = json.dumps(d)
+            project_id = form.vars.id
+            db(db.projects.id  == project_id).update(team=myjson)
+            session.flash = T("Project edited!")
+            redirect(URL('projects', args=request.args(0)))
+        elif form.errors:
+            response.flash = T("Form has errors!")
 
-            return dict(project=project, message=message, form=form)
-        else:
-            no_permission = T('You don\'t have permission to change this project!')
-            return dict(project=project, message=message, form=no_permission)
+        return dict(form=form)
     else:
-        return dict(project=project, message=message)
+        no_permission = T('You don\'t have permission to change this project!')
+        return dict(form=no_permission)
 
 @auth.requires_login()
 def remove_person():

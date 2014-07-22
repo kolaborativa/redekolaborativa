@@ -113,12 +113,25 @@ function SetandoAjaxProjeto(){
 	var iSelect   = 0
 	
 	for (; iInput < inputs.length; iInput++) {
-		if(inputs[iInput].name == "CheckboxOnOff"){
+		if(inputs[iInput].name == "wanting_team"){
 			 // Inputs de checkbox primeira verificação
 			MostraBloco(checkboxOnOff(inputs[iInput],"On","Off"),inputs[iInput].getAttribute('data-bloco'))
 
 			inputs[iInput].addEventListener("change",function(){
-					MostraBloco(checkboxOnOff(this,"On","Off"),this.getAttribute('data-bloco'))
+                    var status = checkboxOnOff(this, "On", "Off");
+                    MostraBloco(status,this.getAttribute('data-bloco'));
+                    this.value = status;
+                    enviaAjax(this);
+			});
+        } else if(inputs[iInput].name == "wanting_other"){
+			 // Inputs de checkbox primeira verificação
+			MostraBloco(checkboxOnOff(inputs[iInput],"On","Off"),inputs[iInput].getAttribute('data-bloco'))
+
+			inputs[iInput].addEventListener("change",function(){
+                    var status = checkboxOnOff(this, "On", "Off");
+                    MostraBloco(status,this.getAttribute('data-bloco'));
+                    this.value = status;
+                    enviaAjax(this);
 			});
 		}else if(inputs[iInput].name != "avatar"){ //Pula o input avatar !
 			inputs[iInput].addEventListener("change",function(){enviaAjax(this)});
@@ -254,13 +267,13 @@ function gravaAjaxEditProjeto(e){
 	if(e.name == "avatar"){
 		var img 	= Id("hidden-avatar").value;
 			vars    = {image64: img, field : e.name}; // Cria um objeto com a img em base64 e o nome do campo
-			caminho = url.testaAjax;
+			caminho = url.edit_project;
 	}
 	else {
 			field = e.name;
 			value = e.value;
 			vars = "field="+field+"&value="+value;
-			caminho = url.testaAjax;
+            caminho = url.edit_project;
 	}
 
 	$.ajax({
