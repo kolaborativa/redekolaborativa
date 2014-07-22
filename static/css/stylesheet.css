@@ -860,9 +860,17 @@ select,
 .form-input-comum::-webkit-input-placeholder,
 .form-input-comum::-moz-placeholder {
   color: #999999;
-  font-family: LatoLatin-Regular;
+  font-family: 'LatoLatin-Regular';
   font-size: 16px;
   font-style: bold;
+}
+.section-form {
+  margin-bottom: 11px;
+}
+.section-form > input[type="text"],
+.section-form > input[type="email"],
+.section-form > input[type="password"] {
+  height: 36px;
 }
 .form-input-comum {
   padding: 5px 0px 5px 10px;
@@ -1213,14 +1221,6 @@ body {
   height: 10px;
   margin-top: 100px;
 }
-.section-form {
-  margin-bottom: 11px;
-}
-.section-form > input[type="text"],
-.section-form > input[type="email"],
-.section-form > input[type="password"] {
-  height: 36px;
-}
 .footer {
   width: 1200px;
   text-align: center;
@@ -1459,6 +1459,7 @@ body {
 .bloco_info > .title {
   padding: 14px;
   margin-top: 0px;
+  margin-bottom: 0px;
 }
 .bloco_info .title {
   font-weight: normal;
@@ -1552,6 +1553,13 @@ body {
 .bloco_info.slideshare .title {
   background: #dda715;
 }
+.youtube,
+.slides {
+  width: 90%;
+  height: 265px;
+  margin: 0 auto;
+  display: block;
+}
 .bloco_info.procura_membros {
   background: #62cd90;
 }
@@ -1570,11 +1578,29 @@ body {
 .bloco_info.desc_completa .title {
   background: #16a085;
 }
+.bloco_info.desc_completa p {
+  color: black;
+  padding: 14px;
+}
 .bloco_info.equipe {
   background: #7cbae3;
 }
 .bloco_info.equipe .title {
   background: #2980b9;
+}
+.bloco_info.equipe .search-equipe {
+  width: 82%;
+  height: 25px;
+}
+.bloco_info.equipe .membro-equipe {
+  width: 78px;
+  text-align: center;
+  margin: 15px;
+}
+.bloco_info.equipe .avatar-membro {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
 }
 .bloco_info.comentarios {
   background: #b185c1;

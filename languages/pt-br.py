@@ -185,6 +185,7 @@
 'Modified By': 'Modificado por',
 'Modified On': 'Modificado em',
 'Must be a valid URL!': 'Deve ser uma URL válida!',
+'Must be alphanumeric!': 'Must be alphanumeric!',
 'My Last Project': 'Meu Último Projeto',
 'My Projects': 'Meus Projetos',
 'My Sites': 'Meus Sites',

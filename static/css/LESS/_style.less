@@ -1,160 +1,67 @@
+// Variaveis
 @alturaTopo: 80px;
 @paddingTopo: 10px;
-body{
-  width: 100%;
-}
 @larguraTela:1200px;
-.header{
-  width: @larguraTela;
-  margin: 0 auto;
-  height: 60.414px;
-}
-.col_header{
-  height: 60.414px;
-  position: relative;
-}
-.header-navigator{
-  width: 100%;
-}
-.topo{
-  width: 80%;
-  margin-left: 10%;
-  height: @alturaTopo;
-  padding-top: @paddingTopo;
-}
-.input-search{
-  
-  width: 55%;
-  height: 19px; // definido baseado na home
-}
-.input-select{
-  height: 29px;
-}
 
-.pesquisa{
-  padding-top: 17px;
-  width: 50%;
-  height: @alturaTopo - @paddingTopo;
-}
-.input-select-topo{
-  width: 100px;
-}
-.login-form{
 
-  width: 36%;
-  height: @alturaTopo - @paddingTopo;
-}
-.login-form a{
-  color: @branco;
-}
-.input-login{
-  width: 37%;
-  vertical-align: bottom;
-}
-.btn-login{
-  height: 28px;
-  width: 72px;
-  font-size: 14px;
-}
-.input-login{
-  padding: 0px;
-  padding-left: 5px;
-  height: 28px;
-  width: 152px;
-}
+body{width: 100%;}
 
-.col_header > .a-bottom{
-  margin-bottom: 10px;
-  right: 0;
-}
-.content{
-  width: @larguraTela;
-  height: 500px;
-}
-.contorno{
-  border: 1px solid #cacaca;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.col_content{
-  height: 10px;
-  margin-top: 100px;
-}
+// ------------------------------------
+// -----------------  [Header da Rede Social]
+// -------------------------------------
 
-.form-register{
-  // margin-top:  22px;
-  // width: 394px;
-}
-.section-form{
-  margin-bottom: 11px;
-}
-.section-form > input[type="text"],
-.section-form > input[type="email"],
-.section-form > input[type="password"]
-{
+.header               {  width: @larguraTela;  margin: 0 auto;  height: 60.414px;}
+.col_header           {  height: 60.414px;  position: relative;}
+.header-navigator     {  width: 100%;}
+.topo                 {  width: 80%;  margin-left: 10%;  height: @alturaTopo;  padding-top: @paddingTopo;}
+.input-search         {   width: 55%;  height: 19px;}
+.input-select         {  height: 29px;}
 
-  height: 36px;
-}
+.pesquisa             {  padding-top: 17px;  width: 50%;  height: @alturaTopo - @paddingTopo;}
+.input-select-topo    {  width: 100px;}
+.login-form           {  width: 36%;  height: @alturaTopo - @paddingTopo;}
+.login-form a         {  color: @branco;}
+.input-login          {  width: 37%;  vertical-align: bottom;}
+.btn-login            {  height: 28px;  width: 72px;  font-size: 14px;}
+.input-login          {  padding: 0px;  padding-left: 5px;  height: 28px;  width: 152px;}
 
-.footer{
-  width: @larguraTela;
-  text-align: center;
-}
+.col_header > .a-bottom  {  margin-bottom: 10px;  right: 0;}
+.content                 {  width: @larguraTela;  height: 500px;}
+.contorno                {  border: 1px solid #cacaca;  padding-top: 10px;  padding-bottom: 10px;  margin-top: 10px;  margin-bottom: 10px;}
+.col_content             {  height: 10px;  margin-top: 100px;}
+
+// ------------------------------------
+// -----------------  [Fim Header da Rede Social]
+// -------------------------------------
+
+// ------------------------------------
+// -----------------  [Formulario de cadastro]
+// -------------------------------------
+
+
+
+
+.footer{  width: @larguraTela;  text-align: center;}
+
+
 
 // -------------------------------- Home acima /\--------- //
+.col_edit_perfil_topo{  height: 125px;  background: @branco;  border:1px solid @cinza4 ;  border-bottom:none;}
+.col_edit_perfil_topo figure{  text-align: center;  padding-top: 10px;}
 
-.col_edit_perfil_topo{
-  height: 125px;
-  background: @branco;
-  border:1px solid @cinza4 ;
-  border-bottom:none;
-}
-.col_edit_perfil_topo figure{
-  text-align: center;
-  padding-top: 10px;
-}
-
-.col_edit_perfil_formulario {
-  padding-top: 25px;
-  min-height: 446px;
-  border:1px solid @cinza4;
-  border-top: none;
-  margin-bottom: 40px;
-}
-.edit_perfil_fases{
-  min-height: 446px;
-}
-.displayBlock{
-  display: block;
-  transition:1s;
-}
-.displayNone{
-  display: none;
-  transition:1s;
-}
+.col_edit_perfil_formulario {  padding-top: 25px;  min-height: 446px;  border:1px solid @cinza4;  border-top: none;  margin-bottom: 40px;}
+.edit_perfil_fases{  min-height: 446px;}
+.displayBlock{  display: block;  transition:1s;}
+.displayNone{  display: none;  transition:1s;}
 // Colunas dentro dos blocos do editar perfil
-.colunas{
-  min-height: 283px;
-}
-.descriptionAvatar,.descriptionBio{
-  font-size:14px;
-  color: #9d9d9d;
-}
-.bio{
-  min-width: 418px;
-  min-height: 131px;
-  max-width: 418px;
-  max-height: 131px;
-
-}
+.colunas{  min-height: 283px;}
+.descriptionAvatar,.descriptionBio{  font-size:14px;  color: #9d9d9d;}
+.bio{  min-width: 418px;  min-height: 131px;  max-width: 418px;  max-height: 131px;}
 
 // -------------------------- Para arrumar \/ Deixar no formato less
 
 .select-edit-perfil,.select-edit-perfil select{
   height: 37px;
-  // font-size: 25px;
   font-size: 18px;
 }
 
@@ -256,50 +163,18 @@ body{
 // ------------------- Painel Principal -----------------------------
 // --------------------/
 // --------------------//
-.content-panel{
-  padding: 0px;
-  border:1px solid black;
-  margin-top:40px;
-}
-.header-panel{
-  height: 125px;
-  background: white;
-}
-.header-panel h1{
-  font-size: 47px;
-font-weight: normal;
-}
-.list-panel{
-  margin-top: 10px;
-}
-.description-panel{
-  margin-top: 25px;
-  margin-left: 35px;
-}
-.iten-panel{
-  width: 100%;
-  height: 125px;
-}
-.iten-panel a span{
-  color:red;
-}
-.iten-panel a:hover span{
-  color:black;
-}
-.iten-panel a:hover p{
-    color:white;
-}
-.iten-panel:hover{
-  background:#66cab3;
-}
-.arrow-panel{
-  margin-top: 35px;
-  margin-right: 15px;
-}
-.iten-panel-img{
-  margin-left: 10px;
-  margin-top: 4px;
-}
+.content-panel           {padding: 0px;  border:1px solid black;  margin-top:40px;}
+.header-panel            {height: 125px;  background: white;}
+.header-panel h1         {font-size: 47px;font-weight: normal;}
+.list-panel              {margin-top: 10px;}
+.description-panel       {margin-top: 25px;  margin-left: 35px;}
+.iten-panel              {width: 100%;  height: 125px;}
+.iten-panel a span       {color:red;}
+.iten-panel a:hover span {color:black;}
+.iten-panel a:hover p    {color:white;}
+.iten-panel:hover        {background:#66cab3;}
+.arrow-panel             {margin-top: 35px;  margin-right: 15px;}
+.iten-panel-img          {margin-left: 10px;  margin-top: 4px;}
 
 
 
@@ -307,6 +182,7 @@ font-weight: normal;
 
 
 .espacamentoBottom{padding-bottom: 40px;/*margin-top: -10px;*/}  
+
   // --------------------------------------- Perfil do Usuário -----------------------//
 .apresenta-user{background: white;max-height: 316px;min-height: 316px;margin-top: 20px;padding: 0px 0px;}
     .apresenta-user .foto-perfil{margin-left: 10px;text-align: center;}
@@ -323,7 +199,7 @@ font-weight: normal;
 .apresenta-user .redes_sociais{background: #2c3e50;padding: 0px 10px;color: white; margin-top: 14px;}
 
 .bloco_info{padding-left: 0px;padding-right: 0px;min-height: 333px; color: white;margin-top: 20px;}
-    .bloco_info > .title{padding: 14px;margin-top: 0px;}
+    .bloco_info > .title{padding: 14px;margin-top: 0px; margin-bottom: 0px}
     .bloco_info .title{font-weight: normal}
     .bloco_info ul{ padding-left: 20px; padding-right: 20px}
         .bloco_info ul li{ border-bottom: 1px solid white; height: 50px; vertical-align: sub; padding-top: 15px;}
@@ -363,18 +239,37 @@ font-weight: normal;
 // Bloco do projeto slideshare! 
 .bloco_info.slideshare{background: #fed634;}
 .bloco_info.slideshare .title{background: #dda715;}
+
+
+.youtube,.slides{width: 90%;height: 265px;margin: 0 auto;display: block;}
+
 // Bloco do projeto procura_membros! 
 .bloco_info.procura_membros{background: #62cd90;}
 .bloco_info.procura_membros .title{background: #27ae60;}
+
 // Bloco do projeto link! 
 .bloco_info.link{background: #95a5a6;}
 .bloco_info.link .title{background: #7f8c8d;}
+
 // Bloco do projeto descrição completa! 
 .bloco_info.desc_completa{background: white;}
-.bloco_info.desc_completa .title{background: #16a085;}
+    .bloco_info.desc_completa .title{background: #16a085;}
+    .bloco_info.desc_completa p{color: black;padding: 14px;}
+
 // Bloco do projeto membros! 
 .bloco_info.equipe{background: #7cbae3;}
 .bloco_info.equipe .title{background: #2980b9;}
+
+    .bloco_info.equipe .search-equipe{width: 82%;height: 25px; }
+    .bloco_info.equipe .membro-equipe{width: 78px; text-align: center;  margin:15px;}
+
+        .bloco_info.equipe .avatar-membro{width: 56px;height: 56px;border-radius: 50%;}
+        .bloco_info.equipe .membro-descricao{}
+
 // Bloco do projeto comentarios! 
 .bloco_info.comentarios{background: #b185c1;}
 .bloco_info.comentarios .title{background: #9b50ba;}
+
+
+
+  

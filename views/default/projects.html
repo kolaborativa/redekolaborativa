@@ -27,14 +27,15 @@
         </figure>
        
     </section>
-      
+
 
     <!-- Bio usuário -->
     <section class="f-left span_7  col descricao">
         <p>
             <h1>{{=project.name}}</h1>
             <br>
-            {{=g_return_if_empty(project.description)}}
+            
+            {{=g_return_if_empty(project.short_description)}}
         </p>
         
         <b>Site do Projeto: <a href="#">www.google.com</a></b>
@@ -77,20 +78,24 @@
     </ul>
 </section>
 </section>
+<style>
+
+</style>
 <section class="row span_12 f-left">
   <section class="col span_4 f-left proj_col">
           <!-- Video do projeto -->
           <section class="f-left span_12 col bloco_info video">
            <h2 class="title">{{=T("Video")}}</h2>
            {{if project.video_url:}}
-           <iframe width="360" height="203" src="{{=project.video_url}}" frameborder="0" allowfullscreen></iframe>
+           <iframe class="youtube" src="{{=project.video_url}}" frameborder="0" allowfullscreen></iframe>
            {{pass}}
          </section>
          <!-- Projetos que eu colaboro -->
          <section class="f-left span_12 col bloco_info slideshare">
            <h2 class="title">Slideshare</h2>
            {{if project.slideshare_url:}}
-           <iframe src="{{=project.slideshare_url}}" width="490px" height="470px" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:none;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+           
+           <iframe src="{{=project.slideshare_url}}" class="slides" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
            {{pass}}
          </section> 
          <!-- Procurando por -->
@@ -114,6 +119,7 @@
            {{pass}}
            {{pass}}
          </section> 
+         <!-- Links do projet -->
          <section class="f-left span_12 col bloco_info link">
           <h2 class="title">{{=T("Links")}}:</h2>
           {{if project.project_links:}}
@@ -135,47 +141,59 @@
           </section>
         -->
     </section>
+    <style>
+  
+  </style>      
 
   <section class="col span_8 f-left proj_col">
       <!-- Meus projetos -->
       <section class="f-left span_12 col bloco_info desc_completa">
              <h2 class="title">Descrição completa</h2>
+            <p>
+            {{=g_return_if_empty(project.description)}}
+            </p>
       </section>
+      <style>
+           
+      </style>
       <section class="f-left span_12 col bloco_info equipe">
            <h2 class="title f-left">Membros</h2>
-           <style>
-           .search-equipe{
-            width: 82%;
-           }
-           </style>
            <div class="title f-left search-equipe">
                  {{ if auth.user and auth.user.id == project.project_owner:}}
                     {{=new_colaborator}}
                 {{ pass }}
            </div>
-             {{for collaborator in collaborators:}}
-             <div class="media">
+
+           <!-- Espaço de mostragem de membros -->
+
+          {{for collaborator in collaborators:}}
+             <div class="membro-equipe f-left">
                <a href="/{{=collaborator.username}}" class="pull-left">
                  {{if not collaborator.avatar:}}
-                 <img src="{{=URL('static', 'images/non_avatar.gif')}}" alt="{{=collaborator.username}}" class="media-object" width="50px" height="50px">
-                 {{else:}}
-                 <img src="{{=URL('download', args=collaborator.avatar)}}" alt="{{=collaborator.username}}" class="media-object" width="50px" height="50px">
+                   <img src="{{=URL('static', 'images/non_avatar.gif')}}" alt="{{=collaborator.username}}" class="avatar-membro">
+                {{else:}}
+                   <img src="{{=URL('download', args=collaborator.avatar)}}" alt="{{=collaborator.username}}" class="avatar-membro">
                  {{pass}}
                </a>
-               <div class="media-body">
-                <b>{{=T("Kolaborator")}}:</b>
-                {{=g_return_if_empty(collaborator.username)}} 
-                {{ if auth.user and collaborator.id == auth.user.id: }}
+               <div class="membro-descricao">
+               <!-- Nome do membro -->
+                <span class="bold">{{=g_return_if_empty(collaborator.username)}}</span>
+                <!-- Botões de sair do projeto ou remover o membro -->
+                <!-- 
+                {{# if auth.user and collaborator.id == auth.user.id: }}
                 <a href="{{=URL(c='default', f='remove_person', vars={'user_id':collaborator.id, 'project_id': project.id})}}">
                   <button class="btn btn-small btn-danger">Sair</button>
                 </a>
-                {{ elif auth.user and project.project_owner == auth.user.id: }}
+                {{# elif auth.user and project.project_owner == auth.user.id: }}
                 <a href="{{=URL(c='default', f='remove_person', vars={'user_id':collaborator.id, 'project_id': project.id})}}">
                   <button class="btn btn-small btn-danger">Remover</button>
                 </a>
-                {{ pass }}
+                {{# pass }} -->
+
+
                 <br>
-                <b>{{=T("Profession")}}:</b>
+                <!-- Profissão(ções) do membro -->
+                <span class="italic">
                 {{if hasattr(collaborator, 'professions'):}}
                   {{for job in collaborator.professions:}}
                     {{if job == collaborator.professions[-1]:}}
@@ -187,18 +205,20 @@
                 {{else:}}
                   {{=T("Undefined")}}<br>
                 {{pass}}
-
-                <b>{{=T("Role")}}:</b>
+                </span>
+                <!-- Cargo no time -->
+                <span class="italic">
                 {{=g_return_if_empty(collaborator.role)}}
-                {{if auth.user_id == project.project_owner:}}
-                <br>
-                {{=user_role.custom.begin}}
-                {{if collaborator.role:}}
-                <a class="btn btn_edit"><i class="icon-edit"></i></a>
-                {{else:}}
-                <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
-                {{pass}}
-
+                  {{if auth.user_id == project.project_owner:}}
+                  <br>
+                  {{=user_role.custom.begin}}
+                  {{if collaborator.role:}}
+                  <a class="btn btn_edit"><i class="icon-edit"></i></a>
+                  {{else:}}
+                  <a class="btn btn_plus"><i class="icon-plus-sign"></i></a>
+                  {{pass}}
+                </span>
+                <!-- Perguntar para o tchu tchu o que faz !  -->
                 {{user_role.elements(_type="submit")[0] ['_class']="btn btn_ok"}}
                 {{=user_role.custom.submit}}
                 {{user_role.elements("#no_table_username")[0] ['_type']="hidden"}}
@@ -210,9 +230,9 @@
                 {{=user_role.custom.widget.role}}<br>
                 {{=user_role.custom.end}}
                 {{pass}}
-                                  <!-- """
-                                  Se for o dono do projeto, adicionar campo para adicionar uma pessoa no projeto.
-                                  """ -->
+                    <!-- """
+                    Se for o dono do projeto, adicionar campo para adicionar uma pessoa no projeto.
+                    """ -->
             </div>
           </div>
           {{pass}}
@@ -220,8 +240,8 @@
       </section>
       <section class="f-left span_12 col bloco_info comentarios">
            <h2 class="title">{{=T('Comments')}}</h2>
-           
           {{=LOAD('default','comments.load',ajax=True)}}
+
       </section>
   </section>
 </section>
