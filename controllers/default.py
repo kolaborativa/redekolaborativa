@@ -794,7 +794,6 @@ def edit_project():
 #mudar:
 # soh retornar o form de edicao (ou nao.. veja a linha de baixo)
 # ver o esquema do my_team
-# verificar se eh o dono do projeto se nao redireciona para o user_info
     project_slug = request.args(0) or redirect(URL('user_info'))
     project = db.projects(project_slug=project_slug) or redirect(URL('user_info'))
     session.project_id = project.id
@@ -827,8 +826,7 @@ def edit_project():
 
         return dict(form=form)
     else:
-        no_permission = T('You don\'t have permission to change this project!')
-        return dict(form=no_permission)
+        redirect(URL('user_info'))
 
 @auth.requires_login()
 def remove_person():
