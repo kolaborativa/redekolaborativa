@@ -59,7 +59,7 @@ body{
 .input-login{
   padding: 0px;
   padding-left: 5px;
-  height: 26px;
+  height: 28px;
   width: 152px;
 }
 
@@ -71,7 +71,13 @@ body{
   width: @larguraTela;
   height: 500px;
 }
-
+.contorno{
+  border: 1px solid #cacaca;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 .col_content{
   height: 10px;
   margin-top: 100px;
@@ -132,10 +138,14 @@ body{
 .colunas{
   min-height: 283px;
 }
+.descriptionAvatar,.descriptionBio{
+  font-size:14px;
+  color: #9d9d9d;
+}
 .bio{
-  min-width: 408px;
+  min-width: 418px;
   min-height: 131px;
-  max-width: 408px;
+  max-width: 418px;
   max-height: 131px;
 
 }
@@ -234,3 +244,102 @@ body{
 // .list-profissao{
 //   display: flex;
 // }
+
+
+// ------------------- Painel Principal -----------------------------
+// --------------------/
+// --------------------//
+.content-panel{
+  padding: 0px;
+  border:1px solid black;
+  margin-top:40px;
+}
+.header-panel{
+  height: 125px;
+  background: white;
+}
+.header-panel h1{
+  font-size: 47px;
+font-weight: normal;
+}
+.list-panel{
+  margin-top: 10px;
+}
+.description-panel{
+  margin-top: 25px;
+  margin-left: 35px;
+}
+.iten-panel{
+  width: 100%;
+  height: 125px;
+}
+.iten-panel a span{
+  color:red;
+}
+.iten-panel a:hover span{
+  color:black;
+}
+.iten-panel a:hover p{
+    color:white;
+}
+.iten-panel:hover{
+  background:#66cab3;
+}
+.arrow-panel{
+  margin-top: 35px;
+  margin-right: 15px;
+}
+.iten-panel-img{
+  margin-left: 10px;
+  margin-top: 4px;
+}
+
+
+
+
+
+  
+  // --------------------------------------- Perfil do Usuário -----------------------//
+.apresenta-user{background: white;max-height: 316px;min-height: 316px;margin-top: 20px;padding: 0px 0px;}
+    .apresenta-user .foto-perfil{margin-left: 10px;text-align: center;}
+        .apresenta-user .foto-perfil img{border-radius: 50%;}
+    .apresenta-user .edit{margin: 10px;    margin-bottom: 0px;}
+
+.apresenta-user .barra-colorida{height: 2px;}
+.apresenta-user .disponibilidade{margin: 7px 0px;}
+
+.apresenta-user .disponivel{width: 20px;height: 20px;margin-right:10px;border-radius:50%;}
+    .apresenta-user .disponivel.true{background: green;}
+    .apresenta-user .disponivel.false{background: red;}
+
+.apresenta-user .redes_sociais{background: #2c3e50;padding: 0px 10px;color: white; margin-top: 14px;}
+
+.espacamentoBottom{padding-bottom: 40px;/*margin-top: -10px;*/}
+
+.bloco_info{padding-left: 0px;padding-right: 0px;min-height: 333px; color: white;margin-top: 20px;}
+    .bloco_info > h2{padding: 14px;margin-top: 0px;text-align: center;}
+    .bloco_info .title{font-weight: normal}
+    .bloco_info ul{ padding-left: 20px; padding-right: 20px}
+        .bloco_info ul li{ border-bottom: 1px solid white; height: 50px; vertical-align: sub; padding-top: 15px;}
+            .bloco_info ul li .thumbnail { width: 50px; height: 50px;margin-top: -9px; border-radius: 50%; margin-right: 5px ;margin-left:0px;}
+            .bloco_info ul li a{ color: white;}
+            .bloco_info ul li img{margin-left: 10px; }
+            
+
+.info_user{background: #445f7a;}
+    .info_user .title{background: #2c3e50;}
+    .info_user ul li{ border-bottom: 0px; height: auto;padding-bottom: 14px; padding-top: 0px;}
+
+.info_profissional{background: #62cd90;}
+    .info_profissional .title{background: #27ae60;}
+    .info_profissional ul li{border:0px; height: auto}
+    .info_profissional ul li ul li {display: inline; border:0px;background: #27ae60;color: white;font-weight: 900;padding: 0px 3px;}
+
+
+.meus_projetos{ background: #e55c4e;  }
+    .meus_projetos .title{background: #c0392b;}
+    .meus_projetos .createProject a{float: right;color: white;font-size: 53px;padding: 0px;margin: -22px 0px; font-weight: 100;}
+
+.projetos_colaboro{background: #7cbae3;}
+    .projetos_colaboro .title{background: #2980b9;}
+

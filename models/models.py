@@ -2,6 +2,7 @@ field_empty = T('The field name can not be empty!')
 
 db.define_table("projects",
 	Field("name"),
+	Field("short_description", "text"),
 	Field("description", "text"),
 	Field("image", "upload"),
 	Field("project_type"),

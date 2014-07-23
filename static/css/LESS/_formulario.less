@@ -6,11 +6,15 @@ input,textarea,select,.form-input{
 	outline: none;
 }
 
-input[type="submit"],input[type="button"],button{
-	// border:none;
-	// outline: none;
-	// padding:0px;
+input[type="submit"],input[type="button"],button{}
+
+.form-input-comum::-webkit-input-placeholder,.form-input-comum::-moz-placeholder {
+ color: #999999; 
+ font-family: LatoLatin-Regular;
+ font-size:16px;
+ font-style: bold;
 }
+
 
 
 .form-input-comum
@@ -42,17 +46,18 @@ input[type="submit"],input[type="button"],button{
 .select {
 	position: relative;
 	display: inline-block;
+	vertical-align: bottom;
 }
 
 .select select {
 	background-color: #FFF; /*Cor do select default*/
 	color: #000;
-	/*font-size: inherit;*/
+	
 	padding: .2em;
 	padding-right: 2.5em;	/*Define a distancia entre a seta e o texto */
 	border: 0;
 	margin: 0;
-	/*border-radius: 3px;*/
+	
 	text-indent: 0.01px;
 	text-overflow: '';
 	-webkit-appearance: button;
@@ -97,7 +102,7 @@ select:disabled, input:disabled{
 // Checkbox para ON e OFF
 .checkbox {
   width: 93%;
-  background: @verdeAgua2;
+  // background: @verdeAgua2;
   // margin: 20px 0px;
   position: relative;
 }
@@ -117,29 +122,64 @@ select:disabled, input:disabled{
   left: 10px;
   z-index: 0;
 }
-.checkbox label {
-  display: block;
-  width: 45%;
-  height: 82%;
-  text-align: center;
-  // font-size: 18px;
-  box-sizing: border-box;
-  padding-top:3px;
-  color: white;
-  cursor: pointer;
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  z-index: 1;
-  background:@verdeAgua;
-  -moz-transition: all 0.4s ease;
-  -o-transition: all 0.4s ease;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+.checkbox label {display: block;width: 45%;height: 82%;text-align: center;	font-size: 18px;box-sizing: border-box;padding-top:3px;color: white;cursor: pointer;position: absolute;top: 3px;left: 3px;z-index: 1;-moz-transition: all 0.4s ease;-o-transition: all 0.4s ease;-webkit-transition: all 0.4s ease;transition: all 0.4s ease;}
+.checkbox input[type=checkbox] {visibility: hidden;}
+.checkbox input[type=checkbox]:checked + label {left: 52%;}
+
+
+
+
+
+//-------------------------- Checkbox Plugin -------------------------//
+.check-box input[type="checkbox"] {
+    visibility: hidden;
 }
-.checkbox input[type=checkbox] {
-  visibility: hidden;
+/*Custom checkbox*/
+ .check-box {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 2px 7px 0 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 1px #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px solid #ccc;
 }
-.checkbox input[type=checkbox]:checked + label {
-  left: 52%;
+.check-box i {
+    background: url('http://cdn1.iconfinder.com/data/icons/mimiGlyphs/16/check_mark.png') no-repeat center center;
+    position: absolute;
+    left: 3px;
+    bottom: -17px;
+    width: 16px;
+    height: 16px;
+    opacity: .5;
+}
+.checkedBox {
+    -moz-box-shadow: inset 0 0 5px 1px #ccc;
+    -webkit-box-shadow: inset 0 0 5px 1px #ccc;
+    box-shadow: inset 0 0 5px 1px #ccc;
+    border-bottom-color: #fff;
+}
+.checkedBox i {
+    bottom: 2px;
+    -webkit-transform:rotateZ(0deg);
+    -moz-transform:rotateZ(0deg);
+    -o-transform:rotateZ(0deg);
+    transform:rotateZ(0deg);
+}
+
+
+#disponibilidades div {display: inline-flex;}
+#disponibilidades div li {
+	padding: 6px;
+	margin-left: 12px;
+}
+#disponibilidades div li label{
+	vertical-align: super;
+	margin-right: 5px;
 }
