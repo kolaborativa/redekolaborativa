@@ -314,7 +314,7 @@ function gravaAjaxEditProjeto(e){
 			//  Json com o campo e o vetor
 			vars = {'field':field,'value':value}
             // caminho = url.edit_project;
-            caminho = url.testaAjax;
+			caminho = url.edit_project;
 
 	}else {
 			field = e.name;

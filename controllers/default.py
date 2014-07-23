@@ -20,7 +20,7 @@ def index():
 
 @auth.requires_login()
 def panel():
-    
+
     return dict()
 
 def landing():
@@ -436,11 +436,18 @@ def ajax_edit_project():
                 #Salva o avatar novo
                 db(db.projects.id  == project.id).update(image=image_converted)
                 return True
+    if field_db == 'project_links':
+        if type(request.vars['value[]']) == str:
+            new_value = [request.vars['value[]']]
+        else:
+            new_value = request.vars['value[]']
+        dic_update[field_db] = new_value
 
     print field_db, ':', new_value
     db.projects[session.project_id] = dic_update
 
     #except:
+        #return False
 
 
 # Usando essa função para testar os ajax por favor não deletar
