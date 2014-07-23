@@ -65,6 +65,24 @@ function DOMEditProjeto(){
 	SetandoAjaxProjeto();
 	MultiAjaxAutoComplete() 
 	// $("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
+	Id("adicionarLink").addEventListener('click',function(){
+		var link = document.createElement('input')
+		var lista = document.createElement('li');
+
+		link.classList.add('form-input-comum')
+		link.classList.add('w-full');
+		link.type = "text";
+		link.name = "project_links"
+		link.setAttribute('placeholder','http://myprojectlinks.com')
+		link.addEventListener("change",function(){
+			enviaAjax(this)}
+		);
+
+		lista.appendChild(link)
+		Id("projects_project_links_grow_input").appendChild(lista)
+
+		
+	})
 
 	for (var i = 0; i < 10; i++) {
 		criathumbnailMembros();
@@ -73,7 +91,17 @@ function DOMEditProjeto(){
 
 
 
+function adicionandoOutroLink(){
 
+	var vetLinks = document.getElementsByName('project_links');
+	var vetUrlLinks;
+	vetUrlLinks = [];
+	vetUrlLinks.length = 0
+	for (var i = 0; i < vetLinks.length; i++) {
+		vetUrlLinks[i] = vetLinks[i].value
+	};
+	console.log(vetUrlLinks);
+}
 
 
 
@@ -116,14 +144,27 @@ function SetandoAjaxProjeto(){
 	var iSelect   = 0
 	
 	for (; iInput < inputs.length; iInput++) {
-		if(inputs[iInput].name == "CheckboxOnOff"){
+		if(inputs[iInput].name == "wanting_team"){
 			 // Inputs de checkbox primeira verificação
 			MostraBloco(checkboxOnOff(inputs[iInput],"On","Off"),inputs[iInput].getAttribute('data-bloco'))
 
 			inputs[iInput].addEventListener("change",function(){
-					MostraBloco(checkboxOnOff(this,"On","Off"),this.getAttribute('data-bloco'))
+                    var status = checkboxOnOff(this, "On", "Off");
+                    MostraBloco(status,this.getAttribute('data-bloco'));
+                    this.value = status;
+                    enviaAjax(this);
 			});
-		}else if(inputs[iInput].name != "avatar"){ //Pula o input avatar !
+        } else if(inputs[iInput].name == "wanting_other"){
+			 // Inputs de checkbox primeira verificação
+			MostraBloco(checkboxOnOff(inputs[iInput],"On","Off"),inputs[iInput].getAttribute('data-bloco'))
+
+			inputs[iInput].addEventListener("change",function(){
+                    var status = checkboxOnOff(this, "On", "Off");
+                    MostraBloco(status,this.getAttribute('data-bloco'));
+                    this.value = status;
+                    enviaAjax(this);
+			});
+		}else if(inputs[iInput].name != "image"){ //Pula o input avatar !
 			inputs[iInput].addEventListener("change",function(){enviaAjax(this)});
 		}
 	};
@@ -171,6 +212,7 @@ function SetandoAjaxProjeto(){
 		
 
 function enviaAjax(e){
+	console.log(e);
 		if(e.value != "")
 			 gravaAjaxEditProjeto(e);
 		else console.log("Preencha Algo")
@@ -244,16 +286,34 @@ function gravaAjaxEditProjeto(e){
 	var value;
 	var vars;
 	
-	if(e.name == "avatar"){
+	if(e.name == "image"){
 		var img 	= Id("hidden-avatar").value;
 			vars    = {image64: img, field : e.name}; // Cria um objeto com a img em base64 e o nome do campo
-			caminho = url.testaAjax;
+			caminho = url.edit_project;
 	}
-	else {
+	else if(e.name == "project_links"){
+			field = e.name;
+			// Lista todos os links existentes 
+				var vetLinks = document.getElementsByName('project_links');
+				var vetUrlLinks;
+				vetUrlLinks = [];
+				vetUrlLinks.length = 0
+				// Insere as url em um vetor para ser enviado no ajax
+				for (var i = 0; i < vetLinks.length; i++) {
+					vetUrlLinks[i] = vetLinks[i].value
+				};
+			
+			value = vetUrlLinks;
+			//  Json com o campo e o vetor
+			vars = {'field':field,'value':value}
+            // caminho = url.edit_project;
+			caminho = url.edit_project;
+
+	}else {
 			field = e.name;
 			value = e.value;
 			vars = "field="+field+"&value="+value;
-			caminho = url.testaAjax;
+            caminho = url.edit_project;
 	}
 
 	$.ajax({
@@ -261,7 +321,7 @@ function gravaAjaxEditProjeto(e){
 		url: caminho,
 		data: vars,
 		success: function(data){
-			if(e.name == "avatar"){
+			if(e.name == "image"){
 				document.querySelector('[data-section-avatar]').classList.remove('branco');
 			}
 			return true; // caso queira fazer uma condicional 
@@ -452,4 +512,5 @@ function criathumbnailMembros(img,nome,cargo){
 
 
 }
+
 
