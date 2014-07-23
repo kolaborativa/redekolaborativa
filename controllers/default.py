@@ -806,7 +806,7 @@ def create_project():
 
         project_created = db.projects[project_id]
 
-        redirect(URL('projects', args=project_created.project_slug))
+        redirect(URL('edit_project', args=project_created.project_slug, vars={'stage': '2'}))
 
     elif form.errors:
         response.flash = T('Form has errors!')
