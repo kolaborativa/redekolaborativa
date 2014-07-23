@@ -449,16 +449,12 @@ def user():
             field.readable = field.writable = False
 
     elif 'login' in request.args:
-        db.auth_user.username.label = T("Username or Email")
-        auth.settings.login_userfield = 'username'
-        if request.vars.username and not IS_EMAIL()(request.vars.username)[1]:
-            auth.settings.login_userfield = 'email'
-            request.vars.email = request.vars.username
-            request.post_vars.email = request.vars.email
-            request.vars.username = None
-            request.post_vars.username = None
+        redirect(URL('index'))
 
-        return dict(form=auth())
+    elif 'request_reset_password' in request.args or 'reset_password' in request.args:
+        form = auth()
+        form.custom.submit['_style'] = "background-color: #2cc36b"
+        return dict(form=form)
 
     elif 'profile' in request.args:
         form=auth()
