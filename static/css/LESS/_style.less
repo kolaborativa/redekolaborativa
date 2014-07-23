@@ -38,21 +38,20 @@ body{width: 100%;}
 // -----------------  [Formulario de cadastro]
 // -------------------------------------
 
-
-
-
 .footer{  width: @larguraTela;  text-align: center;}
+
+.displayBlock{  display: block;  transition:1s;}
+.displayNone{  display: none;  transition:1s;}
+.espacamentoBottom{padding-bottom: 40px;/*margin-top: -10px;*/}  
 
 
 
 // -------------------------------- Home acima /\--------- //
 .col_edit_perfil_topo{  height: 125px;  background: @branco;  border:1px solid @cinza4 ;  border-bottom:none;}
 .col_edit_perfil_topo figure{  text-align: center;  padding-top: 10px;}
-
 .col_edit_perfil_formulario {  padding-top: 25px;  min-height: 446px;  border:1px solid @cinza4;  border-top: none;  margin-bottom: 40px;}
 .edit_perfil_fases{  min-height: 446px;}
-.displayBlock{  display: block;  transition:1s;}
-.displayNone{  display: none;  transition:1s;}
+
 // Colunas dentro dos blocos do editar perfil
 .colunas{  min-height: 283px;}
 .descriptionAvatar,.descriptionBio{  font-size:14px;  color: #9d9d9d;}
@@ -60,105 +59,22 @@ body{width: 100%;}
 
 // -------------------------- Para arrumar \/ Deixar no formato less
 
-.select-edit-perfil,.select-edit-perfil select{
-  height: 37px;
-  font-size: 18px;
-}
+.select-edit-perfil,.select-edit-perfil select{ height: 37px; font-size: 18px;}
 
-.btn-submit-select{
-  padding: 0px 12px;
-  border: 0px;
-  background: black;
-  color: white;
-  /*Coisas do botão*/
-  font-size: 38px;
-  height: 60px;
-  width: 52px;
-}
-.usr-input-form{
-  height: 40px;
-}
-.usr-btn-form{
-  height: 50px;
-  font-size: 30px;
-  padding: 0px 6px;
-  width: 45px;
-  background:#828181;
-}
-.social-field{
-  margin-top: 20px;
-  background: #66cab3;
-  height: 55px;
-  text-align: left;
-  float: left;
-  /*min-width: 48%;*/
-  margin-left: 5px;
-  box-sizing: border-box;
-}
-.social-field img{
-  vertical-align: middle;
-  padding: 16px 13px;
-  cursor:pointer;
-}
-.social-field span{
-  color: white;
-  font-weight: bold;
-  margin-left: 12px;
-  font-size: 16px;
-  vertical-align: middle;
-}
-.social-field a{
-  font-size: 16px;
-  vertical-align: middle;
-}
-.input-editar{
-  background: #FFFFFF;
-  height: 25px;
-  vertical-align: middle;
-}
-.profissao{
-  width: 32%;
-  min-height: 100px;
-  margin: 0px 0.5%;
-  background: #7cbae3;
-  // display: block;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
-.profissao > span{
-  margin-left: 11px;
-  color: @branco;
-}
-
-.profissao > .select2-container-multi .select2-choices .select2-search-choice {
-    background: #2980b9;
-    font-style: italic;
-    box-shadow: none;
-    color: #ffffff;
-    border: none;
-    border-radius: 0px;
-}
-.profissao > .select2-container-multi .select2-choices .select2-search-field input{
-  background: #bcd4e4;
-  margin: 0px 4px;
-  padding-left: 17px;
-}
-.competencias{
-  margin-top: 10px !important;
-}
-.delete_profissao{
-  cursor: pointer;
-  // margin-right: 21px;
-  // margin-top: 12px;
-  margin-right: 16px;
-  margin-top: 4px;
-}
-
-// .list-profissao{
-//   display: flex;
-// }
-
+.btn-submit-select{ padding: 0px 12px;  border: 0px;  background: black;  color: white;  /*Coisas do botão*/  font-size: 38px;  height: 60px;  width: 52px;}
+.usr-input-form{  height: 40px;}
+.usr-btn-form{  height: 50px;  font-size: 30px;  padding: 0px 6px;  width: 45px;  background:#828181;}
+.social-field{  margin-top: 20px;  background: #66cab3;  height: 55px;  text-align: left;  float: left;  /*min-width: 48%;*/  margin-left: 5px;  box-sizing: border-box;}
+.social-field img{  vertical-align: middle;  padding: 16px 13px;  cursor:pointer;}
+.social-field span{  color: white;  font-weight: bold;  margin-left: 12px;  font-size: 16px;  vertical-align: middle;}
+.social-field a{  font-size: 16px;  vertical-align: middle;}
+.input-editar{  background: #FFFFFF;  height: 25px;  vertical-align: middle;}
+.profissao{  width: 32%;  min-height: 100px;  margin: 0px 0.5%;  background: #7cbae3;  display: inline-block;  margin-bottom: 10px;}
+.profissao > span{  margin-left: 11px;  color: @branco;}
+.profissao > .select2-container-multi .select2-choices .select2-search-choice {    background: #2980b9;    font-style: italic;    box-shadow: none;    color: #ffffff;    border: none;    border-radius: 0px;}
+.profissao > .select2-container-multi .select2-choices .select2-search-field input{  background: #bcd4e4;  margin: 0px 4px;  padding-left: 17px;}
+.competencias{  margin-top: 10px !important;}
+.delete_profissao{  cursor: pointer;  margin-right: 16px;  margin-top: 4px;}
 
 // ------------------- Painel Principal -----------------------------
 // --------------------/
@@ -178,10 +94,6 @@ body{width: 100%;}
 
 
 
-
-
-
-.espacamentoBottom{padding-bottom: 40px;/*margin-top: -10px;*/}  
 
   // --------------------------------------- Perfil do Usuário -----------------------//
 .apresenta-user{background: white;max-height: 316px;min-height: 316px;margin-top: 20px;padding: 0px 0px;}
@@ -230,8 +142,6 @@ body{width: 100%;}
 // ------------------------ Pagina do projeto -------------------- //
 .proj_col{padding: 0px;}
 
-
-
 // Bloco do projeto video! 
 .bloco_info.video{background: #e55c4e;}
 .bloco_info.video .title{background: #c0392b;}
@@ -241,11 +151,14 @@ body{width: 100%;}
 .bloco_info.slideshare .title{background: #dda715;}
 
 
-.youtube,.slides{width: 90%;height: 265px;margin: 0 auto;display: block;}
+.youtube,.slides{width: 90%;height: 265px;margin: 15px auto;display: block;}
 
 // Bloco do projeto procura_membros! 
 .bloco_info.procura_membros{background: #62cd90;}
 .bloco_info.procura_membros .title{background: #27ae60;}
+.bloco_info.procura_membros ul li{border:0px; height: auto}
+.bloco_info.procura_membros ul li ul li {display: inline; border:0px;background: #27ae60;color: white;font-weight: 900;padding: 0px 3px;}
+
 
 // Bloco do projeto link! 
 .bloco_info.link{background: #95a5a6;}
@@ -268,8 +181,30 @@ body{width: 100%;}
 
 // Bloco do projeto comentarios! 
 .bloco_info.comentarios{background: #b185c1;}
-.bloco_info.comentarios .title{background: #9b50ba;}
+    .bloco_info.comentarios .title{background: #9b50ba;}
 
+    .bloco_info.comentarios .comentarios{margin:14px;}
+    .bloco_info.comentarios .post-comentario-projeto{ background: #9b50ba;height: 130px;}
 
+    // Bloco de postagem do comentário --------
+    .bloco_info.comentarios  .avatar-usuario{padding: 14px;box-sizing: border-box;text-align: center;}
+    .bloco_info.comentarios  .avatar-usuario img {width: 60px;border-radius: 50%;}
+    .bloco_info.comentarios .post-comentario-projeto .texto-comentario{margin: 0px;margin-top: 10px;height: 67px;}
+    .bloco_info.comentarios .post-comentario-projeto .btn-1 { margin-top: 10px;font-weight: bold;font-size: 22px; }
+    // Bloco de postagem do comentário --------
 
-  
+    // Bloco comentário já postado ----------
+    .bloco_info.comentarios .comentario-postado{margin: 10px auto;}
+    .bloco_info.comentarios .comentario-postado .corpo-comentario{background: #9b50ba;  margin: 0px;margin-top: 10px;min-height: 90px;padding-bottom: 10px;    }
+    .bloco_info.comentarios .comentario-postado .corpo-comentario:before{
+        content:"";
+        float: left;
+        width: 0;
+        height: 0;
+        margin-left: -15px;
+        margin-top: 20px;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 20px solid #9b50ba;
+    }
+    .bloco_info.comentarios .comentario-postado .comentario{margin: 0px;padding: 10px;box-sizing: border-box;    }

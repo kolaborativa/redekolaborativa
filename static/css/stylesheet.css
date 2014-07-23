@@ -751,6 +751,9 @@ a,
 .w-90 {
   width: 90%;
 }
+.w-80 {
+  width: 80%;
+}
 .w-70 {
   width: 70%;
 }
@@ -762,6 +765,9 @@ a,
 }
 .w-30 {
   width: 30%;
+}
+.w-20 {
+  width: 20%;
 }
 .a-relative {
   position: relative;
@@ -899,11 +905,9 @@ select,
 }
 .select select {
   background-color: #FFF;
-  /*Cor do select default*/
   color: #000;
   padding: .2em;
   padding-right: 2.5em;
-  /*Define a distancia entre a seta e o texto */
   border: 0;
   margin: 0;
   text-indent: 0.01px;
@@ -922,10 +926,9 @@ input:disabled {
   position: absolute;
   pointer-events: none;
 }
+/*  Personalizando a seta */
 .select::after {
-  /*  Personalizando a seta */
   content: "\25BC";
-  /*Seta*/
   height: 1em;
   font-size: .625em;
   line-height: 1;
@@ -945,6 +948,8 @@ input:disabled {
 .select::after {
   color: #ffffff;
 }
+/*Imagem que define negativo*/
+/*Imagem que define o positivo*/
 .checkbox {
   width: 93%;
   position: relative;
@@ -952,15 +957,12 @@ input:disabled {
 .checkbox:after {
   top: 20%;
   content: url(../images/checkbox/error.png);
-  /*Imagem que define negativo*/
   position: absolute;
   right: 10px;
   z-index: 0;
 }
 .checkbox:before {
   top: 20%;
-  content: url(../images/checkbox/ok.png);
-  /*Imagem que define o positivo*/
   position: absolute;
   left: 10px;
   z-index: 0;
@@ -993,7 +995,6 @@ input:disabled {
 .check-box input[type="checkbox"] {
   visibility: hidden;
 }
-/*Custom checkbox*/
 .check-box {
   width: 20px;
   height: 20px;
@@ -1026,10 +1027,6 @@ input:disabled {
 }
 .checkedBox i {
   bottom: 2px;
-  -webkit-transform: rotateZ(0deg);
-  -moz-transform: rotateZ(0deg);
-  -o-transform: rotateZ(0deg);
-  transform: rotateZ(0deg);
 }
 #disponibilidades div {
   display: inline-flex;
@@ -1084,6 +1081,10 @@ input:disabled {
   position: relative;
   float: left;
 }
+.dropdown ul li {
+  display: block;
+  float: left;
+}
 .dropdown ul li:hover {
   border: 1px solid #beb2b2;
   border-bottom: 0px;
@@ -1122,10 +1123,6 @@ input:disabled {
 }
 .dropdown li:hover li:hover {
   background: #66cab3;
-}
-.dropdown ul li {
-  display: block;
-  float: left;
 }
 .dropdown li:hover ul {
   display: block;
@@ -1225,6 +1222,18 @@ body {
   width: 1200px;
   text-align: center;
 }
+.displayBlock {
+  display: block;
+  transition: 1s;
+}
+.displayNone {
+  display: none;
+  transition: 1s;
+}
+.espacamentoBottom {
+  padding-bottom: 40px;
+  /*margin-top: -10px;*/
+}
 .col_edit_perfil_topo {
   height: 125px;
   background: #ffffff;
@@ -1244,14 +1253,6 @@ body {
 }
 .edit_perfil_fases {
   min-height: 446px;
-}
-.displayBlock {
-  display: block;
-  transition: 1s;
-}
-.displayNone {
-  display: none;
-  transition: 1s;
 }
 .colunas {
   min-height: 283px;
@@ -1399,10 +1400,6 @@ body {
 .iten-panel-img {
   margin-left: 10px;
   margin-top: 4px;
-}
-.espacamentoBottom {
-  padding-bottom: 40px;
-  /*margin-top: -10px;*/
 }
 .apresenta-user {
   background: white;
@@ -1557,7 +1554,7 @@ body {
 .slides {
   width: 90%;
   height: 265px;
-  margin: 0 auto;
+  margin: 15px auto;
   display: block;
 }
 .bloco_info.procura_membros {
@@ -1565,6 +1562,18 @@ body {
 }
 .bloco_info.procura_membros .title {
   background: #27ae60;
+}
+.bloco_info.procura_membros ul li {
+  border: 0px;
+  height: auto;
+}
+.bloco_info.procura_membros ul li ul li {
+  display: inline;
+  border: 0px;
+  background: #27ae60;
+  color: white;
+  font-weight: 900;
+  padding: 0px 3px;
 }
 .bloco_info.link {
   background: #95a5a6;
@@ -1607,4 +1616,56 @@ body {
 }
 .bloco_info.comentarios .title {
   background: #9b50ba;
+}
+.bloco_info.comentarios .comentarios {
+  margin: 14px;
+}
+.bloco_info.comentarios .post-comentario-projeto {
+  background: #9b50ba;
+  height: 130px;
+}
+.bloco_info.comentarios .avatar-usuario {
+  padding: 14px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.bloco_info.comentarios .avatar-usuario img {
+  width: 60px;
+  border-radius: 50%;
+}
+.bloco_info.comentarios .post-comentario-projeto .texto-comentario {
+  margin: 0px;
+  margin-top: 10px;
+  height: 67px;
+}
+.bloco_info.comentarios .post-comentario-projeto .btn-1 {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 22px;
+}
+.bloco_info.comentarios .comentario-postado {
+  margin: 10px auto;
+}
+.bloco_info.comentarios .comentario-postado .corpo-comentario {
+  background: #9b50ba;
+  margin: 0px;
+  margin-top: 10px;
+  min-height: 90px;
+  padding-bottom: 10px;
+}
+.bloco_info.comentarios .comentario-postado .corpo-comentario:before {
+  content: "";
+  float: left;
+  width: 0;
+  height: 0;
+  margin-left: -15px;
+  margin-top: 20px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 20px solid #9b50ba;
+}
+.bloco_info.comentarios .comentario-postado .comentario {
+  margin: 0px;
+  padding: 10px;
+  box-sizing: border-box;
 }

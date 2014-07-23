@@ -56,9 +56,11 @@
     <h2 class="title">{{=T("Personal Info")}}</h2>
     <ul>
         <li>
-          <span class="h2">
-              {{=T("Owner")}}:<a href="/{{=project.project_owner.username}}">{{=project.project_owner.username}}</a>
-          </span>
+          <a href="/{{=project.project_owner.username}}">
+            <span class="h2">
+                {{=T("Owner")}}: {{=project.project_owner.username}}
+            </span>
+          </a>
         </li>
         <li>
           <span class="h2">
@@ -101,23 +103,33 @@
          <!-- Procurando por -->
          <section class="f-left span_12 col bloco_info procura_membros">
            <h2 class="title">Procurando por</h2>
+           <ul>
            <!-- Procurando profissões \/ -->
-           {{if project.wanting_team:}}<b>{{=T("We need some more members...")}}</b> <br>
-           {{if project.team_wanted:}}
-           {{if len(project.team_wanted) >= 1:}}
-           {{=project.team_wanted}}<br>
-           {{pass}}
-           {{pass}}
+           {{if project.wanting_team:}}
+           <li>
+             <b>{{=T("We need some more members...")}}</b>
+           </li>
+               {{if project.team_wanted:}}
+                   {{if len(project.team_wanted) >= 1:}}
+                         <li>
+                           {{=project.team_wanted}}
+                         </li>
+                   {{pass}}
+              {{pass}}
            {{pass}}
 
            <!-- Procurando outros \/ -->
-           {{if project.wanting_other:}}<b>{{=T("We are looking for other kinds of help...")}}</b> <br>
-           {{if project.other_wanted:}}
-           {{if len(project.other_wanted) >= 1:}}
-           {{=project.other_wanted}}<br>
+           {{if project.wanting_other:}}
+            <li>
+              <b>{{=T("We are looking for other kinds of help...")}}</b>
+            </li>
+             {{if project.other_wanted:}}
+               {{if len(project.other_wanted) >= 1:}}
+                  <li>{{=project.other_wanted}}</li>
+               {{pass}}
+             {{pass}}
            {{pass}}
-           {{pass}}
-           {{pass}}
+          </ul>
          </section> 
          <!-- Links do projet -->
          <section class="f-left span_12 col bloco_info link">
@@ -240,8 +252,9 @@
       </section>
       <section class="f-left span_12 col bloco_info comentarios">
            <h2 class="title">{{=T('Comments')}}</h2>
+           <div class="comentarios">
           {{=LOAD('default','comments.load',ajax=True)}}
-
+          </div>
       </section>
   </section>
 </section>
