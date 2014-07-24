@@ -1,5 +1,62 @@
-{{extend 'layout.html'}}
-<h1>Painel de controle</h1>
-<p>Esse eh painel temporario</p>
-<p><a href="{{=URL('user_info')}}">pagina do usuario</a></p>
+{{extend 'layout_rede.html'}}
+<div class="col span_1 span_vazio"></div>
 
+<div class="col span_10 content-panel">
+  <div class="col span_12 header-panel t-center f-left">
+    <h1>O que deseja fazer?</h1>
+  </div>
+  <img src="{{=URL('static','images/Edit_perfil/barra_editar_perfil.png')}}" title="edit perfil" class="w-full f-left">
+  <div class="col span_1 span_vazio"></div>
+  <div class="col span_10">
+    <ul class="nav nav-list list-panel f-lelft">
+      <li class="iten-panel f-left" name="list-panel">
+        <a href="#" class="f-left w-full" name="item-list" id="EditPerfil">
+        <figure class="f-left">
+          <img class="iten-panel-img" src="{{=URL('static','images/panel/panel-editPerfilPretoEBranco.png')}}" alt="">
+        </figure>
+        <div class="f-left description-panel">
+          <span class="h2">Editar Perfil</span>
+          <p>
+            Altere as informações de usuário que aparecerão publicamente em seu perfil.
+          </p>
+        </div>
+        <img class="f-right arrow-panel" src="{{=URL('static','images/arrow-panel.png')}}" alt="">
+      </a>
+      </li>
+    </ul>
+  </div>
+  <div class="col span_1 span_vazio"></div>
+</div>
+<div class="col span_1 span_vazio"></div>
+
+<script>
+  var lista = document.getElementsByName("item-list");
+  for (var i = 0; i < lista.length; i++) {
+    lista[i].addEventListener("mouseover",function(){
+      var img = this.getElementsByTagName("img")[0];
+      TrocaImgPainel(this,img,'hover');
+    })
+    lista[i].addEventListener("mouseout",function(){
+      var img = this.getElementsByTagName("img")[0];
+      TrocaImgPainel(this,img,'out');
+    })
+  };
+
+  function TrocaImgPainel(e,img,event){
+    if(event == 'hover'){
+        switch(e.id){
+          case "EditPerfil":
+            img.src = image.panel_editPerfilColor;
+            break;        
+      }
+    }
+    else if(event == 'out'){
+       switch(e.id){
+          case "EditPerfil":
+            img.src = image.panel_editPerfilPeB;
+            break;        
+      } 
+    }
+
+  }
+</script>

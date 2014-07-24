@@ -18,10 +18,12 @@ def index():
 
     return dict(form_register=form_register)
 
+
 @auth.requires_login()
 def panel():
     
     return dict()
+
 
 def panel():
     return dict()
