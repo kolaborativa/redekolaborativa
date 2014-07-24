@@ -1,193 +1,10 @@
-// alert(screen.width)/Tamanho da Tela (do dispositivo)
-// window.innerWidth // Tamanho da Janela do navegador
-
-// Função para pegar elemento pela ID
-// Retorna o Elemento
-function Id(elemento) {
-
-	var elemento = document.getElementById(elemento);
-	return elemento;
-}
-
-// Função para pegar vetor de data-* (atributos)
-function SelectAll(parametro) {
-
-	parametro 	  = "["+parametro+"]";
-	var elementos = document.querySelectorAll(parametro);
-	return elementos;
-}
-
-document.addEventListener("DOMContentLoaded",main)
-
-function main(){
-	if(Id("submit") != null ){ 
-		DOMHome();
-	} // ativa o JS da home !	
-	
-	if(Id("formulario_edicao_perfil") != null) {
-		mudaStatusCheckbox();
-		DOMEditarPerfil();
-	}
-	
-}
-
-function DOMHome(){
-
-	var  verificado = false
-	 	,nome       = document.getElementsByName("first_name")[0]
-	 	,email      = document.getElementsByName("email")[0]
-	 	,user       = document.getElementsByName("username")[1]
-	 	,senha      = document.getElementsByName("password")[1]
-	 	,termos     = Id("termosConfirm")
-
-	 	
-	
-	Id("submit")
-	
-
-	nome.addEventListener  ("change",function(){validaForm()});
-	email.addEventListener ("change",function(){validaForm()});
-	user.addEventListener  ("change",function(){validaForm()});
-	senha.addEventListener ("change",function(){validaForm()});
-	termos.addEventListener("click",function(){validaForm()});
-
-	Id("submit").addEventListener("click",function(){
-		if(termos.checked == true && verificado == true){
-			document.forms[2].submit();
-		}
-	});
-	
-
-	
-	function validaForm(){
-		var campos = [nome,user,senha,email];
-		
-		if(nome.value != "" &&  user.value != "" && senha.value != "" && email.value != "")
-			verificado = true;		
-		else verificado = false;
-
-		
-		
-	}
-
-	
-
-
-}
-
-function mudaStatusCheckbox(checkbox){
-
-	checkbox = checkbox == null ? document.querySelector("[data-checkbox-label]") : checkbox
-
-	// pega o Label que ta com o texto
-	// Verifica se o campo veio nulo, se veio define o campo Default, se não usa o parametro mesmo
-
-	var disponibilidades = Id("disponibilidades");
-
-
-	var checked 		 = document.getElementsByName("user_available")[0].checked;
-
-	if (checked) {
-
-		checkbox.innerHTML = "Disponivel"
-		disponibilidades.style.display = "block";
-	}
-	else{
-
-		checkbox.innerHTML = "Indisponivel"
-		disponibilidades.style.display = "none";
-	}
-	console.log("checado",checked);
-}
-
-function mudando_fase_perfil(fase){
-
-	fase = fase == null? "1": fase; // se o valor vier null ele atribui a fase numero 1 do formulário
-
-	var fases_edicao = SelectAll("data-fase")
-	var status_fase  = SelectAll("data-fase-atual")
-	var img_fase     = SelectAll("data-img-fase");
-	var status;
-	var iImg         = 0;
-	var iFases       = 0;
-
-	for (; iFases < fases_edicao.length; iFases++) {
-		status = fases_edicao[iFases].getAttribute("data-fase-atual");
-
-		// Identifica qual o bloco que vai
-		if (fases_edicao[iFases].getAttribute("data-fase") == fase){
-			status = "true";
-		}
-		else{
-			status = "false";
-		}
-		// Muda o bloco
-		if (status == "false") {
-			fases_edicao[iFases].style.display = "none";
-		}
-		else{
-			fases_edicao[iFases].style.display = "block";
-		};
-	};
-
-	// Identifica quais as imagens da fase atual de edição do perfil e adiciona dinamicamente
-	switch(fase){
-		case "1":
-			 img_fase[0].src = image.editProfilefase1
-			 img_fase[1].src = image.editProfilefase2_cinza
-			 img_fase[2].src = image.editProfilefase3_cinza
-			 img_fase[3].src = image.editProfilefase4_cinza
-		break;
-		case "2":
-			 img_fase[0].src = image.editProfilefase1_completa
-			 img_fase[1].src = image.editProfilefase2
-			 img_fase[2].src = image.editProfilefase3_cinza
-			 img_fase[3].src = image.editProfilefase4_cinza
-		break;
-		case "3":
-			 img_fase[0].src = image.editProfilefase1_completa
-			 img_fase[1].src = image.editProfilefase2_completa
-			 img_fase[2].src = image.editProfilefase3
-			 img_fase[3].src = image.editProfilefase4_cinza
-		break;
-		case "4":
-			 img_fase[0].src = image.editProfilefase1_completa
-			 img_fase[1].src = image.editProfilefase2_completa
-			 img_fase[2].src = image.editProfilefase3_completa
-			 img_fase[3].src = image.editProfilefase4
-		break;
-
-	};
-}
-
-// Ver o que essas funções fazem
-function editarUsuario(usuario){
-
-	var campos  = SelectAll("[data-field]");
-	var field;
-	var icampos = 0;
-
-	for (; icampos < campos.length ; icampos++) {
-		 field = campos[icampos].getAttribute("data-field");
-	};
-
-}
-
-// Ver o que essas funções fazem
-function inputEditarUser(){
-	 var input 	   = document.createElement("input");
-	 	 att   	   = document.createAttribute("class");
-		 att.value = "input-editar";
-		 input.setAttributeNode(att);
-		return input
- }
-
 
 // Códigos da parte de Editar Perfil
 
 function DOMEditarPerfil(){
 		mudando_fase_perfil();
 
+		validacaoLocalizacao();
 	var btnPerfil  = SelectAll("data-irParaFase");
 	var iBtnPerfil = 0;
 	var img_fase   = SelectAll("data-img-fase");
@@ -204,6 +21,13 @@ function DOMEditarPerfil(){
 	var textareas  = formulario.getElementsByTagName("textarea")[0];
 	var links      = document.getElementsByName("delete_link");
 	var iLinks     = 0;
+	var pais  	   = Id('auth_user_country_id')
+	var estado 	   = Id('auth_user_states_id')
+	var cidade 	   = Id('auth_user_city_id')
+
+	pais.addEventListener("change",validacaoLocalizacao);
+	estado.addEventListener("change",validacaoLocalizacao);
+	cidade.addEventListener("change",validacaoLocalizacao);
 
 	// Chama a função para ir para o próximo estágio do editar perfil
 	for (; iBtnPerfil < btnPerfil.length; iBtnPerfil++) {
@@ -235,11 +59,11 @@ function DOMEditarPerfil(){
 	MascaraDeData();
 
 	//Parte da Bio pra ver quantos caracteres tem ainda a ser digitados
-	document.querySelector("[data-caracteres]").innerHTML = (350 - textareas.value.length);
+	document.querySelector("[data-caracteres]").innerHTML = (400 - textareas.value.length);
 	textareas.addEventListener("keyup",function(){
-		document.querySelector("[data-caracteres]").innerHTML = (350 - this.value.length);
-		if(this.value.length >= 350){
-			this.value = this.value.substr(0,350);
+		document.querySelector("[data-caracteres]").innerHTML = (400 - this.value.length);
+		if(this.value.length >= 400){
+			this.value = this.value.substr(0,400);
 		}
 	})
 
@@ -259,9 +83,19 @@ function DOMEditarPerfil(){
 				gravaAjaxEditProfile(this)
 			})
 		}
+		else if(inputs[iInputs].name == "site"){
+			inputs[iInputs].addEventListener("change",function(){
+				if(regexLink(this)){
+					gravaAjaxEditProfile(this);
+				}else{
+					alert('Digite um link válido');
+				}
+			});
+		}
 		else if(inputs[iInputs].name != "avatar"){ //Pula o input avatar !
 			inputs[iInputs].addEventListener("change",function(){gravaAjaxEditProfile(this);})
 		}
+
 
 	};
 
@@ -297,17 +131,32 @@ function DOMEditarPerfil(){
 	// Identifica os data-select e busca no banco as competencias que já existem
 	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
 	$("select[data-select]").on("click",function(){gravaAjaxEditProfile(this)});
-	$(".delete_profissao").on("click",function(){
-		if(confirm("Deseja realmente deletar?")){
-			gravaAjaxEditProfile(this);
-		}
-	});
+	$(".delete_profissao").on("click",function(){if(confirm("Deseja realmente deletar?")){gravaAjaxEditProfile(this);}});
 
 
 }
 
 
+function validacaoLocalizacao(){
 
+	var pais   = Id('auth_user_country_id')
+	var cidade = Id('auth_user_city_id')
+	var estado = Id('auth_user_states_id')
+	console.log(pais.selectedIndex);
+	
+	if(pais.selectedOptions[0].value != ""){
+	  	estado.disabled = false;
+	}else{
+		estado.disabled = true;
+	}
+
+	if(estado.selectedOptions[0].value != ""){
+		cidade.disabled = false;
+	}
+	else{ 
+		cidade.disabled = true;
+	}
+}
 
 function adicionandoProfissao(idProfissao, profissao,competencias){
 
@@ -372,7 +221,7 @@ function adicionandoLinks(linkName,linkId,url){
 	// thumbnail do link
 	switch(linkName){
 		case "Facebook":
-			 thumbnail.src = ico.facebook
+			 thumbnail.src = social_ico.facebook
 			 thumbnail.alt = "Facebook"
 			 break;
 
@@ -404,6 +253,8 @@ function adicionandoLinks(linkName,linkId,url){
 	document.getElementById("field-links").appendChild(div);
 	
 }
+
+
 
 function deletandoProfissao(id){
 	 var campo  = Id("list-profissao").querySelectorAll("[data-profissao]");
@@ -452,7 +303,7 @@ function deletandoLinks(id){
 }
 
 function gravaAjaxEditProfile(e){
-
+	
 	var field;
 	var value;
 	var vars;
@@ -586,6 +437,9 @@ function gravaAjaxEditProfile(e){
 			else if(e.name == "delete_profission"){
 				deletandoProfissao(value);
 			}
+			else if(e.name =="avatar"){
+				document.querySelector('[data-section-avatar]').classList.remove('branco');
+			}
 			else{
 				console.log(data);
 			}
@@ -620,4 +474,98 @@ function MascaraDeData(){
 		nascimentoDta.value = nascimentoDta.value.replace("-","/");
 		nascimentoDta.value = nascimentoDta.value.replace("-","/");
 
+}
+function mudaStatusCheckbox(checkbox){
+
+	checkbox = checkbox == null ? document.querySelector("[data-checkbox-label]") : checkbox
+
+	// pega o Label que ta com o texto
+	// Verifica se o campo veio nulo, se veio define o campo Default, se não usa o parametro mesmo
+
+	var disponibilidades = Id("disponibilidades");
+	var label 			 = document.querySelector("[data-checkbox-label]");
+	var div 			 = document.querySelector("[data-div-label]");
+	var checked 		 = document.getElementsByName("user_available")[0].checked;
+
+	
+	
+	if (checked) {
+
+		checkbox.innerHTML = "Disponivel"
+		disponibilidades.style.display = "block";
+		div.classList.remove("vermelho1");
+		div.classList.add("verdeAgua2");
+		label.classList.remove("vermelho2");
+		label.classList.add("verdeAgua")
+	}
+	else{
+		div.classList.add("vermelho1");
+		label.classList.add("vermelho2");
+		div.classList.remove("verdeAgua2");
+		label.classList.remove("verdeAgua");
+
+		checkbox.innerHTML = "Indisponivel"
+		disponibilidades.style.display = "none";
+	}
+	console.log("checado",checked);
+}
+
+function mudando_fase_perfil(fase){
+
+	fase = fase == null? "1": fase; // se o valor vier null ele atribui a fase numero 1 do formulário
+
+	var fases_edicao = SelectAll("data-fase")
+	var status_fase  = SelectAll("data-fase-atual")
+	var img_fase     = SelectAll("data-img-fase");
+	var status;
+	var iImg         = 0;
+	var iFases       = 0;
+
+	for (; iFases < fases_edicao.length; iFases++) {
+		status = fases_edicao[iFases].getAttribute("data-fase-atual");
+
+		// Identifica qual o bloco que vai
+		if (fases_edicao[iFases].getAttribute("data-fase") == fase){
+			status = "true";
+		}
+		else{
+			status = "false";
+		}
+		// Muda o bloco
+		if (status == "false") {
+			fases_edicao[iFases].style.display = "none";
+		}
+		else{
+			fases_edicao[iFases].style.display = "block";
+		};
+	};
+
+	// Identifica quais as imagens da fase atual de edição do perfil e adiciona dinamicamente
+	switch(fase){
+		case "1":
+			 img_fase[0].src = image.editProfilefase1
+			 img_fase[1].src = image.editProfilefase2_cinza
+			 img_fase[2].src = image.editProfilefase3_cinza
+			 img_fase[3].src = image.editProfilefase4_cinza
+		break;
+		case "2":
+			 img_fase[0].src = image.editProfilefase1_completa
+			 img_fase[1].src = image.editProfilefase2
+			 img_fase[2].src = image.editProfilefase3_cinza
+			 img_fase[3].src = image.editProfilefase4_cinza
+		break;
+		case "3":
+			 img_fase[0].src = image.editProfilefase1_completa
+			 img_fase[1].src = image.editProfilefase2_completa
+			 img_fase[2].src = image.editProfilefase3
+			 img_fase[3].src = image.editProfilefase4_cinza
+		break;
+		case "4":
+			 img_fase[0].src = image.editProfilefase1_completa
+			 img_fase[1].src = image.editProfilefase2_completa
+			 img_fase[2].src = image.editProfilefase3_completa
+			 img_fase[3].src = image.editProfilefase4
+		break;
+
+	};
 }

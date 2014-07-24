@@ -1,7 +1,7 @@
 #projects
 db.projects.name.requires = [IS_NOT_EMPTY(error_message=field_empty), IS_NOT_IN_DB(db, 'projects.name', error_message="This project already exists!")]
 db.projects.image.requires = IS_EMPTY_OR(IS_IMAGE(extensions=('jpeg', 'png', 'jpg', 'gif')))
-db.projects.project_type.requires = IS_EMPTY_OR(IS_IN_SET(['OpenSource', T('Enterprising'), T('Social'), T('Other')]))
+db.projects.project_type.requires = IS_EMPTY_OR(IS_IN_SET(['OpenSource', T('Enterprising'), T('Social'), T('Other')], zero=T("Select the type of project")))
 db.projects.video_url.requires = IS_EMPTY_OR(IS_URL(error_message='Must be a valid URL!'))
 db.projects.slideshare_url.requires = IS_EMPTY_OR(IS_URL(error_message='Must be a valid URL!'))
 db.projects.project_links.requires = IS_EMPTY_OR(IS_URL(error_message='Must be a valid URL!'))
@@ -45,5 +45,7 @@ db.subscription_emails.email.requires = [IS_NOT_EMPTY(error_message=field_empty)
 db.auth_user.country_id.requires=IS_EMPTY_OR(IS_IN_DB(db, db.country.id, '%(name)s', zero="Escolha um País"))
 db.auth_user.states_id.requires=IS_EMPTY_OR(IS_IN_DB(db, db.states.id, '%(name)s', zero="Escolha um Estado"))
 db.auth_user.city_id.requires=IS_EMPTY_OR(IS_IN_DB(db, db.city.id, '%(name)s', zero="Escolha uma Cidade"))
+db.auth_user.site.requires=IS_EMPTY_OR(IS_URL())
+db.auth_user.requires=IS_EMPTY_OR(IS_URL())
 
 

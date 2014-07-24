@@ -25,10 +25,6 @@ def panel():
     return dict()
 
 
-def panel():
-    return dict()
-
-
 def landing():
     '''Landing page
     '''
@@ -420,11 +416,20 @@ def ajax_remove_link():
 
 
 # Usando essa função para testar os ajax por favor não deletar
+
 def testaAjax():
 
     print request.vars
 
+    varJson = {"usuarios":["John","jorge"]}
+    
+    # return dict(varJson)
     return True
+
+
+def password_changed(form):
+    session.password_changed = True
+    return locals()
 
 
 def user():
@@ -451,16 +456,19 @@ def user():
             field.readable = field.writable = False
 
     elif 'login' in request.args:
-        db.auth_user.username.label = T("Username or Email")
-        auth.settings.login_userfield = 'username'
-        if request.vars.username and not IS_EMAIL()(request.vars.username)[1]:
-            auth.settings.login_userfield = 'email'
-            request.vars.email = request.vars.username
-            request.post_vars.email = request.vars.email
-            request.vars.username = None
-            request.post_vars.username = None
+        redirect(URL('index'))
 
-        return dict(form=auth())
+    elif 'request_reset_password' in request.args \
+            or 'reset_password' in request.args:
+        form = auth()
+        form.custom.submit['_style'] = "background-color: #2cc36b"
+        return dict(form=form)
+
+    elif 'change_password' in request.args:
+        form = auth.change_password(onaccept=password_changed)
+        form.custom.submit['_style'] = "background-color: #2cc36b"
+
+        return dict(form=form)
 
     elif 'profile' in request.args:
         form=auth()
@@ -543,6 +551,7 @@ def user():
         return dict(
             form=form,form_profession=form_profession,form_competencies=form_competencies,form_networking=form_networking,
             professions=professions,competencies=competencies,networking=networking)
+
 
     return dict(form=auth())
 
@@ -726,11 +735,20 @@ def projects():
         return dict(project=project, message=message)
 
 
+def converter_imagem_projeto():
+    upload_folder = '{}uploads/'.format(request.folder)
+    img_converted = _image_converter(request.vars.img, upload_folder)
+
+    return img_converted or ''
+
+
 @auth.requires_login()
 def create_project():
     import json
     form = SQLFORM(db.projects)
     # faz o insert do carinha no time
+
+
     if form.process().accepted:
         project_id = form.vars.id
         session.flash = T('Project created!')
@@ -751,12 +769,19 @@ def create_project():
         # juntar o MYJSON(funcionarios a serem adicionados) com o json dos colaboradores já existentes.
         #fazendo o update.
         db(db.projects.id  == project_id).update(team=myjson)
+
+        # record imagem from upload
+        image_converted = converter_imagem_projeto()
+        if image_converted:
+            db(db.projects.id  == project_id).update(image=image_converted)
+
         project_created = db.projects[project_id]
 
         redirect(URL('projects', args=project_created.project_slug))
 
     elif form.errors:
         response.flash = T('Form has errors!')
+        print form.errors
     return dict(form=form)
 
 @auth.requires_login()
