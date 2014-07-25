@@ -451,7 +451,6 @@ def ajax_edit_project():
     #except:
         #return False
 
-
 # Usando essa função para testar os ajax por favor não deletar
 def testaAjax():
 
