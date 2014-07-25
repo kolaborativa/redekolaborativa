@@ -20,7 +20,7 @@ def index():
 
 @auth.requires_login()
 def panel():
-    
+
     return dict()
 
 def landing():
@@ -160,7 +160,7 @@ def edit_perfil():
                 )
 
 
-def _image_converter(img64, upload_folder):
+def _image_converter(img64, upload_folder, type_upload):
     '''Funcao que converte uma imagem base64 e retorna a imagem convertida
     '''
     import subprocess
@@ -168,7 +168,7 @@ def _image_converter(img64, upload_folder):
 
     img_base64 = img64
     upload_folder = upload_folder
-    img_converted = convertBase64String(img_base64, upload_folder)
+    img_converted = convertBase64String(img_base64, upload_folder, type_upload)
 
     return img_converted
 
@@ -234,7 +234,6 @@ def ajax_edit_profile():
                 if not dados.availability:
                     db.auth_user[auth.user.id] = {'availability': 'Others'}
 
-        #print 'campo do banco:',field_db
         return True
 
     except:
@@ -413,14 +412,52 @@ def ajax_remove_link():
         return False
 
 
-# Usando essa função para testar os ajax por favor não deletar
+@auth.requires_login()
+def ajax_edit_project():
+    #TODO: 
+        # team
+        # links
+    #try:
+    field_db =  request.vars.field
+    new_value =  request.vars.value
+    dic_update = {field_db:new_value}
 
+    if field_db == 'image':
+        request.vars.img = request.vars.image64
+        image_converted = converter_imagem_projeto()
+        if image_converted:
+            project = db(db.projects.id == session.project_id).select().first()
+
+            if project.image:
+                # Deleta o avatar antigo
+                import subprocess
+                subprocess.call('rm %suploads/%s' % (request.folder,project.image), shell=True)
+
+                #Salva o avatar novo
+                db(db.projects.id  == project.id).update(image=image_converted)
+                return True
+    if field_db == 'project_links':
+        if type(request.vars['value[]']) == str:
+            new_value = [request.vars['value[]']]
+        else:
+            new_value = request.vars['value[]']
+        dic_update[field_db] = new_value
+
+    print field_db, ':', new_value
+    db.projects[session.project_id] = dic_update
+
+    #except:
+        #return False
+
+
+# Usando essa função para testar os ajax por favor não deletar
 def testaAjax():
 
     print request.vars
 
-    varJson = {"usuarios":["John","jorge"]}
-    
+    # varJson = 
+    # users.append({"1": "r4bugento", "7": "vinnywan"})
+    # return dict(users=users)
     # return dict(varJson)
     return True
 
@@ -734,8 +771,11 @@ def projects():
 
 
 def converter_imagem_projeto():
+    import subprocess
+
     upload_folder = '{}uploads/'.format(request.folder)
-    img_converted = _image_converter(request.vars.img, upload_folder)
+    type_upload = 'image_project'
+    img_converted = _image_converter(request.vars.img, upload_folder, type_upload)
 
     return img_converted or ''
 
@@ -775,7 +815,7 @@ def create_project():
 
         project_created = db.projects[project_id]
 
-        redirect(URL('projects', args=project_created.project_slug))
+        redirect(URL('edit_project', args=project_created.project_slug, vars={'stage': '2'}))
 
     elif form.errors:
         response.flash = T('Form has errors!')
@@ -785,42 +825,42 @@ def create_project():
 @auth.requires_login()
 def edit_project():
     import json
-    message = T("Project not found.")
-    project = db.projects(project_slug=request.args(0)) or message
+#mudar:
+# soh retornar o form de edicao (ou nao.. veja a linha de baixo)
+# ver o esquema do my_team
+    project_slug = request.args(0) or redirect(URL('user_info'))
+    project = db.projects(project_slug=project_slug) or redirect(URL('user_info'))
+    session.project_id = project.id
 
-    if project != message:
-        if auth.user_id == project.project_owner:
-            if project.team:
-                myteam = json.loads(project.team)
-                mystring = ""
-                for i in myteam:
-                    mystring += "%s:%s," % (i,myteam[i])
-                project.team = mystring[0:-1]
+    if auth.user_id == project.project_owner:
+        if project.team:
+            myteam = json.loads(project.team)
+            mystring = ""
+            for i in myteam:
+                mystring += "%s:%s," % (i,myteam[i])
+            project.team = mystring[0:-1]
 
-            form = SQLFORM(db.projects,
-                   project,
-                   showid=False
-                   )
-            if form.process().accepted:
-                team = form.vars.team.split(",")
-                d = {}
-                for i in team:
-                    x = i.split(":")
-                    d[x[0]] = x[1]
-                myjson = json.dumps(d)
-                project_id = form.vars.id
-                db(db.projects.id  == project_id).update(team=myjson)
-                session.flash = T("Project edited!")
-                redirect(URL('projects', args=request.args(0)))
-            elif form.errors:
-                response.flash = T("Form has errors!")
+        form = SQLFORM(db.projects,
+               project,
+               showid=False
+               )
+        if form.process().accepted:
+            team = form.vars.team.split(",")
+            d = {}
+            for i in team:
+                x = i.split(":")
+                d[x[0]] = x[1]
+            myjson = json.dumps(d)
+            project_id = form.vars.id
+            db(db.projects.id  == project_id).update(team=myjson)
+            session.flash = T("Project edited!")
+            redirect(URL('projects', args=request.args(0)))
+        elif form.errors:
+            response.flash = T("Form has errors!")
 
-            return dict(project=project, message=message, form=form)
-        else:
-            no_permission = T('You don\'t have permission to change this project!')
-            return dict(project=project, message=message, form=no_permission)
+        return dict(form=form, project=project)
     else:
-        return dict(project=project, message=message)
+        redirect(URL('user_info'))
 
 @auth.requires_login()
 def remove_person():

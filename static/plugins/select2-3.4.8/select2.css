@@ -442,7 +442,8 @@ disabled look for disabled choices in the results dropdown
     margin: 0;
     padding: 0;
     position: relative;
-
+    background: transparent;
+    
     /*border: 1px solid #aaa;*/
     cursor: text;
     overflow: hidden;

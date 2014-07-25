@@ -1,4 +1,14 @@
 {{extend 'layout_rede.html'}}
+
+<style>
+    .obrigatorio{
+        color: red;
+    }
+  
+</style>
+
+
+
 <input type="hidden" id="create-project">
 <h1>Criar Projeto</h1>
 
@@ -39,20 +49,22 @@
         
         {{form.custom.submit['_class'] = 'btn-1 f-right w-40 btn-nav'}}
         {{form.custom.submit['_data-irParaFase'] = '2'}}
-        {{form.custom.submit['_value'] = 'Criar'}}
+        {{form.custom.submit['_type'] = 'button'}}
+        {{form.custom.submit['_id'] = 'submeter'}}
+        {{form.custom.submit['_value'] = 'Avançar'}}
 
 
         <section data-fase="1" data-fase-atual="true" class="col span_12 f-left edit_perfil_fases">
             <section class="span_1 col span_vazio"></section>
             <section class="span_4 col colunas">
-                <span class=" h2 f-left">Nome do Projeto</span>
+                <span class=" h2 f-left">Nome do Projeto<small class="obrigatorio">*</small></span>
                 <section class="section-form">
                     {{=form.custom.widget.name}}
                 </section>
                 <!-- Tipo de Projeto -->
-                <span class=" h2 f-left w-full">Tipo de Projeto</span>
+                <span class=" h2 f-left w-full">Tipo de Projeto<small class="obrigatorio">*</small></span>
                 <section class="section-form">
-                        <label class="select w-50 form-input-comum form-select">
+                        <label class="select w-60 form-input-comum form-select" id="tiposProjetos">
                           {{=form.custom.widget.project_type}}
                         </label>
                 </section>
@@ -86,9 +98,11 @@
                 </section>
             </section>
             <div class="span_6 col f-right espacamentoBottom t-right">
+                <small class="obrigatorio">Preencha os campos obrigatórios (*)</small>
                 <p>{{=form.custom.submit}}</p>
             </div>
         </section>
     {{=form.custom.end}}
     <!--</form>-->
 </section>
+

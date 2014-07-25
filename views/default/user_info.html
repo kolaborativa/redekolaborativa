@@ -40,14 +40,14 @@
         </section>
     </section>
     <!-- Bio usuário -->
-    <section class="f-left span_6  col bio-user">
+    <section class="f-left span_6  col descricao">
         <p>
             <h1>{{=user.username}}</h1>
             <br>
             {{=user.bio or ''}}
         </p>
         {{ if user.site: }}
-        <b>Site pessoal: <a href="{{=user.site}}" target="_blank">{{=user.site}}</a></b>
+        <b>Site pessoal: <a href="http://{{=user.site}}" target="_blank">{{=user.site}}</a></b>
         {{ pass }}
     </section>
     <!-- Social - Disponibilidade -->
@@ -62,7 +62,7 @@
                 {{ for i in my_links: }}
                     <li>
                         <a href="{{=i.url}}" target="_blank">
-                        <img data-link="{{=i.link_type_id.name}}" name="{{=i.link_type_id.name}}" src="#" alt="{{=i.link_type_id.name}}"></a>
+                        <img data-link="{{=i.link_type_id.name}}" name="{{=i.link_type_id.name}}" src="" alt="{{=i.link_type_id.name}}"></a>
                     </li>
                 {{ pass }}
             </ul>
@@ -72,7 +72,7 @@
 
 </section>
 <!-- Informações pessoais -->
-<section class="f-left span_4 col bloco_info info_user">
+<section class="f-left span_4 col bloco_info info_basica">
     <h2 class="title">{{=T("Personal Info")}}</h2>
     <ul>
         <li>
@@ -121,8 +121,7 @@
 <section class="f-left span_4 col bloco_info info_profissional">
    <h2 class="title">{{=T("Professional Info")}}</h2>
    <ul>
-   {{if professional_data:}}
-   
+   {{if professional_data:}}   
        {{for p in professional_data:}}
         <li><span class="h2"> {{=p}}</span>
             {{ if professional_data[p]: }}
@@ -175,8 +174,9 @@
 <!-- Projetos que eu colaboro -->
 <section class="f-left span_4 col bloco_info projetos_colaboro">
          <h2 class="title">{{=T("Projects I Colaborate")}}</h2>
+         <ul>
                 {{if colaborate_projects:}}
-                <ul>
+                
                     {{for l in colaborate_projects:}}
                     
                         <li>
@@ -206,13 +206,16 @@
                         </li>
                     
                     {{pass}}
-                </ul>
+                
                 {{if len(colaborate_projects) > 5:}}
                 {{=A(T('Read more'), _href="#")}}
-                {{pass}}
+                     {{pass}}
                 {{else:}}
-                {{=T("None")}}
+                <ul>
+                     {{=T("None")}}
+                </ul>
                 {{pass}}
+                </ul>
 </section>
 
 </section>

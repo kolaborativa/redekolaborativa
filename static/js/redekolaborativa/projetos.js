@@ -1,6 +1,44 @@
 function DOMCreateProjeto(){
 	mudando_fase_projeto(pegaGET('stage'));
 	validaCriacao();
+
+	var nomeProjeto = Id('projects_name');
+	var tipoProjeto = Id('projects_project_type');
+
+
+	Id('submeter').addEventListener('click',function(){
+		if(validaCriacao()){
+			document.forms[1].submit();
+		}else{
+			alert("Preencha os campos obrigatórios");
+			console.log(nomeProjeto);
+			if(nomeProjeto.value == ""){
+				nomeProjeto.classList.add('input-invalido');	
+			}
+			else{
+				nomeProjeto.classList.remove('input-invalido');
+			}
+
+			if(tipoProjeto.selectedIndex == 0){
+				Id("tiposProjetos").classList.add('input-invalido')
+			}
+			else{
+				Id("tiposProjetos").classList.remove('input-invalido')	
+			}
+		}
+	})
+
+	var textArea  = document.getElementsByTagName('textarea')
+	var iTextArea = 0;
+	
+	for (; iTextArea < textArea.length; iTextArea++) {
+		textArea[iTextArea].addEventListener("keyup",function(){
+			var idCampoLimite 			= this.getAttribute('data-limite-id')
+			var limite 					= this.getAttribute('data-limite')
+			Id(idCampoLimite).innerHTML = validaQtdCaracter(this,limite);
+		});	
+	};
+
 }
 
 function DOMEditProjeto(){
@@ -25,74 +63,108 @@ function DOMEditProjeto(){
 	};
 
 	SetandoAjaxProjeto();
-	ajaxAdicionandoProjeto()
+	MultiAjaxAutoComplete() 
 	// $("#profissoes").on("click",function(){	gravaAjaxEditProfile(this);	});
-	
+	Id("adicionarLink").addEventListener('click',function(){
+		var link = document.createElement('input')
+		var lista = document.createElement('li');
 
+		link.classList.add('form-input-comum')
+		link.classList.add('w-full');
+		link.type = "text";
+		link.name = "project_links"
+		link.setAttribute('placeholder','http://myprojectlinks.com')
+		link.addEventListener("change",function(){
+			enviaAjax(this)}
+		);
+
+		lista.appendChild(link)
+		Id("projects_project_links_grow_input").appendChild(lista)
+
+		
+	})
+
+	for (var i = 0; i < 10; i++) {
+		criathumbnailMembros();
+	};
 };
 
 
-function ajaxAdicionandoProjeto(){
-        // Ativa o pluguin select2
-        $('#adicionaMembro').select2({
-        	minimumInputLength: 1,
-        	 ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
-        		url: url.testaAjax+".json",
-		        results: function (data) { 
-		            // console.log(data.usuarios[0]);
-		            return {results: data.usuarios[0]};
-		        },
-		        dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
-    			escapeMarkup: function (m) { return m; }
-		    }
-        });
-};
 
+function adicionandoOutroLink(){
+
+	var vetLinks = document.getElementsByName('project_links');
+	var vetUrlLinks;
+	vetUrlLinks = [];
+	vetUrlLinks.length = 0
+	for (var i = 0; i < vetLinks.length; i++) {
+		vetUrlLinks[i] = vetLinks[i].value
+	};
+	console.log(vetUrlLinks);
+}
 
 
 
 function validaCriacao(){
-	var inputs    = document.getElementsByTagName('input');
-	var textArea  = document.getElementsByTagName('textarea')
-	var iTextArea = 0;
-	var selects   = document.getElementsByTagName('select')
-	
-	for (; iTextArea < textArea.length; iTextArea++) {
-		textArea[iTextArea].addEventListener("keyup",function(){
-			var idCampoLimite 			= this.getAttribute('data-limite-id')
-			var limite 					= this.getAttribute('data-limite')
-			Id(idCampoLimite).innerHTML = validaQtdCaracter(this,limite);
-		});	
-	};
-	
-	
-	for (var iInput = 0; iInput < inputs.length; iInput++) {
-		if(inputs[iInput].id == "profile-avatar"){
-			inputs[iInput].addEventListener('click',function(){
-		
-			})
-		}
 
-	};
+	nomeProjeto = Id('projects_name').value;
+	tipoProjeto = Id('projects_project_type').selectedIndex;
+
+	if(nomeProjeto != "" && tipoProjeto != 0){
+		return true;
+	}
+	else{
+		return false;
+	}
 	
 }
 
 
+// Passa uma booleana (status) 
+// 
+function MostraBloco(status,bloco){
+ 	
+ 	if(status){
+ 		Id(bloco).style.display = 'block';
+ 	}else{
+ 		Id(bloco).style.display = 'none';
+ 	}
+
+
+}
+
 function SetandoAjaxProjeto(){
 	var inputs    = document.getElementsByTagName('input');
 	var iInput    = 0;
+	var buttons   = document.getElementsByTagName('button');
+	var iButtons  = 0
 	var textArea  = document.getElementsByTagName('textarea')
 	var iTextArea = 0;
 	var selects   = document.getElementsByTagName('select')
 	var iSelect   = 0
 	
 	for (; iInput < inputs.length; iInput++) {
-		if(inputs[iInput].name == "CheckboxOnOff"){
-			checkboxOnOff(inputs[iInput],"On","Off"); // Inputs de checkbox primeira verificação
+		if(inputs[iInput].name == "wanting_team"){
+			 // Inputs de checkbox primeira verificação
+			MostraBloco(checkboxOnOff(inputs[iInput],"On","Off"),inputs[iInput].getAttribute('data-bloco'))
+
 			inputs[iInput].addEventListener("change",function(){
-				checkboxOnOff(this,"On","Off");
+                    var status = checkboxOnOff(this, "On", "Off");
+                    MostraBloco(status,this.getAttribute('data-bloco'));
+                    this.value = status;
+                    enviaAjax(this);
 			});
-		}else if(inputs[iInput].name != "avatar"){ //Pula o input avatar !
+        } else if(inputs[iInput].name == "wanting_other"){
+			 // Inputs de checkbox primeira verificação
+			MostraBloco(checkboxOnOff(inputs[iInput],"On","Off"),inputs[iInput].getAttribute('data-bloco'))
+
+			inputs[iInput].addEventListener("change",function(){
+                    var status = checkboxOnOff(this, "On", "Off");
+                    MostraBloco(status,this.getAttribute('data-bloco'));
+                    this.value = status;
+                    enviaAjax(this);
+			});
+		}else if(inputs[iInput].name != "image"){ //Pula o input avatar !
 			inputs[iInput].addEventListener("change",function(){enviaAjax(this)});
 		}
 	};
@@ -106,29 +178,33 @@ function SetandoAjaxProjeto(){
 		});	
 	};
 	for (; iSelect < selects.length; iSelect++) {
-		if(selects[iSelect].name == "buscaKolaborador"){
-			selects[iSelect].addEventListener("change",function(){
-				adicionandoBloco(
-					 'profissionalList' //IdBloco
-					,this.selectedOptions[0].innerHTML //Texto
-					,'data-id' //Data Attribute
-					,this.id //Id do Elemento
-				)
-			});
-		}
-		if(selects[iSelect].name == "buscaOutros"){
-			selects[iSelect].addEventListener("change",function(){
-				adicionandoBloco(
-					 'buscaOutrosbloco' //IdBloco
-					,this.selectedOptions[0].innerHTML //Texto
-					,'data-id' //Data Attribute
-					,this.id //Id do Elemento
-				)
-			});
-		}else{
+		
+		if(selects[iSelect].name != "buscaOutros" && selects[iSelect].name != "buscaKolaborador"){
 			selects[iSelect].addEventListener("change",function(){
 				enviaAjax(this)
 				console.log("Mudou")
+			});
+		}
+	};
+
+	for (; iButtons < buttons.length; iButtons++) {
+		if(buttons[iButtons].name == "buscaKolaborador"){ // Adiciona evento de buscando kolaborador
+			buttons[iButtons].addEventListener("click",function(){
+				adicionandoBloco( 
+					 'profissionalList' //IdBloco
+					,Id('buscaKolaborador').selectedOptions[0].innerHTML //Texto
+					,'data-id' //Data Attribute
+					,Id('buscaKolaborador').id //Id do Elemento
+				)
+			});
+		}else if(buttons[iButtons].name == "BuscandoOutros"){ // Adiciona event ode buscando por outras coisas
+			buttons[iButtons].addEventListener("click",function(){
+				adicionandoBloco(
+					 'profissionalList' //IdBloco
+					,Id('buscaOutros').selectedOptions[0].innerHTML //Texto
+					,'data-id' //Data Attribute
+					,Id('buscaOutros').id //Id do Elemento
+				)
 			});
 		}
 	};
@@ -136,6 +212,7 @@ function SetandoAjaxProjeto(){
 		
 
 function enviaAjax(e){
+	console.log(e);
 		if(e.value != "")
 			 gravaAjaxEditProjeto(e);
 		else console.log("Preencha Algo")
@@ -209,16 +286,34 @@ function gravaAjaxEditProjeto(e){
 	var value;
 	var vars;
 	
-	if(e.name == "avatar"){
+	if(e.name == "image"){
 		var img 	= Id("hidden-avatar").value;
 			vars    = {image64: img, field : e.name}; // Cria um objeto com a img em base64 e o nome do campo
-			caminho = url.testaAjax;
+			caminho = url.edit_project;
 	}
-	else {
+	else if(e.name == "project_links"){
+			field = e.name;
+			// Lista todos os links existentes 
+				var vetLinks = document.getElementsByName('project_links');
+				var vetUrlLinks;
+				vetUrlLinks = [];
+				vetUrlLinks.length = 0
+				// Insere as url em um vetor para ser enviado no ajax
+				for (var i = 0; i < vetLinks.length; i++) {
+					vetUrlLinks[i] = vetLinks[i].value
+				};
+			
+			value = vetUrlLinks;
+			//  Json com o campo e o vetor
+			vars = {'field':field,'value':value}
+            // caminho = url.edit_project;
+			caminho = url.edit_project;
+
+	}else {
 			field = e.name;
 			value = e.value;
 			vars = "field="+field+"&value="+value;
-			caminho = url.testaAjax;
+            caminho = url.edit_project;
 	}
 
 	$.ajax({
@@ -226,7 +321,7 @@ function gravaAjaxEditProjeto(e){
 		url: caminho,
 		data: vars,
 		success: function(data){
-			if(e.name == "avatar"){
+			if(e.name == "image"){
 				document.querySelector('[data-section-avatar]').classList.remove('branco');
 			}
 			return true; // caso queira fazer uma condicional 
@@ -236,10 +331,6 @@ function gravaAjaxEditProjeto(e){
 		}
 	});
 }
-
-
-
-
 
 
 // Checkbox que vai ir para a função
@@ -330,3 +421,96 @@ function deletandoBloco(idBloco,dataAttribute,idElemento){
 	 	}
 	 };
 }
+
+
+
+// Trabalhar nessa função ainda ! 
+//  Não está pronta, ela tem que fazer uma ajax para buscar pessoas no banco de dados 	
+function MultiAjaxAutoComplete() {
+	var caminho = "{{=URL(r=request,f='call',args=['json','get_users'])}}";
+
+	function formatResult(user) {
+	    return '<div>' + user.title + '</div>';
+	};
+
+	function formatSelection(data) {
+	    return data.title;
+	};
+
+    $('#projects_team').select2({
+       placeholder: "{{=T('Search for a user')}}",
+        minimumInputLength: 1,
+        multiple: true,
+        formatNoMatches: function(){return "{{=T('No results')}}"},
+        formatSearching: function(){return "{{=T('Searching...')}}"},
+        formatInputTooShort: function(){return "{{=T('Too short')}}"},
+
+        id: function(e) { return e.id+":"+e.title; },
+        ajax: {
+            url: caminho,
+            dataType: 'json',
+            data: function(term, page) {
+
+                return {
+                    q: term,
+                    page_limit: 10,
+                };
+            },
+            results: function(data, page) {
+                return {
+                    results: data.users
+                };
+            }
+        },
+        formatResult: formatResult,
+        formatSelection: formatSelection,
+        initSelection: function(element, callback) {
+            var data = [];
+            $(element.val().split(",")).each(function(i) {
+                var item = this.split(':');
+                data.push({
+                    id: item[0],
+                    title: item[1]
+                });
+            });
+            callback(data);
+        }
+
+
+    });
+		
+};
+
+
+
+function criathumbnailMembros(img,nome,cargo){
+
+	var figure 		= document.createElement('figure') // bloco
+	var avatar 		= document.createElement('img') // avatar 
+	var nomeMembro  = document.createElement('figcaption') // nome do membro
+	var cargoMembro = document.createElement('span') // cargo do membro
+
+	// Setando Variaveis
+	avatar.src = 'http://placehold.it/100x100';
+	nomeMembro.innerHTML = "Nome";
+	cargoMembro.innerHTML = "Cargo";
+	// Setando Variaveis
+	
+	// Adicionando CSS ao bloco
+	figure.classList.add('f-left');
+	figure.classList.add('thumbnail-member');	
+	nomeMembro.classList.add('bold');
+	cargoMembro.classList.add('italic');
+	// 
+
+	// Montando o bloco
+	figure.appendChild(avatar)
+	figure.appendChild(nomeMembro)
+	figure.appendChild(cargoMembro)
+	Id('campoDeMembros').appendChild(figure);
+	// Montando o bloco
+
+
+}
+
+

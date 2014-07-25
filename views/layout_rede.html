@@ -48,7 +48,8 @@ user-scalable = yes allows the user to zoom in -->
   <link href='http://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
   <!--  -->
-  <link href={{=URL('static', 'css/select2.css')}} rel="stylesheet">
+  <link rel="stylesheet" href="{{=URL('static','plugins/select2-3.4.8/select2.css')}}">
+  <!--  -->
   <link rel="stylesheet" href='{{=URL("static", "css/stylesheet.css")}}' />
 
   <script>
@@ -63,6 +64,7 @@ user-scalable = yes allows the user to zoom in -->
         ,"ajax_remove_profission"  : "{{=URL(c='default', f='ajax_remove_profission')}}"
         ,"ajax_remove_link"        : "{{=URL(c='default', f='ajax_remove_link')}}"
         ,"index"                   : "{{=URL(c='default', f='index')}}"
+        ,"edit_project"            : "{{=URL(c='default', f='ajax_edit_project')}}"
 
    };
    image = {
@@ -151,13 +153,14 @@ user-scalable = yes allows the user to zoom in -->
           </form>
         </div>
       </section>
-      <section class="col col_header span_1">
+      
+ 
+{{if request.function == "index" or 'message_register' in URL() or 'request_reset_password' in request.args:}}      
+   <section class="col col_header span_1">
       </section>
- {{if request.function == "index" or 'message_register' in URL() or 'request_reset_password' in request.args:}}      
 
       <section class="col col_header span_5 t-right">
-        
-        
+
         <div class="a-bottom">
           <a href="{{=URL(c='default', f='user', args=['request_reset_password'])}}">{{=T('Forgot your password?')}}</a>
           {{=form_login.custom.begin}}
@@ -180,19 +183,20 @@ user-scalable = yes allows the user to zoom in -->
           </div>
           </section>
           {{else:}}
-          <section class="col col_header span_5 t-right">
-            <nav class="dropdown projetos a-bottom">
+          <section class="col col_header span_6 t-right">
+            <nav id="menuGlobal">
               <ul>
+
                 <li>
                 {{if 'user' in URL():}}
                   <a href="{{=URL(f='create_project')}}">
                     <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Criar Projetos"> 
-                    <span>CRIAR NOVOS PROJETOS</span>
+                    <span>CRIAR PROJETO</span>
                   </a>
                 {{else:}}
                   <a href='create_project'>
                     <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Criar Projetos"> 
-                    <span>CRIAR NOVOS PROJETOS</span>
+                    <span>CRIAR PROJETO</span>
                   </a>
                 {{pass}}
                   <!--<ul>
@@ -200,16 +204,13 @@ user-scalable = yes allows the user to zoom in -->
                       <a href='#'>
                         <img src="{{=URL('static','images/Ico/icoList.png')}}" alt="Listar Projetos"> 
                         <span>
-                          LISTAR MEUS PROJETOS
+                          MEUS PROJETOS
                         </span>
                       </a>
                     </li>
                   </ul>-->
                 </li>
-              </nav>
-            <nav class="dropdown perfil a-bottom">
-                <ul>
-                  <li>
+                <li>
                     {{if 'user' in URL():}}
                       <a href="{{=URL(f='user_info')}}">
                         <img src="{{=URL('static','images/Ico/icoPerfil.png')}}" alt="Ver Perfil"> 
@@ -220,7 +221,7 @@ user-scalable = yes allows the user to zoom in -->
                         <img src="{{=URL('static','images/Ico/icoPerfil.png')}}" alt="Ver Perfil"> 
                         <span>VER MEU PERFIL</span>
                       </a>
-                    {{pass}}
+                    {{pass}}                
                     <ul>
                       <li>
                         <a href='edit_perfil'>
@@ -248,10 +249,6 @@ user-scalable = yes allows the user to zoom in -->
                       </li>-->
                     </ul>
                   </li>
-                </ul>
-              </nav>
-            <nav class="dropdown config a-bottom">
-              <ul>
                   <li>
                   {{if 'user' not in URL() or 'user_info' in URL() or 'change_password' in request.args:}}
                     <a href="{{=URL(f='user/change_password')}}">
@@ -270,8 +267,8 @@ user-scalable = yes allows the user to zoom in -->
                     </li>
                   </ul>
                 </li>
-              </ul>
-            </nav>
+                </ul>
+              </nav>
           </section>
         {{pass}}
   <!-- /////////////////////////////////////////// -->
