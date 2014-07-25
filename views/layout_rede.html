@@ -126,10 +126,15 @@ user-scalable = yes allows the user to zoom in -->
   <header class="f-left w-full cinza2">
     <section class="header row">
       <section class="col col_header span_2 logo-header">
-      {{if 'index' not in URL() and 'message_register' not in URL():}}
+      {{if 'index' not in URL() and 'message_register' not in URL() and 'panel' not in URL():}}
         <figure class="a-bottom">
-        <a href='panel'><img src="{{=URL('static','images/logo-kolaborativa-header.png')}}" alt="Figura Kolaborativa"></a>
+          <a href="{{=URL(f='panel')}}"><img src="{{=URL('static','images/logo-kolaborativa-header.png')}}" alt="Figura Kolaborativa"></a>
         </figure>
+      {{elif 'panel' in URL() or 'change_password' in request.args:}}
+        <figure class="a-bottom">
+          <img src="{{=URL('static','images/logo-kolaborativa-header.png')}}" alt="Figura Kolaborativa">
+        </figure>
+    
       {{pass}}
       </section>
       <section class="col col_header span_1"></section>
@@ -147,7 +152,7 @@ user-scalable = yes allows the user to zoom in -->
         </div>
       </section>
       
- {{if request.function == "index" or 'message_register' in URL():}}
+ {{if request.function == "index" or 'message_register' in URL() or 'request_reset_password' in request.args:}}
       <section class="col col_header span_1">
       </section>
 
@@ -180,64 +185,54 @@ user-scalable = yes allows the user to zoom in -->
             <nav id="menuGlobal">
               <ul>
                 <li>                   
-                    <a href='#'> 
-                      <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Projetos"> 
-                      <span>CRIAR PROJETO</span>
-                    </a>
-                  <ul>
-                    <li>
-                      <a href='#'>
-                        <img src="{{=URL('static','images/Ico/icoList.png')}}" alt="Projetos"> 
-                        <span>
-                          MEUS PROJETOS
-                        </span>
+                    {{if 'user' in URL():}}
+                      <a href="{{=URL(f='create_project')}}">
+                        <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Criar Projetos"> 
+                        <span>CRIAR PROJETO</span>
                       </a>
+                    {{else:}}
+                      <a href='create_project'>
+                        <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Criar Projetos"> 
+                        <span>CRIAR PROJETO</span>
+                      </a>
+                    {{pass}}
+                </li>
+                <li>   
+                    {{if 'user' in URL():}}
+                      <a href="{{=URL(f='user_info')}}">
+                        <img src="{{=URL('static','images/Ico/icoPerfil.png')}}" alt="Ver Perfil"> 
+                        <span>VER MEU PERFIL</span>
+                      </a>
+                    {{else:}}
+                      <a href='user_info'>
+                        <img src="{{=URL('static','images/Ico/icoPerfil.png')}}" alt="Ver Perfil"> 
+                        <span>VER MEU PERFIL</span>
+                      </a>
+                    {{pass}}
+                  <ul>
+                   <li>
+                     <div class="quadrado">
+                       <a href="{{=URL(f='edit_perfil')}}">
+                         <img src="{{=URL('static','images/Ico/edit.png')}}" alt="Editar Perfil"> 
+                          <span>
+                            EDITAR MEU PERFIL
+                          </span>
+                        </a>
+                      </div>
                     </li>
                   </ul>
                 </li>
                 <li>   
-                    <a href='#'>
-                      <img src="{{=URL('static','images/Ico/icoPerfil.png')}}" alt="Ver Perfil"> 
-                      <span>VER MEU PERFIL</span>
+                    {{if 'user' not in URL() or 'user_info' in URL() or 'change_password' in request.args:}}
+                    <a href="{{=URL(f='user/change_password')}}">
+                      <img src="{{=URL('static','images/Ico/engrenagem.png')}}" alt="Alterar Senha"> 
+                      <span>ALTERAR SENHA</span>
                     </a>
-                    <ul>
-                      <li>
-                      <div class="quadrado">
-                        <a href='edit_perfil'>
-                          <img src="{{=URL('static','images/Ico/edit.png')}}" alt="Editar Perfil"> 
-                          <span>
-                            EDITAR MEU PERFIL
-                          </span>
-                        </a>
-                        </div>
-                      </li>
-                       <li>
-                        <a href='edit_perfil'>
-                          <img src="{{=URL('static','images/Ico/edit.png')}}" alt="Editar Perfil"> 
-                          <span>
-                            EDITAR MEU PERFIL
-                          </span>
-                        </a>
-                      </li>
-                       <li>
-                        <a href='edit_perfil'>
-                          <img src="{{=URL('static','images/Ico/edit.png')}}" alt="Editar Perfil"> 
-                          <span>
-                            EDITAR MEU PERFIL
-                          </span>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                <li>   
-                    <a href="#">
-                    <img src="{{=URL('static','images/Ico/engrenagem.png')}}" alt="Alterar Senha"> 
-                    <span>ALTERAR SENHA</span>
-                    </a>
+                    {{pass}}
                     <ul>
                     <li>
-                        <a href='#'>
-                          <img src="{{=URL('static','images/Ico/logout.png')}}" alt="Projetos"> 
+                        <a href="{{=URL(f='user/logout')}}">
+                          <img src="{{=URL('static','images/Ico/logout.png')}}" alt="Sair"> 
                           <span>
                             LOGOUT
                           </span>
