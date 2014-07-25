@@ -93,6 +93,10 @@ user-scalable = yes allows the user to zoom in -->
         ,"editProjetofase3_cinza"    : "{{=URL('static','images/Edit_projeto/contato_cinza.png')}}"
         ,"editProjetofase3"          : "{{=URL('static','images/Edit_projeto/contato.png')}}"
 
+        ,"panel_verPerfilPeB"        : "{{=URL('static','images/panel/painel-visualizarPerfilPretoEbranco.png')}}"
+        ,"panel_verPerfilColor"      : "{{=URL('static','images/panel/painel-visualizarPerfilColorido.png')}}"
+
+
 
   };
 
@@ -154,7 +158,6 @@ user-scalable = yes allows the user to zoom in -->
         </div>
       </section>
       
- 
 {{if request.function == "index" or 'message_register' in URL() or 'request_reset_password' in request.args:}}      
    <section class="col col_header span_1">
       </section>
@@ -186,31 +189,20 @@ user-scalable = yes allows the user to zoom in -->
           <section class="col col_header span_6 t-right">
             <nav id="menuGlobal">
               <ul>
-
-                <li>
-                {{if 'user' in URL():}}
-                  <a href="{{=URL(f='create_project')}}">
-                    <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Criar Projetos"> 
-                    <span>CRIAR PROJETO</span>
-                  </a>
-                {{else:}}
-                  <a href='create_project'>
-                    <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Criar Projetos"> 
-                    <span>CRIAR PROJETO</span>
-                  </a>
-                {{pass}}
-                  <!--<ul>
-                    <li>
-                      <a href='#'>
-                        <img src="{{=URL('static','images/Ico/icoList.png')}}" alt="Listar Projetos"> 
-                        <span>
-                          MEUS PROJETOS
-                        </span>
+                <li>                   
+                    {{if 'user' in URL():}}
+                      <a href="{{=URL(f='create_project')}}">
+                        <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Criar Projetos"> 
+                        <span>CRIAR PROJETO</span>
                       </a>
-                    </li>
-                  </ul>-->
+                    {{else:}}
+                      <a href='create_project'>
+                        <img src="{{=URL('static','images/Ico/compasso.png')}}" alt="Criar Projetos"> 
+                        <span>CRIAR PROJETO</span>
+                      </a>
+                    {{pass}}
                 </li>
-                <li>
+                <li>   
                     {{if 'user' in URL():}}
                       <a href="{{=URL(f='user_info')}}">
                         <img src="{{=URL('static','images/Ico/icoPerfil.png')}}" alt="Ver Perfil"> 
@@ -221,32 +213,17 @@ user-scalable = yes allows the user to zoom in -->
                         <img src="{{=URL('static','images/Ico/icoPerfil.png')}}" alt="Ver Perfil"> 
                         <span>VER MEU PERFIL</span>
                       </a>
-                    {{pass}}                
-                    <ul>
-                      <li>
-                        <a href='edit_perfil'>
-                          <img src="{{=URL('static','images/Ico/edit.png')}}" alt="Editar Perfil"> 
+                    {{pass}}
+                  <ul>
+                   <li>
+                     <div class="quadrado">
+                       <a href="{{=URL(f='edit_perfil')}}">
+                         <img src="{{=URL('static','images/Ico/edit.png')}}" alt="Editar Perfil"> 
                           <span>
                             EDITAR MEU PERFIL
                           </span>
                         </a>
                       </li>
-                      <!-- <li>
-                        <a href='edit_perfil'>
-                          <img src="{{=URL('static','images/Ico/edit.png')}}" alt="Editar Perfil"> 
-                          <span>
-                            EDITAR MEU PERFIL
-                          </span>
-                        </a>
-                      </li>
-                       <li>
-                        <a href='edit_perfil'>
-                          <img src="{{=URL('static','images/Ico/edit.png')}}" alt="Editar Perfil"> 
-                          <span>
-                            EDITAR MEU PERFIL
-                          </span>
-                        </a>
-                      </li>-->
                     </ul>
                   </li>
                   <li>
