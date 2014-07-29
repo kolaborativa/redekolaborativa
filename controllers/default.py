@@ -414,9 +414,6 @@ def ajax_remove_link():
 
 @auth.requires_login()
 def ajax_edit_project():
-    #TODO: 
-        # team
-        # links
     #try:
     field_db =  request.vars.field
     new_value =  request.vars.value
@@ -448,6 +445,43 @@ def ajax_edit_project():
 
     #except:
         #return False
+
+@auth.requires_login()
+def ajax_add_members_project():
+    import json
+    # buscar: funcao_atual
+
+    #recebe qual o projeto (id? slug? session?)
+    # grava no banco os bagulhos do time
+    # pega pelo id do cara a foto e o cargo
+    # retorna um dict ( {'id': [nome completo, foto, cargo]} )
+    # qual profissao ? #### perguntar na reuniao
+
+    # ==== project_id = session.project_id
+
+#    project_id = 1
+#    new_team_member = '{"1":"r4bugento"}' #pegar via ajax '{"1":"r4bugento", "2": "diego"}'
+    member_added = '{"1": ["nome do cara", "foto do cara", "cargo do cara"]}'
+#
+#    project = db(db.projects.id == project_id).select().first()
+#    team = json.loads(project.team)
+#    new_team = new_team_member.split(",")
+#    d = {}
+#    for i in new_team:
+#        x = i.split(":")
+#        d[x[0]] = x[1]
+#    team.update(d)
+#    myjson = json.dumps(team)
+#
+#    # ==== db(db.projects.id == project_id).update(team=myjson)
+#
+#    user_added_id = json.loads(new_team_member).keys()[0]
+#    print user_added_id
+#    # ==== user = db(db.auth_user.id==user_added_id).select().first()
+    print member
+
+    return member_added
+
 
 
 # Usando essa função para testar os ajax por favor não deletar
@@ -825,6 +859,7 @@ def edit_project():
     if auth.user and auth.user.id == project.project_owner:
         new_colaborator = SQLFORM.factory(db.projects.team)
 
+        # ====== colocar numa funcao que sera chamada via ajax
         if new_colaborator.process().accepted:
             project = db(db.projects.id == session.project_id).select().first()
             team = json.loads(project.team)
@@ -841,6 +876,7 @@ def edit_project():
             redirect(URL('edit_project', args=[request.args(0)], vars={'stage':2}))
         elif new_colaborator.errors:
             response.flash = T("Form has errors!")
+        # ====== colocar numa funcao que sera chamada via ajax
 
 #######################################3
         # comentando isso, estarei mandando para a view o dicionario mesmo
