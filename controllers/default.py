@@ -828,7 +828,6 @@ def edit_project():
         if new_colaborator.process().accepted:
             project = db(db.projects.id == session.project_id).select().first()
             team = json.loads(project.team)
-            print new_colaborator.vars.team
             new_team = new_colaborator.vars.team.split(",")
             d = {}
             for i in new_team:

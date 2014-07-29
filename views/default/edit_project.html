@@ -121,8 +121,9 @@
                     <section class="section-form">
                         <!-- Mano esse input é o que pega o ajax lá -->
                         {{=project.team}}
-                        {{=new_colaborator}}
+                        {{#=new_colaborator}}
                         <!--<input class=" select2-offscreen bigdrop" type="text" id="projects_team" name="team">-->
+                        <input type="text" id="project_team" name="team">
                     </section>
                 </section>
                 <section class="span_6 col span_vazio"></section>
@@ -390,7 +391,7 @@ function MultiAjaxAutoComplete(element, url) {
 
 var url = "{{=URL(r=request,f='call',args=['json','get_user_name'])}}";
 
-MultiAjaxAutoComplete('#no_table_team', url);
+MultiAjaxAutoComplete('#project_team', url);
 
 function formatResult(user) {
     return '<div>' + user.title + '</div>';
