@@ -816,26 +816,49 @@ def create_project():
 @auth.requires_login()
 def edit_project():
     import json
-#mudar:
-# soh retornar o form de edicao (ou nao.. veja a linha de baixo)
-# ver o esquema do my_team
     project_slug = request.args(0) or redirect(URL('user_info'))
     project = db.projects(project_slug=project_slug) or redirect(URL('user_info'))
     session.project_id = project.id
 
-    if auth.user_id == project.project_owner:
-        if project.team:
-            myteam = json.loads(project.team)
-            mystring = ""
-            for i in myteam:
-                mystring += "%s:%s," % (i,myteam[i])
-            project.team = mystring[0:-1]
+    #if auth.user_id == project.project_owner:
+    new_colaborator = ''
+    if auth.user and auth.user.id == project.project_owner:
+        new_colaborator = SQLFORM.factory(db.projects.team)
+
+        if new_colaborator.process().accepted:
+            project = db(db.projects.id == session.project_id).select().first()
+            team = json.loads(project.team)
+            print new_colaborator.vars.team
+            new_team = new_colaborator.vars.team.split(",")
+            d = {}
+            for i in new_team:
+                x = i.split(":")
+                d[x[0]] = x[1]
+            team.update(d)
+            myjson = json.dumps(team)
+            project_id = session.project_id
+            db(db.projects.id  == project_id).update(team=myjson)
+            session.flash = T("Project edited!")
+            redirect(URL('edit_project', args=[request.args(0)], vars={'stage':2}))
+        elif new_colaborator.errors:
+            response.flash = T("Form has errors!")
+
+#######################################3
+        # comentando isso, estarei mandando para a view o dicionario mesmo
+        #if user_role.accepts(request.vars):
+        #if project.team:
+        #    myteam = json.loads(project.team)
+        #    mystring = ""
+        #    for i in myteam:
+        #        mystring += "%s:%s," % (i,myteam[i])
+        #    project.team = mystring[0:-1]
 
         form = SQLFORM(db.projects,
                project,
                showid=False
                )
         if form.process().accepted:
+            # aqui pega a string e reparte ela para gravar o team
             team = form.vars.team.split(",")
             d = {}
             for i in team:
@@ -849,7 +872,7 @@ def edit_project():
         elif form.errors:
             response.flash = T("Form has errors!")
 
-        return dict(form=form, project=project)
+        return dict(form=form, project=project, new_colaborator=new_colaborator)
     else:
         redirect(URL('user_info'))
 
