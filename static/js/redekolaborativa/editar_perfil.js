@@ -2,9 +2,7 @@
 // Códigos da parte de Editar Perfil
 
 function DOMEditarPerfil(){
-		mudando_fase_perfil();
 
-		validacaoLocalizacao();
 	var btnPerfil  = SelectAll("data-irParaFase");
 	var iBtnPerfil = 0;
 	var img_fase   = SelectAll("data-img-fase");
@@ -29,6 +27,9 @@ function DOMEditarPerfil(){
 	var pais  	   = Id('auth_user_country_id')
 	var estado 	   = Id('auth_user_states_id')
 	var cidade 	   = Id('auth_user_city_id')
+
+	mudando_fase_perfil();
+	validacaoLocalizacao();
 
 	pais.addEventListener("change",validacaoLocalizacao);
 	estado.addEventListener("change",validacaoLocalizacao);
