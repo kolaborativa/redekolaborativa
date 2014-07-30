@@ -80,8 +80,13 @@ function DOMEditarPerfil(){
 	for (; iInputs < inputs.length; iInputs++) {
 		if(inputs[iInputs].id == "network"){
 			Id("network").addEventListener("change",function(){				
-				gravaAjaxEditProfile(this);
+				if(regexLink(this)){
+					gravaAjaxEditProfile(this);
+				}else{
+					alert('Digite um link válido');
+				}
 			})
+
 		}
 		else if(inputs[iInputs].name == "user_available"){
 			inputs[iInputs].addEventListener("change",function(){
@@ -113,6 +118,14 @@ function DOMEditarPerfil(){
 		else if(selects[iSelects].name == "link_type_id"){
 			selects[iSelects].addEventListener("change",function(){
 				Id("network").disabled = false;
+				var link = this.selectedOptions[0].innerHTML;
+				if(link != "Outros"){
+					Id("network").placeholder = "http://www."+link.toLowerCase()+".com/usuario"
+				}
+				else{
+					Id("network").placeholder = "http://www.google.com"	
+				}
+				
 			});
 		}
 		else{
@@ -149,6 +162,19 @@ function DOMEditarPerfil(){
 
 
 }
+
+function regexLink(e){
+	var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+	var regex      = new RegExp(expression);
+	var link       = e.value;
+
+	 if (link.match(regex)){
+	   return true
+	 }else{
+	   return false;
+	 }
+}
+
 
 
 function validacaoLocalizacao(){
@@ -310,8 +336,6 @@ function deletandoLinks(id){
 	 	}
 
 	 };
-	 
-	 
 	 
 
 }
