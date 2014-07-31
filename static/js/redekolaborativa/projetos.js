@@ -161,7 +161,8 @@ function SetandoAjaxProjeto(){
                     this.value = status;
                     enviaAjax(this);
 			});
-		}else if(inputs[iInput].name != "image"){ //Pula o input avatar !
+		}
+		else if(inputs[iInput].name != "image" &&  inputs[iInput].name == "team"){ //Pula o input avatar !
 			inputs[iInput].addEventListener("change",function(){enviaAjax(this)});
 		}
 	};
@@ -292,11 +293,23 @@ function gravaAjaxEditProjeto(e){
 	var field;
 	var value;
 	var vars;
-	
+
 	if(e.name == "image"){
 		var img 	= Id("hidden-avatar").value;
 			vars    = {image64: img, field : e.name}; // Cria um objeto com a img em base64 e o nome do campo
 			caminho = url.edit_project;
+	}
+	else if(e.name == "team"){
+
+		field 	= e.name;
+		value   = e.value.split(':');
+		value 	= '{ "'+value[0]+'" : "'+value[1]+'" }';
+		vars 	= "member="+value;
+		// caminho = url.testaAjax;
+		caminho = url.ajax_add_members_project;
+		console.log(url.ajax_add_members_project)
+
+
 	}
 	else if(e.name == "project_links"){
 			field = e.name;
@@ -330,6 +343,9 @@ function gravaAjaxEditProjeto(e){
 		success: function(data){
 			if(e.name == "image"){
 				document.querySelector('[data-section-avatar]').classList.remove('branco');
+			}
+			if(e.name == "team"){
+				console.log(data);
 			}
 			return true; // caso queira fazer uma condicional 
 		},

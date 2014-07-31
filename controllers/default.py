@@ -478,7 +478,7 @@ def ajax_add_members_project():
 #    user_added_id = json.loads(new_team_member).keys()[0]
 #    print user_added_id
 #    # ==== user = db(db.auth_user.id==user_added_id).select().first()
-    print member
+    
 
     return member_added
 
@@ -487,6 +487,7 @@ def ajax_add_members_project():
 # Usando essa função para testar os ajax por favor não deletar
 def testaAjax():
 
+    print "Olá mundo"
     print request.vars
 
     # varJson = 
