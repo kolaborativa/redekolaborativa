@@ -521,12 +521,13 @@ var figure 		 = document.createElement('figure');
 var imgThumbnail = document.createElement('img');
 var figcaption 	 = document.createElement('figcaption');
 var span 		 = document.createElement('span');
+var deleteSpan	 = document.createElement('span');
 
 	
 	figure.classList.add('thumbnail-member');
 	figure.classList.add('span_2');
 	figure.classList.add('col');
-
+	deleteSpan.classList.add('thumbnail-delete')
 	figcaption.classList.add('bold');
 	span.classList.add('italic');
 
@@ -534,9 +535,11 @@ var span 		 = document.createElement('span');
 	imgThumbnail.alt 			 = "Nome";
 	figcaption.innerHTML = "Nome";
 	span.innerHTML       = "Cargo";
+	deleteSpan.innerHTML = "X";
 
 	
 	figure.appendChild(imgThumbnail);
+	figure.appendChild(deleteSpan);
 	figure.appendChild(figcaption);
 	figure.appendChild(span);
 
