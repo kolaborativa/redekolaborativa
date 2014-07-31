@@ -346,6 +346,7 @@ function gravaAjaxEditProjeto(e){
 			}
 			if(e.name == "team"){
 				console.log(data);
+				CriandoMembrosDinamicamente();
 			}
 			return true; // caso queira fazer uma condicional 
 		},
@@ -509,7 +510,39 @@ function MultiAjaxAutoComplete() {
 };
 
 
+function CriandoMembrosDinamicamente(id,imagem,nome,cargo){
+// <figure class="f-left thumbnail-member">
+//     <img src="http://placehold.it/100x100" alt="">
+//     <figcaption class="bold">Nome</figcaption>
+//     <span class="italic">Cargo</span>
+// </figure>
 
+var figure 		 = document.createElement('figure');
+var imgThumbnail = document.createElement('img');
+var figcaption 	 = document.createElement('figcaption');
+var span 		 = document.createElement('span');
+
+	
+	figure.classList.add('thumbnail-member');
+	figure.classList.add('span_2');
+	figure.classList.add('col');
+
+	figcaption.classList.add('bold');
+	span.classList.add('italic');
+
+	imgThumbnail.src 			 = "http://placehold.it/100x100";
+	imgThumbnail.alt 			 = "Nome";
+	figcaption.innerHTML = "Nome";
+	span.innerHTML       = "Cargo";
+
+	
+	figure.appendChild(imgThumbnail);
+	figure.appendChild(figcaption);
+	figure.appendChild(span);
+
+	Id('blockMember').appendChild(figure);
+
+}
 
 
 

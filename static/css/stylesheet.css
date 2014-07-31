@@ -1401,8 +1401,7 @@ body {
   margin-top: 4px;
 }
 .thumbnail-member {
-  margin: auto 0px;
-  width: 50%;
+  margin: 10px 0px;
   text-align: center;
 }
 .thumbnail-member img {
