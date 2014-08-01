@@ -139,6 +139,8 @@ function SetandoAjaxProjeto(){
 	var iTextArea = 0;
 	var selects   = document.getElementsByTagName('select')
 	var iSelect   = 0
+	var deletaMembro = document.getElementsByName('deletaMembro');
+	var iDeletaMembro = 0;
 	
 	for (; iInput < inputs.length; iInput++) {
 		if(inputs[iInput].name == "wanting_team"){
@@ -209,6 +211,13 @@ function SetandoAjaxProjeto(){
 		}
 	};
 
+	for (var iDeletaMembro = 0; iDeletaMembro < deletaMembro.length; iDeletaMembro++) {
+		deletaMembro[iDeletaMembro].addEventListener('click',function(){
+		if(confirm("essa açao excluirá o membro desse projeto. Você poderá adicioná-lo novamente se desejar","Confirmar Exclusão")){
+			gravaAjaxEditProjeto(this);
+		}
+	})
+	};
 
 		
 
@@ -313,6 +322,13 @@ function gravaAjaxEditProjeto(e){
 
 
 	}
+	else if (e.name = "deletaMembro"){
+		// vars={'user_id':i, 'project_id': session.project_id})}
+		value 	= '{ "user_id": "'+e.id+'","project_id" : "'+variavelsGlobais.projectID+'"}';
+		vars 	= "member="+value;
+		caminho = url.testaAjax;
+		// caminho = url.remove_person;
+	}
 	else if(e.name == "project_links"){
 			field = e.name;
 			// Lista todos os links existentes 
@@ -348,6 +364,9 @@ function gravaAjaxEditProjeto(e){
 			}
 			if(e.name == "team"){
 				CriandoMembrosDinamicamente(data);
+			}
+			if(e.name == "deletaMembro"){
+				location.reload();
 			}
 			return true; // caso queira fazer uma condicional 
 		},
@@ -526,13 +545,14 @@ console.log("ID", idMembro, "Nome", nomeMembro, "foto", fotoMembro);
 var figure 		 = document.createElement('figure');
 var imgThumbnail = document.createElement('img');
 var figcaption 	 = document.createElement('figcaption');
-// var span 		 = document.createElement('span');
+var link 		 = document.createElement('a');
 var deleteSpan	 = document.createElement('span');
 
 	
 	figure.classList.add('thumbnail-member');
 	figure.classList.add('span_2');
 	figure.classList.add('col');
+	link.classList.add('thumbnail-delete')
 	deleteSpan.classList.add('thumbnail-delete')
 	figcaption.classList.add('bold');
 	// span.classList.add('italic');
@@ -542,13 +562,24 @@ var deleteSpan	 = document.createElement('span');
 	figcaption.innerHTML = nomeMembro;
 	// span.innerHTML       = "Cargo";
 	deleteSpan.id = idMembro;
+	
+	deleteSpan.name = "deletaMembro"
 	deleteSpan.innerHTML = "X";
+	deleteSpan.addEventListener('click',function(){
+		if(confirm("essa açao excluirá o membro desse projeto. Você poderá adicioná-lo novamente se desejar","Confirmar Exclusão")){
+			gravaAjaxEditProjeto(this);
+		}
+		
+	})
+
+	
 
 	
 	figure.appendChild(imgThumbnail);
-	figure.appendChild(deleteSpan);
+	figure.appendChild(link);
+	link.appendChild(deleteSpan);
 	figure.appendChild(figcaption);
-	// figure.appendChild(span);
+	
 
 	Id('blockMember').appendChild(figure);
 
