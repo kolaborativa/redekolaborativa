@@ -1401,12 +1401,17 @@ body {
   margin-top: 4px;
 }
 .thumbnail-member {
-  margin: auto 0px;
-  width: 50%;
+  margin: 10px 0px;
   text-align: center;
+  position: relative;
 }
 .thumbnail-member img {
   border-radius: 50%;
+}
+.thumbnail-delete {
+  position: absolute;
+  font-size: 18px;
+  z-index: 4;
 }
 #projects_project_links_grow_input li {
   margin: 5px auto;
