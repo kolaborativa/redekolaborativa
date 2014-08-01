@@ -446,42 +446,34 @@ def ajax_edit_project():
     #except:
         #return False
 
+
 @auth.requires_login()
 def ajax_add_members_project():
     import json
-    # buscar: funcao_atual
+    try:
+        project_id = session.project_id
+        new_team_member = request.vars.member
 
-    #recebe qual o projeto (id? slug? session?)
-    # grava no banco os bagulhos do time
-    # pega pelo id do cara a foto e o cargo
-    # retorna um dict ( {'id': [nome completo, foto, cargo]} )
-    # qual profissao ? #### perguntar na reuniao
+        project = db(db.projects.id == project_id).select().first()
+        team = json.loads(project.team)
+        dict_new_member = json.loads(new_team_member)
+        team.update(dict_new_member)
+        myjson = json.dumps(team)
 
-    # ==== project_id = session.project_id
+        db(db.projects.id == project_id).update(team=myjson)
 
-#    project_id = 1
-#    new_team_member = '{"1":"r4bugento"}' #pegar via ajax '{"1":"r4bugento", "2": "diego"}'
-    member_added = '{"1": ["nome do cara", "foto do cara", "cargo do cara"]}'
-#
-#    project = db(db.projects.id == project_id).select().first()
-#    team = json.loads(project.team)
-#    new_team = new_team_member.split(",")
-#    d = {}
-#    for i in new_team:
-#        x = i.split(":")
-#        d[x[0]] = x[1]
-#    team.update(d)
-#    myjson = json.dumps(team)
-#
-#    # ==== db(db.projects.id == project_id).update(team=myjson)
-#
-#    user_added_id = json.loads(new_team_member).keys()[0]
-#    print user_added_id
-#    # ==== user = db(db.auth_user.id==user_added_id).select().first()
-    
+        user_added_id = json.loads(new_team_member).keys()[0]
+        user = db(db.auth_user.id==user_added_id).select().first()
 
-    return member_added
+        user_data = {user_added_id:[]}
+        user_data[user_added_id].append(user.first_name)
+        user_data[user_added_id].append(user.avatar)
 
+        member_added = json.dumps(user_data)
+
+        return member_added
+    except:
+        return False
 
 
 # Usando essa função para testar os ajax por favor não deletar
@@ -855,59 +847,13 @@ def edit_project():
     project = db.projects(project_slug=project_slug) or redirect(URL('user_info'))
     session.project_id = project.id
 
-    #if auth.user_id == project.project_owner:
-    new_colaborator = ''
-    if auth.user and auth.user.id == project.project_owner:
+    if auth.user_id == project.project_owner:
         new_colaborator = SQLFORM.factory(db.projects.team)
-
-        # ====== colocar numa funcao que sera chamada via ajax
-        if new_colaborator.process().accepted:
-            project = db(db.projects.id == session.project_id).select().first()
-            team = json.loads(project.team)
-            new_team = new_colaborator.vars.team.split(",")
-            d = {}
-            for i in new_team:
-                x = i.split(":")
-                d[x[0]] = x[1]
-            team.update(d)
-            myjson = json.dumps(team)
-            project_id = session.project_id
-            db(db.projects.id  == project_id).update(team=myjson)
-            session.flash = T("Project edited!")
-            redirect(URL('edit_project', args=[request.args(0)], vars={'stage':2}))
-        elif new_colaborator.errors:
-            response.flash = T("Form has errors!")
-        # ====== colocar numa funcao que sera chamada via ajax
-
-#######################################3
-        # comentando isso, estarei mandando para a view o dicionario mesmo
-        #if user_role.accepts(request.vars):
-        #if project.team:
-        #    myteam = json.loads(project.team)
-        #    mystring = ""
-        #    for i in myteam:
-        #        mystring += "%s:%s," % (i,myteam[i])
-        #    project.team = mystring[0:-1]
 
         form = SQLFORM(db.projects,
                project,
                showid=False
                )
-        if form.process().accepted:
-            # aqui pega a string e reparte ela para gravar o team
-            team = form.vars.team.split(",")
-            d = {}
-            for i in team:
-                x = i.split(":")
-                d[x[0]] = x[1]
-            myjson = json.dumps(d)
-            project_id = form.vars.id
-            db(db.projects.id  == project_id).update(team=myjson)
-            session.flash = T("Project edited!")
-            redirect(URL('projects', args=request.args(0)))
-        elif form.errors:
-            response.flash = T("Form has errors!")
-
         return dict(form=form, project=project, new_colaborator=new_colaborator)
     else:
         redirect(URL('user_info'))
