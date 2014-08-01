@@ -848,13 +848,11 @@ def edit_project():
     session.project_id = project.id
 
     if auth.user_id == project.project_owner:
-        new_colaborator = SQLFORM.factory(db.projects.team)
-
         form = SQLFORM(db.projects,
                project,
                showid=False
                )
-        return dict(form=form, project=project, new_colaborator=new_colaborator)
+        return dict(form=form, project=project)
     else:
         redirect(URL('user_info'))
 
