@@ -345,8 +345,7 @@ function gravaAjaxEditProjeto(e){
 				document.querySelector('[data-section-avatar]').classList.remove('branco');
 			}
 			if(e.name == "team"){
-				console.log(data);
-				CriandoMembrosDinamicamente();
+				CriandoMembrosDinamicamente(data);
 			}
 			return true; // caso queira fazer uma condicional 
 		},
@@ -510,17 +509,22 @@ function MultiAjaxAutoComplete() {
 };
 
 
-function CriandoMembrosDinamicamente(id,imagem,nome,cargo){
-// <figure class="f-left thumbnail-member">
-//     <img src="http://placehold.it/100x100" alt="">
-//     <figcaption class="bold">Nome</figcaption>
-//     <span class="italic">Cargo</span>
-// </figure>
+function CriandoMembrosDinamicamente(membroInfo){
+
+
+membroInfo = JSON.parse(membroInfo); // Transforma em Objeto
+var chave  = Object.keys(membroInfo) // Pega as Chaves ( nesse caso é a ID do membro)
+idMembro   = chave = chave[0] // ID do membro
+nomeMembro = membroInfo[chave[0]][0] // Nome do membro
+fotoMembro = membroInfo[chave[0]][1] // Foto do membro 
+
+console.log("ID", idMembro, "Nome", nomeMembro, "foto", fotoMembro);
+
 
 var figure 		 = document.createElement('figure');
 var imgThumbnail = document.createElement('img');
 var figcaption 	 = document.createElement('figcaption');
-var span 		 = document.createElement('span');
+// var span 		 = document.createElement('span');
 var deleteSpan	 = document.createElement('span');
 
 	
@@ -529,19 +533,20 @@ var deleteSpan	 = document.createElement('span');
 	figure.classList.add('col');
 	deleteSpan.classList.add('thumbnail-delete')
 	figcaption.classList.add('bold');
-	span.classList.add('italic');
+	// span.classList.add('italic');
 
-	imgThumbnail.src 			 = "http://placehold.it/100x100";
-	imgThumbnail.alt 			 = "Nome";
-	figcaption.innerHTML = "Nome";
-	span.innerHTML       = "Cargo";
+	imgThumbnail.src 			 = fotoMembro;
+	imgThumbnail.alt 			 = nomeMembro;
+	figcaption.innerHTML = nomeMembro;
+	// span.innerHTML       = "Cargo";
+	deleteSpan.id = idMembro;
 	deleteSpan.innerHTML = "X";
 
 	
 	figure.appendChild(imgThumbnail);
 	figure.appendChild(deleteSpan);
 	figure.appendChild(figcaption);
-	figure.appendChild(span);
+	// figure.appendChild(span);
 
 	Id('blockMember').appendChild(figure);
 
