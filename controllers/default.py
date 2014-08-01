@@ -845,6 +845,12 @@ def edit_project():
     import json
     project_slug = request.args(0) or redirect(URL('user_info'))
     project = db.projects(project_slug=project_slug) or redirect(URL('user_info'))
+
+    project.team = json.loads(project.team)
+    for i in project.team:
+        project.team[i] = [project.team[i]]
+        project.team[i].append( db(db.auth_user.id==i).select(db.auth_user.avatar).first().avatar )
+
     session.project_id = project.id
 
     if auth.user_id == project.project_owner:

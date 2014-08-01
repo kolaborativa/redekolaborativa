@@ -119,21 +119,23 @@
                 <section class="span_6 col">
                     <span class=" h2 f-left">Adicionar Kolaboradores</span>
                     <section class="section-form">
-                        {{=project.team}}
                         <input type="text" id="project_team" name="team">
                     </section>
                 </section>
                 <section class="span_6 col span_vazio"></section>
             </section>
             <section class="span_12 row colunas t-center contorno f-left" id="blockMember">
-                
-                <figure class="thumbnail-member span_2 col">
-                    <img src="http://placehold.it/100x100" alt="">
-                    <span class="thumbnail-delete">X</span>
-                    <figcaption class="bold">Nome</figcaption>
-                    <span class="italic">Cargo</span>
-                </figure>
-               
+                {{ for i in project.team: }}
+                    <figure class="thumbnail-member span_2 col">
+                        {{ if project.team[i][1]: }}
+                            <img src="{{=URL('download', args=project.team[i][1])}}" alt="">
+                        {{else:}}
+                            <img src="http://placehold.it/100x100" alt="">
+                        {{ pass }}
+                        <span class="thumbnail-delete">X</span>
+                        <figcaption class="bold">{{=project.team[i][0]}}</figcaption>
+                    </figure>
+                {{ pass }} 
                 
             </section>
 
