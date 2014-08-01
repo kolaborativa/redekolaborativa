@@ -963,7 +963,8 @@ def get_user_name():
     rows = db(db.auth_user.first_name.like(term+'%')).select()
     users = []
     for i in rows:
-        users.append({"id":i.id,"title":i.first_name})
+        if i.id != auth.user.id:
+            users.append({"id":i.id,"title":i.first_name})
     return dict(users = users)
 
 def download():
