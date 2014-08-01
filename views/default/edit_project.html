@@ -126,17 +126,19 @@
             </section>
             <section class="span_12 row colunas t-center contorno f-left" id="blockMember">
                 {{ for i in project.team: }}
-                    <figure class="thumbnail-member span_2 col">
-                        {{ if project.team[i][1]: }}
-                            <img src="{{=URL('download', args=project.team[i][1])}}" alt="">
-                        {{else:}}
-                            <img src="http://placehold.it/100x100" alt="">
-                        {{ pass }}
-                        <a href="{{=URL(c='default', f='remove_person', vars={'user_id':i, 'project_id': session.project_id})}}">
-                            <span class="thumbnail-delete">X</span>
-                        </a>  
-                        <figcaption class="bold">{{=project.team[i][0]}}</figcaption>
-                    </figure>
+                    {{ if not int(i) == auth.user.id:}}
+                        <figure class="thumbnail-member span_2 col">
+                            {{ if project.team[i][1]: }}
+                                <img src="{{=URL('download', args=project.team[i][1])}}" alt="">
+                            {{else:}}
+                                <img src="http://placehold.it/100x100" alt="">
+                            {{ pass }}
+                            <a href="{{=URL(c='default', f='remove_person', vars={'user_id':i, 'project_id': session.project_id})}}">
+                                <span class="thumbnail-delete">X</span>
+                            </a>  
+                            <figcaption class="bold">{{=project.team[i][0]}}</figcaption>
+                        </figure>
+                    {{ pass }}
                 {{ pass }} 
                 
             </section>
