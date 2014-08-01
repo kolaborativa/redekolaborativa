@@ -881,7 +881,7 @@ def remove_person():
         team = json.dumps(dic_team)
         db(db.projects.id==project.id).update(team=team)
 
-    redirect(URL('user_info'))
+    redirect(URL('edit_project', args=project.project_slug, vars={'stage': '2'}))
 
 
 def comments():
