@@ -191,17 +191,19 @@ function SetandoAjaxProjeto(){
 				adicionandoBloco( 
 					 'profissionalList' //IdBloco
 					,Id('buscaKolaborador').selectedOptions[0].innerHTML //Texto
-					,'data-id' //Data Attribute
 					,Id('buscaKolaborador').id //Id do Elemento
+					,'data-id' //Data Attribute
+					
 				)
 			});
 		}else if(buttons[iButtons].name == "BuscandoOutros"){ // Adiciona event ode buscando por outras coisas
 			buttons[iButtons].addEventListener("click",function(){
 				adicionandoBloco(
-					 'profissionalList' //IdBloco
-					,Id('buscaOutros').selectedOptions[0].innerHTML //Texto
-					,'data-id' //Data Attribute
+					 'buscaOutrosbloco' //IdBloco
+					,Id('buscaOutros').value //Texto
 					,Id('buscaOutros').id //Id do Elemento
+					,'data-id' //Data Attribute
+					
 				)
 			});
 		}
@@ -426,7 +428,7 @@ function adicionandoBloco(idBloco,texto,idElemento,dataAttribute,link,url){
 	// 
 	span.innerHTML = texto;
 	div.setAttribute("class","social-field");	
-	div.setAttribute(dataAttribute,idElemento);
+	div.setAttribute(dataAttribute,texto);
 	div.appendChild(span);
 	div.appendChild(img);
 	document.getElementById(idBloco).appendChild(div);
@@ -535,7 +537,7 @@ var deleteSpan	 = document.createElement('span');
 	figcaption.classList.add('bold');
 	// span.classList.add('italic');
 
-	imgThumbnail.src 			 = fotoMembro;
+	imgThumbnail.src 			 = url.upload+"/"+fotoMembro;
 	imgThumbnail.alt 			 = nomeMembro;
 	figcaption.innerHTML = nomeMembro;
 	// span.innerHTML       = "Cargo";
