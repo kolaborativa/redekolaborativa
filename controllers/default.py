@@ -958,12 +958,15 @@ def get_users():
 
 @service.json
 def get_user_name():
+    import json
     # This functions gets the first name of user.
     term = request.vars.q
     rows = db(db.auth_user.first_name.like(term+'%')).select()
+    project = db(db.projects.id==session.project_id).select().first()
+    dic_project_team = json.loads(project.team)
     users = []
     for i in rows:
-        if i.id != auth.user.id:
+        if not str(i.id) in dic_project_team.keys():
             users.append({"id":i.id,"title":i.first_name})
     return dict(users = users)
 
