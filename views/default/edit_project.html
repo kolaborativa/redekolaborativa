@@ -133,7 +133,7 @@
                             {{else:}}
                                 <img src="http://placehold.it/100x100" alt="">
                             {{ pass }}
-                            <a href="{{=URL(c='default', f='remove_person', vars={'user_id':i, 'project_id': session.project_id})}}">
+                            <a href="{{=URL(c='default', f='remove_person', vars={'user_id':i, 'project_id': project.id})}}">
                                 <span class="thumbnail-delete" name="deletaMembro">X</span>
                             </a>  
                             <figcaption class="bold">{{=project.team[i][0]}}</figcaption>

@@ -358,9 +358,6 @@ function gravaAjaxEditProjeto(e){
 			if(e.name == "team"){
 				CriandoMembrosDinamicamente(data);
 			}
-			if(e.name == "deletaMembro"){
-				location.reload();
-			}
 			return true; // caso queira fazer uma condicional 
 		},
 		error: function(data){
