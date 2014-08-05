@@ -500,18 +500,16 @@ def ajax_wanting_team():
 
 @auth.requires_login()
 def ajax_wanting_team_add_profession():
-    # pegando o project_id
-    # pegando o profession_id
-    # grava na tabela team_wanted sem competencia
-    # retorna competencias disponiveis
     try:
-        profession_id = request.vars.value
+        project_id = request.vars.project_id
+        profession_id =  request.vars.profession_id
+
         # Record profession in the database
         dic_insert = {
+            'project_id': project_id,
             'profession_id': profession_id,
-            'user_id': auth.user.id,
             }
-        db.professional_relationship[0] = dic_insert
+        db.team_wanted[0] = dic_insert
 
         #Taking competencies related to profession inserted
         competencies = db(db.competence.profession_id==profession_id).select()
