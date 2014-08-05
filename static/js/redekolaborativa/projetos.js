@@ -322,13 +322,6 @@ function gravaAjaxEditProjeto(e){
 
 
 	}
-	else if (e.name = "deletaMembro"){
-		// vars={'user_id':i, 'project_id': session.project_id})}
-		value 	= '{ "user_id": "'+e.id+'","project_id" : "'+variavelsGlobais.projectID+'"}';
-		vars 	= "member="+value;
-		caminho = url.testaAjax;
-		// caminho = url.remove_person;
-	}
 	else if(e.name == "project_links"){
 			field = e.name;
 			// Lista todos os links existentes 
