@@ -15,7 +15,6 @@ db.define_table("projects",
 	Field("address", "text"),
 	Field("phone"),
 	Field("wanting_team", "boolean", default=False),
-	Field("team_wanted", "string"),
 	Field("wanting_other", "boolean", default=False),
 	Field("other_wanted", "string"),
 	Field("created_on", "date", default=request.now),
@@ -42,8 +41,13 @@ db.define_table("professional_relationship",
 	Field("profession_id", db.profession, readable=False, writable=False),
 	Field("competence_id", db.competence, readable=False, writable=False),
 	Field("user_id", db.auth_user, default=auth.user_id, readable=False, writable=False)
-    )
+)
 
+db.define_table("team_wanted",
+	Field("project_id", db.projects, readable=False, writable=False),
+	Field("profession_id", db.profession, readable=False, writable=False),
+	Field("competence_id", db.competence, readable=False, writable=False),
+)
 
 db.define_table('link_type',
     Field('name', 'string'),
