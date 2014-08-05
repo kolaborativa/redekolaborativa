@@ -71,7 +71,7 @@ user-scalable = yes allows the user to zoom in -->
 
    };
    variavelsGlobais = {
-      "projectID" : "{{=project.id}}"
+      "projectID" : "{{if 'project' in globals():}}{{=project.id}}{{pass}}"
 
    };
    image = {
