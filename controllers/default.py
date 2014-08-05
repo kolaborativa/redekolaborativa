@@ -944,14 +944,51 @@ def edit_project():
         project.team[i] = [project.team[i]]
         project.team[i].append( db(db.auth_user.id==i).select(db.auth_user.avatar).first().avatar )
 
-    session.project_id = project.id
+    session.project_id = project.id #no
 
     if auth.user_id == project.project_owner:
         form = SQLFORM(db.projects,
                project,
                showid=False
                )
-        return dict(form=form, project=project)
+
+        my_professions_id = [i.profession_id for i in db(db.team_wanted.project_id==project.id).select()]
+        list_professions = [i for i in db(db.profession).select() if not i.id in my_professions_id ]
+   #     my_avatar = db.auth_user[auth.user.id].avatar
+        my_team_wanted = db(db.team_wanted.project_id == project.id).select()
+        team_wanted_data = {}
+        if my_team_wanted:
+            for i in my_team_wanted:
+                if i.profession_id.name in team_wanted_data:
+                    team_wanted_data[i.profession_id.name]['my_competencies'].append((i.competence_id, i.competence_id.competence))
+
+                else:
+                    try:
+                        team_wanted_data[i.profession_id.name] = {
+                            'profession_id': i.profession_id,
+                        }
+                        team_wanted_data[i.profession_id.name]['my_competencies'] = [(i.competence_id, i.competence_id.competence)]
+
+                    except:
+                        team_wanted_data[i.profession_id.name] = {
+                            'profession_id': i.profession_id,
+                            'my_competencies': [],
+                            'others_competencies': []
+
+                        }
+
+            for pro in team_wanted_data:
+                team_wanted_data[pro]['others_competencies'] = []
+                others_comp = [(i.id, i.competence) for i in db(db.competence.profession_id==team_wanted_data[pro]['profession_id']).select()]
+                for oc in others_comp:
+                    if not oc in team_wanted_data[pro]['my_competencies']:
+                        team_wanted_data[pro]['others_competencies'].append(oc)
+
+        return dict(form=form,
+                project=project,
+                team_wanted_data=team_wanted_data,
+                list_professions=list_professions,
+                )
     else:
         redirect(URL('user_info'))
 

@@ -172,6 +172,33 @@
                             <button type="button" class="btn-submit" name="buscaKolaborador">+</button>
                         </div>
                         <section id="profissionalList" class="w-full f-left">
+                            <ul class="list-profissao" id="list-profissao">
+                                {{ if team_wanted_data: }}
+                                    {{ for profession in team_wanted_data: }}
+                                      <li class="profissao t-left f-left" data-profissao="{{=team_wanted_data[profession]['profession_id']}}">
+                                            <span class="h2">{{=profession}}
+                                            <img class="delete_profissao f-right" data-idProfissao="{{=team_wanted_data[profession]['profession_id']}}" src="{{=URL('static', 'images/Edit_perfil/delete.png')}}" name="delete_profission" ></span>
+                                            <select data-placeholder="adicione competencias" name="competence" data-select="{{=profession}}" class="w-full competencias" multiple data-idProfissao="{{=team_wanted_data[profession]['profession_id']}}">
+                                                {{ if team_wanted_data[profession]['my_competencies']: }}
+                                                    {{ for my_comp in team_wanted_data[profession]['my_competencies']: }}
+                                                        <option value="{{=my_comp[0]}}" selected>{{=my_comp[1]}}</option>
+                                                    {{ pass }}
+                                                {{ pass }}
+                                                {{ if team_wanted_data[profession]['others_competencies']: }}
+                                                    {{ for other_comp in team_wanted_data[profession]['others_competencies']: }}
+                                                        <option value="{{=other_comp[0]}}">{{=other_comp[1]}}</option>
+                                                    {{ pass }}
+                                                {{ pass }}
+                                            </select>
+                                        </li>
+                                    {{ pass }}
+                                {{ pass }}
+                            </ul>
+                            <!-- Jorge -->
+                            <p>Lista de profissoes que pode escolher</p>
+                            {{ for p in list_professions: }}
+                                <p>{{=p.id}} - {{=p.name}}</p>
+                            {{ pass }}
                         </section>
                     </section>
                 </section>
