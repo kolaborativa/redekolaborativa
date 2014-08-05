@@ -556,7 +556,7 @@ var deleteSpan	 = document.createElement('span');
 	// span.innerHTML       = "Cargo";
 	deleteSpan.id = idMembro;
 	// 
-	link.href = url.remove_person + "?user_id="+idMembro+"&project_id="variavelsGlobais.projectID;
+	link.href = url.remove_person + "?user_id="+idMembro+"&project_id="+variavelsGlobais.projectID;
 
 	deleteSpan.name = "deletaMembro"
 	deleteSpan.innerHTML = "X";
