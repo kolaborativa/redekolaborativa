@@ -476,6 +476,65 @@ def ajax_add_members_project():
         return False
 
 
+@auth.requires_login()
+def ajax_wanting_team():
+    try:
+        project_id = request.vars.project_id
+        value = request.vars.value
+
+        if value == 'true':
+            db(db.projects.id==project_id).update(wanting_team=value)
+            professions = { i.id: i.name for i in db(db.profession.id>0).select() }
+            return professions
+
+        elif value == 'false':
+            db(db.projects.id==project_id).update(wanting_team=value)
+            db(db.team_wanted.project_id==project_id).delete()
+            return True
+        else:
+            return False
+
+    except:
+        return False
+
+
+@auth.requires_login()
+def ajax_wanting_team_add_profession():
+    # pegando o project_id
+    # pegando o profession_id
+    # grava na tabela team_wanted sem competencia
+    # retorna competencias disponiveis
+    try:
+        profession_id = request.vars.value
+        # Record profession in the database
+        dic_insert = {
+            'profession_id': profession_id,
+            'user_id': auth.user.id,
+            }
+        db.professional_relationship[0] = dic_insert
+
+        #Taking competencies related to profession inserted
+        competencies = db(db.competence.profession_id==profession_id).select()
+        dic_competencies = {}
+        for c in competencies:
+            dic_competencies[str(c.id)] = c.competence
+
+        return dict(competencies=dic_competencies)
+    except:
+        return False
+    return
+
+
+@auth.requires_login()
+def ajax_wanting_team_add_competencies():
+    # pegando o project_id
+    # pegando o profession_id
+    # pegando o competence_id
+    # grava na tabela team_wanted
+    # json? mais de uma?
+    return
+
+
 # Usando essa função para testar os ajax por favor não deletar
 def testaAjax():
 
