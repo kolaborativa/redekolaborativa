@@ -76,8 +76,6 @@
 <td>
 {{if auth.user_id == project.project_owner:}}
     <a class="btn" href="{{=URL('edit_project', args=request.args(0))}}">{{=T("Edit project")}}</a><br><br>
-    <a class="btn btn_team">{{=T("Searching for members?")}}</a>
-    {{=searching_team}}
 {{pass}}
 </td>
 

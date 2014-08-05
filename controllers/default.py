@@ -873,20 +873,9 @@ def projects():
         elif user_role.errors:
             response.flash = T("Form has errors!")
 
-        searching_team = SQLFORM(db.projects, project, fields=["wanting_team", "team_wanted", "wanting_other", "other_wanted"],
-                                labels = {'wanting_team':'Searching for team', 'team_wanted':'Kind of team',
-                                'wanting_other':'Searching for other members', 'other_wanted':'Kind of members'},
-                                showid=False,
-                                _id="searching_team")
-        if searching_team.process().accepted:
-            response.flash = T('Form accepted!')
-            redirect(URL(f='projects', args=request.args(0)))
-        elif searching_team.errors:
-            response.flash = T('Form has errors!')
-
         return dict(
                 project=project, message=message, user_role=user_role, collaborators=collaborators,
-                searching_team=searching_team, new_colaborator = new_colaborator)
+                new_colaborator = new_colaborator)
 
     else:
         return dict(project=project, message=message)
