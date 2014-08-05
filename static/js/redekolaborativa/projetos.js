@@ -562,15 +562,12 @@ var deleteSpan	 = document.createElement('span');
 	figcaption.innerHTML = nomeMembro;
 	// span.innerHTML       = "Cargo";
 	deleteSpan.id = idMembro;
-	
+	// 
+	link.href = url.remove_person + "?user_id="+idMembro+"&project_id=";
+
 	deleteSpan.name = "deletaMembro"
 	deleteSpan.innerHTML = "X";
-	deleteSpan.addEventListener('click',function(){
-		if(confirm("essa açao excluirá o membro desse projeto. Você poderá adicioná-lo novamente se desejar","Confirmar Exclusão")){
-			gravaAjaxEditProjeto(this);
-		}
-		
-	})
+	
 
 	
 
