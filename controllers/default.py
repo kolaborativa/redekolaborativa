@@ -525,12 +525,59 @@ def ajax_wanting_team_add_profession():
 
 @auth.requires_login()
 def ajax_wanting_team_add_competencies():
-    # pegando o project_id
-    # pegando o profession_id
-    # pegando o competence_id
-    # grava na tabela team_wanted
-    # json? mais de uma?
-    return
+    import json
+    try:
+        project_id = request.vars.project_id
+        profession_id = request.vars.profession_id
+        my_competencies_id = json.loads(request.vars.competence)
+        list_competencies =[i.id for i in db(db.competence.profession_id==profession_id).select(db.competence.id)]
+
+        # inserts the new competencies
+        for competence_id in my_competencies_id:
+            row = db( (db.team_wanted.project_id == project_id) & \
+                    (db.team_wanted.profession_id == profession_id) & \
+                    (db.team_wanted.competence_id == None) \
+                ).select().first()
+
+            if row:
+                #update
+                db.team_wanted[row.id] = {'competence_id': competence_id}
+            else:
+                #insert
+                record = db( (db.team_wanted.project_id == project_id) & \
+                        (db.team_wanted.profession_id == profession_id) & \
+                        (db.team_wanted.competence_id == competence_id) \
+                    ).select().first()
+                if not record:
+                    #insert
+                    db.team_wanted.insert(
+                        profession_id = profession_id,
+                        competence_id = competence_id,
+                        project_id = project_id,
+                    )
+        # excludes competencies unused
+        for competence_id in list_competencies:
+            if not str(competence_id) in my_competencies_id:
+                count = db((db.team_wanted.project_id == project_id) & \
+                           (db.team_wanted.profession_id==profession_id) \
+                ).count()
+                if count <= 1:
+                    # updates if there is 1 record
+                    db( (db.team_wanted.project_id == project_id) & \
+                            (db.team_wanted.profession_id == profession_id) & \
+                            (db.team_wanted.competence_id == competence_id) \
+                        ).update(competence_id=None)
+
+                else:
+                   # delete if more than 1 record
+                    db( (db.team_wanted.project_id == project_id) & \
+                            (db.team_wanted.profession_id == profession_id) & \
+                            (db.team_wanted.competence_id == competence_id) \
+                        ).delete()
+
+        return True
+    except:
+        return False
 
 
 # Usando essa função para testar os ajax por favor não deletar
