@@ -479,7 +479,7 @@ def ajax_add_members_project():
 @auth.requires_login()
 def ajax_wanting_team():
     try:
-        project_id = session.project_id
+        project_id = request.vars.project_id
         value = request.vars.value
 
         if value == 'true':
