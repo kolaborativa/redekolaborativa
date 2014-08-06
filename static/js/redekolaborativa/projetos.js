@@ -179,7 +179,7 @@ function SetandoAjaxProjeto(){
 	};
 	for (; iSelect < selects.length; iSelect++) {
 		
-		if(selects[iSelect].name != "buscaOutros" && selects[iSelect].name != "buscaKolaborador"){
+		if(selects[iSelect].name != "buscaKolaborador"){
 			selects[iSelect].addEventListener("change",function(){
 				enviaAjax(this)
 				console.log("Mudou")
@@ -200,13 +200,7 @@ function SetandoAjaxProjeto(){
 			});
 		}else if(buttons[iButtons].name == "BuscandoOutros"){ // Adiciona event ode buscando por outras coisas
 			buttons[iButtons].addEventListener("click",function(){
-				adicionandoBloco(
-					 'buscaOutrosbloco' //IdBloco
-					,Id('buscaOutros').value //Texto
-					,Id('buscaOutros').id //Id do Elemento
-					,'data-id' //Data Attribute
-					
-				)
+				enviaAjax(Id('buscaOutros'));
 			});
 		}
 	};
@@ -300,7 +294,7 @@ function mudando_fase_projeto(fase){
 }
 
 function gravaAjaxEditProjeto(e){
-
+	
 	var field;
 	var value;
 	var vars;
@@ -344,7 +338,8 @@ function gravaAjaxEditProjeto(e){
 			field = e.name;
 			value = e.value;
 			vars = "field="+field+"&value="+value;
-            caminho = url.edit_project;
+            // caminho = url.edit_project;
+            caminho = url.testaAjax;
 	}
 
 	$.ajax({
@@ -357,6 +352,14 @@ function gravaAjaxEditProjeto(e){
 			}
 			if(e.name == "team"){
 				CriandoMembrosDinamicamente(data);
+			}
+			if(e.name == "buscaOutros"){
+				adicionandoBloco(
+					 'buscaOutrosbloco' //IdBloco
+					,e.value //Texto
+					,e.value //Id do Elemento
+					,'data-id' //Data Attribute
+				)
 			}
 			return true; // caso queira fazer uma condicional 
 		},

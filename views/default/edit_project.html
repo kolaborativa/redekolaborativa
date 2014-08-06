@@ -164,9 +164,10 @@
                         <div>
                             <label class="select w-40 form-input-comum f-left select-edit-perfil">
                                 <select class="input-select w-full" id="buscaKolaborador" name="buscaKolaborador">
-                                    <option value="1">Selecione Profissões</option>
-                                    <option value="2">Desenvolvedor</option>
-                                    <option value="3">Designer</option>
+                                    <option value="0">Selecione Profissões</option>
+                                    {{ for p in list_professions: }}
+                                        <option value="{{=p.name}}">{{=p.name}}</option>
+                                    {{ pass }}
                                 <select>
                             </label>
                             <button type="button" class="btn-submit" name="buscaKolaborador">+</button>
@@ -195,10 +196,7 @@
                                 {{ pass }}
                             </ul>
                             <!-- Jorge -->
-                            <p>Lista de profissoes que pode escolher</p>
-                            {{ for p in list_professions: }}
-                                <p>{{=p.id}} - {{=p.name}}</p>
-                            {{ pass }}
+                           
                         </section>
                     </section>
                 </section>
@@ -218,13 +216,6 @@
                         <h3 class="h3">Selecione o tipo de profissional que procura</h3>
                         <!-- select-edit-perfil -->
                         <div>
-                           <!--  <label class="select w-40 form-input-comum f-left select-edit-perfil">
-                                <select class="input-select w-full" id="buscaOutros" name="buscaOutros">
-                                    <option value="1">Selecione Profissões</option>
-                                    <option value="2">Desenvolvedor</option>
-                                    <option value="3">Designer</option>
-                                <select>
-                            </label> -->
                             <input type="text" class="form-input-comum f-left w-40" id="buscaOutros" name="buscaOutros"> 
                             <button type="button" class="btn-submit" name="BuscandoOutros">+</button>
                         </div>
