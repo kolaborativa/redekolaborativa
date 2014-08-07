@@ -270,6 +270,7 @@ def ajax_add_competence():
         my_competencies_id = json.loads(request.vars.competence)
         list_competencies =[i.id for i in db(db.competence.profession_id==profession_id).select(db.competence.id)]
         user_id = auth.user.id
+        print request.vars.competence
 
         # inserts the new competencies
         for competence_id in my_competencies_id:
@@ -527,11 +528,11 @@ def ajax_wanting_team_add_profession():
 def ajax_wanting_team_add_competencies():
     import json
     try:
-        print request.vars.competence
         project_id = request.vars.project_id
         profession_id = request.vars.profession_id
         my_competencies_id = json.loads(request.vars.competence)
         list_competencies =[i.id for i in db(db.competence.profession_id==profession_id).select(db.competence.id)]
+        print request.vars
 
         # inserts the new competencies
         for competence_id in my_competencies_id:
@@ -558,7 +559,7 @@ def ajax_wanting_team_add_competencies():
                     )
         # excludes competencies unused
         for competence_id in list_competencies:
-            if not str(competence_id) in my_competencies_id:
+            if not competence_id in my_competencies_id:
                 count = db((db.team_wanted.project_id == project_id) & \
                            (db.team_wanted.profession_id==profession_id) \
                 ).count()
