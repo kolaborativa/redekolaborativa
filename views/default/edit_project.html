@@ -79,7 +79,7 @@
                </section>
                <!-- Avatar -->
                <span class=" h2 f-left">Avatar</span>
-               <section class="section-form f-left branco t-center" data-section-avatar>
+               <section class="section-form f-left {{if not project.image:}}branco{{pass}} t-center" data-section-avatar>
                <label class="profile-avatar-wrap">
                    {{ if project.image: }}
                      <img src="{{=URL('download', args=[project.image])}}" id="profile-avatar" alt="Image for Profile">
@@ -162,11 +162,10 @@
                         <!-- select-edit-perfil -->
                         <h3 class="h3">Selecione o tipo de profissional que procura</h3>
                         <div>
-                            <label class="select w-40 form-input-comum f-left select-edit-perfil">
-                                <select class="input-select w-full" id="buscaKolaborador" name="buscaKolaborador">
-                                    <option value="0">Selecione Profissões</option>
+                            <label class="form-input-comum w-40 f-left select-edit-perfil branco">
+                                <select class="input-select w-full" id="buscaKolaborador" name="buscaKolaborador" multiple data-placeholder="Selecione uma profissão">
                                     {{ for p in list_professions: }}
-                                        <option value="{{=p.name}}">{{=p.name}}</option>
+                                        <option value="{{=p.id}}">{{=p.name}}</option>
                                     {{ pass }}
                                 <select>
                             </label>
@@ -176,7 +175,7 @@
                             <ul class="list-profissao" id="list-profissao">
                                 {{ if team_wanted_data: }}
                                     {{ for profession in team_wanted_data: }}
-                                      <li class="profissao t-left f-left" data-profissao="{{=team_wanted_data[profession]['profession_id']}}">
+                                      <li class="profissao t-left f-left" style="width:60%" data-profissao="{{=team_wanted_data[profession]['profession_id']}}">
                                             <span class="h2">{{=profession}}
                                             <img class="delete_profissao f-right" data-idProfissao="{{=team_wanted_data[profession]['profession_id']}}" src="{{=URL('static', 'images/Edit_perfil/delete.png')}}" name="delete_profission" ></span>
                                             <select data-placeholder="adicione competencias" name="competence" data-select="{{=profession}}" class="w-full competencias" multiple data-idProfissao="{{=team_wanted_data[profession]['profession_id']}}">

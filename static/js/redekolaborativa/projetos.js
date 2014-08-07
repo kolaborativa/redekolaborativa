@@ -84,6 +84,12 @@ function DOMEditProjeto(){
 		
 	})
 
+	$("#buscaKolaborador").select2({ 	maximumSelectionSize: 1	});
+	$("#buscaKolaborador").on("click",function(){	gravaAjaxEditProjeto(this);	});
+	// Identifica os data-select e busca no banco as competencias que já existem
+	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
+	$("select[data-select]").on("click",function(){gravaAjaxEditProjeto(this)});
+	$(".delete_buscaKolaborador").on("click",function(){if(confirm("Deseja realmente deletar?")){gravaAjaxEditProjeto(this);}});
 };
 
 
@@ -294,7 +300,7 @@ function mudando_fase_projeto(fase){
 }
 
 function gravaAjaxEditProjeto(e){
-	
+	console.log(e);
 	var field;
 	var value;
 	var vars;
@@ -334,6 +340,37 @@ function gravaAjaxEditProjeto(e){
             // caminho = url.edit_project;
 			caminho = url.edit_project;
 
+	}else if(e.name == "buscaKolaborador"){
+
+				field = e.name;
+				value = e.value;
+				vars  = "project_id="+variavelsGlobais.projectID+"&profession_id="+value;
+
+
+				var profession = e.selectedOptions[0].innerHTML;
+				caminho    = url.ajax_wanting_team_add_profession+".json";
+				//caminho = url.testaAjax;
+				e.selectedOptions[0].disabled = true;
+				$("#buscaKolaborador").select2("val", "")
+
+	} else if(e.name == "competence"){
+				console.log("entrou");
+				var idProfession         = e.getAttribute("data-idProfissao");
+				var vetCompetence        = new Array();
+					vetCompetence.length = 0;
+
+				for (var i = 0; i < e.options.length; i++) {
+					if(e.options[i].selected) {
+						vetCompetence.push(e.options.item(i).value);
+					}
+				};
+
+				vetCompetence = "["+vetCompetence+"]";
+				vars	   	  = "project_id="+variavelsGlobais.projectID+"profession_id="+idProfession+"&competence="+vetCompetence;
+				caminho 	  = url.ajax_wanting_team_add_competencies;
+				// caminho = url.testaAjax;
+				
+
 	}else {
 			field = e.name;
 			value = e.value;
@@ -347,20 +384,29 @@ function gravaAjaxEditProjeto(e){
 		url: caminho,
 		data: vars,
 		success: function(data){
+			console.log();
 			if(e.name == "image"){
 				document.querySelector('[data-section-avatar]').classList.remove('branco');
-			}
-			if(e.name == "team"){
+			}else if(e.name == "team"){
 				CriandoMembrosDinamicamente(data);
-			}
-			if(e.name == "buscaOutros"){
+			}else if(e.name == "buscaOutros"){
 				adicionandoBloco(
 					 'buscaOutrosbloco' //IdBloco
 					,e.value //Texto
 					,e.value //Id do Elemento
 					,'data-id' //Data Attribute
 				)
+			}else if(e.name == "buscaKolaborador"){
+				adicionandoProfissao(value, profession, data.competencies);
 			}
+			else if(e.name == "delete_link"){
+				deletandoLinks(value);
+			}
+			else if(e.name == "delete_profission"){
+				deletandoProfissao(value);
+			}
+			
+
 			return true; // caso queira fazer uma condicional 
 		},
 		error: function(data){
@@ -577,3 +623,77 @@ var deleteSpan	 = document.createElement('span');
 
 
 
+function adicionandoProfissao(idProfissao, profissao,competencias){
+
+	var select      = document.createElement('select');
+		select.name = "competence";
+		select.setAttribute('data-placeholder','adicione competencias');
+		select.setAttribute('data-select',profissao)
+		select.setAttribute('data-idProfissao',idProfissao);
+		select.setAttribute('class','w-full competencias');
+		select.setAttribute('multiple','')
+
+	// Cria um for de opções
+	for( i in competencias ){
+		var opcao           = document.createElement('option');
+			opcao.innerHTML = competencias[i];
+			opcao.value     = i;
+
+		select.appendChild(opcao);
+	}
+
+	var linha = document.createElement('li')
+		linha.setAttribute('class','profissao t-left');
+		linha.style.width = "60%";
+
+		linha.setAttribute("data-profissao",idProfissao);
+
+	var span = document.createElement('span');
+		span.setAttribute('class','h2');
+		span.innerHTML = profissao;
+
+	var deletar = document.createElement('img');
+		deletar.setAttribute('class','delete_profissao f-right');
+		deletar.src= image.delete;
+		deletar.setAttribute("data-idProfissao",idProfissao)
+		deletar.name="delete_buscaKolaborador";
+		deletar.addEventListener("click",function(){
+			if(confirm("Deseja realmente deletar?")){
+				gravaAjaxEditProfile(this);
+			}
+		});
+
+	var listasProfissoes = document.querySelector('.list-profissao')
+
+		span.appendChild(deletar);
+		linha.appendChild(span);
+		linha.appendChild(select);
+		listasProfissoes.appendChild(linha);
+
+	// Eventos ================
+	$("[data-select='"+profissao+"']").select2({maximumSelectionSize: 5});
+	$("[data-select='"+profissao+"']").on("change",function(){gravaAjaxEditProjeto(this);});
+	
+
+};
+
+function deletandoProfissao(id){
+	 var campo  = Id("list-profissao").querySelectorAll("[data-profissao]");
+	 var iCampo = 0;
+	 var bloco;
+
+	 for (; iCampo < campo.length; iCampo++) {
+
+	 	bloco = campo[iCampo].getAttribute("data-profissao");
+
+	 	if(bloco == id){
+	 		Id("list-profissao").removeChild(campo[iCampo]);
+	 		for (var i = 0; i < Id("profissoes").options.length; i++) {
+	 			if(Id("profissoes").options[i].value == id){
+	 				Id("profissoes").options[i].disabled = false;
+	 			}
+	 		};
+	 	}
+
+	 };
+}

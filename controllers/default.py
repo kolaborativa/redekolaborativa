@@ -527,6 +527,7 @@ def ajax_wanting_team_add_profession():
 def ajax_wanting_team_add_competencies():
     import json
     try:
+        print request.vars.competence
         project_id = request.vars.project_id
         profession_id = request.vars.profession_id
         my_competencies_id = json.loads(request.vars.competence)
