@@ -272,6 +272,7 @@ def ajax_add_competence():
         my_competencies_id = json.loads(request.vars.competence)
         list_competencies =[i.id for i in db(db.competence.profession_id==profession_id).select(db.competence.id)]
         user_id = auth.user.id
+        print request.vars.competence
 
         # inserts the new competencies
         for competence_id in my_competencies_id:
@@ -416,9 +417,6 @@ def ajax_remove_link():
 
 @auth.requires_login()
 def ajax_edit_project():
-    #TODO: 
-        # team
-        # links
     #try:
     field_db =  request.vars.field
     new_value =  request.vars.value
@@ -451,9 +449,146 @@ def ajax_edit_project():
     #except:
         #return False
 
+
+
+@auth.requires_login()
+def ajax_add_members_project():
+    import json
+    try:
+        project_id = session.project_id
+        new_team_member = request.vars.member
+
+        project = db(db.projects.id == project_id).select().first()
+        team = json.loads(project.team)
+        dict_new_member = json.loads(new_team_member)
+        team.update(dict_new_member)
+        myjson = json.dumps(team)
+
+        db(db.projects.id == project_id).update(team=myjson)
+
+        user_added_id = json.loads(new_team_member).keys()[0]
+        user = db(db.auth_user.id==user_added_id).select().first()
+
+        user_data = {user_added_id:[]}
+        user_data[user_added_id].append(user.first_name)
+        user_data[user_added_id].append(user.avatar)
+
+        member_added = json.dumps(user_data)
+
+        return member_added
+    except:
+        return False
+
+
+@auth.requires_login()
+def ajax_wanting_team():
+    try:
+        project_id = request.vars.project_id
+        value = request.vars.value
+
+        if value == 'true':
+            db(db.projects.id==project_id).update(wanting_team=value)
+            professions = { i.id: i.name for i in db(db.profession.id>0).select() }
+            return professions
+
+        elif value == 'false':
+            db(db.projects.id==project_id).update(wanting_team=value)
+            db(db.team_wanted.project_id==project_id).delete()
+            return True
+        else:
+            return False
+
+    except:
+        return False
+
+
+@auth.requires_login()
+def ajax_wanting_team_add_profession():
+    try:
+        project_id = request.vars.project_id
+        profession_id =  request.vars.profession_id
+
+        # Record profession in the database
+        dic_insert = {
+            'project_id': project_id,
+            'profession_id': profession_id,
+            }
+        db.team_wanted[0] = dic_insert
+
+        #Taking competencies related to profession inserted
+        competencies = db(db.competence.profession_id==profession_id).select()
+        dic_competencies = {}
+        for c in competencies:
+            dic_competencies[str(c.id)] = c.competence
+
+        return dict(competencies=dic_competencies)
+    except:
+        return False
+    return
+
+
+@auth.requires_login()
+def ajax_wanting_team_add_competencies():
+    import json
+    try:
+        project_id = request.vars.project_id
+        profession_id = request.vars.profession_id
+        my_competencies_id = json.loads(request.vars.competence)
+        list_competencies =[i.id for i in db(db.competence.profession_id==profession_id).select(db.competence.id)]
+        print request.vars
+
+        # inserts the new competencies
+        for competence_id in my_competencies_id:
+            row = db( (db.team_wanted.project_id == project_id) & \
+                    (db.team_wanted.profession_id == profession_id) & \
+                    (db.team_wanted.competence_id == None) \
+                ).select().first()
+
+            if row:
+                #update
+                db.team_wanted[row.id] = {'competence_id': competence_id}
+            else:
+                #insert
+                record = db( (db.team_wanted.project_id == project_id) & \
+                        (db.team_wanted.profession_id == profession_id) & \
+                        (db.team_wanted.competence_id == competence_id) \
+                    ).select().first()
+                if not record:
+                    #insert
+                    db.team_wanted.insert(
+                        profession_id = profession_id,
+                        competence_id = competence_id,
+                        project_id = project_id,
+                    )
+        # excludes competencies unused
+        for competence_id in list_competencies:
+            if not competence_id in my_competencies_id:
+                count = db((db.team_wanted.project_id == project_id) & \
+                           (db.team_wanted.profession_id==profession_id) \
+                ).count()
+                if count <= 1:
+                    # updates if there is 1 record
+                    db( (db.team_wanted.project_id == project_id) & \
+                            (db.team_wanted.profession_id == profession_id) & \
+                            (db.team_wanted.competence_id == competence_id) \
+                        ).update(competence_id=None)
+
+                else:
+                   # delete if more than 1 record
+                    db( (db.team_wanted.project_id == project_id) & \
+                            (db.team_wanted.profession_id == profession_id) & \
+                            (db.team_wanted.competence_id == competence_id) \
+                        ).delete()
+
+        return True
+    except:
+        return False
+
+
 # Usando essa função para testar os ajax por favor não deletar
 def testaAjax():
 
+    print "Olá mundo"
     print request.vars
 
     # varJson = 
@@ -732,20 +867,9 @@ def projects():
         elif user_role.errors:
             response.flash = T("Form has errors!")
 
-        searching_team = SQLFORM(db.projects, project, fields=["wanting_team", "team_wanted", "wanting_other", "other_wanted"],
-                                labels = {'wanting_team':'Searching for team', 'team_wanted':'Kind of team',
-                                'wanting_other':'Searching for other members', 'other_wanted':'Kind of members'},
-                                showid=False,
-                                _id="searching_team")
-        if searching_team.process().accepted:
-            response.flash = T('Form accepted!')
-            redirect(URL(f='projects', args=request.args(0)))
-        elif searching_team.errors:
-            response.flash = T('Form has errors!')
-
         return dict(
                 project=project, message=message, user_role=user_role, collaborators=collaborators,
-                searching_team=searching_team)
+                new_colaborator = new_colaborator)
 
     else:
         return dict(project=project, message=message)
@@ -806,40 +930,59 @@ def create_project():
 @auth.requires_login()
 def edit_project():
     import json
-#mudar:
-# soh retornar o form de edicao (ou nao.. veja a linha de baixo)
-# ver o esquema do my_team
     project_slug = request.args(0) or redirect(URL('user_info'))
     project = db.projects(project_slug=project_slug) or redirect(URL('user_info'))
-    session.project_id = project.id
+
+    project.team = json.loads(project.team)
+    for i in project.team:
+        project.team[i] = [project.team[i]]
+        project.team[i].append( db(db.auth_user.id==i).select(db.auth_user.avatar).first().avatar )
+
+    session.project_id = project.id #no
 
     if auth.user_id == project.project_owner:
-        if project.team:
-            myteam = json.loads(project.team)
-            mystring = ""
-            for i in myteam:
-                mystring += "%s:%s," % (i,myteam[i])
-            project.team = mystring[0:-1]
-
         form = SQLFORM(db.projects,
                project,
                showid=False
                )
-        if form.process().accepted:
-            team = form.vars.team.split(",")
-            d = {}
-            for i in team:
-                x = i.split(":")
-                d[x[0]] = x[1]
-            myjson = json.dumps(d)
-            project_id = form.vars.id
-            db(db.projects.id  == project_id).update(team=myjson)
-            session.flash = T("Project edited!")
-            redirect(URL('projects', args=request.args(0)))
-        elif form.errors:
-            response.flash = T("Form has errors!")
 
-        return dict(form=form, project=project)
+        my_professions_id = [i.profession_id for i in db(db.team_wanted.project_id==project.id).select()]
+        list_professions = [i for i in db(db.profession).select() if not i.id in my_professions_id ]
+   #     my_avatar = db.auth_user[auth.user.id].avatar
+        my_team_wanted = db(db.team_wanted.project_id == project.id).select()
+        team_wanted_data = {}
+        if my_team_wanted:
+            for i in my_team_wanted:
+                if i.profession_id.name in team_wanted_data:
+                    team_wanted_data[i.profession_id.name]['my_competencies'].append((i.competence_id, i.competence_id.competence))
+
+                else:
+                    try:
+                        team_wanted_data[i.profession_id.name] = {
+                            'profession_id': i.profession_id,
+                        }
+                        team_wanted_data[i.profession_id.name]['my_competencies'] = [(i.competence_id, i.competence_id.competence)]
+
+                    except:
+                        team_wanted_data[i.profession_id.name] = {
+                            'profession_id': i.profession_id,
+                            'my_competencies': [],
+                            'others_competencies': []
+
+                        }
+
+            for pro in team_wanted_data:
+                team_wanted_data[pro]['others_competencies'] = []
+                others_comp = [(i.id, i.competence) for i in db(db.competence.profession_id==team_wanted_data[pro]['profession_id']).select()]
+                for oc in others_comp:
+                    if not oc in team_wanted_data[pro]['my_competencies']:
+                        team_wanted_data[pro]['others_competencies'].append(oc)
+
+        return dict(form=form,
+                project=project,
+                team_wanted_data=team_wanted_data,
+                list_professions=list_professions,
+                )
     else:
         redirect(URL('user_info'))
 
@@ -862,7 +1005,7 @@ def remove_person():
         team = json.dumps(dic_team)
         db(db.projects.id==project.id).update(team=team)
 
-    redirect(URL('user_info'))
+    redirect(URL('edit_project', args=project.project_slug, vars={'stage': '2'}))
 
 
 def comments():
@@ -939,12 +1082,16 @@ def get_users():
 
 @service.json
 def get_user_name():
+    import json
     # This functions gets the first name of user.
     term = request.vars.q
     rows = db(db.auth_user.first_name.like(term+'%')).select()
+    project = db(db.projects.id==session.project_id).select().first()
+    dic_project_team = json.loads(project.team)
     users = []
     for i in rows:
-        users.append({"id":i.id,"title":i.first_name})
+        if not str(i.id) in dic_project_team.keys():
+            users.append({"id":i.id,"title":i.first_name})
     return dict(users = users)
 
 def download():

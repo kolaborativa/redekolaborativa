@@ -6,6 +6,13 @@
 
 
 
+<td>
+{{if auth.user_id == project.project_owner:}}
+    <a class="btn" href="{{=URL('edit_project', args=request.args(0))}}">{{=T("Edit project")}}</a><br><br>
+{{pass}}
+</td>
+
+
 <section class="row span_12 f-left">
     <section class="f-left span_8 col apresenta-user">
 

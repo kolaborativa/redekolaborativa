@@ -79,7 +79,7 @@
                </section>
                <!-- Avatar -->
                <span class=" h2 f-left">Avatar</span>
-               <section class="section-form f-left branco t-center" data-section-avatar>
+               <section class="section-form f-left {{if not project.image:}}branco{{pass}} t-center" data-section-avatar>
                <label class="profile-avatar-wrap">
                    {{ if project.image: }}
                      <img src="{{=URL('download', args=[project.image])}}" id="profile-avatar" alt="Image for Profile">
@@ -111,33 +111,38 @@
             </section>
         </section>
         <div class="span_6 col f-right t-right espacamentoBottom">
-            <input  type="submit" class="btn-1 f-right w-40 btn-nav" data-irParaFase="2" value="Avançar">
+            <input  type="button" class="btn-1 f-right w-40 btn-nav" data-irParaFase="2" value="Avançar">
         </div>
     </section>
     <section  data-fase="2" data-fase-atual="false" class="col span_12 f-left edit_perfil_fases">
             <section class="span_12 col f-left">
                 <section class="span_6 col">
                     <span class=" h2 f-left">Adicionar Kolaboradores</span>
-                    <section class="section-form">
-                        <!-- Mano esse input é o que pega o ajax lá -->
-                        <!-- (o que esta comentado \/) -->
-                        <!-- <input class=" select2-offscreen bigdrop" type="hidden" id="projects_team" name="team"> -->
-                        <select class="w-full form-input-comum" data-placeholder="Selecione uma profissão">
-                            <option value="1">Opção 1</option>
-                        </select>
-
+                    <section class="section-form f-left w-full">
+                        <input type="text" id="project_team" name="team" class="select-edit-perfil form-input-comum branco f-left w-70" style="height: 47px;">
+                        <button type="button" class="btn-submit" name="team">+</button>
                     </section>
                 </section>
                 <section class="span_6 col span_vazio"></section>
             </section>
 
-            <section class="span_12 row colunas t-center contorno f-left">
-                <section class="span_12 col" id="campoDeMembros">
-                <!-- Esse espaço será preenchido dinamicamente conforme for adicinando membros da equipe do projeto -->
-                <!-- Esse espaço será preenchido dinamicamente conforme for adicinando membros da equipe do projeto -->
-                <!-- Esse espaço será preenchido dinamicamente conforme for adicinando membros da equipe do projeto -->
-                <!-- Esse espaço será preenchido dinamicamente conforme for adicinando membros da equipe do projeto -->
-                </section>
+            <section class="span_12 row colunas t-center contorno f-left" id="blockMember">
+                {{ for i in project.team: }}
+                    {{ if not int(i) == auth.user.id:}}
+                        <figure class="thumbnail-member span_2 col">
+                            {{ if project.team[i][1]: }}
+                                <img src="{{=URL('download', args=project.team[i][1])}}" alt="">
+                            {{else:}}
+                                <img src="http://placehold.it/100x100" alt="">
+                            {{ pass }}
+                            <a href="{{=URL(c='default', f='remove_person', vars={'user_id':i, 'project_id': project.id})}}">
+                                <span class="thumbnail-delete" name="deletaMembro">X</span>
+                            </a>  
+                            <figcaption class="bold">{{=project.team[i][0]}}</figcaption>
+                        </figure>
+                    {{ pass }}
+                {{ pass }} 
+
             </section>
 
             <!-- Espaço de on e off e busca de profissinais -->
@@ -158,16 +163,40 @@
                         <!-- select-edit-perfil -->
                         <h3 class="h3">Selecione o tipo de profissional que procura</h3>
                         <div>
-                            <label class="select w-40 form-input-comum f-left select-edit-perfil">
-                                <select class="input-select w-full" id="buscaKolaborador" name="buscaKolaborador">
-                                    <option value="1">Selecione Profissões</option>
-                                    <option value="2">Desenvolvedor</option>
-                                    <option value="3">Designer</option>
+                            <label class="form-input-comum w-40 f-left select-edit-perfil branco">
+                                <select class="input-select w-full" id="buscaKolaborador" name="buscaKolaborador" multiple data-placeholder="Selecione uma profissão">
+                                    {{ for p in list_professions: }}
+                                        <option value="{{=p.id}}">{{=p.name}}</option>
+                                    {{ pass }}
                                 <select>
                             </label>
                             <button type="button" class="btn-submit" name="buscaKolaborador">+</button>
                         </div>
                         <section id="profissionalList" class="w-full f-left">
+                            <ul class="list-profissao" id="list-profissao">
+                                {{ if team_wanted_data: }}
+                                    {{ for profession in team_wanted_data: }}
+                                      <li class="profissao t-left f-left" style="width:60%" data-profissao="{{=team_wanted_data[profession]['profession_id']}}">
+                                            <span class="h2">{{=profession}}
+                                            <img class="delete_profissao f-right" data-idProfissao="{{=team_wanted_data[profession]['profession_id']}}" src="{{=URL('static', 'images/Edit_perfil/delete.png')}}" name="delete_profission" ></span>
+                                            <select data-placeholder="adicione competencias" name="competence" data-select="{{=profession}}" class="w-full competencias" multiple data-idProfissao="{{=team_wanted_data[profession]['profession_id']}}">
+                                                {{ if team_wanted_data[profession]['my_competencies']: }}
+                                                    {{ for my_comp in team_wanted_data[profession]['my_competencies']: }}
+                                                        <option value="{{=my_comp[0]}}" selected>{{=my_comp[1]}}</option>
+                                                    {{ pass }}
+                                                {{ pass }}
+                                                {{ if team_wanted_data[profession]['others_competencies']: }}
+                                                    {{ for other_comp in team_wanted_data[profession]['others_competencies']: }}
+                                                        <option value="{{=other_comp[0]}}">{{=other_comp[1]}}</option>
+                                                    {{ pass }}
+                                                {{ pass }}
+                                            </select>
+                                        </li>
+                                    {{ pass }}
+                                {{ pass }}
+                            </ul>
+                            <!-- Jorge -->
+                           
                         </section>
                     </section>
                 </section>
@@ -183,18 +212,12 @@
                         </div>
                     </section>
                     <!-- Campos -->
-                    <section class="span_12 col" id="blocoOutros">
+                    <section class="span_12 col section-form" id="blocoOutros">
                         <h3 class="h3">Selecione o tipo de profissional que procura</h3>
                         <!-- select-edit-perfil -->
                         <div>
-                            <label class="select w-40 form-input-comum f-left select-edit-perfil">
-                                <select class="input-select w-full" id="buscaOutros" name="buscaOutros">
-                                    <option value="1">Selecione Profissões</option>
-                                    <option value="2">Desenvolvedor</option>
-                                    <option value="3">Designer</option>
-                                <select>
-                            </label>
-                            <button type="button" class="btn-submit" name="buscaOutros">+</button>
+                            <input type="text" class="form-input-comum f-left w-40 select-edit-perfil" id="buscaOutros" name="buscaOutros"> 
+                            <button type="button" class="btn-submit" name="BuscandoOutros">+</button>
                         </div>
                         <section id="buscaOutrosbloco" class="w-full f-left">
                         </section>
@@ -314,5 +337,71 @@
 //             jQuery('#projects_other_wanted__row').show();
 //         else jQuery('#projects_other_wanted__row').hide();});
 // });
+
+</script>
+<script src={{=URL('static', 'js/select2.min.js')}}></script>
+
+
+<script>
+function MultiAjaxAutoComplete(element, url) {
+    $(element).select2({
+        placeholder: "{{=T('Search for a user')}}",
+        minimumInputLength: 1,
+        multiple: true,
+        formatNoMatches: function(){return "{{=T('No results')}}"},
+        formatSearching: function(){return "{{=T('Searching...')}}"},
+        formatInputTooShort: function(){return "{{=T('Too short')}}"},
+
+        id: function(e) { return e.id+":"+e.title; },
+        ajax: {
+            url: url,
+            dataType: 'json',
+            data: function(term, page) {
+
+                return {
+                    q: term,
+                    page_limit: 10,
+                };
+            },
+            results: function(data, page) {
+                return {
+                    results: data.users
+                };
+            }
+        },
+        formatResult: formatResult,
+        formatSelection: formatSelection,
+        initSelection: function(element, callback) {
+            var data = [];
+            $(element.val().split(",")).each(function(i) {
+                var item = this.split(':');
+                data.push({
+                    id: item[0],
+                    title: item[1]
+                });
+            });
+            callback(data);
+        }
+    });
+    $(element).on("click",function(){ 
+        gravaAjaxEditProjeto(this);
+    });
+    
+    
+
+
+};
+
+var url_busca_membro = "{{=URL(r=request,f='call',args=['json','get_user_name'])}}";
+
+MultiAjaxAutoComplete('#project_team', url_busca_membro);
+
+function formatResult(user) {
+    return '<div>' + user.title + '</div>';
+};
+
+function formatSelection(data) {
+    return data.title;
+};
 
 </script>

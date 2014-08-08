@@ -84,9 +84,16 @@ function DOMEditProjeto(){
 		
 	})
 
-	for (var i = 0; i < 10; i++) {
-		criathumbnailMembros();
-	};
+
+	
+
+	$("#buscaKolaborador").select2({ 	maximumSelectionSize: 1	});
+	$("#buscaKolaborador").on("click",function(){	gravaAjaxEditProjeto(this);	});
+	// Identifica os data-select e busca no banco as competencias que já existem
+	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
+	$("select[data-select]").on("click",function(){gravaAjaxEditProjeto(this)});
+	$(".delete_buscaKolaborador").on("click",function(){if(confirm("Deseja realmente deletar?")){gravaAjaxEditProjeto(this);}});
+
 };
 
 
@@ -142,6 +149,8 @@ function SetandoAjaxProjeto(){
 	var iTextArea = 0;
 	var selects   = document.getElementsByTagName('select')
 	var iSelect   = 0
+	var deletaMembro = document.getElementsByName('deletaMembro');
+	var iDeletaMembro = 0;
 	
 	for (; iInput < inputs.length; iInput++) {
 		if(inputs[iInput].name == "wanting_team"){
@@ -164,7 +173,8 @@ function SetandoAjaxProjeto(){
                     this.value = status;
                     enviaAjax(this);
 			});
-		}else if(inputs[iInput].name != "image"){ //Pula o input avatar !
+		}
+		else if(inputs[iInput].name != "image" &&  inputs[iInput].name == "team"){ //Pula o input avatar !
 			inputs[iInput].addEventListener("change",function(){enviaAjax(this)});
 		}
 	};
@@ -179,7 +189,7 @@ function SetandoAjaxProjeto(){
 	};
 	for (; iSelect < selects.length; iSelect++) {
 		
-		if(selects[iSelect].name != "buscaOutros" && selects[iSelect].name != "buscaKolaborador"){
+		if(selects[iSelect].name != "buscaKolaborador"){
 			selects[iSelect].addEventListener("change",function(){
 				enviaAjax(this)
 				console.log("Mudou")
@@ -193,21 +203,25 @@ function SetandoAjaxProjeto(){
 				adicionandoBloco( 
 					 'profissionalList' //IdBloco
 					,Id('buscaKolaborador').selectedOptions[0].innerHTML //Texto
-					,'data-id' //Data Attribute
 					,Id('buscaKolaborador').id //Id do Elemento
+					,'data-id' //Data Attribute
+					
 				)
 			});
 		}else if(buttons[iButtons].name == "BuscandoOutros"){ // Adiciona event ode buscando por outras coisas
 			buttons[iButtons].addEventListener("click",function(){
-				adicionandoBloco(
-					 'profissionalList' //IdBloco
-					,Id('buscaOutros').selectedOptions[0].innerHTML //Texto
-					,'data-id' //Data Attribute
-					,Id('buscaOutros').id //Id do Elemento
-				)
+				enviaAjax(Id('buscaOutros'));
 			});
 		}
 	};
+	// for (var iDeletaMembro = 0; iDeletaMembro < deletaMembro.length; iDeletaMembro++) {
+	// 	deletaMembro[iDeletaMembro].addEventListener('click',function(){
+	// 	if(confirm("essa açao excluirá o membro desse projeto. Você poderá adicioná-lo novamente se desejar","Confirmar Exclusão")){
+	// 		gravaAjaxEditProjeto(this);
+	// 	}
+	// })
+	// };
+
 }
 		
 
@@ -281,15 +295,27 @@ function mudando_fase_projeto(fase){
 }
 
 function gravaAjaxEditProjeto(e){
-
+	console.log(e);
 	var field;
 	var value;
 	var vars;
-	
+
 	if(e.name == "image"){
 		var img 	= Id("hidden-avatar").value;
 			vars    = {image64: img, field : e.name}; // Cria um objeto com a img em base64 e o nome do campo
 			caminho = url.edit_project;
+	}
+	else if(e.name == "team"){
+
+		field 	= e.name;
+		value   = e.value.split(':');
+		value 	= '{ "'+value[0]+'" : "'+value[1]+'" }';
+		vars 	= "member="+value;
+		// caminho = url.testaAjax;
+		caminho = url.ajax_add_members_project;
+		console.log(url.ajax_add_members_project)
+
+
 	}
 	else if(e.name == "project_links"){
 			field = e.name;
@@ -309,11 +335,43 @@ function gravaAjaxEditProjeto(e){
             // caminho = url.edit_project;
 			caminho = url.edit_project;
 
+	}else if(e.name == "buscaKolaborador"){
+
+				field = e.name;
+				value = e.value;
+				vars  = "project_id="+variavelsGlobais.projectID+"&profession_id="+value;
+
+
+				var profession = e.selectedOptions[0].innerHTML;
+				caminho    = url.ajax_wanting_team_add_profession+".json";
+				//caminho = url.testaAjax;
+				e.selectedOptions[0].disabled = true;
+				$("#buscaKolaborador").select2("val", "")
+
+	} else if(e.name == "competence"){
+				console.log("entrou");
+				var idProfession         = e.getAttribute("data-idProfissao");
+				var vetCompetence        = new Array();
+					vetCompetence.length = 0;
+
+				for (var i = 0; i < e.options.length; i++) {
+					if(e.options[i].selected) {
+						vetCompetence.push(e.options.item(i).value);
+					}
+				};
+
+				vetCompetence = "["+vetCompetence+"]";
+				vars	   	  = "project_id="+variavelsGlobais.projectID+"&profession_id="+idProfession+"&competence="+vetCompetence;
+				caminho 	  = url.ajax_wanting_team_add_competencies;
+				// caminho = url.testaAjax;
+				
+
 	}else {
 			field = e.name;
 			value = e.value;
 			vars = "field="+field+"&value="+value;
-            caminho = url.edit_project;
+            // caminho = url.edit_project;
+            caminho = url.testaAjax;
 	}
 
 	$.ajax({
@@ -321,9 +379,29 @@ function gravaAjaxEditProjeto(e){
 		url: caminho,
 		data: vars,
 		success: function(data){
+			console.log();
 			if(e.name == "image"){
 				document.querySelector('[data-section-avatar]').classList.remove('branco');
+			}else if(e.name == "team"){
+				CriandoMembrosDinamicamente(data);
+			}else if(e.name == "buscaOutros"){
+				adicionandoBloco(
+					 'buscaOutrosbloco' //IdBloco
+					,e.value //Texto
+					,e.value //Id do Elemento
+					,'data-id' //Data Attribute
+				)
+			}else if(e.name == "buscaKolaborador"){
+				adicionandoProfissao(value, profession, data.competencies);
 			}
+			else if(e.name == "delete_link"){
+				deletandoLinks(value);
+			}
+			else if(e.name == "delete_profission"){
+				deletandoProfissao(value);
+			}
+			
+
 			return true; // caso queira fazer uma condicional 
 		},
 		error: function(data){
@@ -399,7 +477,7 @@ function adicionandoBloco(idBloco,texto,idElemento,dataAttribute,link,url){
 	// 
 	span.innerHTML = texto;
 	div.setAttribute("class","social-field");	
-	div.setAttribute(dataAttribute,idElemento);
+	div.setAttribute(dataAttribute,texto);
 	div.appendChild(span);
 	div.appendChild(img);
 	document.getElementById(idBloco).appendChild(div);
@@ -482,35 +560,132 @@ function MultiAjaxAutoComplete() {
 };
 
 
+function CriandoMembrosDinamicamente(membroInfo){
 
-function criathumbnailMembros(img,nome,cargo){
 
-	var figure 		= document.createElement('figure') // bloco
-	var avatar 		= document.createElement('img') // avatar 
-	var nomeMembro  = document.createElement('figcaption') // nome do membro
-	var cargoMembro = document.createElement('span') // cargo do membro
+membroInfo = JSON.parse(membroInfo); // Transforma em Objeto
+var chave  = Object.keys(membroInfo) // Pega as Chaves ( nesse caso é a ID do membro)
+idMembro   = chave = chave[0] // ID do membro
+nomeMembro = membroInfo[chave[0]][0] // Nome do membro
+fotoMembro = membroInfo[chave[0]][1] // Foto do membro 
 
-	// Setando Variaveis
-	avatar.src = 'http://placehold.it/100x100';
-	nomeMembro.innerHTML = "Nome";
-	cargoMembro.innerHTML = "Cargo";
-	// Setando Variaveis
+console.log("ID", idMembro, "Nome", nomeMembro, "foto", fotoMembro);
+
+
+
+var figure 		 = document.createElement('figure');
+var imgThumbnail = document.createElement('img');
+var figcaption 	 = document.createElement('figcaption');
+var link 		 = document.createElement('a');
+var deleteSpan	 = document.createElement('span');
+
 	
-	// Adicionando CSS ao bloco
-	figure.classList.add('f-left');
-	figure.classList.add('thumbnail-member');	
-	nomeMembro.classList.add('bold');
-	cargoMembro.classList.add('italic');
+	figure.classList.add('thumbnail-member');
+	figure.classList.add('span_2');
+	figure.classList.add('col');
+	link.classList.add('thumbnail-delete')
+	deleteSpan.classList.add('thumbnail-delete')
+	figcaption.classList.add('bold');
+	// span.classList.add('italic');
+
+	imgThumbnail.src 			 = url.upload+"/"+fotoMembro;
+	imgThumbnail.alt 			 = nomeMembro;
+	figcaption.innerHTML = nomeMembro;
+	// span.innerHTML       = "Cargo";
+	deleteSpan.id = idMembro;
 	// 
+	link.href = url.remove_person + "?user_id="+idMembro+"&project_id="+variavelsGlobais.projectID;
 
-	// Montando o bloco
-	figure.appendChild(avatar)
-	figure.appendChild(nomeMembro)
-	figure.appendChild(cargoMembro)
-	Id('campoDeMembros').appendChild(figure);
-	// Montando o bloco
+	deleteSpan.name = "deletaMembro"
+	deleteSpan.innerHTML = "X";
+	
 
+	
+
+	
+	figure.appendChild(imgThumbnail);
+	figure.appendChild(link);
+	link.appendChild(deleteSpan);
+	figure.appendChild(figcaption);
+	
+
+	Id('blockMember').appendChild(figure);
 
 }
 
 
+
+function adicionandoProfissao(idProfissao, profissao,competencias){
+
+	var select      = document.createElement('select');
+		select.name = "competence";
+		select.setAttribute('data-placeholder','adicione competencias');
+		select.setAttribute('data-select',profissao)
+		select.setAttribute('data-idProfissao',idProfissao);
+		select.setAttribute('class','w-full competencias');
+		select.setAttribute('multiple','')
+
+	// Cria um for de opções
+	for( i in competencias ){
+		var opcao           = document.createElement('option');
+			opcao.innerHTML = competencias[i];
+			opcao.value     = i;
+
+		select.appendChild(opcao);
+	}
+
+	var linha = document.createElement('li')
+		linha.setAttribute('class','profissao t-left');
+		linha.style.width = "60%";
+
+		linha.setAttribute("data-profissao",idProfissao);
+
+	var span = document.createElement('span');
+		span.setAttribute('class','h2');
+		span.innerHTML = profissao;
+
+	var deletar = document.createElement('img');
+		deletar.setAttribute('class','delete_profissao f-right');
+		deletar.src= image.delete;
+		deletar.setAttribute("data-idProfissao",idProfissao)
+		deletar.name="delete_buscaKolaborador";
+		deletar.addEventListener("click",function(){
+			if(confirm("Deseja realmente deletar?")){
+				gravaAjaxEditProfile(this);
+			}
+		});
+
+	var listasProfissoes = document.querySelector('.list-profissao')
+
+		span.appendChild(deletar);
+		linha.appendChild(span);
+		linha.appendChild(select);
+		listasProfissoes.appendChild(linha);
+
+	// Eventos ================
+	$("[data-select='"+profissao+"']").select2({maximumSelectionSize: 5});
+	$("[data-select='"+profissao+"']").on("change",function(){gravaAjaxEditProjeto(this);});
+	
+
+};
+
+function deletandoProfissao(id){
+	 var campo  = Id("list-profissao").querySelectorAll("[data-profissao]");
+	 var iCampo = 0;
+	 var bloco;
+
+	 for (; iCampo < campo.length; iCampo++) {
+
+	 	bloco = campo[iCampo].getAttribute("data-profissao");
+
+	 	if(bloco == id){
+	 		Id("list-profissao").removeChild(campo[iCampo]);
+	 		for (var i = 0; i < Id("profissoes").options.length; i++) {
+	 			if(Id("profissoes").options[i].value == id){
+	 				Id("profissoes").options[i].disabled = false;
+	 			}
+	 		};
+	 	}
+
+	 };
+}

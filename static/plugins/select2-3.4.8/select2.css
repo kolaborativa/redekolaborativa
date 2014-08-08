@@ -228,7 +228,7 @@ Version: 3.4.8 Timestamp: Thu May  1 09:50:32 EDT 2014
     font-family: sans-serif;
     font-size: 1em;
 
-    border: 1px solid #aaa;
+    /*border: 1px solid #aaa;*/
     border-radius: 0;
 
     -webkit-box-shadow: none;
@@ -510,13 +510,13 @@ html[dir="rtl"] .select2-container-multi .select2-choices li
     line-height: 13px;
     color: #333;
     cursor: default;
-    border: 1px solid #aaaaaa;
+    /*border: 1px solid #aaaaaa;*/
 
     border-radius: 3px;
 
     -webkit-box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
             box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
-
+    
     background-clip: padding-box;
 
     -webkit-touch-callout: none;
