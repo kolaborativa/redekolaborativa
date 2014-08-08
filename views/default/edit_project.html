@@ -120,7 +120,6 @@
                     <span class=" h2 f-left">Adicionar Kolaboradores</span>
                     <section class="section-form f-left w-full">
                         <input type="text" id="project_team" name="team" class="branco f-left w-70">
-                        <!-- <input type="text" class="form-input-comum f-left w-40" id="buscaOutros" name="buscaOutros">  -->
                         <button type="button" class="btn-submit" name="team">+</button>
                     </section>
                 </section>
@@ -215,8 +214,8 @@
                         <h3 class="h3">Selecione o tipo de profissional que procura</h3>
                         <!-- select-edit-perfil -->
                         <div>
-                            <input type="text" class="form-input-comum f-left w-40" id="buscaOutros" name="buscaOutros"> 
-                            <button type="button" class="btn-submit" name="BuscandoOutros">+</button>
+                            <input type="text" class="form-input-comum f-left w-40" id="buscaOutros" name="other_wanted"> 
+                            <button type="button" class="btn-submit" name="other_wanted">+</button>
                         </div>
                         <section id="buscaOutrosbloco" class="w-full f-left">
                         </section>
@@ -384,6 +383,7 @@ function MultiAjaxAutoComplete(element, url) {
     });
     $(element).on("click",function(){ 
         gravaAjaxEditProjeto(this);
+        $(element).select2("val", "")
     });
     
     

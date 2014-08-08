@@ -84,12 +84,16 @@ function DOMEditProjeto(){
 		
 	})
 
+
+	
+
 	$("#buscaKolaborador").select2({ 	maximumSelectionSize: 1	});
 	$("#buscaKolaborador").on("click",function(){	gravaAjaxEditProjeto(this);	});
 	// Identifica os data-select e busca no banco as competencias que já existem
 	$("select[data-select]").select2({ 	maximumSelectionSize: 5 });
 	$("select[data-select]").on("click",function(){gravaAjaxEditProjeto(this)});
 	$(".delete_buscaKolaborador").on("click",function(){if(confirm("Deseja realmente deletar?")){gravaAjaxEditProjeto(this);}});
+
 };
 
 
@@ -204,28 +208,19 @@ function SetandoAjaxProjeto(){
 					
 				)
 			});
-		}else if(buttons[iButtons].name == "BuscandoOutros"){ // Adiciona event ode buscando por outras coisas
+		}else if(buttons[iButtons].name == "other_wanted"){ // Adiciona event ode buscando por outras coisas
 			buttons[iButtons].addEventListener("click",function(){
 				enviaAjax(Id('buscaOutros'));
 			});
 		}
 	};
-
-	for (var iDeletaMembro = 0; iDeletaMembro < deletaMembro.length; iDeletaMembro++) {
-		deletaMembro[iDeletaMembro].addEventListener('click',function(){
-		if(confirm("essa açao excluirá o membro desse projeto. Você poderá adicioná-lo novamente se desejar","Confirmar Exclusão")){
-			gravaAjaxEditProjeto(this);
-		}
-	})
-	};
-
-		
-
-
-
-
-
-
+	// for (var iDeletaMembro = 0; iDeletaMembro < deletaMembro.length; iDeletaMembro++) {
+	// 	deletaMembro[iDeletaMembro].addEventListener('click',function(){
+	// 	if(confirm("essa açao excluirá o membro desse projeto. Você poderá adicioná-lo novamente se desejar","Confirmar Exclusão")){
+	// 		gravaAjaxEditProjeto(this);
+	// 	}
+	// })
+	// };
 
 }
 		
@@ -349,7 +344,6 @@ function gravaAjaxEditProjeto(e){
 
 				var profession = e.selectedOptions[0].innerHTML;
 				caminho    = url.ajax_wanting_team_add_profession+".json";
-				//caminho = url.testaAjax;
 				e.selectedOptions[0].disabled = true;
 				$("#buscaKolaborador").select2("val", "")
 
@@ -389,7 +383,7 @@ function gravaAjaxEditProjeto(e){
 				document.querySelector('[data-section-avatar]').classList.remove('branco');
 			}else if(e.name == "team"){
 				CriandoMembrosDinamicamente(data);
-			}else if(e.name == "buscaOutros"){
+			}else if(e.name == "other_wanted"){
 				adicionandoBloco(
 					 'buscaOutrosbloco' //IdBloco
 					,e.value //Texto
@@ -414,10 +408,6 @@ function gravaAjaxEditProjeto(e){
 		}
 	});
 }
-
-
-
-
 
 
 // Checkbox que vai ir para a função
@@ -579,6 +569,7 @@ nomeMembro = membroInfo[chave[0]][0] // Nome do membro
 fotoMembro = membroInfo[chave[0]][1] // Foto do membro 
 
 console.log("ID", idMembro, "Nome", nomeMembro, "foto", fotoMembro);
+
 
 
 var figure 		 = document.createElement('figure');
