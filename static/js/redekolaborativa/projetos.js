@@ -366,7 +366,7 @@ function gravaAjaxEditProjeto(e){
 				};
 
 				vetCompetence = "["+vetCompetence+"]";
-				vars	   	  = "project_id="+variavelsGlobais.projectID+"profession_id="+idProfession+"&competence="+vetCompetence;
+				vars	   	  = "project_id="+variavelsGlobais.projectID+"&profession_id="+idProfession+"&competence="+vetCompetence;
 				caminho 	  = url.ajax_wanting_team_add_competencies;
 				// caminho = url.testaAjax;
 				
