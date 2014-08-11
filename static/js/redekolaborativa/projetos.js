@@ -35,7 +35,10 @@ function DOMCreateProjeto(){
 		textArea[iTextArea].addEventListener("keyup",function(){
 			var idCampoLimite 			= this.getAttribute('data-limite-id')
 			var limite 					= this.getAttribute('data-limite')
-			Id(idCampoLimite).innerHTML = validaQtdCaracter(this,limite);
+			if(limite != null){
+				Id(idCampoLimite).innerHTML = validaQtdCaracter(this,limite);
+			}
+			
 		});	
 	};
 
@@ -184,7 +187,12 @@ function SetandoAjaxProjeto(){
 		textArea[iTextArea].addEventListener("keyup",function(){
 			var idCampoLimite 			= this.getAttribute('data-limite-id')
 			var limite 					= this.getAttribute('data-limite')
-			Id(idCampoLimite).innerHTML = validaQtdCaracter(this,limite);
+			console.log(this.value)
+			
+			if(limite != null){
+				Id(idCampoLimite).innerHTML = validaQtdCaracter(this,limite);
+			}
+			
 		});	
 	};
 	for (; iSelect < selects.length; iSelect++) {
@@ -344,7 +352,6 @@ function gravaAjaxEditProjeto(e){
 
 				var profession = e.selectedOptions[0].innerHTML;
 				caminho    = url.ajax_wanting_team_add_profession+".json";
-				//caminho = url.testaAjax;
 				e.selectedOptions[0].disabled = true;
 				$("#buscaKolaborador").select2("val", "")
 
@@ -370,8 +377,8 @@ function gravaAjaxEditProjeto(e){
 			field = e.name;
 			value = e.value;
 			vars = "field="+field+"&value="+value;
-            // caminho = url.edit_project;
-            caminho = url.testaAjax;
+            caminho = url.edit_project;
+            // caminho = url.testaAjax;
 	}
 
 	$.ajax({
@@ -384,13 +391,13 @@ function gravaAjaxEditProjeto(e){
 				document.querySelector('[data-section-avatar]').classList.remove('branco');
 			}else if(e.name == "team"){
 				CriandoMembrosDinamicamente(data);
-			}else if(e.name == "buscaOutros"){
-				adicionandoBloco(
-					 'buscaOutrosbloco' //IdBloco
-					,e.value //Texto
-					,e.value //Id do Elemento
-					,'data-id' //Data Attribute
-				)
+			}else if(e.name == "other_wanted"){
+				// adicionandoBloco(
+				// 	 'buscaOutrosbloco' //IdBloco
+				// 	,e.value //Texto
+				// 	,e.value //Id do Elemento
+				// 	,'data-id' //Data Attribute
+				// )
 			}else if(e.name == "buscaKolaborador"){
 				adicionandoProfissao(value, profession, data.competencies);
 			}
