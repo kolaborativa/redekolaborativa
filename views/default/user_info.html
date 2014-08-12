@@ -30,12 +30,17 @@
             {{if user.user_available:}}
                 <div class="disponivel f-left true"></div>
                 {{if user.availability:}}
-                    <b>{{=T("Availability")}}:</b> 
+                    <b>{{=T("I am available for")}}:</b>
                     {{=', '.join(user.availability)}}
+                    <br />
+                {{else:}}
+                    <b>{{=T("I am available for kollaborate")}}</b> 
                     <br />
                 {{pass}}
             {{else:}} 
                 <div class="disponivel f-left false"></div>
+                <b>{{=T("I am not available for kollaborate")}}</b> 
+                <br />
             {{pass}}
         </section>
     </section>

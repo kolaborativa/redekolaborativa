@@ -231,11 +231,6 @@ def ajax_edit_profile():
             if field_db == 'username':
                 auth.logout()
 
-            elif field_db == 'user_available' and new_value == 'true':
-                dados = db(db.auth_user.id==auth.user.id).select().first()
-                if not dados.availability:
-                    db.auth_user[auth.user.id] = {'availability': 'Others'}
-
         return True
 
     except:

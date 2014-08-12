@@ -107,10 +107,10 @@ auth.settings.extra_fields["auth_user"] = [
     Field("avatar", "upload"),
     Field("user_available", 'boolean', default=False),
     Field("availability", "list:string", widget= lambda k,v: SQLFORM.widgets.checkboxes.widget(k, v, style='ul', _class='checkbox-list'), requires=IS_IN_SET( [
-            (T('OpenSource'), T('OpenSource')),
-            (T('Enterprising'), T('Enterprising')),
-            (T('Others'), T('Others')),
-        ], multiple=True), default="Others")
+            ('Projetos Open Source', 'Projetos Open Source'),
+            ('Empreender (Novos negócios)', 'Empreender (Novos negócios)'),
+            ('Projetos Sociais', 'Projetos Sociais'),
+        ], multiple=True))
 ]
 
 # create all tables needed by auth if not custom tables
