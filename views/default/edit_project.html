@@ -217,7 +217,7 @@
                     </section>
                     <!-- Campos -->
                     <section class="span_12 col section-form" id="blocoOutros">
-                        <h3 class="h3">Selecione o tipo de profissional que procura</h3>
+                        <h3 class="h3">Informe outras necessidades do projeto</h3>
                         <!-- select-edit-perfil -->
                         <div>
                             <!-- <input type="text" class="form-input-comum f-left w-40 select-edit-perfil" id="buscaOutros" name="buscaOutros"> 
@@ -279,7 +279,10 @@
             <section class="span_1 col span_vazio"></section>
         </section>
         <div class="span_6 col f-right t-right">
-            <input type="button" class="btn-1 f-right w-40 btn-nav" data-irParaFase="4" value="Concluir">
+            <a href="{{=URL('user_info')}}">
+                <input type="button" class="btn-1 f-right w-40 btn-nav" data-irParaFase="4" value="Concluir">
+            </a>
+
             <input type="button" class="btn-2 f-right w-40 btn-nav" data-irParaFase="2" value="Voltar">
         </div>
     </section>
