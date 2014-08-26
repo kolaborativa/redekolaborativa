@@ -90,14 +90,7 @@ Instalação
 Developed by:
 --------------
 
-**Dodilei**
-+ Twitter: [@dodilei](http://twitter.com/dodilei "Twitter") | Facebook: [gustavo.w4lker](http://www.facebook.com/gustavo.w4lker/ "Facebook") | GitHub: [gustavox4ids](http://github.com/gustavox4ids "GitHub")
-
-**Cassiobotaro**
-+ Twitter: [@cassiobotaro](http://twitter.com/cassiobotaro "Twitter") | GitHub: [cassiobotaro](http://github.com/cassiobotaro "GitHub")
-
-**JuliaRizza**
-+ Twitter: [@outrora_](http://twitter.com/outrora_ "Twitter") | Facebook: [JuliaRizzaDev](http://www.facebook.com/JuliaRizzaDev/ "Facebook") | GitHub: [JuliaRizza](http://github.com/JuliaRizza "GitHub")
+**[Equipe OpenLab - Kolaborativa](http://blog.kolaborativa.com/open-lab/)**
 
 ---------------------------------------
 
