@@ -45,7 +45,7 @@ Installation
 Versão PT-BR
 ============
 
-**Kolaborativa** é uma rede social de profissionais da internet. Se você é um Designer, Desenvolvedor, Analista de Midias Sociais, Gerente de SEO, trabalhas com propaganda online, faz jogos para internet, cria aplicações mobile, está na mídia digital ou faz qualquer coisa que involve internet, esse é o lugar para você!
+**Kolaborativa** é uma rede social de profissionais da internet. Se você é um Designer, Desenvolvedor, Analista de Midias Sociais, Gerente de SEO, trabalha com propaganda online, faz jogos para internet, cria aplicações mobile, está na mídia digital ou faz qualquer coisa que envolve internet, esse é o lugar para você!
 
 ---------------------------------------
 
